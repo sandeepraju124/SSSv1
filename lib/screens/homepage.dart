@@ -10,7 +10,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromRGBO(61, 108, 231, 1),
+      // backgroundColor: Color(0xff000001),
       backgroundColor: const Color(0xff49426C),
       appBar: AppBar(
         centerTitle: true,
@@ -80,6 +80,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               )),
           restaurant(),
+          SizedBox(height: 10,)
         ]),
       ),
     );

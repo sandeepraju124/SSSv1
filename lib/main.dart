@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './pages/homepage.dart';
+import 'package:sssv1/screens/homepage.dart';
+import 'package:sssv1/screens/profile.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      // home: const MyHomePage(),
+      home: const profile(),
     );
   }
 }
