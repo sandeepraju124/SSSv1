@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/screens/searchlist.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider<restaurentProvider>(
+      create: (_) => restaurentProvider(),
+    )
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,10 +25,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const MyHomePage(),
-      home: const profile(),
+      home: MyHomePage(),
+      // home: const searchlist(),
     );
   }
 }
-
-
