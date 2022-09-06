@@ -1,8 +1,9 @@
 import 'dart:convert';
-
+import 'package:gap/gap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/restaurant.dart';
+import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
@@ -17,124 +18,144 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // List<RestaurantModels> _data = [];
 
-  // @override
-  // void initState() {
-  //
-  //   final data = Provider.of<restaurentProvider>(context,listen: false);
-  //   data.fetchData(context);
-  //   print(data);
-  //   super.initState();
+  @override
+  void initState() {
+  print('this is init');
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      print("this is after init state ");
+      var provider = Provider.of<restaurentProvider>(context, listen: false);
+      // auth.resProv;
+      provider.resProv();
+    });
+    
+    super.initState();
+  }
+  // _asyncMethod() async {
+  //   print('function called');
+  //   List<RestaurantModels> data = await getData().getRestaurantData();
+  //   restaurentProvider().resProv(data);
+  //   print('printing length');
+  //   print(data.length);
+  //   print("init function ended");
+  //   // _data = data;
+  // }
+
+  // Future<void> triggerRes() async {
+  //   List<RestaurantModels> data =await getData().getRestaurantData();
   // }
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<restaurentProvider>(context,listen: false);
+    
+    print('building called');
+    // List<RestaurantModels> data =await getData().getRestaurantData();
 
-    return Scaffold(
-      backgroundColor: Color(0xffCAD3D3),
-      // backgroundColor: const Color(0xff49426C),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.all(72.0),
-          child: Image.asset(
-            "images/logo4.png",
+    return Consumer<restaurentProvider>(
+      builder: (BuildContext context, provider, Widget? child) { 
+        print('build calling after build');
+
+        // List<RestaurantModels> data =await getData().getRestaurantData();
+        // provider.resProv(_data);
+        
+        return Scaffold(
+        backgroundColor: Color(0xffCAD3D3),
+        // backgroundColor: const Color(0xff49426C),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.all(72.0),
+            child: Image.asset(
+              "images/logo4.png",
+            ),
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-            child: CircleAvatar(
-              radius: 28,
-              child: ClipOval(
-                child: Image.asset(
-                  "images/prof.png",
-                  fit: BoxFit.cover,
-                  width: 58,
-                  height: 58,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+              child: CircleAvatar(
+                radius: 28,
+                child: ClipOval(
+                  child: Image.asset(
+                    "images/prof.png",
+                    fit: BoxFit.cover,
+                    width: 58,
+                    height: 58,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-        toolbarHeight: 70.0,
-        backgroundColor: Colors.white,
-        elevation: 3.0,
-        // leading: IconButton(
-        //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
-        //   onPressed: () {},
-        // ),
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(children:  [
-          searchbar(),
-          SizedBox(
-            height: 15,
-          ),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                child: Text(
-                  "Services",
-                  style: TextStyle(
-                      fontFamily: "RobotoMono",
-                      fontSize: 27,
-                      color: Colors.black87),
-                ),
-              )),
-          Services(),
-          SizedBox(
-            height: 10,
-          ),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                child: Text(
-                  "restaurant",
-                  style: TextStyle(
-                      fontFamily: "RobotoMono",
-                      fontSize: 27,
-                      color: Colors.black87),
-                ),
-              )),
-          restaurant(),
-          SizedBox(
-            height: 10,
-          ),
-          TextButton(
-              onPressed: () {
-                data.fetchData(context);
-                print('Pressed');
-              },
-              child: Text('get data')),
-          // Text(data.dataModel);
-
-        ]),
-      ),
+          ],
+          toolbarHeight: 70.0,
+          backgroundColor: Colors.white,
+          elevation: 3.0,
+          // leading: IconButton(
+          //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
+          //   onPressed: () {},
+          // ),
+        ),
+        body: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          physics: const ScrollPhysics(),
+          children:  [
+            const searchbar(),
+            const Gap(15),
+            const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                  child: Text(
+                    "Services",
+                    style: TextStyle(
+                        fontFamily: "RobotoMono",
+                        fontSize: 27,
+                        color: Colors.black87),
+                  ),
+                )),
+            const Services(),
+            const SizedBox(
+              height: 10,
+            ),
+            const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                  child: Text(
+                    "restaurant",
+                    style: TextStyle(
+                        fontFamily: "RobotoMono",
+                        fontSize: 27,
+                        color: Colors.black87),
+                  ),
+                )),
+            const restaurant(),
+            const Gap(10),
+            TextButton(
+                onPressed: () async {
+                  // List<RestaurantModels> data =await getData().getRestaurantData();
+                  provider.resProv();
+                  // print(provider.data.length);
+                  // print('Pressed');
+                  // setState(() {
+                  //   print("set state");
+                  //   print(provider.data.length);
+                  // });
+                  // print(data.length);
+                },
+                child: const Text('get data')),
+            SizedBox(height: 400,
+              child: ListView.builder(itemCount: provider.data.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+                itemBuilder: (BuildContext, int) => ListTile(title: Text(provider.data[int].name),)),
+            )
+    
+          ]
+        ),
+      );
+       },
+      
     );
   }
 }
-
-
-Future<DataModel?> getData(context)async{
-  // late DataModel dataModel;
-  DataModel? dataModel;
-  try{
-    var dio = Dio();
-    final response = await dio.get("https://jsonplaceholder.typicode.com/posts");
-    print(response.data);
-    if(response.statusCode == 200){
-      final data = json.decode(response.data);
-      dataModel = DataModel.fromJson(data);
-    }
-  }catch(e){
-    print(e.toString());
-  }
-
-  return dataModel;
-}
-

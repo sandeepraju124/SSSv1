@@ -6,15 +6,18 @@ import 'package:sssv1/screens/searchlist.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<restaurentProvider>(
       create: (_) => restaurentProvider(),
     )
-  ], child: const MyApp()));
+  ], child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final restaurentProvider restaurentProv = restaurentProvider();
+  
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
