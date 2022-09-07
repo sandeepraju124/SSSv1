@@ -336,7 +336,6 @@ class _profileState extends State<profile> {
                                     ),
                                     Column(mainAxisAlignment:MainAxisAlignment.center ,
                                 children: [
-                                  
                                   Container(margin: EdgeInsets.all(3),
                                     child: Icon(FontAwesomeIcons.circleArrowDown)),
                                     Text("Downlift",style:TextStyle(fontSize: 8) ),

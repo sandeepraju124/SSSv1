@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(),
-      home: const profile(),
+      home: MyHomePage(),
+      // home: const profile(),
     );
   }
 }

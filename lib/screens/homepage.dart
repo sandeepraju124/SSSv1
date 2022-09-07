@@ -133,15 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Gap(10),
             TextButton(
                 onPressed: () async {
-                  // List<RestaurantModels> data =await getData().getRestaurantData();
                   provider.resProv();
-                  // print(provider.data.length);
-                  // print('Pressed');
-                  // setState(() {
-                  //   print("set state");
-                  //   print(provider.data.length);
-                  // });
-                  // print(data.length);
                 },
                 child: const Text('get data')),
             SizedBox(height: 400,
