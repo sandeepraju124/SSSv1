@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/screens/homepage.dart';
-import 'package:sssv1/screens/profile.dart';
-import 'package:sssv1/screens/searchlist.dart';
 import 'package:provider/provider.dart';
 
 void main() {

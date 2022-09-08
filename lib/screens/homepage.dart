@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/models/restaurant.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
+import 'package:sssv1/screens/profile.dart';
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import '../widgets/restaurent.dart';
@@ -32,19 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     
     super.initState();
   }
-  // _asyncMethod() async {
-  //   print('function called');
-  //   List<RestaurantModels> data = await getData().getRestaurantData();
-  //   restaurentProvider().resProv(data);
-  //   print('printing length');
-  //   print(data.length);
-  //   print("init function ended");
-  //   // _data = data;
-  // }
 
-  // Future<void> triggerRes() async {
-  //   List<RestaurantModels> data =await getData().getRestaurantData();
-  // }
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -60,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // provider.resProv(_data);
         
         return Scaffold(
-        backgroundColor: Color(0xffCAD3D3),
+        // backgroundColor: Color(0xffCAD3D3),
         // backgroundColor: const Color(0xff49426C),
         appBar: AppBar(
           centerTitle: true,
@@ -99,14 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollDirection: Axis.vertical,
           physics: const ScrollPhysics(),
           children:  [
-            const searchbar(),
+            const SearchBar(),
             const Gap(15),
             const Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                   child: Text(
-                    "Services",
+                    "Our Top Pick",
                     style: TextStyle(
                         fontFamily: "RobotoMono",
                         fontSize: 27,
@@ -129,11 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.black87),
                   ),
                 )),
-            const restaurant(),
+             restaurant(),
             const Gap(10),
             TextButton(
                 onPressed: () async {
-                  provider.resProv();
+                  // provider.resProv();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile()));
                 },
                 child: const Text('get data')),
             SizedBox(height: 400,

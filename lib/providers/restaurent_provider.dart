@@ -11,7 +11,7 @@ import '../screens/homepage.dart';
 class restaurentProvider with ChangeNotifier{
   List<RestaurantModels> data = [];
   Future<void> resProv() async {
-    List<RestaurantModels> datalist = await getData().getRestaurantData();
+    List<RestaurantModels> datalist = await GetData().getRestaurantData();
     this.data = datalist;
      notifyListeners();
   }

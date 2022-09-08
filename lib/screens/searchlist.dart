@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 
-class searchlist extends StatelessWidget {
-  const searchlist({Key? key}) : super(key: key);
+class SearchList extends StatelessWidget {
+  const SearchList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffCAD3D3),
+      backgroundColor: const Color(0xffCAD3D3),
       body: SingleChildScrollView(
           child: SafeArea(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(

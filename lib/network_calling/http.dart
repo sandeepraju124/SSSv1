@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:sssv1/models/restaurant.dart';
 
-class getData{
+class GetData{
   Future<List<RestaurantModels>> getRestaurantData() async {
     List<RestaurantModels> resList = [];
     try {

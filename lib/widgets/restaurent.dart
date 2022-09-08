@@ -17,83 +17,73 @@ class restaurant extends StatelessWidget {
             width: double.infinity,
             // color: Colors.yellow,
             child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 // shrinkWrap: true,
                 itemCount: provider.data.length,
-                itemBuilder: (BuildContext context, int index) => Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Container(
-                        width: 150,
-                        // height: 20,
-                        // color: Colors.green,
-                        child: Column(children: [
-                          // Column1 RestaurentImage
-                          Container(
-                            // color: Colors.amber,
-                            height: 200,
-                            child: Image.asset(
-                                fit: BoxFit.cover,
-                                "images/restaurant/restaurant1.jpg"),
+                itemBuilder: (BuildContext context, int index) => Container(
+                  width: 150,
+                  margin: EdgeInsets.only(left: 14),
+                  // height: 20,
+                  // color: Colors.green,
+                  child: Column(children: [
+                    // Column1 RestaurentImage
+                    Container(
+                      // color: Colors.amber,
+                      height: 200,
+                      child: Image.network(
+                          fit: BoxFit.cover,
+                          // "https://assets.vogue.in/photos/61b3753015fc923d29d9b585/2:3/w_2560%2Cc_limit/Silly-Food-Image-4-819x1024.jpeg"
+                          provider.data[index].image
                           ),
-                          // Column2 RestaurentName and Rating
-                          Container(
-                              height: 30,
-                              // color: Colors.pink,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                    ),
+                    // Column2 RestaurentName and Rating
+                    SizedBox(
+                        height: 30,
+                        // color: Colors.pink,
+                        child: Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(provider.data[index].name,
+                                  // maxLines: 1,
+                                  overflow:TextOverflow.ellipsis ,
+                                  style:
+                                      const TextStyle(color: Colors.black)),
+                            ),
+                            Expanded(
+                              child: Container(margin: const EdgeInsets.only(left: 5),
+                                // color: Colors.blue,
+                                  child: Row(
                                 children: [
-                                  Expanded(flex: 60,
-                                    child: Container(
-                                      // color: Colors.deepPurpleAccent,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 6),
-                                        child: Expanded(
-                                          child: Text(provider.data[index].name,
-                                              maxLines: 1,
-                                              overflow:TextOverflow.ellipsis ,
-                                              style:
-                                                  TextStyle(color: Colors.black)),
-                                        ),
-                                      ),
+                                  Text(provider.data[index].rating.toString(),style: const TextStyle(fontSize: 13),),
+                                  const Icon(
+                                    Icons.star,
+                                    size: 13,
+                                    color: Colors.yellow,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      provider.data[index].reviewers.toString(),overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 13),
                                     ),
-                                  ),
-                                  Expanded(flex: 40,
-                                    child: Container(margin: EdgeInsets.only(left: 5),
-                                      // color: Colors.blue,
-                                        child: Row(
-                                      children: [
-                                        Text(provider.data[index].rating.toString(),style: TextStyle(fontSize: 13),),
-                                        const Icon(
-                                          Icons.star,
-                                          size: 13,
-                                          color: Colors.yellow,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            provider.data[index].reviewers.toString(),overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                        )
-                                      ],
-                                    )),
-                                  ),
+                                  )
                                 ],
                               )),
-                              // Column3 Description
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.only(left: 3),
-                            child: Container(
-                              // color: Colors.teal,
-                              child: Text(provider.data[index].desp,overflow:TextOverflow.ellipsis ,maxLines: 3,
-                                  style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey)),
                             ),
-                          ))
-                        ]),
-                      ),
-                    )),
+                          ],
+                        )),
+                        // Column3 Description
+                    Expanded(
+                        child: Container(
+                          // color: Colors.teal,
+                          child: Text(provider.data[index].desp,overflow:TextOverflow.ellipsis ,maxLines: 3,
+                              style: const TextStyle(
+                                  fontSize: 11, color: Colors.grey)),
+                        ))
+                  ]),
+                )),
           )),
     );
   }

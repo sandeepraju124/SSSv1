@@ -182,7 +182,7 @@ class _profileState extends State<profile> {
                       ]),
                   // color: Colors.blueGrey,
                 )),
-                VerticalDivider(
+                const VerticalDivider(
                     color: Colors.grey,
                     thickness: 2,
                     indent: 20,
@@ -192,7 +192,7 @@ class _profileState extends State<profile> {
                   // color: Colors.amber,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text("Premium",
                             style:
                                 TextStyle(fontFamily: "Roboto", fontSize: 20)),
@@ -206,7 +206,7 @@ class _profileState extends State<profile> {
                         )
                       ]),
                 )),
-                VerticalDivider(
+                const VerticalDivider(
                     color: Colors.grey,
                     thickness: 2,
                     indent: 20,
@@ -326,19 +326,19 @@ class _profileState extends State<profile> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.all(3),
+                                          margin: const EdgeInsets.all(3),
                                           child: const Icon(
                                             FontAwesomeIcons.circleArrowUp,
                                           ),
                                         ),
-                                        Text("Uplift",style: TextStyle(fontSize: 8),),
+                                        const Text("Uplift",style: TextStyle(fontSize: 8),),
                                       ],
                                     ),
                                     Column(mainAxisAlignment:MainAxisAlignment.center ,
                                 children: [
-                                  Container(margin: EdgeInsets.all(3),
-                                    child: Icon(FontAwesomeIcons.circleArrowDown)),
-                                    Text("Downlift",style:TextStyle(fontSize: 8) ),
+                                  Container(margin: const EdgeInsets.all(3),
+                                    child: const Icon(FontAwesomeIcons.circleArrowDown)),
+                                    const Text("Downlift",style:TextStyle(fontSize: 8) ),
                                 ],
                               ),
                                   ],
@@ -386,7 +386,7 @@ class images extends StatelessWidget {
           child: Image.network(
               'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80'),
         ),
-        Gap(8),
+        const Gap(8),
       ],
     );
   }

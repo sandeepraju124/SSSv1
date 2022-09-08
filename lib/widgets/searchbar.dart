@@ -2,8 +2,8 @@
 // sample image name -> searchbar
 import 'package:flutter/material.dart';
 
-class searchbar extends StatelessWidget {
-  const searchbar({
+class SearchBar extends StatelessWidget {
+  const SearchBar({
     Key? key,
   }) : super(key: key);
 
