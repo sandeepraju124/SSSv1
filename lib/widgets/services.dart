@@ -9,11 +9,11 @@ class Services extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: Container(
+      child: Container(margin: EdgeInsets.only(right: 8),
         height: 200,
         width: double.infinity,
         // color: Colors.amber,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(border: Border.all(color: Colors.black12,width: 1),
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Column(children: [
@@ -60,24 +60,21 @@ class Services extends StatelessWidget {
                 // color: Colors.deepOrangeAccent,
               )),
               Expanded(
-                  child: Container(
-                // color: Colors.teal,
-                child: Column(children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
-                      child: Container(
-                        height: 40,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
-                        child: Image.asset('images/services/realestate.png'),
+                  child: Column(children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
+                        child: Container(
+                          height: 40,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                          child: Image.asset('images/services/realestate.png'),
+                        ),
                       ),
                     ),
-                  ),
-                  const Text('real estate')
-                ]),
-              )),
+                    const Text('real estate')
+                  ])),
               Expanded(
                   child: Container(
                 // color: Colors.lime,

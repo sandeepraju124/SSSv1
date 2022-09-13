@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/screens/searchlist.dart';
 
 void main() {
 
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
-      // home: const profile(),
+      // home: MyHomePage(),
+      home: const SearchList(),
     );
   }
 }

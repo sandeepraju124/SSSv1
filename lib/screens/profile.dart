@@ -169,7 +169,7 @@ class _profileState extends State<profile> {
                     child: Container(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text("Status",
                             style:
                                 TextStyle(fontFamily: "Roboto", fontSize: 20)),
