@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/models/restaurant.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
+import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/screens/profile.dart';
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
@@ -27,8 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       print("this is after init state ");
       var provider = Provider.of<restaurentProvider>(context, listen: false);
+      // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
       // auth.resProv;
       provider.resProv();
+      // searchlist.resProv();
+      
     });
     
     super.initState();
@@ -37,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
     
     print('building called');
     // List<RestaurantModels> data =await getData().getRestaurantData();

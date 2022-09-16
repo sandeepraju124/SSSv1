@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sssv1/providers/searchlist_provider.dart';
+import 'package:sssv1/screens/searchlist.dart';
+import 'package:sssv1/utils/shortscuts.dart';
+import 'package:provider/provider.dart';
 
 class Services extends StatelessWidget {
   const Services({
@@ -46,16 +50,24 @@ class Services extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
-                      child: Container(
-                        height: 40,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
-                        child: Image.asset('images/services/pickers.png'),
+                      child: GestureDetector(onTap: (){
+                        // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
+                        // searchlist.resProv();
+                        print('navigation called');
+
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchList()));
+                      },
+                        child: Container(
+                          height: 40,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                          child: Image.asset('images/services/restaurant.png'),
+                        ),
                       ),
                     ),
                   ),
-                  const Text('pickers')
+                  const Text('Restaurants')
                 ]),
                 // color: Colors.deepOrangeAccent,
               )),
