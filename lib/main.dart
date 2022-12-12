@@ -3,6 +3,8 @@ import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/screens/user_profile.dart';
 
 void main() {
 
@@ -30,8 +32,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
-      // home: const SearchList(),
+      // home: MyHomePage(),
+      home: const UserProfile(),
     );
   }
 }
