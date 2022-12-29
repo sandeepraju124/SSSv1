@@ -24,9 +24,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-  print('this is init');
+  // print('this is init');
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      print("this is after init state ");
+      // print("this is after init state ");
       var provider = Provider.of<restaurentProvider>(context, listen: false);
       // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
       // auth.resProv;
@@ -43,12 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
     
-    print('building called');
+    // print('building called');
     // List<RestaurantModels> data =await getData().getRestaurantData();
 
     return Consumer<restaurentProvider>(
       builder: (BuildContext context, provider, Widget? child) { 
-        print('build calling after build');
+        // print('build calling after build');
 
         // List<RestaurantModels> data =await getData().getRestaurantData();
         // provider.resProv(_data);
@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
                 onPressed: () async {
                   // provider.resProv();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: "jhgsw")));
                 },
                 child: const Text('get data')),
             SizedBox(height: 400,
