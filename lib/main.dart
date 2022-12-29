@@ -5,6 +5,7 @@ import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/widgets/explore.dart';
 
 
 void main() {
@@ -36,8 +37,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
-      // home: const profile(),
+      // home: MyHomePage(),
+      home: Explore(),
     );
   }
 }

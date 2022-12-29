@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../utils/urls.dart';
 import 'package:sssv1/models/rescomments_models.dart';
 import 'package:sssv1/models/restaurant.dart';
 import 'package:sssv1/models/searchlist_models.dart';
@@ -82,6 +83,7 @@ class GetData{
   Future<List<Rescommentonlyone>> getRestaurantCommentsData(resname) async {
     List<Rescommentonlyone> resList = [];
     try {
+      
       var url = 'https://fuhrer.azurewebsites.net/rescommentname/$resname';
       var request = http.Request('GET', Uri.parse(url));
       http.StreamedResponse response = await request.send();

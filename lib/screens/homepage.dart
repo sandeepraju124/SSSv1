@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'package:gap/gap.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sssv1/models/restaurant.dart';
-import 'package:sssv1/network_calling/http.dart';
+// import 'package:sssv1/models/restaurant.dart';
+// import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/screens/profile.dart';
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import '../widgets/restaurent.dart';
-import 'package:dio/dio.dart';
+// import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
