@@ -3,9 +3,11 @@ import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/profile.dart';
 import 'package:sssv1/widgets/explore.dart';
+import 'package:sssv1/widgets/restaurent.dart';
 
 
 void main() {
@@ -19,6 +21,9 @@ void main() {
     ),
     ChangeNotifierProvider<rescommentsProvider>(
       create: (_) => rescommentsProvider(),
+    ),
+    ChangeNotifierProvider<UserProvider>(
+      create: (_) => UserProvider(),
     )
   ], child:  MyApp()));
 }
@@ -37,8 +42,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(),
-      home: Explore(),
+      home: MyHomePage(),
+      // home: profile(),
     );
   }
 }

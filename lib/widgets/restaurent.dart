@@ -27,8 +27,8 @@ class restaurant extends StatelessWidget {
                   onTap: ()async {
                     var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
                     await rescomments.resProv(provider.data[index].name);
-                    print("checking restaurent name ");
-                    print(provider.data[index].name);
+                    // print("checking restaurent name ");
+                    // print(provider.data[index].name);
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: provider.data[index].name,)));
                   },
                   child: Container(

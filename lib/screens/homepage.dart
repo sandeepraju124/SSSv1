@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:gap/gap.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/network_calling/http.dart';
 // import 'package:sssv1/models/restaurant.dart';
-// import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/screens/profile.dart';
@@ -42,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
+    
     
     // print('building called');
     // List<RestaurantModels> data =await getData().getRestaurantData();
@@ -127,8 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
             const Gap(10),
             TextButton(
                 onPressed: () async {
+                  // GetData().getUserData(1);
+                  // GetData().getRestaurantCommentsData("tatva");
                   // provider.resProv();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: "jhgsw")));
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: "jhgsw")));
                 },
                 child: const Text('get data')),
             SizedBox(height: 400,
@@ -137,7 +141,6 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext, int) => ListTile(title: Text(provider.data[int].name),)),
             )
-    
           ]
         ),
       );

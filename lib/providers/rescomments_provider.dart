@@ -7,15 +7,16 @@ import 'package:sssv1/network_calling/http.dart';
 class rescommentsProvider with ChangeNotifier{
   List<Rescommentonlyone> data = [];
   Future<void> resProv(resname) async {
-    print("print in provider ");
+    // print("print in provider ");
     List<Rescommentonlyone> datalist = await GetData().getRestaurantCommentsData(resname);
     data = datalist;
-    print("this is provider data $data");
+    // print("this is provider data $data");
 
     for (var element in data) { 
-          print("checking for each $element");}
+          // print("checking for each $element");
+          }
     }
-    
+     
      notifyListeners();
      
   }

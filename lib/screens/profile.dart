@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/user_provider.dart';
 
 class profile extends StatefulWidget {
  final String idpasses;
@@ -22,7 +23,8 @@ class _profileState extends State<profile> {
   // print("widget");
   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
   //     print("this is after init state ");
-  //     var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
+      // var user = Provider.of<UserProvider>(context, listen: false);
+      // user.userProv();
   //     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
   //     // auth.resProv;
   //     rescomments.resProv();
@@ -37,9 +39,10 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     var rescomments = Provider.of<rescommentsProvider>(context, listen: true);
-    print("printing provider data");
-    print(widget.idpasses.toString());
-    print(rescomments.data[0].comments[1].comment);
+    var user = Provider.of<UserProvider>(context, listen: false);
+    // print("printing provider data");
+    // print(widget.idpasses.toString());
+    // print(rescomments.data[0].comments[1].comment);
     return Scaffold(
       backgroundColor: Color(0xffCAD3D3),
       body: SafeArea(
@@ -295,19 +298,18 @@ class _profileState extends State<profile> {
               // scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext, int) => commentSection(indexvalue: int,resname: widget.idpasses,)),
             ) 
-        
       ],
-      
         ),
       ),
-      
     );
     
   }
 }
 
+
+
 class commentSection extends StatelessWidget {
-  int indexvalue;
+  int  indexvalue; // 1,2,3,4,5,6,7,8,9
   String resname;
   
    commentSection({
@@ -315,13 +317,28 @@ class commentSection extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     resname = resname.toString();
     List<dynamic> comm;
     var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
+    var user = Provider.of<UserProvider>(context, listen: false);
+    // user.data[0].name[1].toString();
+    // var comn = checkuserid(indexvalue,context);
+    // print("comn $comn");
+    // user.userProv(indexvalue);
+    print("----------------------------------");
+    print(user.data.length);
+    // print(user.data[0].name);
     // print(rescomments.data);
     // print("rescomments");
-    return Container(
+    return FutureBuilder(
+      future: checkuserid(indexvalue,context),
+      builder: (context, snapshot){
+        if (snapshot.connectionState == ConnectionState.waiting){
+          return CircularProgressIndicator();
+        }
+        else if (snapshot.hasData){
+          return Container(
       height: 200,
       color: Colors.white,
       child: Column(children: [
@@ -332,15 +349,16 @@ class commentSection extends StatelessWidget {
               children: [
                 //Column1 Row1
                 Expanded(
-                  flex: 30,
+                  flex: 30, 
                   child: Container(
-                    child: Column(children: const [
+                    child: Column(children: [
                       CircleAvatar(
                           radius: 22,
-                          backgroundImage: NetworkImage(
-                              'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600')),
+                          backgroundImage: NetworkImage(user.data[0].dp.toString())),
                       // Gap(2),
-                      Text('Sandeep Raju',
+                      Text(
+                        // 'Sandeep Raju',
+                        user.data[0].username.toString(),
                           style: TextStyle(fontSize: 12)),
                     ]),
                     // color: Colors.green,
@@ -408,13 +426,13 @@ class commentSection extends StatelessWidget {
         // column 2
         Expanded(
             child: Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           // color: Colors.indigo,
           // String comm = rescomments.data[name][indexvalue][["comment"];
           child: 
           // Text("lopam zopam jhfuhrh iiejije oiejrijre ojrfoirjef oirjfffffffr orjow reoj  o;rj fwrfiwre flerf fwruhfw ier")
               
-              Text(rescomments.data[0].comments[indexvalue].comment)
+              Text(rescomments.data[0].comments[indexvalue].comment,style:TextStyle(color: Colors.black54) ,)
               ),
         ),
         // comm = rescomments.data[indexvalue].name["comments"])
@@ -432,6 +450,12 @@ class commentSection extends StatelessWidget {
         )),
       ]),
     );
+        }
+        else {
+                  return const Text('Empty data');
+        }
+      } );
+    
   }
 }
 
@@ -453,4 +477,16 @@ class images extends StatelessWidget {
       ],
     );
   }
+}
+
+
+Future<bool> checkuserid(indexvalue,context)async{
+  var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
+  var user = Provider.of<UserProvider>(context, listen: false);
+  int id = await rescomments.data[0].comments[indexvalue].userId;
+  await user.userProv(id);
+  print("xnxnxnxnxnxnxnxnxnxnx");
+  print(id);
+  // var comname = user.data[0].name;
+  return true;
 }

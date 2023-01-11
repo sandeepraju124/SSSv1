@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/models/user_models.dart';
 import '../utils/urls.dart';
 import 'package:sssv1/models/rescomments_models.dart';
 import 'package:sssv1/models/restaurant.dart';
@@ -83,10 +84,11 @@ class GetData{
   Future<List<Rescommentonlyone>> getRestaurantCommentsData(resname) async {
     List<Rescommentonlyone> resList = [];
     try {
-      
       var url = 'https://fuhrer.azurewebsites.net/rescommentname/$resname';
       var request = http.Request('GET', Uri.parse(url));
+      // print("checking request $request");
       http.StreamedResponse response = await request.send();
+      // print("checking raw data before $response");
       if (response.statusCode==200) {
          var rawData=await response.stream.bytesToString();
         //  print("checking raw data before $rawData");
@@ -121,6 +123,44 @@ class GetData{
       print("exemption: $e");
       print('excemption catched');
       throw e.toString();
+    }
+  }
+
+
+// -----------------------------------------------------------------------------------------------------
+  // getting  users api data 
+
+Future<List<Usermodel>> getUserData(id) async {
+  print("function called");
+    List<Usermodel> resList = [];
+    try {
+      var url = 'https://fuhrer.azurewebsites.net/user/$id';
+      var request = http.Request('GET', Uri.parse(url));
+      //  print("checking request data $request");
+      http.StreamedResponse response = await request.send();
+      // print("checking response data $response");
+      if (response.statusCode==200) {
+        // print("200");
+         var rawData=await response.stream.bytesToString();
+        //  print("checking raw data $rawData");
+        // 
+         Map<String, dynamic> data = Map<String, dynamic>.from(json.decode(rawData));
+         Usermodel modeldata =  Usermodel.fromJson(data);
+         print("checking raw decode data $data");
+        //  print("checking modeldata $modeldata");
+        resList.add(modeldata);
+        print("resList $resList");
+      return resList;
+      }else{
+        print("not 200");
+        print("exemption getUserData");
+         print(response.reasonPhrase);
+        return [];
+      }
+      
+    } catch (e) {
+      print("exemption getUserData catch $e");
+      throw e;
     }
   }
 
