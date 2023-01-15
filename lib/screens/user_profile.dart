@@ -15,7 +15,7 @@ class _UserProfileState extends State<UserProfile> {
         backgroundColor: Colors.grey[100],
         body: ListView(
             //  scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.all(15),
+            padding:const EdgeInsets.all(15),
             shrinkWrap: true,
             children: [
               // ignore: prefer_const_constructors
@@ -49,7 +49,7 @@ class _UserProfileState extends State<UserProfile> {
                           // fit:BoxFit.cover ),
                         ),
                       ),
-                      SizedBox(
+                     const SizedBox(
                         height: 10,
                       ),
                       Expanded(

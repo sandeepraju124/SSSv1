@@ -223,8 +223,7 @@ class _InitialPageState extends State<InitialPage> {
                 SizedBox(height: 75),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 60.0),
-                  child: Image.asset(
-                    'assets/pic.png',
+                  child: Image.asset("images/pic.png",
                     // height: 200,
                     width: 900,
                   ),

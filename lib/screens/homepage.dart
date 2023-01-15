@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:gap/gap.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/login/google_login_controller.dart';
 import 'package:sssv1/network_calling/http.dart';
 // import 'package:sssv1/models/restaurant.dart';
 import 'package:sssv1/network_calling/http.dart';
@@ -135,6 +136,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: "jhgsw")));
                 },
                 child: const Text('get data')),
+              TextButton(onPressed: (){
+                final provider = Provider.of<GoogleSignInController>(context, listen: false);
+                provider.logOut();
+              }, child: const Text('sign out')),
+
             SizedBox(height: 400,
               child: ListView.builder(itemCount: provider.data.length,
               shrinkWrap: true,
