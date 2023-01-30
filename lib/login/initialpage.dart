@@ -220,10 +220,11 @@ class _InitialPageState extends State<InitialPage> {
                       fontSize: 17,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 75),
+                SizedBox(height: 95),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 60.0),
-                  child: Image.asset("images/pic.png",
+                  child: Image.asset(
+                    "assets/pic.png",
                     // height: 200,
                     width: 900,
                   ),

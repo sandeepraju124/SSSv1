@@ -77,6 +77,7 @@ flutter:
     - images/
     - images/services/
     - images/restaurant/
+    - assets/pic.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -95,7 +96,7 @@ flutter:
       fonts:
 #        - asset: assets/fonts/Roboto-Light.ttf
 #        - asset: assets/fonts/Roboto-MediumItalic.ttf
-        - asset: assets/fonts/Roboto-Medium.ttf
+        - asset: font/fonts/Roboto-Medium.ttf
 
   #         style: italic
   #   - family: Trajan Pro

@@ -294,7 +294,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
 
-              SizedBox(height: 120),
+              SizedBox(height: 160),
 
               // google signup//
 

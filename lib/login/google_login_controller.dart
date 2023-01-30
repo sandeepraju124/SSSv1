@@ -1,9 +1,7 @@
-// ignore_for_file: unnecessary_this
+// ignore_for_file: unnecessary_this, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/Material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import './gloginI.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInController with ChangeNotifier {
@@ -12,20 +10,21 @@ class GoogleSignInController with ChangeNotifier {
 
   Future login() async {
     print("called login");
-    try{
+    try {
       final userAccount = await _googleSignIn.signIn();
       if (userAccount == null) return;
       googleAccount = userAccount;
       print("user account $userAccount");
       final googleAuth = await userAccount.authentication;
       print("google auth $googleAuth");
-      final credential = GoogleAuthProvider.credential(accessToken:googleAuth.accessToken,idToken: googleAuth.idToken);
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       // await FirebaseAuth.instance.signInWithCredential(credentials);
       FirebaseAuth.instance.signInWithCredential(credential);
       // print(googleAuth.accessToken);
       // print(googleAuth.idToken);
       print("googleaccount $googleAccount");
-    }catch(e){
+    } catch (e) {
       print("exemption catched");
       print(e.toString());
     }

@@ -2,9 +2,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/screens/homepage.dart';
 
 import '../Signupfolder/signuppage.dart';
-import '../signedin.dart';
 
 class Signupauth extends StatelessWidget {
   const Signupauth({super.key});
@@ -16,7 +16,7 @@ class Signupauth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return SignedinPage();
+            return MyHomePage();
           } else {
             return SignUpPage();
           }

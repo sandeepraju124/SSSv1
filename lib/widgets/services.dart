@@ -1,8 +1,8 @@
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:sssv1/providers/searchlist_provider.dart';
+
 import 'package:sssv1/screens/searchlist.dart';
-import 'package:sssv1/utils/shortscuts.dart';
-import 'package:provider/provider.dart';
 
 class Services extends StatelessWidget {
   const Services({
@@ -13,11 +13,13 @@ class Services extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-      child: Container(margin: EdgeInsets.only(right: 8),
+      child: Container(
+        margin: EdgeInsets.only(right: 8),
         height: 200,
         width: double.infinity,
         // color: Colors.amber,
-        decoration: BoxDecoration(border: Border.all(color: Colors.black12,width: 1),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black12, width: 1),
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Column(children: [
@@ -50,13 +52,15 @@ class Services extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
-                      child: GestureDetector(onTap: (){
-                        // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
-                        // searchlist.resProv();
-                        print('navigation called');
+                      child: GestureDetector(
+                        onTap: () {
+                          // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
+                          // searchlist.resProv();
+                          print('navigation called');
 
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchList()));
-                      },
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SearchList()));
+                        },
                         child: Container(
                           height: 40,
                           width: double.infinity,
@@ -73,20 +77,20 @@ class Services extends StatelessWidget {
               )),
               Expanded(
                   child: Column(children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
-                        child: Container(
-                          height: 40,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Color(0xffc4c4c4), shape: BoxShape.circle),
-                          child: Image.asset('images/services/realestate.png'),
-                        ),
-                      ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(3, 15, 3, 3),
+                    child: Container(
+                      height: 40,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                      child: Image.asset('images/services/realestate.png'),
                     ),
-                    const Text('real estate')
-                  ])),
+                  ),
+                ),
+                const Text('real estate')
+              ])),
               Expanded(
                   child: Container(
                 // color: Colors.lime,
@@ -180,7 +184,8 @@ class Services extends StatelessWidget {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                             color: Color(0xffc4c4c4), shape: BoxShape.circle),
-                        child: const Align(alignment: Alignment.center  ,child: Text('MORE')),
+                        child: const Align(
+                            alignment: Alignment.center, child: Text('MORE')),
                       ),
                     ),
                   ),

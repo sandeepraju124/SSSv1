@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import './signedin.dart';
+import 'package:sssv1/screens/homepage.dart';
+
 import './login folder/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,7 +16,7 @@ class AuthState extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return SignedinPage();
+            return MyHomePage();
           } else {
             return LoginPage();
           }

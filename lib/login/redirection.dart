@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types
+// ignore_for_file: prefer_const_constructors, camel_case_types, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
