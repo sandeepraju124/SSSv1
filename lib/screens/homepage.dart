@@ -1,5 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors, unused_local_variable, prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/login/google_login_controller.dart';
@@ -11,6 +12,9 @@ import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import '../widgets/restaurent.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import '../network_calling/http.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -20,9 +24,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // List<RestaurantModels> _data = [];
 
+
+
   @override
   void initState() {
-    // print('this is init');
+    print('this is init');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // print("this is after init state ");
       var provider = Provider.of<restaurentProvider>(context, listen: false);
@@ -30,6 +36,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // auth.resProv;
       provider.resProv();
       // searchlist.resProv();
+
+// ------------------------------
+
+final user = FirebaseAuth.instance.currentUser;
+  final userid = user?.uid;
+  print(userid);
+
     });
 
     super.initState();
@@ -40,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
 
-    // print('building called');
+    print('building called');
     // List<RestaurantModels> data =await getData().getRestaurantData();
 
     return Consumer<restaurentProvider>(

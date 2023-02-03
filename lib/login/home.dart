@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './google_login_controller.dart';
 
 class Home extends StatelessWidget {
+
   const Home({super.key});
 
   @override

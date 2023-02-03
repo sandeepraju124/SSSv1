@@ -6,6 +6,8 @@ import '../utils/urls.dart';
 import 'package:sssv1/models/rescomments_models.dart';
 import 'package:sssv1/models/restaurant.dart';
 import 'package:sssv1/models/searchlist_models.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class GetData{
 
@@ -163,5 +165,35 @@ Future<List<Usermodel>> getUserData(id) async {
       throw e;
     }
   }
+
+  // ------------------------------------------------------------------------------------
+  // post user data
+  // Function to perform the POST request
+Future<void> postData(String url, Map<String, String> body) async {
+  final user = FirebaseAuth.instance.currentUser;
+  final userid = user?.uid;
+  final username = user!.email;
+  // final =  
+  // Map<String, String> body = {
+  //           'name': "sandee",
+  //           'email': "sandeepsai@gmail.com",
+  //           "username":username.toString(),
+  //           "dp":"https://tinypng.com/images/social/website.jpg",
+  //           "street":"hyderabad",
+  //           "state":"telangana",
+  //           "zipcode":"500072",
+  //           "lat":"546",
+  //           "lng":"648",
+  //           "userid":"7447485859"
+  // };
+  try {
+    final response = await http.post(Uri.parse(url), body: body);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to post data');
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
 
 }
