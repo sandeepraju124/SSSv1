@@ -7,6 +7,11 @@ import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/screens/searchlist.dart';
+import 'package:sssv1/screens/user_profile.dart';
+import 'package:sssv1/widgets/explore.dart';
+import 'package:sssv1/widgets/services.dart';
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
 import './login/redirection.dart';
@@ -50,7 +55,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(),
+      // home: UserProfile(),
       home: redirection(),
     );
   }

@@ -47,11 +47,15 @@ class _SignUpPageState extends State<SignUpPage> {
           email: _emailcontroller.text.trim(),
           password: _passwordcontroller.text.trim());
 
-      adduserdetails(
-          _firstnamecontroller.text.trim(),
-          _lastnamecontroller.text.trim(),
-          int.parse(_mobilenumbercontroller.text.trim()),
-          _emailcontroller.text.trim());
+
+      // adding users data in firebase
+
+      // adduserdetails(
+      //     _firstnamecontroller.text.trim(),
+      //     _lastnamecontroller.text.trim(),
+      //     int.parse(_mobilenumbercontroller.text.trim()),
+      //     _emailcontroller.text.trim());
+
 
           final user = FirebaseAuth.instance.currentUser;
           final userid = user?.uid;
@@ -68,7 +72,6 @@ class _SignUpPageState extends State<SignUpPage> {
             "userid":userid.toString()
   };
           GetData().postData('https://bitebest.azurewebsites.net/user', body).then((value) => print('Data posted successfully'));
-
     } on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
@@ -86,15 +89,17 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  Future adduserdetails(
-      String firstname, String lastname, int mobilenumber, String email) async {
-    await FirebaseFirestore.instance.collection('Userdetails').add({
-      'First name': firstname,
-      'last name': lastname,
-      'Mobile Number': mobilenumber,
-      'Email': email,
-    });
-  }
+  // adding user data to firebase
+  
+  // Future adduserdetails(
+  //     String firstname, String lastname, int mobilenumber, String email) async {
+  //   await FirebaseFirestore.instance.collection('Userdetails').add({
+  //     'First name': firstname,
+  //     'last name': lastname,
+  //     'Mobile Number': mobilenumber,
+  //     'Email': email,
+  //   });
+  // }
 
   @override
   void dispose() {

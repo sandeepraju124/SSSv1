@@ -39,9 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // ------------------------------
 
-final user = FirebaseAuth.instance.currentUser;
-  final userid = user?.uid;
-  print(userid);
+
 
     });
 
@@ -51,6 +49,10 @@ final user = FirebaseAuth.instance.currentUser;
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
+    final user = FirebaseAuth.instance.currentUser;
+    final userid = user?.uid;
+    print(userid);
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
 
     print('building called');
