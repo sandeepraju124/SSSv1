@@ -2,20 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
-import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/screens/profile.dart';
 
 class restaurant extends StatelessWidget {
   const restaurant({
     Key? key,
   }) : super(key: key);
-  final text =
-      "In this paper, we construct two fast iterative methods to solve pseudomonotone variational inequalities in real Hilbert spaces. The advantag";
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<restaurentProvider>(
+    return Consumer<serviceProvider>(
       builder: ((context, provider, child) => SizedBox(
             height: 270,
             width: double.infinity,
@@ -28,16 +26,17 @@ class restaurant extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) =>
                     GestureDetector(
                       onTap: () async {
-                        var rescomments = Provider.of<rescommentsProvider>(
-                            context,
-                            listen: false);
-                        await rescomments.resProv(provider.data[index].name);
-                        // print("checking restaurent name ");
-                        // print(provider.data[index].name);
+                        // this is for getting restaurant comments
+                        // var rescomments = Provider.of<rescommentsProvider>(
+                        //     context,
+                        //     listen: false);
+                        // await rescomments.resProv(provider.data[index].name);
+                        
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => profile(
-                                  idpasses: provider.data[index].name,
-                                )));
+                                  id: provider.data[index].id,
+                                ))
+                                );
                       },
                       child: Container(
                         width: 150,
@@ -89,7 +88,7 @@ class restaurant extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                provider.data[index].reviewers
+                                                provider.data[index].reviews
                                                     .toString(),
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(fontSize: 13),
@@ -104,7 +103,7 @@ class restaurant extends StatelessWidget {
                           Expanded(
                               child: Container(
                             // color: Colors.teal,
-                            child: Text(provider.data[index].desp,
+                            child: Text(provider.data[index].despription,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
                                 style: const TextStyle(

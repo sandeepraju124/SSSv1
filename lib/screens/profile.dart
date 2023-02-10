@@ -3,14 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 
 class profile extends StatefulWidget {
-  final String idpasses;
+  final String id;
 
-  profile({Key? key, required this.idpasses}) : super(key: key);
+  profile({required this.id});
 
   @override
   State<profile> createState() => _profileState();
@@ -19,20 +21,9 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   @override
   void initState() {
-    // print('this is init');
-    // print(widget.idpasses);
-    // print("widget");
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     print("this is after init state ");
-    // var user = Provider.of<UserProvider>(context, listen: false);
-    // user.userProv();
-    //     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
-    //     // auth.resProv;
-    //     rescomments.resProv();
-    //     // searchlist.resProv();
-
-    //   }
-    //   );
+    print('widget id');
+    print(widget.id);
+    // GetData().getSingleServiceData(widget.id);
 
     super.initState();
   }
@@ -44,7 +35,17 @@ class _profileState extends State<profile> {
     // print("printing provider data");
     // print(widget.idpasses.toString());
     // print(rescomments.data[0].comments[1].comment);
-    return Scaffold(
+    return FutureBuilder(
+      future:GetData().getSingleServiceData(widget.id),
+      builder: (context, snapshot){
+        print("builder called");
+        if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(body: Center(child:CircularProgressIndicator() ));
+            
+          }else if ((snapshot.hasData && snapshot.data != null)){
+             Map data = snapshot.data as Map;
+            try{
+              return Scaffold(
       backgroundColor: Color(0xffCAD3D3),
       body: SafeArea(
         child: ListView(
@@ -84,7 +85,8 @@ class _profileState extends State<profile> {
                             width: double.infinity,
                             child: Center(
                               child: Text(
-                                widget.idpasses,
+                                data["name"] ?? "Unknown",
+                                // widget.idpasses,
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 18,
@@ -133,12 +135,14 @@ class _profileState extends State<profile> {
                                 height: 85,
                                 width: 80,
                                 // width: double.infinity,
-                                decoration: const BoxDecoration(
+                                decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: AssetImage("images/thegrill.jpg"),
-                                      fit: BoxFit.cover),
-                                  color: Colors.black,
+                                    fit:BoxFit.cover ,
+                                      image: NetworkImage(data["image"] ?? "Unknown"),
+                    ),
+                    color: Colors.black,
                                   shape: BoxShape.circle,
+                                      
                                 )),
                           ),
                         )
@@ -208,8 +212,9 @@ class _profileState extends State<profile> {
                           height: 10,
                         ),
                         // Text(widget.idpasses),
-                        Text(widget.idpasses,
-                            style: TextStyle(
+                        Text(data["name"] ?? "Unknown",
+                          // widget.idpasses,
+                            style: const TextStyle(
                                 fontFamily: "Roboto", color: Colors.green))
                       ]),
                   // color: Colors.blueGrey,
@@ -296,18 +301,33 @@ class _profileState extends State<profile> {
             SizedBox(
               height: 400,
               child: ListView.builder(
-                  itemCount: rescomments.data[0].comments.length,
+                  itemCount: 1,
+                  // rescomments.data[0].comments.length,
                   shrinkWrap: true,
                   // scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext, int) => commentSection(
-                        indexvalue: int,
-                        resname: widget.idpasses,
-                      )),
+                  itemBuilder: (BuildContext, int) => Text(data["name"] ?? "Unknown"),
+                  // commentSection(
+                  //       indexvalue: int,
+                  //       // resname: widget.idpasses,
+                  //       resname: service.data[int].name
+                  //     )
+                      ),
             )
-          ],
+          ], 
         ),
       ),
     );
+            }catch (e) {
+        return Text("Error: $e");
+      } 
+
+          }
+          else {
+            return Text('Empty data');}
+        
+      });
+    
+    
   }
 }
 
@@ -499,3 +519,12 @@ Future<bool> checkuserid(indexvalue, context) async {
   // var comname = user.data[0].name;
   return true;
 }
+
+
+// Future<bool> GetRestaurantData(id, context) async {
+//   var service = Provider.of<SingleServiceProvider>(context, listen: false);
+
+//   service.serviceProv(id);
+//   // var comname = user.data[0].name;
+//   return true;
+// }

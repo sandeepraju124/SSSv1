@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/models/services_model.dart';
 import 'package:sssv1/models/user_models.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import '../utils/urls.dart';
 import 'package:sssv1/models/rescomments_models.dart';
 import 'package:sssv1/models/restaurant.dart';
@@ -12,10 +14,40 @@ class GetData{
 
 // getting restaurant data 5 in main page
 
-  Future<List<RestaurantModels>> getRestaurantData() async {
-    List<RestaurantModels> resList = [];
+  // Future<List<RestaurantModels>> getRestaurantData() async {
+  //   List<RestaurantModels> resList = [];
+  //   try {
+  //     var url = 'https://script.google.com/macros/s/AKfycby1kxJDHbw4-MAfoA2ZkdkMeFvCIpREeknhqKIDrIAeJc9zFm6vtsO29YxayCjQqDRY/exec';
+  //     var request = http.Request('GET', Uri.parse(url));
+  //     http.StreamedResponse response = await request.send();
+  //     if (response.statusCode==200) {
+  //        var rawData=await response.stream.bytesToString();
+  //       //  print("checking raw data $rawData");
+  //       List<dynamic> _data = jsonDecode(rawData);
+  //       // print("checking raw decode data $_data");
+  //       _data.forEach((element) { 
+  //         // print("checking each element data $element");
+  //        RestaurantModels modeldata =  RestaurantModels.fromJson(element);
+  //       //  print("checking model data $modeldata");
+  //        resList.add(modeldata);
+  //       // print("checking resList $resList");
+  //       });
+  //     return resList;
+  //     }else{
+  //        print(response.reasonPhrase);
+  //       return [];
+  //     }
+      
+  //   } catch (e) {
+  //     // print("exemption $e");
+  //     throw e;
+  //   }
+  // }
+
+Future<List<ServicesModel>> getData() async {
+    List<ServicesModel> resList = [];
     try {
-      var url = 'https://script.google.com/macros/s/AKfycby1kxJDHbw4-MAfoA2ZkdkMeFvCIpREeknhqKIDrIAeJc9zFm6vtsO29YxayCjQqDRY/exec';
+      var url = 'https://bitebest.azurewebsites.net/services/restaurant';
       var request = http.Request('GET', Uri.parse(url));
       http.StreamedResponse response = await request.send();
       if (response.statusCode==200) {
@@ -25,7 +57,7 @@ class GetData{
         // print("checking raw decode data $_data");
         _data.forEach((element) { 
           // print("checking each element data $element");
-         RestaurantModels modeldata =  RestaurantModels.fromJson(element);
+         ServicesModel modeldata =  ServicesModel.fromJson(element);
         //  print("checking model data $modeldata");
          resList.add(modeldata);
         // print("checking resList $resList");
@@ -42,6 +74,29 @@ class GetData{
     }
   }
 
+// get single service data
+// api_service.dart
+
+
+Future<Map<String, dynamic>> getSingleServiceData(id) async {
+  final response = await http.get(Uri.parse("https://bitebest.azurewebsites.net/serviceid/$id"));
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Failed to retrieve data');
+  }
+}
+
+
+Future<List> getsingleData(id) async {
+  final response = await http.get(Uri.parse("https://bitebest.azurewebsites.net/serviceid/$id"));
+  if (response.statusCode == 200) {
+    List data = json.decode(response.body);
+    return data.map((ServicesModel) => ServicesModel.fromJson(ServicesModel)).toList();
+  } else {
+    throw Exception("Failed to load data");
+  }
+}
 
 
 // getting search list data
@@ -58,7 +113,7 @@ class GetData{
         _data.forEach((element) { 
          SearchListModels modeldata =  SearchListModels.fromJson(element);
          resList.add(modeldata);
-         print("http called");
+        //  print("http called");
         
         });
       return resList;
@@ -74,10 +129,10 @@ class GetData{
   }
 
 
-  void updateState(){
-    Future<List<RestaurantModels>> list = getRestaurantData();
+  // void updateState(){
+  //   Future<List<RestaurantModels>> list = getRestaurantData();
     
-  }
+  // }
 
 // -----------------------------------------------------------------------------------------------------
   // getting  restaurant comments api data 

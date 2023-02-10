@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/login/google_login_controller.dart';
-import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/screens/header_drawer.dart';
 import 'package:sssv1/screens/mydrawerlist.dart';
 import '../widgets/searchbar.dart';
@@ -28,13 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    print('this is init');
+    // print('this is init in homepage');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // print("this is after init state ");
-      var provider = Provider.of<restaurentProvider>(context, listen: false);
+      var provider = Provider.of<serviceProvider>(context, listen: false);
       // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
       // auth.resProv;
-      provider.resProv();
+      provider.serviceProv();
       // searchlist.resProv();
 
 // ------------------------------
@@ -55,10 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
     print(userid);
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
 
-    print('building called');
+    // print('building called');
     // List<RestaurantModels> data =await getData().getRestaurantData();
 
-    return Consumer<restaurentProvider>(
+    return Consumer<serviceProvider>(
       builder: (BuildContext context, provider, Widget? child) {
         // print('build calling after build');
 

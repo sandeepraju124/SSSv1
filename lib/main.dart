@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
-import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sssv1/screens/profile.dart';
@@ -23,8 +23,8 @@ void main() async {
   );
 
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<restaurentProvider>(
-      create: (_) => restaurentProvider(),
+    ChangeNotifierProvider<serviceProvider>(
+      create: (_) => serviceProvider(),
     ),
     ChangeNotifierProvider<SearchlistProvider>(
       create: (_) => SearchlistProvider(),
@@ -42,7 +42,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final restaurentProvider restaurentProv = restaurentProvider();
+  final serviceProvider restaurentProv = serviceProvider();
 
   MyApp({Key? key}) : super(key: key);
 
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: UserProfile(),
+      // home: Explore(),
       home: redirection(),
     );
   }

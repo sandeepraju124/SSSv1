@@ -18,7 +18,7 @@ class _SearchListState extends State<SearchList> {
 
   @override
   void initState() {
-  print('this is init');
+  // print('this is init in SearchList');
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       print("this is after init state ");
       var provider = Provider.of<SearchlistProvider>(context, listen: false);
