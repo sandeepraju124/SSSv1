@@ -9,13 +9,13 @@ class MyHeaderDrawer extends StatefulWidget {
   State<MyHeaderDrawer> createState() => _MyHeaderDrawerState();
 }
 
-final user = FirebaseAuth.instance.currentUser!;
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    String? email = user?.email;
+
     return SafeArea(
       child: Container(
         color: Colors.black26,
@@ -32,8 +32,8 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
                   image: DecorationImage(image: AssetImage('images/prof.png'))),
             ),
             Text(
-              user.email!,
-              style: TextStyle(fontSize: 15),
+              email!,
+              style: const TextStyle(fontSize: 15),
             ),
           ],
         ),

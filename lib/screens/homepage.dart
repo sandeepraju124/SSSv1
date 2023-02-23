@@ -8,6 +8,7 @@ import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/screens/header_drawer.dart';
 import 'package:sssv1/screens/mydrawerlist.dart';
+import 'package:sssv1/widgets/explore.dart';
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import '../widgets/restaurent.dart';
@@ -53,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;
     print(userid);
+    print(user?.email);
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
 
     // print('building called');
@@ -138,9 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
               scrollDirection: Axis.vertical,
               physics: const ScrollPhysics(),
               children: [
-                const SearchBar(),
-                const Gap(15),
-                const Align(
+                SearchBar(),
+                Gap(15),
+                Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
@@ -152,11 +154,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.black87),
                       ),
                     )),
-                const Services(),
-                const SizedBox(
+                Services(),
+                SizedBox(
                   height: 10,
                 ),
-                const Align(
+                // Restaurant Text
+                Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
@@ -169,36 +172,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     )),
                 restaurant(),
-                const Gap(10),
-                TextButton(
-                    onPressed: () async {
-                      // GetData().getUserData(1);
-                      // GetData().getRestaurantCommentsData("tatva");
-                      // provider.resProv();
-                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => profile(idpasses: "jhgsw")));
-                    },
-                    child: const Text('get data')),
-                TextButton(
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInController>(
-                          context,
-                          listen: false);
-                      provider.logOut();
-                    },
-                    child: const Text('sign out')),
-                SizedBox(
-                  height: 400,
-                  child: ListView.builder(
-                      itemCount: provider.data.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext, int) => ListTile(
-                            title: Text(provider.data[int].name),
-                          )),
-                )
+                Gap(10),
+                
+                // Explore Text
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                      child: Text(
+                        "Explore",
+                        style: TextStyle(
+                            fontFamily: "RobotoMono",
+                            fontSize: 27,
+                            color: Colors.black87),
+                      ),
+                    )),
+                    // Explore(),
+                Explore(),
+                    
               ]),
+              
         );
       },
     );
   }
 }
+
+

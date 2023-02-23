@@ -58,8 +58,9 @@ class Services extends StatelessWidget {
                           // searchlist.resProv();
                           print('navigation called');
 
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SearchList()));
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => SearchList())
+                          //     );
                         },
                         child: Container(
                           height: 40,

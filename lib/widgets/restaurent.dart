@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
-import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/screens/RestaurantProfile.dart';
 
 class restaurant extends StatelessWidget {
   const restaurant({
@@ -26,14 +26,9 @@ class restaurant extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) =>
                     GestureDetector(
                       onTap: () async {
-                        // this is for getting restaurant comments
-                        // var rescomments = Provider.of<rescommentsProvider>(
-                        //     context,
-                        //     listen: false);
-                        // await rescomments.resProv(provider.data[index].name);
                         
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => profile(
+                            builder: (context) => restaurantProfile(
                                   id: provider.data[index].id,
                                 ))
                                 );

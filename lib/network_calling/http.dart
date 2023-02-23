@@ -74,9 +74,10 @@ Future<List<ServicesModel>> getData() async {
     }
   }
 
+
+
 // get single service data
 // api_service.dart
-
 
 Future<Map<String, dynamic>> getSingleServiceData(id) async {
   final response = await http.get(Uri.parse("https://bitebest.azurewebsites.net/serviceid/$id"));
@@ -87,16 +88,6 @@ Future<Map<String, dynamic>> getSingleServiceData(id) async {
   }
 }
 
-
-Future<List> getsingleData(id) async {
-  final response = await http.get(Uri.parse("https://bitebest.azurewebsites.net/serviceid/$id"));
-  if (response.statusCode == 200) {
-    List data = json.decode(response.body);
-    return data.map((ServicesModel) => ServicesModel.fromJson(ServicesModel)).toList();
-  } else {
-    throw Exception("Failed to load data");
-  }
-}
 
 
 // getting search list data
@@ -137,8 +128,8 @@ Future<List> getsingleData(id) async {
 // -----------------------------------------------------------------------------------------------------
   // getting  restaurant comments api data 
 
-  Future<List<Rescommentonlyone>> getRestaurantCommentsData(resname) async {
-    List<Rescommentonlyone> resList = [];
+  Future<List<CommentsModel>> getRestaurantCommentsData(resname) async {
+    List<CommentsModel> resList = [];
     try {
       var url = 'https://fuhrer.azurewebsites.net/rescommentname/$resname';
       var request = http.Request('GET', Uri.parse(url));
@@ -161,7 +152,7 @@ Future<List> getsingleData(id) async {
         // resList.add(modeldata);
         // print("checking resList $resList");
         // }
-        Rescommentonlyone modeldata =  Rescommentonlyone.fromJson(data);
+        CommentsModel modeldata =  CommentsModel.fromJson(data);
         resList.add(modeldata);  
         //  print("checking model data in http $modeldata");
         // print("checking resList $resList");
@@ -182,13 +173,54 @@ Future<List> getsingleData(id) async {
     }
   }
 
+// modeified above get comment code
+
+late Future<List<Comment>> commentsvar;
+
+  set commentsFuture(Future<List<Comment>> value) {
+      commentsvar = value;
+
+  }
+
+  int getCommentsLength() {
+  int length = 0;
+  commentsvar.then((list) => length = list.length);
+  return length;
+}
+
+Future<List<Comment>> getComments(String serviceid) async {
+  print("getComments called");
+  final response = await http.get(Uri.parse("https://bitebest.azurewebsites.net/commentsid/$serviceid"));
+  print("Response status code: ${response.statusCode}");
+  print("Response body: ${response.body}");
+
+  if (response.statusCode == 200) {
+    var body = json.decode(response.body);
+    print("body $body");
+    var commentsJson = body["comments"];
+    print("commentsJson $commentsJson");
+    // List<Comment> comments = commentsJson.map((commentJson) => Comment.fromJson(commentJson)).toList();
+    List<Comment> comments = (commentsJson as List<dynamic>).map((commentJson) => Comment.fromJson(commentJson as Map<String, dynamic>)).toList();
+    // List<Comment> comments = commentsJson.map((commentJson) => Comment.fromJson(commentJson as Map<String, dynamic>)).toList();
+    // commentsvar = comments as Future<List<Comment>>;
+
+
+    print("comments $comments");
+    return comments;
+  } else {
+    throw Exception('Failed to load comments');
+  }
+}
+
+
+
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data 
 
-Future<List<Usermodel>> getUserData(id) async {
+Future<List<UserModel>> getUserData(id) async {
   print("function called");
-    List<Usermodel> resList = [];
+    List<UserModel> resList = [];
     try {
       var url = 'https://fuhrer.azurewebsites.net/user/$id';
       var request = http.Request('GET', Uri.parse(url));
@@ -201,7 +233,7 @@ Future<List<Usermodel>> getUserData(id) async {
         //  print("checking raw data $rawData");
         // 
          Map<String, dynamic> data = Map<String, dynamic>.from(json.decode(rawData));
-         Usermodel modeldata =  Usermodel.fromJson(data);
+         UserModel modeldata =  UserModel.fromJson(data);
          print("checking raw decode data $data");
         //  print("checking modeldata $modeldata");
         resList.add(modeldata);

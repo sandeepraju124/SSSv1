@@ -9,29 +9,41 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 
-class profile extends StatefulWidget {
+import '../models/rescomments_models.dart';
+
+class restaurantProfile extends StatefulWidget {
+  List<Comment> data = [];
   final String id;
 
-  profile({required this.id});
+  restaurantProfile({required this.id});
 
   @override
-  State<profile> createState() => _profileState();
+  State<restaurantProfile> createState() => _restaurantProfileState();
 }
 
-class _profileState extends State<profile> {
+class _restaurantProfileState extends State<restaurantProfile> {
+  // late Future<List<Comment>> comments;
+  // late int comments;
   @override
-  void initState() {
+  void initState()async {
     print('widget id');
-    print(widget.id);
-    // GetData().getSingleServiceData(widget.id);
+    print(widget.id); //this is service id
+    // comments = GetData().getComments(widget.id);
+    // var comments = Provider.of<commentsProvider>(context, listen: true);
+    // comments.resProv(widget.id);
 
-    super.initState();
+  //  GetData().commentsFuture= 
+  List<Comment> datalist = await  GetData().getComments(widget.id);
+   GetData().getComments(widget.id);
+   super.initState();
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    var rescomments = Provider.of<rescommentsProvider>(context, listen: true);
-    var user = Provider.of<UserProvider>(context, listen: false);
+    
+    
+
     // print("printing provider data");
     // print(widget.idpasses.toString());
     // print(rescomments.data[0].comments[1].comment);
@@ -72,7 +84,7 @@ class _profileState extends State<profile> {
                     child: Container(
                       height: 110,
                       width: 210,
-                      // color: Colors.redAccent,
+                      color: Colors.redAccent,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
@@ -152,7 +164,9 @@ class _profileState extends State<profile> {
                 )
               ],
             ),
-            Text(rescomments.data.length.toString()),
+            Text("gumadi pandu"
+              // rescomments.data.length.toString()
+              ),
             const SizedBox(
               height: 10,
             ),
@@ -260,7 +274,8 @@ class _profileState extends State<profile> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(rescomments.data.length.toString(),
+                        Text("viidi peru enti",
+                          // rescomments.data.length.toString(),
                             style: TextStyle(
                                 fontFamily: "Roboto", color: Colors.green))
                       ]),
@@ -301,15 +316,143 @@ class _profileState extends State<profile> {
             SizedBox(
               height: 400,
               child: ListView.builder(
-                  itemCount: 1,
+                  itemCount: 
+                  // GetData().getCommentsLength(),
+                  2,
                   // rescomments.data[0].comments.length,
                   shrinkWrap: true,
                   // scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext, int) => Text(data["name"] ?? "Unknown"),
+                  itemBuilder: (BuildContext, int) => Text("skip for now")
+
+                  // -------------------------------------------
+            //       Container(
+            //   height: 200,
+            //   color: Colors.white,
+            //   child: Column(children: [
+            //     Container(
+            //         height: 60,
+            //         // color: Colors.white,
+            //         child: Row(
+            //           children: [
+            //             //Column1 Row1
+            //             Expanded(
+            //               flex: 30,
+            //               child: Container(
+            //                 child: Column(children: [
+            //                   CircleAvatar(
+            //                       radius: 22,
+            //                       backgroundImage:AssetImage("images/modell.jpeg")
+            //                           // NetworkImage(user.data[0].dp.toString())
+            //                           ),
+            //                   // Gap(2),
+            //                   Text(
+            //                       'Sandeep Raju',
+            //                       // user.data[0].username.toString(),
+            //                       style: TextStyle(fontSize: 12)),
+            //                 ]),
+            //                 // color: Colors.green,
+            //               ),
+            //             ),
+            //             //Column1 Row2
+            //             Expanded(
+            //                 flex: 40,
+            //                 child: Container(
+            //                   // color: Colors.amber[400],
+            //                   child: Column(children: [
+            //                     Expanded(
+            //                         child: Container(
+            //                       // color: Colors.deepPurpleAccent,
+            //                       child: Row(
+            //                         mainAxisAlignment: MainAxisAlignment.center,
+            //                         children: const [
+            //                           Icon(Icons.star_rate_rounded),
+            //                           Icon(Icons.star_rate_rounded),
+            //                           Icon(Icons.star_rate_rounded),
+            //                           Icon(Icons.star_rate_rounded),
+            //                           // Icon(Icons.star_rate_rounded),
+            //                         ],
+            //                       ),
+            //                     )),
+            //                     Expanded(
+            //                         child: Container(
+            //                       color: Colors.purple,
+            //                     ))
+            //                   ]),
+            //                 )),
+            //             // Column1 Row3
+            //             Expanded(
+            //                 flex: 30,
+            //                 child: Container(
+            //                     // margin: EdgeInsets.all(5),
+            //                     // color: Colors.amber[700],
+            //                     child: Row(
+            //                   mainAxisAlignment: MainAxisAlignment.center,
+            //                   children: [
+            //                     Column(
+            //                       mainAxisAlignment: MainAxisAlignment.center,
+            //                       children: [
+            //                         Container(
+            //                           margin: const EdgeInsets.all(3),
+            //                           child: const Icon(
+            //                             FontAwesomeIcons.circleArrowUp,
+            //                           ),
+            //                         ),
+            //                         const Text(
+            //                           "Uplift",
+            //                           style: TextStyle(fontSize: 8),
+            //                         ),
+            //                       ],
+            //                     ),
+            //                     Column(
+            //                       mainAxisAlignment: MainAxisAlignment.center,
+            //                       children: [
+            //                         Container(
+            //                             margin: const EdgeInsets.all(3),
+            //                             child: const Icon(
+            //                                 FontAwesomeIcons.circleArrowDown)),
+            //                         const Text("Downlift",
+            //                             style: TextStyle(fontSize: 8)),
+            //                       ],
+            //                     ),
+            //                   ],
+            //                 )))
+            //           ],
+            //         )),
+            //     // column 2
+            //     Expanded(
+            //       child: Container(
+            //           margin: const EdgeInsets.all(10),
+            //           // color: Colors.indigo,
+            //           // String comm = rescomments.data[name][indexvalue][["comment"];
+            //           child:
+            //               // Text("lopam zopam jhfuhrh iiejije oiejrijre ojrfoirjef oirjfffffffr orjow reoj  o;rj fwrfiwre flerf fwruhfw ier")
+
+            //               Text("name",
+            //             // rescomments.data[0].comments[indexvalue].comment,
+            //             // data["name"] ?? "Unknown"
+            //             // comments[widget.index].comment,
+            //             style: TextStyle(color: Colors.black54),
+            //           )),
+            //     ),
+            //     // comm = rescomments.data[indexvalue].name["comments"])
+
+            //     // Column 3
+            //     Expanded(
+            //         child: Container(
+            //       // color: Colors.lightGreenAccent,
+            //       child: ListView.builder(
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: 5,
+            //         itemBuilder: (BuildContext, int) => Text("skip")
+            //         // images(),
+            //       ),
+            //     )),
+            //   ]),
+            // )
+            // --------------------------------------------------
                   // commentSection(
-                  //       indexvalue: int,
-                  //       // resname: widget.idpasses,
-                  //       resname: service.data[int].name
+                  //       index: int,
+                  //       serviceid: widget.id,
                   //     )
                       ),
             )
@@ -323,7 +466,7 @@ class _profileState extends State<profile> {
 
           }
           else {
-            return Text('Empty data');}
+            return Text('Emptyy data');}
         
       });
     
@@ -331,37 +474,72 @@ class _profileState extends State<profile> {
   }
 }
 
-class commentSection extends StatelessWidget {
-  int indexvalue; // 1,2,3,4,5,6,7,8,9
-  String resname;
+////////////////////// comment section //////////////////////////
 
+
+
+
+
+class commentSection extends StatefulWidget {// 1,2,3,4,5,6,7,8,9
+  String serviceid;
+  int index;
+  // late Future<List<Comment>> comments;
   commentSection({
     Key? key,
-    required this.indexvalue,
-    required this.resname,
+    required this.serviceid,
+    required this.index,
+    // required this.comments,
   }) : super(key: key);
 
   @override
+  State<commentSection> createState() => _commentSectionState();
+}
+
+class _commentSectionState extends State<commentSection> {
+
+  // late Future<List<Comment>> comments;
+  @override
+  void initState() {
+    print('widget serviceid');
+    print(widget.serviceid); //this is service id
+    // comments = GetData().getComments(widget.id);
+    // var comments = Provider.of<commentsProvider>(context, listen: true);
+    // comments.resProv(widget.id);
+    GetData obj = new GetData();
+    obj.commentsvar;
+    // GetData().commentsFuture = GetData().getComments(widget.serviceid);
+    // print('init ended');
+    // print(comments);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    resname = resname.toString();
+    // resname = resname.toString();
     List<dynamic> comm;
-    var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
+    // var rescomments = Provider.of<commentsProvider>(context, listen: false);
     var user = Provider.of<UserProvider>(context, listen: false);
     // user.data[0].name[1].toString();
     // var comn = checkuserid(indexvalue,context);
     // print("comn $comn");
     // user.userProv(indexvalue);
-    print("----------------------------------");
+    print("commentSection build called");
     print(user.data.length);
     // print(user.data[0].name);
     // print(rescomments.data);
     // print("rescomments");
-    return FutureBuilder(
-        future: checkuserid(indexvalue, context),
+    return FutureBuilder<List<Comment>>(
+        future: 
+        GetData().commentsvar,
+        // comments = GetData().getComments(widget.serviceid),
+        // GetData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData && snapshot.data != null  ) {
+            print("snapshot has data called");
+            // Map data = snapshot.data as Map;
+            List<Comment> comments = snapshot.data ?? [];
             return Container(
               height: 200,
               color: Colors.white,
@@ -378,12 +556,13 @@ class commentSection extends StatelessWidget {
                             child: Column(children: [
                               CircleAvatar(
                                   radius: 22,
-                                  backgroundImage:
-                                      NetworkImage(user.data[0].dp.toString())),
+                                  backgroundImage:AssetImage("images/modell.jpeg")
+                                      // NetworkImage(user.data[0].dp.toString())
+                                      ),
                               // Gap(2),
                               Text(
-                                  // 'Sandeep Raju',
-                                  user.data[0].username.toString(),
+                                  'Sandeep Raju',
+                                  // user.data[0].username.toString(),
                                   style: TextStyle(fontSize: 12)),
                             ]),
                             // color: Colors.green,
@@ -464,7 +643,9 @@ class commentSection extends StatelessWidget {
                           // Text("lopam zopam jhfuhrh iiejije oiejrijre ojrfoirjef oirjfffffffr orjow reoj  o;rj fwrfiwre flerf fwruhfw ier")
 
                           Text(
-                        rescomments.data[0].comments[indexvalue].comment,
+                        // rescomments.data[0].comments[indexvalue].comment,
+                        // data["name"] ?? "Unknown"
+                        comments[widget.index].comment,
                         style: TextStyle(color: Colors.black54),
                       )),
                 ),
@@ -477,7 +658,8 @@ class commentSection extends StatelessWidget {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 5,
-                    itemBuilder: (BuildContext, int) => images(),
+                    itemBuilder: (BuildContext, int) => Text("skip")
+                    // images(),
                   ),
                 )),
               ]),
@@ -509,16 +691,16 @@ class images extends StatelessWidget {
   }
 }
 
-Future<bool> checkuserid(indexvalue, context) async {
-  var rescomments = Provider.of<rescommentsProvider>(context, listen: false);
-  var user = Provider.of<UserProvider>(context, listen: false);
-  int id = await rescomments.data[0].comments[indexvalue].userId;
-  await user.userProv(id);
-  print("xnxnxnxnxnxnxnxnxnxnx");
-  print(id);
-  // var comname = user.data[0].name;
-  return true;
-}
+// Future<bool> checkuserid(indexvalue, context) async {
+//   var rescomments = Provider.of<commentsProvider>(context, listen: false);
+//   var user = Provider.of<UserProvider>(context, listen: false);
+//   int id = await rescomments.data[0].comments[indexvalue].userId;
+//   await user.userProv(id);
+//   print("xnxnxnxnxnxnxnxnxnxnx");
+//   print(id);
+//   // var comname = user.data[0].name;
+//   return true;
+// }
 
 
 // Future<bool> GetRestaurantData(id, context) async {

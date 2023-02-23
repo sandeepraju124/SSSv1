@@ -7,9 +7,12 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sssv1/screens/profile.dart';
+import 'package:sssv1/screens/RestaurantProfile.dart';
+import 'package:sssv1/screens/realestateProfileTest.dart';
 import 'package:sssv1/screens/searchlist.dart';
+import 'package:sssv1/screens/test.dart';
 import 'package:sssv1/screens/user_profile.dart';
+import 'package:sssv1/widgets/commentSection.dart';
 import 'package:sssv1/widgets/explore.dart';
 import 'package:sssv1/widgets/services.dart';
 import './login/google_login_controller.dart';
@@ -29,8 +32,8 @@ void main() async {
     ChangeNotifierProvider<SearchlistProvider>(
       create: (_) => SearchlistProvider(),
     ),
-    ChangeNotifierProvider<rescommentsProvider>(
-      create: (_) => rescommentsProvider(),
+    ChangeNotifierProvider<commentsProvider>(
+      create: (_) => commentsProvider(),
     ),
     ChangeNotifierProvider<UserProvider>(
       create: (_) => UserProvider(),
@@ -55,7 +58,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: Explore(),
+      // home: RealEstateProfile(),
+      // home:CommentSection(index: 1),
+      // home: RestaurantScreen(),
       home: redirection(),
     );
   }
