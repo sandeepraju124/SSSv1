@@ -218,39 +218,21 @@ Future<List<Comment>> getComments(String serviceid) async {
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data 
 
-Future<List<UserModel>> getUserData(id) async {
-  print("function called");
-    List<UserModel> resList = [];
-    try {
-      var url = 'https://fuhrer.azurewebsites.net/user/$id';
-      var request = http.Request('GET', Uri.parse(url));
-      //  print("checking request data $request");
-      http.StreamedResponse response = await request.send();
-      // print("checking response data $response");
-      if (response.statusCode==200) {
-        // print("200");
-         var rawData=await response.stream.bytesToString();
-        //  print("checking raw data $rawData");
-        // 
-         Map<String, dynamic> data = Map<String, dynamic>.from(json.decode(rawData));
-         UserModel modeldata =  UserModel.fromJson(data);
-         print("checking raw decode data $data");
-        //  print("checking modeldata $modeldata");
-        resList.add(modeldata);
-        print("resList $resList");
-      return resList;
-      }else{
-        print("not 200");
-        print("exemption getUserData");
-         print(response.reasonPhrase);
-        return [];
-      }
-      
-    } catch (e) {
-      print("exemption getUserData catch $e");
-      throw e;
-    }
+
+Future<UserModel> fetchUsersData() async {
+  final user = FirebaseAuth.instance.currentUser;
+  final userid = user?.uid;
+  final apiUrl = Uri.parse('https://bitebest.azurewebsites.net/user/$userid'); 
+  final response = await http.get(apiUrl);
+  print("response $response");
+  if (response.statusCode == 200) {
+    final responseBody = json.decode(response.body);
+    print("responseBody $responseBody");
+    return UserModel.fromJson(responseBody);
+  } else {
+    throw Exception('Failed to fetch data');
   }
+}
 
   // ------------------------------------------------------------------------------------
   // post user data

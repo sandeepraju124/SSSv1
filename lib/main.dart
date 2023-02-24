@@ -12,6 +12,7 @@ import 'package:sssv1/screens/realestateProfileTest.dart';
 import 'package:sssv1/screens/searchlist.dart';
 import 'package:sssv1/screens/test.dart';
 import 'package:sssv1/screens/user_profile.dart';
+import 'package:sssv1/widgets/category.dart';
 import 'package:sssv1/widgets/commentSection.dart';
 import 'package:sssv1/widgets/explore.dart';
 import 'package:sssv1/widgets/services.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
-      // home: RestaurantScreen(),
+      // home: CategoryGrid(),
       home: redirection(),
     );
   }
