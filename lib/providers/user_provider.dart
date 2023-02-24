@@ -8,11 +8,14 @@ import '../models/restaurant.dart';
 
 
 class UserProvider with ChangeNotifier{
-  List<UserModel> data = [];
-  Future<void> userProv(id) async {
-    List<UserModel> datalist = await GetData().getUserData(id);
-    this.data = datalist;
+  UserModel? data;
+  Future<void> userProv() async {
+    // List<UserModel> datalist = await GetData().getUserData(id);
+    UserModel userModel = await GetData().fetchUsersData();
+    // Map datalist = await GetData().fetchUsersData();
+    data = userModel;
+    print("userProvider data $data");
      notifyListeners();
-     print("userProvider data $data");
+     
   }
   }

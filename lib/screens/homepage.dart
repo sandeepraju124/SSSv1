@@ -4,8 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/login/google_login_controller.dart';
+import 'package:sssv1/models/user_models.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/header_drawer.dart';
 import 'package:sssv1/screens/mydrawerlist.dart';
 import 'package:sssv1/widgets/explore.dart';
@@ -37,11 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
       // auth.resProv;
       provider.serviceProv();
       // searchlist.resProv();
+      // GetData().fetchUsersData();
 
 // ------------------------------
-
-
-
     });
 
     super.initState();
@@ -50,23 +50,19 @@ class _MyHomePageState extends State<MyHomePage> {
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;
-    print(userid);
+    print("userid $userid");
     print(user?.email);
+    
+    
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
+    var userpro = Provider.of<UserProvider>(context, listen: false);
+    userpro.userProv();
 
-    // print('building called');
-    // List<RestaurantModels> data =await getData().getRestaurantData();
 
     return Consumer<serviceProvider>(
       builder: (BuildContext context, provider, Widget? child) {
-        // print('build calling after build');
-
-        // List<RestaurantModels> data =await getData().getRestaurantData();
-        // provider.resProv(_data);
-
         return Scaffold(
           // backgroundColor: Color(0xffCAD3D3),
           // backgroundColor: const Color(0xff49426C),

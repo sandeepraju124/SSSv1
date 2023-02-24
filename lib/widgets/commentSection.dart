@@ -20,7 +20,7 @@ class CommentSection extends StatelessWidget {
     if (response.statusCode == 200) {
       return CommentModel.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to fetch restaurant a ');
+      throw Exception('no review found sorry be the first one to review ');
     }
   }
 

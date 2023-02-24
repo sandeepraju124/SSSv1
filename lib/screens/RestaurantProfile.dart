@@ -524,7 +524,7 @@ class _commentSectionState extends State<commentSection> {
     // print("comn $comn");
     // user.userProv(indexvalue);
     print("commentSection build called");
-    print(user.data.length);
+    // print(user.data.length);
     // print(user.data[0].name);
     // print(rescomments.data);
     // print("rescomments");
