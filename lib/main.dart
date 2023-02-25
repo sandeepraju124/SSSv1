@@ -15,7 +15,6 @@ import 'package:sssv1/screens/user_profile.dart';
 import 'package:sssv1/widgets/category.dart';
 import 'package:sssv1/widgets/commentSection.dart';
 import 'package:sssv1/widgets/explore.dart';
-import 'package:sssv1/widgets/services.dart';
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
 import './login/redirection.dart';
