@@ -15,7 +15,6 @@ class UserProvider with ChangeNotifier{
     // Map datalist = await GetData().fetchUsersData();
     data = userModel;
     print("userProvider data $data");
-     notifyListeners();
-     
+     notifyListeners(); 
   }
   }

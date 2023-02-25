@@ -77,9 +77,9 @@ class _SearchListState extends State<SearchList> {
                     // color: Colors.indigoAccent,
                     width: 80,
                     height: 80,
-                    child: Image.asset(
-                      
-                      "images/restaurant/restaurant2.jpg",
+                    child: Image.network(
+                      snapshot.data![index]['image'],
+                      // "images/restaurant/restaurant2.jpg",
                   
                       fit: BoxFit.fill,
                     )),
