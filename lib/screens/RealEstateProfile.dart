@@ -16,6 +16,7 @@ class RealEstateProfile extends StatefulWidget {
 }
 
 class _RealEstateProfileState extends State<RealEstateProfile> {
+  
   Future<Map<String, dynamic>> _fetchData(id) async {
     final response = await http
         .get(Uri.parse('https://bitebest.azurewebsites.net/serviceid/$id'));
@@ -51,11 +52,12 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          color: Colors.redAccent,
+                          color: Colors.grey,
                           height: 150,
                           width: double.infinity,
                           child: Image.network(
-                            "https://images.unsplash.com/photo-1495954380655-01609180eda3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                            data!['imagenext'],
+                            // "https://images.unsplash.com/photo-1495954380655-01609180eda3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -77,7 +79,8 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                   height: double.infinity,
                                   // color: Colors.lightBlue,
                                   child: Image.network(
-                                    "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+                                    data['image'],
+                                    // "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -211,6 +214,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                               // color: Colors.blue,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  
                                   String? userid = userpro.data?.userid;
                                   Map<String,String> CommentBody = {
                                       "name":data['name'],
@@ -239,8 +243,12 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                     ),
                     SizedBox(
                         height: 200,
+
+                        //comment section
+
                         child: CommentSection(
                           id: widget.id,
+
                         ))
                     // Comment()
 

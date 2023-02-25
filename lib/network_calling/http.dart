@@ -221,7 +221,7 @@ Future<List<Comment>> getComments(String serviceid) async {
 
 Future<UserModel> fetchUsersData() async {
   final user = FirebaseAuth.instance.currentUser;
-  final userid = user?.uid;
+  final userid = user?.uid;  //d8JpVQttpad6s5maOboGC0iCVaB3
   final apiUrl = Uri.parse('https://bitebest.azurewebsites.net/user/$userid'); 
   final response = await http.get(apiUrl);
   print("response $response");

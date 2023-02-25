@@ -16,8 +16,7 @@ class commentsProvider with ChangeNotifier{
     for (var element in data) { 
           // print("checking for each $element");
           }
-    }
-     
+    }     
      notifyListeners();
      
   }
