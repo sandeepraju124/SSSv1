@@ -7,17 +7,11 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sssv1/screens/RestaurantProfile.dart';
-import 'package:sssv1/screens/realestateProfileTest.dart';
-import 'package:sssv1/screens/searchlist.dart';
-import 'package:sssv1/screens/test.dart';
-import 'package:sssv1/screens/user_profile.dart';
-import 'package:sssv1/widgets/category.dart';
-import 'package:sssv1/widgets/commentSection.dart';
-import 'package:sssv1/widgets/explore.dart';
+import 'package:sssv1/screens/bottomnav.dart';
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
-import './login/redirection.dart';
+
+import 'login/redirection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +56,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: CategoryGrid(),
       home: redirection(),
+      // home: BottomNavPage(),
     );
   }
 }

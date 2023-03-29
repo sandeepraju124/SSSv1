@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/Material.dart';
@@ -16,10 +18,9 @@ class RealEstateProfile extends StatefulWidget {
 }
 
 class _RealEstateProfileState extends State<RealEstateProfile> {
-  
   Future<Map<String, dynamic>> _fetchData(id) async {
     final response = await http
-        .get(Uri.parse('https://bitebest.azurewebsites.net/serviceid/$id'));
+        .get(Uri.parse('https://von1.azurewebsites.net/serviceid/$id'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -214,28 +215,27 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                               // color: Colors.blue,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  
                                   String? userid = userpro.data?.userid;
-                                  Map<String,String> CommentBody = {
-                                      "name":data['name'],
-                                      "serviceid":widget.id,
-                                      "comment":_commentcontroller.text,
-                                      "user_id":userid.toString()
+                                  Map<String, String> CommentBody = {
+                                    "name": data['name'],
+                                    "serviceid": widget.id,
+                                    "comment": _commentcontroller.text,
+                                    "user_id": userid.toString()
                                   };
                                   setState(() {
-                                  GetData().postData("https://bitebest.azurewebsites.net/addcomment",CommentBody);
-                                  print(_commentcontroller.text);
+                                    GetData().postData(
+                                        "https://bitebest.azurewebsites.net/addcomment",
+                                        CommentBody);
+                                    print(_commentcontroller.text);
                                   });
                                   // Code to run when the button is pressed
-                                  
                                 },
                                 child: Text('Publish'),
                               ),
                             )),
-
                       ]),
                     ),
-                    
+
 // --------------------------------------------------------
 // ---------------------------comment section------------------------
                     SizedBox(
@@ -248,7 +248,6 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
 
                         child: CommentSection(
                           id: widget.id,
-
                         ))
                     // Comment()
 

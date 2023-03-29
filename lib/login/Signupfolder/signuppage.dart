@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sssv1/network_calling/http.dart';
 import '../google_login_controller.dart';
 
@@ -47,7 +46,6 @@ class _SignUpPageState extends State<SignUpPage> {
           email: _emailcontroller.text.trim(),
           password: _passwordcontroller.text.trim());
 
-
       // adding users data in firebase
 
       // adduserdetails(
@@ -56,22 +54,23 @@ class _SignUpPageState extends State<SignUpPage> {
       //     int.parse(_mobilenumbercontroller.text.trim()),
       //     _emailcontroller.text.trim());
 
-
-          final user = FirebaseAuth.instance.currentUser;
-          final userid = user?.uid;
-          Map<String, String> body = {
-            'name': _firstnamecontroller.text.trim(),
-            'email': _emailcontroller.text.trim(),
-            "username":_lastnamecontroller.text.trim(),
-            "dp":"https://tinypng.com/images/social/website.jpg",
-            "street":"hyderabad",
-            "state":"telangana",
-            "zipcode":"500072",
-            "lat":"546",
-            "lng":"648",
-            "userid":userid.toString()
-  };
-          GetData().postData('https://bitebest.azurewebsites.net/user', body).then((value) => print('Data posted successfully'));
+      final user = FirebaseAuth.instance.currentUser;
+      final userid = user?.uid;
+      Map<String, String> body = {
+        'name': _firstnamecontroller.text.trim(),
+        'email': _emailcontroller.text.trim(),
+        "username": _lastnamecontroller.text.trim(),
+        "dp": "https://tinypng.com/images/social/website.jpg",
+        "street": "hyderabad",
+        "state": "telangana",
+        "zipcode": "500072",
+        "lat": "546",
+        "lng": "648",
+        "userid": userid.toString()
+      };
+      GetData()
+          .postData('https://von1.azurewebsites.net/user', body)
+          .then((value) => print('Data posted successfully'));
     } on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
@@ -90,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   // adding user data to firebase
-  
+
   // Future adduserdetails(
   //     String firstname, String lastname, int mobilenumber, String email) async {
   //   await FirebaseFirestore.instance.collection('Userdetails').add({
