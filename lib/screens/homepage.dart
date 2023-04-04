@@ -2,12 +2,10 @@
 
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
-import 'package:sssv1/bottomnavpages/communitypage.dart';
-import 'package:sssv1/bottomnavpages/profile.dart';
-import 'package:sssv1/bottomnavpages/search.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
+import 'package:sssv1/bottomnavpages/bottomnav.dart';
 
 import 'package:sssv1/widgets/explore.dart';
 import '../widgets/searchbar.dart';
@@ -44,18 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  /////////// bottom navigation bar //////////
-  ///
-
-  int _currentindex = 0;
-
-  final pages = [
-    MyHomePage(),
-    Communitypage(),
-    Searchpage(),
-    MyProfilepage(),
-  ];
-
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -72,31 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Consumer<serviceProvider>(
       builder: (BuildContext context, provider, Widget? child) {
         return Scaffold(
-          //// bottom navigation bar //////////////////
-
-          bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.black45,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: _currentindex,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.apps_sharp), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person_pin_rounded), label: 'Community'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: ' My Profile'),
-            ],
-            onTap: (index) {
-              setState(() {
-                _currentindex = index;
-              });
-            },
-          ),
-
+          extendBody: true,
           appBar: AppBar(
             centerTitle: true,
             title: Padding(

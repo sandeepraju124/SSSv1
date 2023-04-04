@@ -64,7 +64,7 @@ class GetData {
       }
     } catch (e) {
       // print("exemption $e");
-      throw e;
+      rethrow;
     }
   }
 
