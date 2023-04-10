@@ -12,28 +12,24 @@ class CommentSection extends StatelessWidget {
 
   final String id; ////63f11685190416d07f3687e7 //Elite Estates
 
-  Future<CommentModel> fetchRestaurant(id) async {
+  Future<CommentModel?> fetchService(id) async {
     print("fetched id: $id");
 
     final response = await http
-        .get(Uri.parse('https://von1.azurewebsites.net/rescommentid/$id'));
+        .get(Uri.parse('https://von1.azurewebsites.net/serviceIdForComments/$id'));
 
     print('Response $response');
-
-    // final response = await http
-    //     .get(Uri.parse('https://bitebest.azurewebsites.net/rescommentid/63f77d78ae4cd20951914205'));
-    //   if (response.statusCode == 200) {
-    //     return CommentModel.fromJson(jsonDecode(response.body));
-    //   } else {
-    //     // throw Exception('no review found sorry be the first one to review ');
-    //     return "no review found sorry be the first one to review ";
-    //   }
-    // }
     try {
       if (response.statusCode == 200) {
+        print("200");
         return CommentModel.fromJson(jsonDecode(response.body));
-      } else {
-        throw Exception('Failed to load data from server.');
+      } else if (response.statusCode == 404) {
+        print("404");
+        return null; // return null when comment is not found
+        //  Exception('Comment not found');
+      }
+      else {
+        throw Exception('Failed to load data from server.'); 
       }
     } catch (e) {
       throw Exception(
@@ -53,8 +49,8 @@ class CommentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CommentModel>(
-      future: fetchRestaurant(id),
+    return FutureBuilder<CommentModel?>(
+      future: fetchService(id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           CommentModel commentData = snapshot.data!;
@@ -205,9 +201,14 @@ class CommentSection extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
+          if (snapshot.hasError.toString().contains('Comment not found')){
+            return Text("No comment Found");
+          }else {
+          return Text('Something went wrong. Please try again later.');
         }
-        return Center(child: CircularProgressIndicator());
+        }
+        // return Center(child: CircularProgressIndicator());
+        return Text('no comments found');
       },
     );
   }

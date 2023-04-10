@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import "package:flutter/material.dart";
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sssv1/login/google_login_controller.dart';
+import 'package:provider/provider.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -11,11 +15,15 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    String? email = user?.email;
+    String? name = user?.displayName;
+
     return Scaffold(
         backgroundColor: Colors.grey[100],
         body: ListView(
             //  scrollDirection: Axis.horizontal,
-            padding:const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             shrinkWrap: true,
             children: [
               // ignore: prefer_const_constructors
@@ -39,7 +47,8 @@ class _UserProfileState extends State<UserProfile> {
                         child: Container(
                           decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'),
+                                image: NetworkImage(
+                                    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'),
                                 fit: BoxFit.contain,
                               ),
                               color: Colors.grey,
@@ -49,19 +58,30 @@ class _UserProfileState extends State<UserProfile> {
                           // fit:BoxFit.cover ),
                         ),
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Expanded(
                           flex: 25,
                           child: Container(
                             // color: Colors.grey,
-                            child: Text("Sandeep Raju",
+                            // child: Text(name!),
+                            child: Text(
+                              email!,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+
+                            // Text("Sandeep Raju",
+                            //     style: TextStyle(
+                            //         fontFamily: "Roboto",
+                            //         fontSize: 22,
+                            //         color: Colors.black)),
+                          )),
+                          Text(name?? "",
                                 style: TextStyle(
                                     fontFamily: "Roboto",
                                     fontSize: 22,
                                     color: Colors.black)),
-                          ))
                     ],
                   )),
               SizedBox(
@@ -312,16 +332,53 @@ class _UserProfileState extends State<UserProfile> {
                         indent: 30,
                       ),
                     ],
-                  )),
+                  )
+                  ),
               SizedBox(
                 height: 20,
               ),
+              // logout
+              InkWell(
+                onTap: (){
+                  final provider =
+                  Provider.of<GoogleSignInController>(context, listen: false);
+              provider.logOut();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                  ),
+              
+                  // color: Colors.white,
+                  width: double.infinity,
+                  child: ListTile(
+                    leading: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.all(8),
+                        child: Icon(
+                          Icons.edit_note_sharp,
+                          color: Colors.black,
+                        )),
+                    title: Text(
+                      "Log out",
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+
               Container(
                   height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.deepOrangeAccent)),
+                      
             ]));
   }
 }

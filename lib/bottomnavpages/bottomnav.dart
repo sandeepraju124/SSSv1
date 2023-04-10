@@ -5,6 +5,7 @@ import 'package:sssv1/bottomnavpages/communitypage.dart';
 import 'package:sssv1/bottomnavpages/profilepage/profile.dart';
 import 'package:sssv1/bottomnavpages/search.dart';
 import 'package:sssv1/screens/homepage.dart';
+import 'package:sssv1/screens/user_profile.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
@@ -25,14 +26,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
     MyHomePage(),
     Searchpage(),
     Communitypage(),
-    MyProfilepage(),
+    // MyProfilepage(),
+    UserProfile(),
   ];
 
   Color getDecorationColor(int index) {
     if (index == 0) {
       // If the input integer is equal to 0, then the function returns the color
       // white70 which is a semi-transparent white color.
-      return Colors.white70;
+      return Colors.white;
     } else {
       // If the input integer is not equal to 0, then the function returns the color
       // transparent which has no opacity, i.e. fully transparent.
@@ -53,13 +55,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
           children: [
             SafeArea(
               child: Container(
-                padding: EdgeInsets.all(9),
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                
+                padding: EdgeInsets.all(4),
+                margin: EdgeInsets.symmetric(horizontal: 12,vertical: 12),
                 decoration: BoxDecoration(
                   // color: Colors.transparent,
                   color: getDecorationColor(_currentIndex),
                   border: Border.all(color: Colors.black, width: 0.06),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(27)),
                 ),
                 child: SizedBox(
                   // height: 50,

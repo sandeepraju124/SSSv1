@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sssv1/screens/user_profile.dart';
 
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: CategoryGrid(),
       home: redirection(),
+      // home:UserProfile(),
       // // home: BottomNavPage(),
       // home: BottomNavPage(),
     );

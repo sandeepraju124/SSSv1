@@ -224,7 +224,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                   };
                                   setState(() {
                                     GetData().postData(
-                                        "https://bitebest.azurewebsites.net/addcomment",
+                                        "https://von1.azurewebsites.net/addcomment",
                                         CommentBody);
                                     print(_commentcontroller.text);
                                   });
