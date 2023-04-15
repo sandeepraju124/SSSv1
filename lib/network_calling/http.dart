@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:sssv1/models/services_model.dart';
 import 'package:sssv1/models/user_models.dart';
@@ -42,7 +43,7 @@ class GetData {
   Future<List<ServicesModel>> getData() async {
     List<ServicesModel> resList = [];
     try {
-      var url = 'https://von1.azurewebsites.net/services/restaurant';
+      var url = 'https://revolution.azurewebsites.net/services/restaurant';
       var request = http.Request('GET', Uri.parse(url));
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
@@ -50,13 +51,13 @@ class GetData {
         //  print("checking raw data $rawData");
         List<dynamic> _data = jsonDecode(rawData);
         // print("checking raw decode data $_data");
-        _data.forEach((element) {
+        for (var element in _data) {
           // print("checking each element data $element");
           ServicesModel modeldata = ServicesModel.fromJson(element);
           //  print("checking model data $modeldata");
           resList.add(modeldata);
           // print("checking resList $resList");
-        });
+        }
         return resList;
       } else {
         print(response.reasonPhrase);
@@ -73,7 +74,7 @@ class GetData {
 
   Future<Map<String, dynamic>> getSingleServiceData(id) async {
     final response = await http
-        .get(Uri.parse("https://von1.azurewebsites.net/serviceid/$id"));
+        .get(Uri.parse("https://revolution.azurewebsites.net/serviceid/$id"));
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -86,17 +87,17 @@ class GetData {
   Future<List<SearchListModels>> getSearchlistData() async {
     List<SearchListModels> resList = [];
     try {
-      var url = 'https://von1.azurewebsites.net/users';
+      var url = 'https://revolution.azurewebsites.net/users';
       var request = http.Request('GET', Uri.parse(url));
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var rawData = await response.stream.bytesToString();
         List<dynamic> _data = jsonDecode(rawData);
-        _data.forEach((element) {
+        for (var element in _data) {
           SearchListModels modeldata = SearchListModels.fromJson(element);
           resList.add(modeldata);
           //  print("http called");
-        });
+        }
         return resList;
       } else {
         print(response.reasonPhrase);
@@ -119,7 +120,7 @@ class GetData {
   Future<List<CommentsModel>> getRestaurantCommentsData(resname) async {
     List<CommentsModel> resList = [];
     try {
-      var url = 'https://von1.azurewebsites.net/rescommentname/$resname';
+      var url = 'https://revolution.azurewebsites.net/rescommentname/$resname';
       var request = http.Request('GET', Uri.parse(url));
       // print("checking request $request");
       http.StreamedResponse response = await request.send();
@@ -175,8 +176,8 @@ class GetData {
 
   Future<List<Comment>> getComments(String serviceid) async {
     print("getComments called");
-    final response = await http
-        .get(Uri.parse("https://von1.azurewebsites.net/commentsid/$serviceid"));
+    final response = await http.get(Uri.parse(
+        "https://revolution.azurewebsites.net/commentsid/$serviceid"));
     print("Response status code: ${response.statusCode}");
     print("Response body: ${response.body}");
 
@@ -226,15 +227,22 @@ class GetData {
 
   Future<UserModel> fetchUsersData() async {
     final user = FirebaseAuth.instance.currentUser;
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     final userid = user?.uid; //d8JpVQttpad6s5maOboGC0iCVaB3
-    final apiUrl = Uri.parse('https://von1.azurewebsites.net/user/$userid');
+    final apiUrl =
+        Uri.parse('https://revolution.azurewebsites.net/user/$userid');
     final response = await http.get(apiUrl);
-    print("response $response");
+    if (kDebugMode) {
+      print("response $response");
+    }
     if (response.statusCode == 200) {
-      print('printing if statement');
+      if (kDebugMode) {
+        print('printing if statement');
+      }
       final responseBody = json.decode(response.body);
-      print("response $responseBody");
+      if (kDebugMode) {
+        print("response $responseBody");
+      }
 
       return UserModel.fromJson(responseBody);
     } else {
@@ -259,12 +267,15 @@ class GetData {
     //           "userid":"7447485859"
     // };
     try {
+      String url = "https://revolution.azurewebsites.net/user";
       final response = await http.post(Uri.parse(url), body: body);
       if (response.statusCode != 200) {
         throw Exception('Failed to post data');
       }
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 }

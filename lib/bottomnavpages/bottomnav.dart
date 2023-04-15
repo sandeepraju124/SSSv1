@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/bottomnavpages/communitypage.dart';
-import 'package:sssv1/bottomnavpages/profilepage/profile.dart';
+
 import 'package:sssv1/bottomnavpages/search.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/user_profile.dart';
@@ -30,18 +30,18 @@ class _BottomNavPageState extends State<BottomNavPage> {
     UserProfile(),
   ];
 
-  Color getDecorationColor(int index) {
-    if (index == 0) {
-      // If the input integer is equal to 0, then the function returns the color
-      // white70 which is a semi-transparent white color.
-      return Colors.white;
-    } else {
-      // If the input integer is not equal to 0, then the function returns the color
-      // transparent which has no opacity, i.e. fully transparent.
+  // Color getDecorationColor(int index) {
+  //   if (index == 0) {
+  //     // If the input integer is equal to 0, then the function returns the color
+  //     // white70 which is a semi-transparent white color.
+  //     return Colors.white;
+  //   } else {
+  //     // If the input integer is not equal to 0, then the function returns the color
+  //     // transparent which has no opacity, i.e. fully transparent.
 
-      return Colors.transparent;
-    }
-  }
+  //     return Colors.transparent;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +55,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
           children: [
             SafeArea(
               child: Container(
-                
                 padding: EdgeInsets.all(4),
-                margin: EdgeInsets.symmetric(horizontal: 12,vertical: 12),
+                margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 decoration: BoxDecoration(
                   // color: Colors.transparent,
-                  color: getDecorationColor(_currentIndex),
+                  // color: getDecorationColor(_currentIndex),
+                  color: Colors.white,
                   border: Border.all(color: Colors.black, width: 0.06),
                   borderRadius: BorderRadius.all(Radius.circular(27)),
                 ),

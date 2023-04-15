@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
-import 'package:sssv1/bottomnavpages/bottomnav.dart';
 
 import 'package:sssv1/widgets/explore.dart';
 import '../widgets/searchbar.dart';

@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
         "userid": userid.toString()
       };
       GetData()
-          .postData('https://von1.azurewebsites.net/user', body)
+          .postData('https://revolution.azurewebsites.net/user', body)
           .then((value) => print('Data posted successfully'));
     } on FirebaseAuthException catch (e) {
       print(e);

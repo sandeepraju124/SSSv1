@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'dart:convert';
-import 'dart:ui';
+
 import 'package:flutter/Material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sssv1/network_calling/http.dart';
@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class RealEstateProfile extends StatefulWidget {
   String id; //63f11685190416d07f3687e7 //Elite Estates
-  RealEstateProfile({required this.id});
+  RealEstateProfile({super.key, required this.id});
 
   @override
   _RealEstateProfileState createState() => _RealEstateProfileState();
@@ -20,7 +20,7 @@ class RealEstateProfile extends StatefulWidget {
 class _RealEstateProfileState extends State<RealEstateProfile> {
   Future<Map<String, dynamic>> _fetchData(id) async {
     final response = await http
-        .get(Uri.parse('https://von1.azurewebsites.net/serviceid/$id'));
+        .get(Uri.parse('https://revolution.azurewebsites.net/serviceid/$id'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -224,7 +224,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                   };
                                   setState(() {
                                     GetData().postData(
-                                        "https://von1.azurewebsites.net/addcomment",
+                                        "https://revolution.azurewebsites.net/addcomment",
                                         CommentBody);
                                     print(_commentcontroller.text);
                                   });

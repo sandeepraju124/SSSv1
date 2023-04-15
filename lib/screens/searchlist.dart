@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +15,7 @@ class SearchList extends StatefulWidget {
 
 class _SearchListState extends State<SearchList> {
   Future<List<dynamic>> getData() async {
-    String url = 'https://von1.azurewebsites.net/services/realestate';
+    String url = 'https://revolution.azurewebsites.net/services/realestate';
     http.Response response = await http.get(Uri.parse(url));
     List<dynamic> data = jsonDecode(response.body);
     return data;
@@ -25,7 +25,18 @@ class _SearchListState extends State<SearchList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My App'),
+        title: Text(
+          'My App',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white38,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+        ),
       ),
       body: FutureBuilder<List<dynamic>>(
         future: getData(),
@@ -87,47 +98,43 @@ class _SearchListState extends State<SearchList> {
                                             fit: BoxFit.fill,
                                           )),
                                       Expanded(
-                                        child: Container(
-                                          // width: double.infinity,
-                                          // color: Colors.tealAccent,
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              // mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    // height: 40,
-                                                    margin: EdgeInsets.only(
-                                                        left: 10, top: 20),
-                                                    // height: 10,
-                                                    // color: Color.fromRGBO(255, 152, 0, 1),
-                                                    child: Text(
-                                                        // widget.data["name"],
-                                                        //  "Kritunga Restaurant",
-                                                        snapshot.data![index]
-                                                                ['name'] ??
-                                                            'No name',
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 1),
-                                                  ),
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            // mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  // height: 40,
+                                                  margin: EdgeInsets.only(
+                                                      left: 10, top: 20),
+                                                  // height: 10,
+                                                  // color: Color.fromRGBO(255, 152, 0, 1),
+                                                  child: Text(
+                                                      // widget.data["name"],
+                                                      //  "Kritunga Restaurant",
+                                                      snapshot.data![index]
+                                                              ['name'] ??
+                                                          'No name',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1),
                                                 ),
-                                                Expanded(
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10, top: 3),
-                                                    // color: Colors.pinkAccent,
-                                                    child: Text(
-                                                        "5/f 18 on lane ST, central hong kong",
-                                                        // provider.data[int].address,maxLines: 2,
-                                                        style: TextStyle(
-                                                          color: Colors.grey,
-                                                        )),
-                                                  ),
-                                                )
-                                              ]),
-                                        ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10, top: 3),
+                                                  // color: Colors.pinkAccent,
+                                                  child: Text(
+                                                      "5/f 18 on lane ST, central hong kong",
+                                                      // provider.data[int].address,maxLines: 2,
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      )),
+                                                ),
+                                              )
+                                            ]),
                                       )
                                     ],
                                   ),
@@ -136,7 +143,9 @@ class _SearchListState extends State<SearchList> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              // 2nd half of the container
+
+                              /////// 2nd half of the container ///////////////
+
                               Expanded(
                                 flex: 30,
                                 child: Container(
@@ -185,32 +194,27 @@ class _SearchListState extends State<SearchList> {
                                         )),
                                     Expanded(
                                       flex: 35,
-                                      child: Container(
-                                        child: Row(children: [
-                                          Expanded(
-                                            child: Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 14),
-                                                // color: Colors.redAccent,
-                                                child: const Text(
-                                                  "342",
-                                                  maxLines: 2,
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                )),
+                                      child: Row(children: [
+                                        Expanded(
+                                          child: Container(
+                                              margin: EdgeInsets.only(left: 14),
+                                              // color: Colors.redAccent,
+                                              child: const Text(
+                                                "342",
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )),
+                                        ),
+                                        Expanded(
+                                          child: const Text(
+                                            '30 KM Away',
+                                            style: TextStyle(
+                                                fontSize: 8,
+                                                color: Colors.grey),
                                           ),
-                                          Expanded(
-                                            child: Container(
-                                                // color: Colors.deepPurple,
-                                                child: const Text(
-                                              '30 KM Away',
-                                              style: TextStyle(
-                                                  fontSize: 8,
-                                                  color: Colors.grey),
-                                            )),
-                                          )
-                                        ]),
-                                      ),
+                                        )
+                                      ]),
                                     )
                                   ]),
                                 ),
