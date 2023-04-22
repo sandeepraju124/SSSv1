@@ -239,7 +239,7 @@ class GetData {
       if (kDebugMode) {
         print('printing if statement');
       }
-      final responseBody = json.decode(response.body);
+      final responseBody = await json.decode(response.body);
       if (kDebugMode) {
         print("response $responseBody");
       }

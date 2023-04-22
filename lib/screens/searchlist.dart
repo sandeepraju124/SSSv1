@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:sssv1/screens/realestateProfile.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class SearchList extends StatefulWidget {
   const SearchList({Key? key}) : super(key: key);
@@ -29,7 +30,8 @@ class _SearchListState extends State<SearchList> {
           'My App',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white38,
+        // backgroundColor: Colors.white38,
+        backgroundColor: tgPrimaryColor,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();

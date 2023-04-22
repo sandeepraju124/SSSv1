@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/utils/constants.dart';
 import '../google_login_controller.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -15,11 +16,47 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool passwordObscured = true;
+
+  // void onFocusChange(bool hasFocus) {
+  //   setState(() {
+  //     suffixIconColor = hasFocus ? tgDarkPrimaryColor : tgLightPrimaryColor;
+  //   });
+  // }
+
+  final _emailcontroller = TextEditingController();
+
   final _firstnamecontroller = TextEditingController();
+  // Color suffixIconColor = tgLightPrimaryColor;
+
+  bool _isFocused = false;
+
   final _lastnamecontroller = TextEditingController();
   final _mobilenumbercontroller = TextEditingController();
-  final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
+
+  // adding user data to firebase
+
+  // Future adduserdetails(
+  //     String firstname, String lastname, int mobilenumber, String email) async {
+  //   await FirebaseFirestore.instance.collection('Userdetails').add({
+  //     'First name': firstname,
+  //     'last name': lastname,
+  //     'Mobile Number': mobilenumber,
+  //     'Email': email,
+  //   });
+  // }
+
+  @override
+  void dispose() {
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+    _firstnamecontroller.dispose();
+    _lastnamecontroller.dispose();
+    _mobilenumbercontroller.dispose();
+
+    super.dispose();
+  }
 
   // Future Signup() async {
   //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -88,31 +125,6 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  // adding user data to firebase
-
-  // Future adduserdetails(
-  //     String firstname, String lastname, int mobilenumber, String email) async {
-  //   await FirebaseFirestore.instance.collection('Userdetails').add({
-  //     'First name': firstname,
-  //     'last name': lastname,
-  //     'Mobile Number': mobilenumber,
-  //     'Email': email,
-  //   });
-  // }
-
-  @override
-  void dispose() {
-    _emailcontroller.dispose();
-    _passwordcontroller.dispose();
-    _firstnamecontroller.dispose();
-    _lastnamecontroller.dispose();
-    _mobilenumbercontroller.dispose();
-
-    super.dispose();
-  }
-
-  bool passwordObscured = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,6 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
           style: TextStyle(color: Colors.black),
         ),
         // elevation: 0,
+        shape: Border(bottom: BorderSide(color: tgDarkPrimaryColor)),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -145,24 +158,43 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: InputDecoration(
                     labelText: 'First name',
                     labelStyle: TextStyle(
-                        color: Colors.black54,
+                        color: tgSecondaryText,
                         fontWeight: FontWeight.bold,
                         fontSize: 17.5),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54),
+                      borderSide: BorderSide(color: tgPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: tgDarkPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    suffixIcon: Icon(
-                      Icons.person,
-                      color: Colors.black54,
-                    ),
+                    suffixIcon: Icon(Icons.person,
+                        color: _isFocused
+                            ? tgDarkPrimaryColor
+                            : tgLightPrimaryColor),
                   ),
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  onTap: () {
+                    setState(() {
+                      _isFocused = true;
+                    });
+                  },
+                  onEditingComplete: () {
+                    setState(() {
+                      _isFocused = false;
+                    });
+                  },
+                  onTapOutside: (event) {
+                    setState(() {
+                      _isFocused = false;
+                    });
+                  },
                 ),
               ),
+
               SizedBox(height: 20),
               //last name field//
 
@@ -174,20 +206,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: InputDecoration(
                     labelText: 'Last name',
                     labelStyle: TextStyle(
-                        color: Colors.black54,
+                        color: tgSecondaryText,
                         fontWeight: FontWeight.bold,
                         fontSize: 17.5),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54),
+                      borderSide: BorderSide(color: tgPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: tgDarkPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     suffixIcon: Icon(
                       Icons.person,
-                      color: Colors.black54,
+                      color: tgLightPrimaryColor,
                     ),
                   ),
                 ),
@@ -204,20 +236,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: InputDecoration(
                     labelText: 'Mobile Number (Optional)',
                     labelStyle: TextStyle(
-                        color: Colors.black54,
+                        color: tgSecondaryText,
                         fontWeight: FontWeight.bold,
                         fontSize: 17.5),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54),
+                      borderSide: BorderSide(color: tgPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: tgDarkPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     suffixIcon: Icon(
                       Icons.call,
-                      color: Colors.black54,
+                      color: tgLightPrimaryColor,
                     ),
                   ),
                 ),
@@ -232,20 +264,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
-                        color: Colors.black54,
+                        color: tgSecondaryText,
                         fontWeight: FontWeight.bold,
                         fontSize: 17.5),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54),
+                      borderSide: BorderSide(color: tgPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: tgDarkPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     suffixIcon: Icon(
                       Icons.mail_outlined,
-                      color: Colors.black54,
+                      color: tgLightPrimaryColor,
                     ),
                   ),
                 ),
@@ -263,15 +295,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
-                        color: Colors.black54,
+                        color: tgSecondaryText,
                         fontWeight: FontWeight.bold,
                         fontSize: 17.5),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black54),
+                      borderSide: BorderSide(color: tgPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87),
+                      borderSide: BorderSide(color: tgDarkPrimaryColor),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     suffixIcon: GestureDetector(
@@ -284,7 +316,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         passwordObscured
                             ? Icons.visibility_off_outlined
                             : Icons.visibility,
-                        color: Colors.black54,
+                        color: tgLightPrimaryColor,
                       ),
                     ),
                   ),
@@ -302,7 +334,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Container(
                     padding: EdgeInsets.all(22.0),
                     decoration: BoxDecoration(
-                        color: Colors.deepPurple.shade600,
+                        color: tgDarkPrimaryColor,
                         borderRadius: BorderRadius.circular(12)),
                     child: Center(
                       child: Text(
@@ -345,7 +377,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     "Continue with Google",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black87,
+                      color: tgDarkPrimaryColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

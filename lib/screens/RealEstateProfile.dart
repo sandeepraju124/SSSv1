@@ -4,14 +4,19 @@ import 'dart:convert';
 
 import 'package:flutter/Material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/comments/commentpost.dart';
+// import 'package:sssv1/login/Showmodalcomment.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/user_provider.dart';
+import 'package:sssv1/screens/RestaurantProfile.dart';
+import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/commentSection.dart';
 import 'package:provider/provider.dart';
 
 class RealEstateProfile extends StatefulWidget {
-  String id; //63f11685190416d07f3687e7 //Elite Estates
   RealEstateProfile({super.key, required this.id});
+
+  String id; //63f11685190416d07f3687e7 //Elite Estates
 
   @override
   _RealEstateProfileState createState() => _RealEstateProfileState();
@@ -19,13 +24,25 @@ class RealEstateProfile extends StatefulWidget {
 
 class _RealEstateProfileState extends State<RealEstateProfile> {
   Future<Map<String, dynamic>> _fetchData(id) async {
-    final response = await http
-        .get(Uri.parse('https://revolution.azurewebsites.net/serviceid/$id'));
+    String url = "https://revolution.azurewebsites.net/serviceid/$id";
+    final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
       throw Exception('Failed to fetch data');
     }
+  }
+
+  void _showModalbottomSheet(BuildContext context) {
+    showBottomSheet(
+        context: context,
+        // isScrollControlled:true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        builder: (context) => SingleChildScrollView(
+              child: CommentPost(),
+            ));
   }
 
   @override
@@ -34,9 +51,31 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
     final _commentcontroller = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color(0xffCAD3D3),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showModalbottomSheet(context);
+        },
+        backgroundColor: tgPrimaryColor,
+        child: Icon(
+          Icons.add,
+          color: tgPrimaryText,
+        ),
+      ),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("My Widget"),
+        backgroundColor: tgPrimaryColor,
+        title: Text(
+          "Real Estate",
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black54,
+        ),
+        shape: Border(bottom: BorderSide(color: tgDarkPrimaryColor)),
       ),
       body: Center(
         child: FutureBuilder<Map<String, dynamic>>(
@@ -51,6 +90,9 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                   children: [
                     Stack(
                       clipBehavior: Clip.none,
+
+                      /////////// top image ///////////////
+
                       children: [
                         Container(
                           color: Colors.grey,
@@ -62,19 +104,31 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                             fit: BoxFit.cover,
                           ),
                         ),
+
+                        ///second image ////////////
                         Positioned(
                           left: 0,
-                          right: 0,
-                          bottom: -65,
+                          right: -12,
+                          bottom: -75,
                           child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: tgPrimaryColor,
+                                  width: 1.5,
+                                ),
+                                color: Colors.white),
                             margin: EdgeInsets.only(left: 20, right: 20),
-                            color: Colors.white,
+                            // color: Colors.white,
                             height: 110,
                             width: double.infinity,
                             child: Row(children: [
                               Expanded(
                                 flex: 28,
                                 child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                    color: tgPrimaryColor,
+                                  )),
                                   margin: EdgeInsets.all(10),
                                   width: double.infinity,
                                   height: double.infinity,
@@ -88,7 +142,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                               ),
                               Expanded(
                                   flex: 45,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: double.infinity,
                                     // color: Colors.deepPurple,
@@ -99,7 +153,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                           child: Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 18),
-                                            child: Text(data!['name'],
+                                            child: Text(data['name'],
                                                 style: TextStyle(
                                                   fontSize: 20,
                                                 )),
@@ -152,39 +206,195 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                         ]),
                                   )),
                             ]),
+
                             // width: 50,
                           ),
                         ),
                       ],
                     ),
+
+                    //////// //////////////////////
+                    ///
+
                     SizedBox(
-                      height: 80,
+                      height: 82,
                     ),
+
+                    Divider(
+                      color: Colors.blueGrey,
+                      thickness: .7,
+                    ),
+
+                    //////// services ///////////////
+                    ///
+                    ///////Icon BUTTONS //////////////////////
+
                     Container(
-                        width: double.infinity,
-                        height: 120,
-                        color: Colors.grey),
-                    SizedBox(
-                      height: 8,
+                      width: double.infinity,
+                      height: 120,
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 36, vertical: 12),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blueGrey[50],
+                                      border:
+                                          Border.all(color: tgPrimaryColor)),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.add_comment_outlined),
+                                    iconSize: 36,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                              // SizedBox(height: 2),
+                              Text(
+                                'Add Review',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          ////// second iconbutton //////
+                          Column(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 6)),
+                              Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blueGrey[50],
+                                    border: Border.all(color: tgPrimaryColor)),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.add_a_photo_outlined),
+                                  iconSize: 36,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 11,
+                              ),
+                              Text(
+                                'Add Photo',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+
+                          ///// third icon button /////////
+
+                          Column(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 58, vertical: 6)),
+                              Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blueGrey[50],
+                                    border: Border.all(color: tgPrimaryColor)),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.call),
+                                  iconSize: 36,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 11,
+                              ),
+                              Text(
+                                'Call',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+
+                          ///// fourth iconbutton ////
+
+                          Column(
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 0, vertical: 6)),
+                              Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.blueGrey[50],
+                                    border: Border.all(color: tgPrimaryColor)),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.comment_bank_sharp),
+                                  iconSize: 36,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 11,
+                              ),
+                              Text(
+                                'Ask Community',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ],
+
+                        // SizedBox(height: 10),
+                        // Text(
+                        //   'Add Review',
+                        //   style: TextStyle(fontSize: 12),
+                        // ),
+                      ),
                     ),
-                    Container(
-                        width: double.infinity,
-                        height: 120,
-                        color: Colors.grey),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                        width: double.infinity,
-                        height: 120,
-                        color: Colors.grey),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(userpro.data?.userid ?? "no data"),
-                    SizedBox(
-                      height: 8,
-                    ),
+
+                    // Divider(
+                    //   color: Colors.blueGrey,
+                    //   thickness: .7,
+                    // ),
+
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Container(
+                    //     width: double.infinity,
+                    //     height: 120,
+                    //     color: Colors.grey),
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+                    // // Container(
+                    // //     width: double.infinity, height: 80, color: Colors.grey),
+                    // ShowModelComment(),
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Text(userpro.data?.userid ?? "no data"),
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+
+                    // Padding(
+                    //   padding:
+                    //       EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                    //   child: FloatingActionButton(
+                    //     onPressed: () {},
+                    //     child: Icon(Icons.add),
+                    //   ),
+                    // ),
+
+                    // ShowModelComment(),
+
+                    ////////// comment posting section ////////////////////
+
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 7),
                       width: double.infinity,
@@ -197,15 +407,12 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                       child: Row(children: [
                         Expanded(
                             flex: 76,
-                            child: Container(
-                              // color: Colors.red,
-                              child: TextField(
-                                controller: _commentcontroller,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter Your Review',
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(16.0),
-                                ),
+                            child: TextField(
+                              controller: _commentcontroller,
+                              decoration: InputDecoration(
+                                hintText: 'Enter Your Review',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(16.0),
                               ),
                             )),
                         Expanded(
@@ -278,6 +485,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
 }
 
 // comment ui in case of miss
+
 class Comment extends StatelessWidget {
   const Comment({
     Key? key,
@@ -289,7 +497,7 @@ class Comment extends StatelessWidget {
       height: 200,
       color: Colors.white,
       child: Column(children: [
-        Container(
+        SizedBox(
             height: 60,
             // color: Colors.white,
             child: Row(
@@ -297,54 +505,42 @@ class Comment extends StatelessWidget {
                 //Column1 Row1
                 Expanded(
                   flex: 30,
-                  child: Container(
-                    child: Column(children: [
-                      CircleAvatar(
-                          radius: 22,
-                          backgroundImage: AssetImage("images/modell.jpeg")
-                          // NetworkImage(user.data[0].dp.toString())
-                          ),
-                      // Gap(2),
-                      Text('Sandeep Raju',
-                          // user.data[0].username.toString(),
-                          style: TextStyle(fontSize: 12)),
-                    ]),
-                    // color: Colors.green,
-                  ),
+                  child: Column(children: [
+                    CircleAvatar(
+                        radius: 22,
+                        backgroundImage: AssetImage("images/modell.jpeg")
+                        // NetworkImage(user.data[0].dp.toString())
+                        ),
+                    // Gap(2),
+                    Text('Sandeep Raju',
+                        // user.data[0].username.toString(),
+                        style: TextStyle(fontSize: 12)),
+                  ]),
                 ),
                 //Column1 Row2
                 Expanded(
                     flex: 40,
-                    child: Container(
-                      // color: Colors.amber[400],
-                      child: Column(children: [
-                        Expanded(
-                            child: Container(
-                          // color: Colors.deepPurpleAccent,
+                    child: Column(children: [
+                      Expanded(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.star_rate_rounded),
-                              Icon(Icons.star_rate_rounded),
-                              Icon(Icons.star_rate_rounded),
-                              Icon(Icons.star_rate_rounded),
-                              // Icon(Icons.star_rate_rounded),
-                            ],
-                          ),
-                        )),
-                        Expanded(
-                            child: Container(
-                          color: Colors.purple,
-                        ))
-                      ]),
-                    )),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.star_rate_rounded),
+                          Icon(Icons.star_rate_rounded),
+                          Icon(Icons.star_rate_rounded),
+                          Icon(Icons.star_rate_rounded),
+                          // Icon(Icons.star_rate_rounded),
+                        ],
+                      )),
+                      Expanded(
+                          child: Container(
+                        color: Colors.purple,
+                      ))
+                    ])),
                 // Column1 Row3
                 Expanded(
                     flex: 30,
-                    child: Container(
-                        // margin: EdgeInsets.all(5),
-                        // color: Colors.amber[700],
-                        child: Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
@@ -373,7 +569,7 @@ class Comment extends StatelessWidget {
                           ],
                         ),
                       ],
-                    )))
+                    ))
               ],
             )),
         // column 2
@@ -397,15 +593,12 @@ class Comment extends StatelessWidget {
 
         // Column 3
         Expanded(
-            child: Container(
-          // color: Colors.lightGreenAccent,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (BuildContext, int) => Text("skip")
-              // images(),
-              ),
-        )),
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (BuildContext, int) => Text("skip")
+                // images(),
+                )),
       ]),
     );
   }

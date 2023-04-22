@@ -24,7 +24,7 @@ class MyProfilepage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          MyHeaderDrawer(),
+          // MyHeaderDrawer(),
           Myprofilelist(),
         ],
       ),

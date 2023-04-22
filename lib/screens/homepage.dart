@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/foundation.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
+import 'package:sssv1/utils/constants.dart';
 
 import 'package:sssv1/widgets/explore.dart';
 import '../widgets/searchbar.dart';
@@ -46,9 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;
-    print("userid $userid");
+    if (kDebugMode) {
+      print("userid $userid");
+    }
 
-    print(user?.email);
+    // print(user?.email);
+    if (kDebugMode) {
+      print(user?.email);
+    }
 
     var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
     var userpro = Provider.of<UserProvider>(context, listen: false);
@@ -60,12 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
           extendBody: true,
           appBar: AppBar(
             centerTitle: true,
+
             title: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Image.asset(
                 "images/logo4.png",
                 width: 120,
                 height: 110,
+                color: Colors.black,
               ),
             ),
 
@@ -102,7 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
             //   ),
             // ],
             toolbarHeight: 75.0,
-            backgroundColor: Colors.white,
+            // backgroundColor: Colors.white,
+            // backgroundColor: tgPrimaryColor,
+            backgroundColor: Colors.teal[700],
             elevation: 3.0,
             // leading: IconButton(
             //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
@@ -123,61 +134,65 @@ class _MyHomePageState extends State<MyHomePage> {
           //   ),
           // ),
 
-          body: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: const ScrollPhysics(),
-              children: const [
-                SearchBar(),
-                Gap(15),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                      child: Text(
-                        "Our Top Pick",
-                        style: TextStyle(
-                            fontFamily: "RobotoMono",
-                            fontSize: 27,
-                            color: Colors.black87),
-                      ),
-                    )),
-                Services(),
-                SizedBox(
-                  height: 10,
-                ),
-                // Restaurant Text
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                      child: Text(
-                        "restaurant",
-                        style: TextStyle(
-                            fontFamily: "RobotoMono",
-                            fontSize: 27,
-                            color: Colors.black87),
-                      ),
-                    )),
-                restaurant(),
-                Gap(10),
-                ////// bottom navigation bar ///////////
+          body: Container(
+            // color: tgLightPrimaryColor,
+            color: Colors.teal[50],
+            child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: const ScrollPhysics(),
+                children: const [
+                  SearchBar(),
+                  Gap(15),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                        child: Text(
+                          "Our Top Pick",
+                          style: TextStyle(
+                              fontFamily: "RobotoMono",
+                              fontSize: 27,
+                              color: Colors.black87),
+                        ),
+                      )),
+                  Services(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // Restaurant Text
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                        child: Text(
+                          "restaurant",
+                          style: TextStyle(
+                              fontFamily: "RobotoMono",
+                              fontSize: 27,
+                              color: Colors.black87),
+                        ),
+                      )),
+                  restaurant(),
+                  Gap(10),
+                  ////// bottom navigation bar ///////////
 
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                      child: Text(
-                        "Explore",
-                        style: TextStyle(
-                            fontFamily: "RobotoMono",
-                            fontSize: 27,
-                            color: Colors.black87),
-                      ),
-                    )),
-                // Explore(),
-                Explore(),
-              ]),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                        child: Text(
+                          "Explore",
+                          style: TextStyle(
+                              fontFamily: "RobotoMono",
+                              fontSize: 27,
+                              color: Colors.black87),
+                        ),
+                      )),
+                  // Explore(),
+                  Explore(),
+                ]),
+          ),
         );
       },
     );

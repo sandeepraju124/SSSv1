@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/comments/commentpost.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:sssv1/providers/searchlist_provider.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: CategoryGrid(),
       home: redirection(),
+      // home: CommentPost(),
+
+      // home: ShowModalComment(),
       // home:UserProfile(),
       // // home: BottomNavPage(),
       // home: BottomNavPage(),

@@ -15,8 +15,8 @@ class CommentSection extends StatelessWidget {
   Future<CommentModel?> fetchService(id) async {
     print("fetched id: $id");
 
-    final response = await http
-        .get(Uri.parse('https://von1.azurewebsites.net/serviceIdForComments/$id'));
+    final response = await http.get(Uri.parse(
+        'https://revolution.azurewebsites.net/serviceIdForComments/$id'));
 
     print('Response $response');
     try {
@@ -27,9 +27,8 @@ class CommentSection extends StatelessWidget {
         print("404");
         return null; // return null when comment is not found
         //  Exception('Comment not found');
-      }
-      else {
-        throw Exception('Failed to load data from server.'); 
+      } else {
+        throw Exception('Failed to load data from server.');
       }
     } catch (e) {
       throw Exception(
@@ -39,7 +38,7 @@ class CommentSection extends StatelessWidget {
 
   Future<UserModel> fetchUser(String userId) async {
     final response = await http
-        .get(Uri.parse('https://von1.azurewebsites.net/user/$userId'));
+        .get(Uri.parse('https://revolution.azurewebsites.net/user/$userId'));
     if (response.statusCode == 200) {
       return UserModel.fromJson(jsonDecode(response.body));
     } else {
@@ -201,11 +200,11 @@ class CommentSection extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasError) {
-          if (snapshot.hasError.toString().contains('Comment not found')){
+          if (snapshot.hasError.toString().contains('Comment not found')) {
             return Text("No comment Found");
-          }else {
-          return Text('Something went wrong. Please try again later.');
-        }
+          } else {
+            return Text('Something went wrong. Please try again later.');
+          }
         }
         // return Center(child: CircularProgressIndicator());
         return Text('no comments found');

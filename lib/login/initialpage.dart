@@ -181,6 +181,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sssv1/utils/constants.dart';
 import 'Signupfolder/signupauth.dart';
 import 'package:provider/provider.dart';
 import 'authstate.dart';
@@ -208,7 +209,9 @@ class _InitialPageState extends State<InitialPage> {
                 Text(
                   'Welcome to our Application',
                   style: TextStyle(
-                      color: Colors.deepPurple.shade900,
+                      // color: Colors.deepPurple.shade900,
+                      // Color tgDarkPrimaryColor: Color(#00796B),
+                      color: tgDarkPrimaryColor,
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
                 ),
@@ -216,7 +219,7 @@ class _InitialPageState extends State<InitialPage> {
                 Text(
                   'Create your Account',
                   style: TextStyle(
-                      color: Colors.black54,
+                      color: tgSecondaryText,
                       fontSize: 17,
                       fontWeight: FontWeight.bold),
                 ),
@@ -298,7 +301,8 @@ class _InitialPageState extends State<InitialPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(11),
                         ),
-                        side: BorderSide(color: Colors.black45, width: 0.7)),
+                        side:
+                            BorderSide(color: tgDarkPrimaryColor, width: 0.7)),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
@@ -308,7 +312,7 @@ class _InitialPageState extends State<InitialPage> {
                     child: Text(
                       'Log in with Email',
                       style: TextStyle(
-                        color: Colors.black87,
+                        color: tgPrimaryText,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -318,7 +322,8 @@ class _InitialPageState extends State<InitialPage> {
 
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple.shade800,
+                        // backgroundColor: Colors.deepPurple.shade800,
+                        backgroundColor: tgDarkPrimaryColor,
                         minimumSize: Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(11),
@@ -349,7 +354,7 @@ class _InitialPageState extends State<InitialPage> {
                       borderRadius: BorderRadius.circular(11),
                     ),
                     side: BorderSide(
-                      color: Colors.black45,
+                      color: tgDarkPrimaryColor,
                       width: 0.7,
                     ),
                   ),

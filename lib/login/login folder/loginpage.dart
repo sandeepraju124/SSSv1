@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/utils/constants.dart';
 import '../google_login_controller.dart';
 import '../forgotpwpage.dart';
 import '../Signupfolder/signupauth.dart';
@@ -52,17 +53,21 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.black,
+          color: tgAccentColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         title: Text(
           'Log In',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: tgAccentColor),
         ),
+        shape:
+            Border(bottom: BorderSide(color: tgDarkPrimaryColor, width: 1.0)),
+
         // elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -78,20 +83,20 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(
-                      color: Color.fromARGB(181, 0, 0, 0),
+                      color: tgSecondaryText,
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black54),
+                    borderSide: BorderSide(color: tgDarkPrimaryColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87),
+                    borderSide: BorderSide(color: tgDarkPrimaryColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   suffixIcon: Icon(
                     Icons.mail_outlined,
-                    color: Colors.black54,
+                    color: tgPrimaryColor,
                   ),
                 ),
               ),
@@ -109,15 +114,16 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: TextStyle(
-                      color: Color.fromARGB(181, 0, 0, 0),
+                      // color: Color.fromARGB(181, 0, 0, 0),
+                      color: tgSecondaryText,
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black54),
+                    borderSide: BorderSide(color: tgDarkPrimaryColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87),
+                    borderSide: BorderSide(color: tgDarkPrimaryColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   suffixIcon: GestureDetector(
@@ -130,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       passwordObscured
                           ? Icons.visibility_off_outlined
                           : Icons.visibility,
-                      color: Colors.black54,
+                      color: tgPrimaryColor,
                     ),
                   ),
                 ),
@@ -155,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Forgot Password?",
                       style: TextStyle(
-                          color: Color.fromARGB(207, 5, 68, 82),
+                          color: tgPrimaryText,
                           fontSize: 15.5,
                           fontWeight: FontWeight.bold),
                     ),
@@ -175,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
                   padding: EdgeInsets.all(22.0),
                   decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade600,
+                      color: tgDarkPrimaryColor,
                       borderRadius: BorderRadius.circular(12)),
                   child: Center(
                     child: Text(

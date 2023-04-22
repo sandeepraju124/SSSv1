@@ -6,6 +6,7 @@ import 'package:sssv1/bottomnavpages/communitypage.dart';
 import 'package:sssv1/bottomnavpages/search.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/user_profile.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
@@ -61,7 +62,13 @@ class _BottomNavPageState extends State<BottomNavPage> {
                   // color: Colors.transparent,
                   // color: getDecorationColor(_currentIndex),
                   color: Colors.white,
-                  border: Border.all(color: Colors.black, width: 0.06),
+                  // border: Border.all(color: Colors.black, width: 0.06),
+
+                  border: Border.all(
+                    color: tgPrimaryColor,
+                    width: 1.5,
+                  ),
+
                   borderRadius: BorderRadius.all(Radius.circular(27)),
                 ),
                 child: SizedBox(
@@ -73,6 +80,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       NavBarIcon(
                         text: "Home",
                         icon: Icons.apps,
+
                         selected: _currentIndex == 0,
                         onPressed: () {
                           setState(() {
