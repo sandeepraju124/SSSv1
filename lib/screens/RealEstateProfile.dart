@@ -34,21 +34,29 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
   }
 
   void _showModalbottomSheet(BuildContext context) {
-    showBottomSheet(
+    showModalBottomSheet(
         context: context,
-        // isScrollControlled:true,
+        isScrollControlled: true,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        builder: (context) => SingleChildScrollView(
-              child: CommentPost(),
-            ));
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )),
+        // barrierColor: tgPrimaryColor,
+        builder: (context) => DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: 0.5,
+            minChildSize: 0,
+            builder: (context, scrollController) => SingleChildScrollView(
+                  controller: scrollController,
+                  child: CommentPostPage(),
+                )));
   }
 
   @override
   Widget build(BuildContext context) {
-    var userpro = Provider.of<UserProvider>(context, listen: false);
-    final _commentcontroller = TextEditingController();
+    // var userpro = Provider.of<UserProvider>(context, listen: false);
+    // final _commentcontroller = TextEditingController();
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -247,7 +255,9 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                                       border:
                                           Border.all(color: tgPrimaryColor)),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _showModalbottomSheet(context);
+                                    },
                                     icon: Icon(Icons.add_comment_outlined),
                                     iconSize: 36,
                                     color: Colors.black54,
@@ -356,10 +366,10 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                       ),
                     ),
 
-                    // Divider(
-                    //   color: Colors.blueGrey,
-                    //   thickness: .7,
-                    // ),
+                    Divider(
+                      color: Colors.blueGrey,
+                      thickness: .7,
+                    ),
 
                     // SizedBox(
                     //   height: 8,
@@ -395,67 +405,67 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
 
                     ////////// comment posting section ////////////////////
 
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 7),
-                      width: double.infinity,
-                      height: 60,
-                      // color: Colors.white,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.blue, width: 3)),
-                      child: Row(children: [
-                        Expanded(
-                            flex: 76,
-                            child: TextField(
-                              controller: _commentcontroller,
-                              decoration: InputDecoration(
-                                hintText: 'Enter Your Review',
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(16.0),
-                              ),
-                            )),
-                        Expanded(
-                            flex: 24,
-                            child: Container(
-                              padding: EdgeInsets.only(right: 10),
-                              // color: Colors.blue,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  String? userid = userpro.data?.userid;
-                                  Map<String, String> CommentBody = {
-                                    "name": data['name'],
-                                    "serviceid": widget.id,
-                                    "comment": _commentcontroller.text,
-                                    "user_id": userid.toString()
-                                  };
-                                  setState(() {
-                                    GetData().postData(
-                                        "https://revolution.azurewebsites.net/addcomment",
-                                        CommentBody);
-                                    print(_commentcontroller.text);
-                                  });
-                                  // Code to run when the button is pressed
-                                },
-                                child: Text('Publish'),
-                              ),
-                            )),
-                      ]),
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 7),
+                    //   width: double.infinity,
+                    //   height: 60,
+                    //   // color: Colors.white,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(12),
+                    //       color: Colors.white,
+                    //       border: Border.all(color: Colors.blue, width: 3)),
+                    //   child: Row(children: [
+                    //     Expanded(
+                    //         flex: 76,
+                    //         child: TextField(
+                    //           controller: _commentcontroller,
+                    //           decoration: InputDecoration(
+                    //             hintText: 'Enter Your Review',
+                    //             border: InputBorder.none,
+                    //             contentPadding: EdgeInsets.all(16.0),
+                    //           ),
+                    //         )),
+                    //     Expanded(
+                    //         flex: 24,
+                    //         child: Container(
+                    //           padding: EdgeInsets.only(right: 10),
+                    //           // color: Colors.blue,
+                    //           child: ElevatedButton(
+                    //             onPressed: () {
+                    //               String? userid = userpro.data?.userid;
+                    //               Map<String, String> CommentBody = {
+                    //                 "name": data['name'],
+                    //                 "serviceid": widget.id,
+                    //                 "comment": _commentcontroller.text,
+                    //                 "user_id": userid.toString()
+                    //               };
+                    //               setState(() {
+                    //                 GetData().postData(
+                    //                     "https://revolution.azurewebsites.net/addcomment",
+                    //                     CommentBody);
+                    //                 print(_commentcontroller.text);
+                    //               });
+                    //               // Code to run when the button is pressed
+                    //             },
+                    //             child: Text('Publish'),
+                    //           ),
+                    //         )),
+                    //   ]),
+                    // ),
 
 // --------------------------------------------------------
 // ---------------------------comment section------------------------
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                        height: 200,
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    // SizedBox(
+                    //     height: 200,
 
-                        //comment section
+                    //     //comment section
 
-                        child: CommentSection(
-                          id: widget.id,
-                        ))
+                    //     child: CommentSection(
+                    //       id: widget.id,
+                    //     ))
                     // Comment()
 
                     // Text("one"),
@@ -486,120 +496,120 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
 
 // comment ui in case of miss
 
-class Comment extends StatelessWidget {
-  const Comment({
-    Key? key,
-  }) : super(key: key);
+// class Comment extends StatelessWidget {
+//   const Comment({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      color: Colors.white,
-      child: Column(children: [
-        SizedBox(
-            height: 60,
-            // color: Colors.white,
-            child: Row(
-              children: [
-                //Column1 Row1
-                Expanded(
-                  flex: 30,
-                  child: Column(children: [
-                    CircleAvatar(
-                        radius: 22,
-                        backgroundImage: AssetImage("images/modell.jpeg")
-                        // NetworkImage(user.data[0].dp.toString())
-                        ),
-                    // Gap(2),
-                    Text('Sandeep Raju',
-                        // user.data[0].username.toString(),
-                        style: TextStyle(fontSize: 12)),
-                  ]),
-                ),
-                //Column1 Row2
-                Expanded(
-                    flex: 40,
-                    child: Column(children: [
-                      Expanded(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.star_rate_rounded),
-                          Icon(Icons.star_rate_rounded),
-                          Icon(Icons.star_rate_rounded),
-                          Icon(Icons.star_rate_rounded),
-                          // Icon(Icons.star_rate_rounded),
-                        ],
-                      )),
-                      Expanded(
-                          child: Container(
-                        color: Colors.purple,
-                      ))
-                    ])),
-                // Column1 Row3
-                Expanded(
-                    flex: 30,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(3),
-                              child: const Icon(
-                                Icons.swipe_up_rounded,
-                              ),
-                            ),
-                            const Text(
-                              "Uplift",
-                              style: TextStyle(fontSize: 8),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.all(3),
-                                child: Icon(Icons.swipe_down_rounded)),
-                            const Text("Downlift",
-                                style: TextStyle(fontSize: 8)),
-                          ],
-                        ),
-                      ],
-                    ))
-              ],
-            )),
-        // column 2
-        Expanded(
-          child: Container(
-              margin: const EdgeInsets.all(10),
-              // color: Colors.indigo,
-              // String comm = rescomments.data[name][indexvalue][["comment"];
-              child:
-                  // Text("lopam zopam jhfuhrh iiejije oiejrijre ojrfoirjef oirjfffffffr orjow reoj  o;rj fwrfiwre flerf fwruhfw ier")
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 200,
+//       color: Colors.white,
+//       child: Column(children: [
+//         SizedBox(
+//             height: 60,
+//             // color: Colors.white,
+//             child: Row(
+//               children: [
+//                 //Column1 Row1
+//                 Expanded(
+//                   flex: 30,
+//                   child: Column(children: [
+//                     CircleAvatar(
+//                         radius: 22,
+//                         backgroundImage: AssetImage("images/modell.jpeg")
+//                         // NetworkImage(user.data[0].dp.toString())
+//                         ),
+//                     // Gap(2),
+//                     Text('Sandeep Raju',
+//                         // user.data[0].username.toString(),
+//                         style: TextStyle(fontSize: 12)),
+//                   ]),
+//                 ),
+//                 //Column1 Row2
+//                 Expanded(
+//                     flex: 40,
+//                     child: Column(children: [
+//                       Expanded(
+//                           child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: const [
+//                           Icon(Icons.star_rate_rounded),
+//                           Icon(Icons.star_rate_rounded),
+//                           Icon(Icons.star_rate_rounded),
+//                           Icon(Icons.star_rate_rounded),
+//                           // Icon(Icons.star_rate_rounded),
+//                         ],
+//                       )),
+//                       Expanded(
+//                           child: Container(
+//                         color: Colors.purple,
+//                       ))
+//                     ])),
+//                 // Column1 Row3
+//                 Expanded(
+//                     flex: 30,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Column(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Container(
+//                               margin: const EdgeInsets.all(3),
+//                               child: const Icon(
+//                                 Icons.swipe_up_rounded,
+//                               ),
+//                             ),
+//                             const Text(
+//                               "Uplift",
+//                               style: TextStyle(fontSize: 8),
+//                             ),
+//                           ],
+//                         ),
+//                         Column(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Container(
+//                                 margin: const EdgeInsets.all(3),
+//                                 child: Icon(Icons.swipe_down_rounded)),
+//                             const Text("Downlift",
+//                                 style: TextStyle(fontSize: 8)),
+//                           ],
+//                         ),
+//                       ],
+//                     ))
+//               ],
+//             )),
+//         // column 2
+//         Expanded(
+//           child: Container(
+//               margin: const EdgeInsets.all(10),
+//               // color: Colors.indigo,
+//               // String comm = rescomments.data[name][indexvalue][["comment"];
+//               child:
+//                   // Text("lopam zopam jhfuhrh iiejije oiejrijre ojrfoirjef oirjfffffffr orjow reoj  o;rj fwrfiwre flerf fwruhfw ier")
 
-                  Text(
-                "this is text",
-                // rescomments.data[0].comments[indexvalue].comment,
-                // data["name"] ?? "Unknown"
-                // comments[widget.index].comment,
-                style: TextStyle(color: Colors.black54),
-              )),
-        ),
-        // comm = rescomments.data[indexvalue].name["comments"])
+//                   Text(
+//                 "this is text",
+//                 // rescomments.data[0].comments[indexvalue].comment,
+//                 // data["name"] ?? "Unknown"
+//                 // comments[widget.index].comment,
+//                 style: TextStyle(color: Colors.black54),
+//               )),
+//         ),
+//         // comm = rescomments.data[indexvalue].name["comments"])
 
-        // Column 3
-        Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (BuildContext, int) => Text("skip")
-                // images(),
-                )),
-      ]),
-    );
-  }
-}
+//         // Column 3
+//         Expanded(
+//             child: ListView.builder(
+//                 scrollDirection: Axis.horizontal,
+//                 itemCount: 5,
+//                 itemBuilder: (BuildContext, int) => Text("skip")
+//                 // images(),
+//                 )),
+//       ]),
+//     );
+//   }
+// }

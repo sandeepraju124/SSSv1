@@ -80,6 +80,7 @@ class _SearchListState extends State<SearchList> {
                                         spreadRadius: 0,
                                         color: Color.fromARGB(255, 35, 35, 37)
                                             .withOpacity(0.30),
+                                        // color: tgPrimaryColor.withOpacity(0.30),
                                       ),
                                     ],
                                   ),
@@ -161,8 +162,9 @@ class _SearchListState extends State<SearchList> {
                                         offset: Offset(0, -22),
                                         blurRadius: 40,
                                         spreadRadius: 0,
-                                        color:
-                                            Color(0xFF0073FF).withOpacity(0.10),
+                                        // color:
+                                        //     Color(0xFF0073FF).withOpacity(0.10),
+                                        color: tgPrimaryColor.withOpacity(0.30),
                                       ),
                                     ],
                                   ),
