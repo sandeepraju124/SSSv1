@@ -1,8 +1,6 @@
 // search bar with row [icon][extended -> text field][icon]
 // sample image name -> searchbar
 import 'package:flutter/material.dart';
-import 'package:sssv1/providers/searchlist_provider.dart';
-import 'package:provider/provider.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -11,7 +9,6 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Column(children: [
       const SizedBox(
         height: 18,
