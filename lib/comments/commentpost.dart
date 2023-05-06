@@ -250,7 +250,7 @@ final _commentcontroller = TextEditingController();
 class _CommentPostPageState extends State<CommentPostPage> {
   @override
   Widget build(BuildContext context) {
-    var userpro = Provider.of<UserProvider>(context, listen: false);
+    // var userpro = Provider.of<UserProvider>(context, listen: false);
 
     //// here we've used the stack class to provide the TOP line of the Bottom sheet /////////////////
 
@@ -315,15 +315,15 @@ class _CommentPostPageState extends State<CommentPostPage> {
                                 backgroundColor: tgPrimaryColor,
                               ),
                               onPressed: () {
-                                String? userid = userpro.data?.userid;
+                                // String? userid = userpro.data?.userid;
                                 Map<String, String> commentBody = {
                                   "name": 'sai ram',
                                   // 'serviceid': widget.id,
                                   "comment": _commentcontroller.text,
-                                  "user_id": userid.toString()
+                                  // "user_id": userid.toString()
                                 };
                                 setState(() {
-                                  GetData().postData(
+                                  Http().postData(
                                       "https://revolution.azurewebsites.net/addcomment",
                                       commentBody);
                                 });

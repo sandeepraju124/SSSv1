@@ -105,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
         "lng": "648",
         "userid": userid.toString()
       };
-      GetData()
+      Http()
           .postData('https://revolution.azurewebsites.net/user', body)
           .then((value) => print('Data posted successfully'));
     } on FirebaseAuthException catch (e) {

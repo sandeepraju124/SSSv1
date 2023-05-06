@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/screens/searchlist.dart';
+import 'package:sssv1/utils/navigator.dart';
+import 'package:sssv1/widgets/subcategory.dart';
+import 'package:sssv1/widgets/test.dart';
+import 'package:sssv1/widgets/test2.dart';
 
 class Explore extends StatelessWidget {
   const Explore({
@@ -18,49 +24,79 @@ class Explore extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: 85,
-                  // color: Colors.redAccent,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            "https://media.istockphoto.com/id/1178477986/photo/3d-rendering-fitness-equipment-on-color-background.jpg?s=612x612&w=0&k=20&c=h7vEqleo0FGeAR2hkIuv7erpT1c4GIDF0AIeWI5EmFw="),
-                        fit: BoxFit.cover,
-                      ),
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(11))
-                      // color: Colors.red,
-                      ),
-                  child: Align(
-                      alignment: Alignment(-0.7, 0.5),
-                      child: Text(
-                        'GYM',
-                        style: TextStyle(color: Colors.white),
-                      )),
+                child: GestureDetector(
+                  onTap: () {
+                    // Http().fetchSubcategoryData("https://revolution.azurewebsites.net/category/food");
+                    // await SubcategoryProvider().subCategoryProvider("retail");
+                    // await subcategoryProvider.subCategoryProvider("retail");
+                    // Navigators().navigatorPush(context, SubCategory());
+                    
+                    Navigators().navigatorPush(context, testing());
+
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(5),
+                    height: 85,
+                    // color: Colors.redAccent,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.8), // Set a transparent background color
+                    borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                        image: DecorationImage(
+                          image:
+                              // AssetImage("images/food.gif"),
+                              NetworkImage(
+                                  "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80"),
+                          fit: BoxFit.cover,
+                        ),
+                        // color: Colors.red,
+                        // borderRadius: BorderRadius.all(Radius.circular(11))
+                        // color: Colors.red,
+                        ),
+                    child: Align(
+                        alignment: Alignment(-0.7, 0.5),
+                        child: Text(
+                          'Food',
+                          style: TextStyle(color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                        )),
+                  ),
                 ),
               ),
               Expanded(
-                  child: Container(
-                margin: EdgeInsets.all(5),
-                height: 85,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733__340.jpg"),
-                      fit: BoxFit.cover,
-                    ),
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(11))
-                    // color: Colors.red,
-                    ),
-                child: Align(
-                    alignment: Alignment(-0.7, 0.5),
-                    child: Text(
-                      'Pets',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              )),
+                  child: GestureDetector(
+                    onTap: (){
+                       Navigators().navigatorPush(context, testing2());
+                      
+                    },
+                    child: Container(
+                                  margin: EdgeInsets.all(5),
+                                  height: 85,
+                                  decoration: const BoxDecoration(
+                      image: DecorationImage( 
+                        image: NetworkImage(
+                            "https://www.fujitsu.com/global/imagesgig5/blog-4_tcm100-6517144_tcm100-2750236-32.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.all(Radius.circular(11))
+                      // color: Colors.red,
+                      ),
+                                  child: Align(
+                      alignment: Alignment(-0.7, 0.5),
+                      child: Text(
+                        'Retails',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                                ),
+                  )),
               Expanded(
                   child: GestureDetector(
                 onTap: () {
