@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, avoid_print
 
 import 'package:flutter/material.dart';
-
-import 'package:sssv1/screens/searchlist.dart';
 
 class Services extends StatelessWidget {
   const Services({

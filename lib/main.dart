@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/comments/commentpost.dart';
+import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
+import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
@@ -31,14 +33,13 @@ void main() async {
     ),
     ChangeNotifierProvider<SubcategoryProvider>(
       create: (_) => SubcategoryProvider(),
-      )
-    // ),
-    // ChangeNotifierProvider<commentsProvider>(
-    //   create: (_) => commentsProvider(),
-    // ),
-    // ChangeNotifierProvider<UserProvider>(
-    //   create: (_) => UserProvider(),
-    // ),
+      ),
+    ChangeNotifierProvider<SubcategoryListProvider>(
+      create: (_) => SubcategoryListProvider(),
+    ),
+    ChangeNotifierProvider<BusinessProfileProvider>(
+      create: (_) => BusinessProfileProvider(),
+    ),
     // ChangeNotifierProvider<GoogleSignInController>(
     //   create: (_) => GoogleSignInController(),
     // ),
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
-      // home: SubCategory(),
+      // home: Subcategory(),
       home: redirection(),
       // home: CommentPost(),
 

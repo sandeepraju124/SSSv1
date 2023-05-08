@@ -159,19 +159,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
                   Gap(10),
                   Restaurant(),
-              Gap(10),
-              ////// bottom navigation bar ///////////
+              Gap(20),
 
               Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                     child: Text(
-                      "Explore",
+                      "categories",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
-                          fontSize: 27,
-                          color: Colors.black87),
+                          fontSize: 20,
+                          color: Colors.grey),
                     ),
                   )),
               // Explore(),

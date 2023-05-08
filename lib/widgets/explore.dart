@@ -1,13 +1,10 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
-import 'package:sssv1/screens/searchlist.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/subcategory.dart';
-import 'package:sssv1/widgets/test.dart';
-import 'package:sssv1/widgets/test2.dart';
+import 'package:provider/provider.dart';
+
 
 class Explore extends StatelessWidget {
   const Explore({
@@ -31,7 +28,12 @@ class Explore extends StatelessWidget {
                     // await subcategoryProvider.subCategoryProvider("retail");
                     // Navigators().navigatorPush(context, SubCategory());
                     
-                    Navigators().navigatorPush(context, testing());
+                    // var data = Provider.of<SubcategoryProvider>(context);
+                  //   var data = Provider.of<SubcategoryProvider>(context);
+                  // data.subCategoryProvider("food");
+
+                    
+                     Navigators().navigatorPush(context, Subcategory(subCat: "food",));
 
                   },
                   child: Container(
@@ -73,7 +75,7 @@ class Explore extends StatelessWidget {
               Expanded(
                   child: GestureDetector(
                     onTap: (){
-                       Navigators().navigatorPush(context, testing2());
+                       Navigators().navigatorPush(context, Subcategory(subCat: "retail",));
                       
                     },
                     child: Container(
@@ -100,8 +102,8 @@ class Explore extends StatelessWidget {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SearchList()));
+                  // education
+                  Navigators().navigatorPush(context, Subcategory(subCat: "education",));
                 },
                 child: Container(
                   margin: EdgeInsets.all(5),
@@ -119,7 +121,7 @@ class Explore extends StatelessWidget {
                   child: Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
-                        'Real Estate',
+                        'education',
                         style: TextStyle(color: Colors.white),
                       )),
                 ),

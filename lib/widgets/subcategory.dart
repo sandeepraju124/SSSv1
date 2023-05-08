@@ -1,81 +1,124 @@
 import "package:flutter/material.dart";
 import "package:sssv1/providers/sub_category_provider.dart";
 import 'package:provider/provider.dart';
+import "package:sssv1/utils/navigator.dart";
+import 'package:sssv1/screens/SubCategoryList.dart';
 
-class SubCategory extends StatelessWidget {
-  const SubCategory({super.key});
+class Subcategory extends StatefulWidget {
 
+
+  
+  String subCat;
+  Subcategory({super.key, required this.subCat});
+
+  @override
+  State<Subcategory> createState() => _SubcategoryState();
+}
+
+class _SubcategoryState extends State<Subcategory> {
+
+
+@override
+  void initState() {
+    var data = Provider.of<SubcategoryProvider>(context, listen: false);
+    data.subCategoryProvider(widget.subCat);
+    print("init called");
+
+  }
+  
 
 
   @override
   Widget build(BuildContext context) {
-    var SubCategoryData = Provider.of<SubcategoryProvider>(context, listen: false);
+    print("build");
+    var data = Provider.of<SubcategoryProvider>(context);
+    print('loading1 ${data.isLoading}');
+    // data.subCategoryProvider(widget.subCat);
+    print('loading2 ${data.isLoading}');
+
+    
     return Scaffold(
+      appBar: AppBar(title: Text(widget.subCat)),
       body: 
-      GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2, // number of columns
-    crossAxisSpacing: 40, // spacing between columns
-    mainAxisSpacing:40, // spacing between rows
-  ) ,
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return 
-          Column(
-          children: [
+      data.isLoading  ? Center(child: CircularProgressIndicator()) : 
+      Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: GridView.builder(
+          itemCount: data.subcategoryData?.subcategories.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing:20,
+          // childAspectRatio: 170 / 250,
+          childAspectRatio: 150 / 230,
+        ) ,
+          itemBuilder:(BuildContext, int){
+            return 
             SizedBox(
-              height: 150,
-              width: 150,
-              child: Stack(
-                children: [
-                    Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10)),
+            // height: 220,
+            // width: 150,
+            // color: Colors.amber,
+            child: GestureDetector(
+              onTap: (){
+                Navigators().navigatorPush(context, SubCategoryList(subCat:data.subcategoryData!.subcategories[int].toString() ,));
+                print(data.subcategoryData!.subcategories[int]);
+                print("clicked");
+              },
+              child: Column(children: [
+                Expanded(
+                  flex: 78,
+                  child: Stack(
+                    children: [
+                      Container(
+                      decoration: BoxDecoration(
+                        color: Colors.cyanAccent,
+                        borderRadius: BorderRadius.circular(10),
+                        image:DecorationImage(image: AssetImage("images/darkback2.jpg", ),
+                        fit: BoxFit.cover) ),
+            
                     ),
                     Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 90,
-                width: 90,
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                borderRadius: BorderRadius.circular(100),
-                image:const DecorationImage(
-                  image: AssetImage("images/food.gif"),
-                  fit: BoxFit.fill,
-                ),
-                // shape: BoxShape.circle
-              )),
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 85,
+                        width: 85,
+                        // color: Colors.lightGreen,
+                        decoration: BoxDecoration(
+                        color: Colors.black38,
+                    borderRadius: BorderRadius.circular(100),
+                    image:const DecorationImage(
+                      image: AssetImage("images/food.gif"),
+                      fit: BoxFit.fill,
+                    ),
+                    // shape: BoxShape.circle
+                  )
+                      ),
                     )
-                  ]),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 13,),
+                Expanded(
+                  flex: 22,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(10)),
+                      child: Center(child: Text(data.subcategoryData!.subcategories[int].toString(), style: TextStyle(color: Colors.white),)),
+                      
+                  ),
+                )
+              ]),
             ),
-            const SizedBox(height: 10),
-            Container(
-              alignment: Alignment.center,
-            height: 40, 
-            width: 150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.blue,
-            ),
-            child: Text("FOOD", style: TextStyle(color: Colors.white)), 
-            
-            )
-          ],
-        )
-        ;
-        },
-        
+                  )
+      
+          ;
+          } ,
+        ),
       ),
-    );
+
+      );
   }
 }

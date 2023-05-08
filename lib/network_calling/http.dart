@@ -3,11 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:sssv1/models/business_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/category_models.dart';
+import 'package:sssv1/models/subcatrgorylist_model.dart';
 
 class Http {
   List<Business> business = [];
 
+
+  // used this for 5 restaurants showed in homepage
   Future<List<Business>> fetchBusinessData(String uri)async{
     
     var url = Uri.parse(uri);
@@ -24,7 +28,7 @@ class Http {
     }
   }
 
-
+  // used this to show subcatogories
   List<Subcategory> Category_data = [];
   Future<Subcategory> fetchSubcategoryData(String uri)async{
     
@@ -32,16 +36,46 @@ class Http {
     var response = await http.get(url);
     if (response.statusCode == 200){
       var decodedResponse = json.decode(response.body);
-      print("responsebody ${response.body}");
-      print("decodedResponse $decodedResponse");
+      // print("responsebody ${response.body}");
+      // print("decodedResponse $decodedResponse");
       var subcategory = Subcategory.fromJson(decodedResponse);
-      print("Category_data $subcategory");
+      // print("Category_data $subcategory");
       return subcategory;
     }else{
       throw Exception('Failed to fetch data');
     }
   }
 
+
+  // used this to show the list of subcategories
+  Future<List<Subcategorylist>> fetchSubcategoryListData(String uri)async{
+    
+    var url = Uri.parse(uri);
+    var response = await http.get(url);
+    if (response.statusCode == 200){
+      final jsonList = json.decode(response.body) as List;
+      // print("responsebody ${response.body}");
+      // print("json $jsonList");
+     final List<Subcategorylist> services = jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
+      return services;
+    }else{
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+
+// used this to show business profile
+
+Future<Businessprofile> fetchBusinessProfile(String uri) async {
+  var url = Uri.parse(uri);
+    var response = await http.get(url);
+  if (response.statusCode == 200) {
+    var businessProfile = Businessprofile.fromJson(json.decode(response.body));
+    return businessProfile;
+  } else {
+    throw Exception('Failed to load business profile');
+  }
+}
 
 
   // Future<List<ServicesModel>> getData() async {
