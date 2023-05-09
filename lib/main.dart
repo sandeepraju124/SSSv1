@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/comments/commentpost.dart';
+import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/rescomments_provider.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
@@ -11,6 +12,8 @@ import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/test_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sssv1/screens/Askthecommunity.dart';
+import 'package:sssv1/screens/askcommunity_UI_test.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/subcategory.dart';
@@ -40,9 +43,9 @@ void main() async {
     ChangeNotifierProvider<BusinessProfileProvider>(
       create: (_) => BusinessProfileProvider(),
     ),
-    // ChangeNotifierProvider<GoogleSignInController>(
-    //   create: (_) => GoogleSignInController(),
-    // ),
+    ChangeNotifierProvider<AskCommunityProvider>(
+      create: (_) => AskCommunityProvider(),
+    ),
   ], child: MyApp()));
 }
 
@@ -62,8 +65,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
-      // home: Subcategory(),
-      home: redirection(),
+      home: AskForCommunityUiTest(uid: "SWEFOO1234567890"),
+      // home: redirection(),
       // home: CommentPost(),
 
       // home: ShowModalComment(),

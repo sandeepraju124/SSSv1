@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/models/business_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/models/business_profile.dart';
@@ -72,6 +73,23 @@ Future<Businessprofile> fetchBusinessProfile(String uri) async {
   if (response.statusCode == 200) {
     var businessProfile = Businessprofile.fromJson(json.decode(response.body));
     return businessProfile;
+  } else {
+    throw Exception('Failed to load business profile');
+  }
+}
+
+
+
+
+// used this to show ask for community
+
+Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
+  var url = Uri.parse(uri);
+    var response = await http.get(url);
+  if (response.statusCode == 200) {
+    print(response.body);
+    var askCommunity = AskTheCommunityModels.fromJson(json.decode(response.body));
+    return askCommunity;
   } else {
     throw Exception('Failed to load business profile');
   }
