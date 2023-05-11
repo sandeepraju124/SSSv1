@@ -19,11 +19,9 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance?.addPostFrameCallback((_) {
-      var data = Provider.of<AskCommunityProvider>(context, listen: false);
-      data.askCommunityProvider(widget.uid);
-    // }
-    // );
+      // var data = Provider.of<AskCommunityProvider>(context, listen: false);
+      // data.askCommunityProvider(widget.uid);
+
   }
 
   @override
@@ -32,6 +30,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
     return data.isLoading
         ? Center(child: CircularProgressIndicator())
         : ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: data.askCommunityData?.data.length,
             itemBuilder: (BuildContext, int) {
@@ -47,21 +46,21 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                     child: Text(
                       question.question,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   ListView.builder(
-                    shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
                     itemCount: hasRemainingAnswers ? 2 : answers.length,
                     itemBuilder: (BuildContext, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           answers[index].answer,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       );
                     },

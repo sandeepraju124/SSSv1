@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:sssv1/comments/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
-import 'package:sssv1/screens/Askthecommunity.dart';
+import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/screens/sai/mapscreen.dart';
 import 'package:sssv1/screens/sai/popup.dart';
 import 'package:provider/provider.dart';
@@ -52,8 +52,8 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
     super.initState();
     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
     data.businessProfileProvider(widget.uid);
-    // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-    // dataAsk.askCommunityProvider(widget.uid);
+    var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+    dataAsk.askCommunityProvider(widget.uid);
     // print(widget.uid);
   }
 
@@ -61,12 +61,18 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
   Widget build(BuildContext context) {
     var dataAsk = Provider.of<AskCommunityProvider>(context);
     var data = Provider.of<BusinessProfileProvider>(context);
-    Map<int, bool> showRemainingAnswers = {};
+    // Map<int, bool> showRemainingAnswers = {};
     // final _commentcontroller = TextEditingController();
 
     return 
     Scaffold(
       floatingActionButton: FloatingActionButton(
+        shape:RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    side: BorderSide(color: Colors.white),
+  ) ,
+        
+        
         onPressed: () {
           _showModalbottomSheet(context);
         },
@@ -79,9 +85,10 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: tgPrimaryColor,
-        title: Text(
+        title: data.isLoading  ? Center(child: Text(""),) : 
+        Text(
           data.businessProfileData!.businessName.toString(),
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         leading: IconButton(
           onPressed: () {
@@ -444,6 +451,24 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
             color: Colors.blueGrey,
             thickness: .7,
           ),
+          GestureDetector(
+            onTap: () {
+          _showModalbottomSheet(context);
+        },
+            child: Container(
+              alignment: Alignment.center,
+              height: 60,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25)
+                  )
+              ),
+              child: Text("Comments (29)", style: TextStyle(color: Colors.white, fontSize: 16),),
+            ),
+          )
           
 
           

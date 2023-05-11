@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/comments/commentpost.dart';
@@ -12,8 +12,7 @@ import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/test_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sssv1/screens/Askthecommunity.dart';
-import 'package:sssv1/screens/askcommunity_UI_test.dart';
+import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/subcategory.dart';

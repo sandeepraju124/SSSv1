@@ -336,10 +336,68 @@ class _CommentPostPageState extends State<CommentPostPage> {
                                 style: TextStyle(color: tgPrimaryText),
                               )),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(),
+                Container(
+                  // height: 100,
+                  width: double.infinity,
+                  margin: EdgeInsets.all(9),
+                  // color: secondaryColor10LightTheme,
+                  decoration: BoxDecoration(
+                      color: secondaryColor10LightTheme,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Row(
+                    
+                    children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      height: 65,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          border: Border.all(color: tgPrimaryColor)),
+                      child: CircleAvatar(
+                        
+                        radius: 25,
+                        backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1985&q=80',
+                        ),
+                      ),
+                    ),
+                    Expanded(
+
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 9, bottom: 9),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          margin: EdgeInsets.only(right: 10),
+                          padding: EdgeInsets.all(12),
+                      
+                          alignment: Alignment.centerLeft,
+                                          
+                          // height: double.infinity,
+                          // width: double.infinity,
+                          
+                          child: RichText(text: TextSpan(
+                            children: [
+                              TextSpan(text: "sandeep raju  ", style: TextStyle(color: Colors.black)),
+                              TextSpan(text: "trust me this is the best restaurant i ever seen  really good staff and every one  ", style: TextStyle(color: Colors.grey))
+                            ]
+                          )),
+                        ),
+                      ),
+                    ),
+                  ]),
+                )
               ],
             ),
           ),
