@@ -255,7 +255,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
     //// here we've used the stack class to provide the TOP line of the Bottom sheet /////////////////
 
     return Stack(
-
+    
         //////// this is for the line on top of Bottom sheet ////////////
         alignment: AlignmentDirectional.topCenter,
         clipBehavior: Clip.none,
@@ -270,7 +270,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                   color: tgLightPrimaryColor,
                 ),
               )),
-
+    
           ///// Text on top of COMMENT TEXTfield///////////////
           Padding(
             padding: const EdgeInsets.only(top: 60),
@@ -281,7 +281,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                   style: TextStyle(fontSize: 23, color: tgPrimaryText),
                 ),
                 SizedBox(height: 30),
-
+    
                 //////////////// comment section starts here ////////////////
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 7),
@@ -344,59 +344,71 @@ class _CommentPostPageState extends State<CommentPostPage> {
                   height: 10,
                 ),
                 Divider(),
-                Container(
-                  // height: 100,
-                  width: double.infinity,
-                  margin: EdgeInsets.all(9),
-                  // color: secondaryColor10LightTheme,
-                  decoration: BoxDecoration(
-                      color: secondaryColor10LightTheme,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Row(
-                    
-                    children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 65,
+                SizedBox(
+                  height: 300,
+                  child: SingleChildScrollView(
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      itemBuilder: (BuildContext, int){
+                        return Container(
+                      // height: 100,
+                      width: double.infinity,
+                      margin: EdgeInsets.all(9),
+                      // color: secondaryColor10LightTheme,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          border: Border.all(color: tgPrimaryColor)),
-                      child: CircleAvatar(
+                          color: secondaryColor10LightTheme,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Row(
                         
-                        radius: 25,
-                        backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1985&q=80',
-                        ),
-                      ),
-                    ),
-                    Expanded(
-
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 9, bottom: 9),
-                        child: Container(
+                        children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          height: 65,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20))
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              border: Border.all(color: tgPrimaryColor)),
+                          child: CircleAvatar(
+                            
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                              'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1985&q=80',
+                            ),
                           ),
-                          margin: EdgeInsets.only(right: 10),
-                          padding: EdgeInsets.all(12),
-                      
-                          alignment: Alignment.centerLeft,
-                                          
-                          // height: double.infinity,
-                          // width: double.infinity,
-                          
-                          child: RichText(text: TextSpan(
-                            children: [
-                              TextSpan(text: "sandeep raju  ", style: TextStyle(color: Colors.black)),
-                              TextSpan(text: "trust me this is the best restaurant i ever seen  really good staff and every one  ", style: TextStyle(color: Colors.grey))
-                            ]
-                          )),
                         ),
-                      ),
-                    ),
-                  ]),
+                        
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 9, bottom: 9),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                              ),
+                              margin: EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.all(12),
+                          
+                              alignment: Alignment.centerLeft,
+                                              
+                              // height: double.infinity,
+                              // width: double.infinity,
+                              
+                              child: RichText(text: TextSpan(
+                                children: [
+                                  TextSpan(text: "sandeep raju  ", style: TextStyle(color: Colors.black)),
+                                  TextSpan(text: "trust me this is the best restaurant i ever seen  really good staff and every one  ", style: TextStyle(color: Colors.grey))
+                                ]
+                              )),
+                            ),
+                          ),
+                        ),
+                      ]),
+                    );
+                    
+                      }),
+                  ),
                 )
               ],
             ),
