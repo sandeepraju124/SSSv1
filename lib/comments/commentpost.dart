@@ -311,8 +311,8 @@ class _CommentPostPageState extends State<CommentPostPage> {
                           padding: EdgeInsets.only(right: 10),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: tgPrimaryText,
-                                backgroundColor: tgPrimaryColor,
+                                foregroundColor: tgPrimaryColor,
+                                backgroundColor: secondaryColor10LightTheme,
                               ),
                               onPressed: () {
                                 // String? userid = userpro.data?.userid;
@@ -345,7 +345,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                 ),
                 Divider(),
                 SizedBox(
-                  height: 300,
+                  height: 700,
                   child: SingleChildScrollView(
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
