@@ -6,7 +6,7 @@ import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
-import 'package:sssv1/screens/realestateProfile.dart';
+import 'package:sssv1/screens/sai/RealEstateProfile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/test2.dart';
@@ -46,7 +46,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigators().navigatorPush(context, testing2(uid:data.subcategoryListData![index].businessUid ));
+                      // Navigators().navigatorPush(context, testing2(uid:data.subcategoryListData![index].businessUid ));
+                      Navigators().navigatorPush(context, RealEstateProfile(uid:data.subcategoryListData![index].businessUid ));
                     },
                     child: Column(
                       children: [

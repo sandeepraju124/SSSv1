@@ -1,55 +1,84 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:provider/provider.dart';
 
 
-class AskForCommunity extends StatefulWidget {
-  String uid ;
-  AskForCommunity({super.key,required this.uid});
+class AskForCommunityWidget extends StatefulWidget {
+  final String uid;
+
+  AskForCommunityWidget({Key? key, required this.uid}) : super(key: key);
 
   @override
-  State<AskForCommunity> createState() => _AskForCommunityState();
+  _AskForCommunityWidgetState createState() => _AskForCommunityWidgetState();
 }
 
-class _AskForCommunityState extends State<AskForCommunity> {
-
+class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
+  Map<int, bool> showRemainingAnswers = {};
 
   @override
   void initState() {
-    var data = Provider.of<AskCommunityProvider>(context, listen: false);
-    data.askCommunityProvider(widget.uid);
     super.initState();
+    // WidgetsBinding.instance?.addPostFrameCallback((_) {
+      var data = Provider.of<AskCommunityProvider>(context, listen: false);
+      data.askCommunityProvider(widget.uid);
+    // }
+    // );
   }
-
 
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<AskCommunityProvider>(context);
-    return Scaffold(
-      appBar: AppBar(title: Text("Ask for community"),
-      ),
-      body: data.isLoading ? Center(child: CircularProgressIndicator()) : 
-      ListView.builder(
-        itemCount: data.askCommunityData?.data.length,
-        itemBuilder: (BuildContext, int){
-          return SizedBox(
-            height: 200,
-            child: Column(
-              children: [
-                Text(data.askCommunityData!.data[int].question),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: data.askCommunityData?.data[int].answers.length,
-                    itemBuilder: (BuildContext, index){
-                      return Text(data.askCommunityData!.data[int].answers[index].answer);
-                    }),
-                )
-              ],
-            ),
+    return data.isLoading
+        ? Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: data.askCommunityData?.data.length,
+            itemBuilder: (BuildContext, int) {
+              var question = data.askCommunityData!.data[int];
+              var answers = question.answers;
+              var hasRemainingAnswers =
+                  answers.length > 2 && !showRemainingAnswers.containsKey(int);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      question.question,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: hasRemainingAnswers ? 2 : answers.length,
+                    itemBuilder: (BuildContext, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          answers[index].answer,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      );
+                    },
+                  ),
+                  if (hasRemainingAnswers)
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          showRemainingAnswers[int] = true;
+                        });
+                      },
+                      child: Text("Show ${answers.length - 2} more answers"),
+                    ),
+                  const Divider(),
+                ],
+              );
+            },
           );
-        },
-
-      ),
-    );
   }
 }

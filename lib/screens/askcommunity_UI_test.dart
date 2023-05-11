@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +38,9 @@ class _AskForCommunityUiTestState extends State<AskForCommunityUiTest> {
               itemCount: data.askCommunityData?.data.length,
               itemBuilder: (BuildContext, int) {
                 var question = data.askCommunityData!.data[int];
-                print(question);
+                // print(question);
                 var answers = question.answers;
-                print(answers);
+                // print(answers);
                 // determine if there are remaining answers to be shown
                 var hasRemainingAnswers =
                     answers.length > 2 && !showRemainingAnswers.containsKey(int);
@@ -83,7 +84,7 @@ class _AskForCommunityUiTestState extends State<AskForCommunityUiTest> {
                         },
                         child: Text("Show ${answers.length - 2} more answers"),
                       ),
-                    Divider(),
+                    const Divider(),
                   ],
                 );
               },

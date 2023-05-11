@@ -65,8 +65,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
-      home: AskForCommunityUiTest(uid: "SWEFOO1234567890"),
-      // home: redirection(),
+      // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
+      home: redirection(),
       // home: CommentPost(),
 
       // home: ShowModalComment(),
