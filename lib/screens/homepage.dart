@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:flutter/foundation.dart';
 import 'package:gap/gap.dart';
@@ -174,7 +174,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )),
               // Explore(),
-              Explore(),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: secondaryColor10LightTheme,
+                ),
+                margin: EdgeInsets.all(10),
+                
+                child: Explore()),
             ]),
       ),
     );

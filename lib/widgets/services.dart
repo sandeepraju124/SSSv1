@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class Services extends StatelessWidget {
   const Services({
@@ -11,14 +12,14 @@ class Services extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Container(
-        margin: EdgeInsets.only(right: 8),
+        margin: const EdgeInsets.only(right: 8),
         height: 200,
         width: double.infinity,
         // color: Colors.amber,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black12, width: 1),
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+            // color: Colors.white,
+            borderRadius:const BorderRadius.all(Radius.circular(10))),
         child: Column(children: [
           Expanded(
               child: Container(
@@ -35,7 +36,8 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                            color: secondaryColor10LightTheme
+                            , shape: BoxShape.circle),
                         child: Image.asset('images/services/caricon.png'),
                       ),
                     ),
@@ -53,7 +55,7 @@ class Services extends StatelessWidget {
                         onTap: () {
                           // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
                           // searchlist.resProv();
-                          print('navigation called');
+                          // print('navigation called');
 
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => SearchList())
@@ -63,7 +65,7 @@ class Services extends StatelessWidget {
                           height: 40,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                              color: secondaryColor10LightTheme, shape: BoxShape.circle),
                           child: Image.asset('images/services/restaurant.png'),
                         ),
                       ),
@@ -82,7 +84,7 @@ class Services extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                          color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                          color: secondaryColor10LightTheme, shape: BoxShape.circle),
                       child: Image.asset('images/services/realestate.png'),
                     ),
                   ),
@@ -100,7 +102,7 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
                         child: Image.asset('images/services/plumbing.png'),
                       ),
                     ),
@@ -126,7 +128,7 @@ class Services extends StatelessWidget {
                           height: 40,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                              color: secondaryColor10LightTheme, shape: BoxShape.circle),
                           child: Image.asset('images/services/gym.png'),
                         ),
                       ),
@@ -145,7 +147,7 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
                         child: Image.asset('images/services/gymm.png'),
                       ),
                     ),
@@ -163,7 +165,7 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
                         child: Image.asset('images/services/bar.png'),
                       ),
                     ),
@@ -181,7 +183,7 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: Color(0xffc4c4c4), shape: BoxShape.circle),
+                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
                         child: const Align(
                             alignment: Alignment.center, child: Text('MORE')),
                       ),

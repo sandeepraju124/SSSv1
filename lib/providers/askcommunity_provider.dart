@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/askthecom_models.dart';
-import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 
 
@@ -22,9 +21,9 @@ class AskCommunityProvider with ChangeNotifier{
     _askcommunity = datalist;
     _isLoading = false;
     notifyListeners();
-    print("datalist $datalist");
-    print("printing");
-    print(_askcommunity?.businessUid);
+    // print("datalist $datalist");
+    // print("printing");
+    // print(_askcommunity?.businessUid);
     // print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
   }

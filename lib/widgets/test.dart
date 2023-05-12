@@ -1,3 +1,6 @@
+
+// ignore_for_file: unused_import, avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import "package:flutter/material.dart";
 import "package:sssv1/models/business_profile.dart";
 import "package:sssv1/providers/business_profile_provider.dart";
@@ -5,15 +8,15 @@ import "package:sssv1/providers/sub_category_provider.dart";
 import "package:provider/provider.dart";
 
 
-class testing2 extends StatefulWidget {
+class Test extends StatefulWidget {
   String uid;
-  testing2({super.key,required this.uid });
+  Test({super.key,required this.uid });
 
   @override
-  State<testing2> createState() => _testing2State();
+  State<Test> createState() => _TestState();
 }
 
-class _testing2State extends State<testing2> {
+class _TestState extends State<Test> {
 
 
   @override
@@ -68,7 +71,7 @@ class _testing2State extends State<testing2> {
                                 child:
                                     Stack(clipBehavior: Clip.none, children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
+                                    padding:  EdgeInsets.only(
                                         top: 5, left: 2, right: 2),
                                     child: Container(
                                       height: 40,
@@ -305,7 +308,7 @@ class _testing2State extends State<testing2> {
                             // rescomments.data[0].comments.length,
                             shrinkWrap: true,
                             // scrollDirection: Axis.vertical,
-                            itemBuilder: (BuildContext, int) =>
+                            itemBuilder: (BuildContext context,int int) =>
                                 Text("skip for now")
 
                             ),

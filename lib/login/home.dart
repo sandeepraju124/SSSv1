@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +29,7 @@ class Home extends StatelessWidget {
           // CircleAvatar(radius: 40,
           //   backgroundImage: NetworkImage(user.photoURL.toString()),),
           Text(user.email.toString()),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(user.displayName.toString()),

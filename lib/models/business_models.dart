@@ -68,6 +68,7 @@ class Business {
     };
 }
 
+// ignore: constant_identifier_names
 enum Country { INDIA, COUNTRY_INDIA }
 
 final countryValues = EnumValues({

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import './google_login_controller.dart';
-
 import 'package:provider/provider.dart';
 
 class GloginIntialPage extends StatefulWidget {

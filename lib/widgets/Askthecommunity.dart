@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/utils/constants.dart';
 
 
 class AskForCommunityWidget extends StatefulWidget {
   final String uid;
 
-  AskForCommunityWidget({Key? key, required this.uid}) : super(key: key);
+  const AskForCommunityWidget({Key? key, required this.uid}) : super(key: key);
 
   @override
   _AskForCommunityWidgetState createState() => _AskForCommunityWidgetState();
@@ -33,7 +34,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
           physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: data.askCommunityData?.data.length,
-            itemBuilder: (BuildContext, int) {
+            itemBuilder: (BuildContext context,int int) {
               var question = data.askCommunityData!.data[int];
               var answers = question.answers;
               var hasRemainingAnswers =
@@ -55,7 +56,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: hasRemainingAnswers ? 2 : answers.length,
-                    itemBuilder: (BuildContext, index) {
+                    itemBuilder: (BuildContext context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -66,14 +67,35 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                     },
                   ),
                   if (hasRemainingAnswers)
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          showRemainingAnswers[int] = true;
-                        });
-                      },
+                  GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        showRemainingAnswers[int] = true;
+                      });
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                      height: 30,
+                      width: double.infinity,
+                      
+                      decoration: BoxDecoration(
+                        // color: Colors.grey,
+                        border: Border.all(color: secondaryColor20LightTheme)
+                      ),
                       child: Text("Show ${answers.length - 2} more answers"),
                     ),
+                  ),
+                    // ElevatedButton(
+                    //   style: ButtonStyle(iconColor:MaterialStateProperty.all(Colors.cyanAccent) ),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       print("pressed");
+                    //       showRemainingAnswers[int] = true;
+                    //     });
+                    //   },
+                    //   child: Text("Show ${answers.length - 2} more answers"),
+                    // ),
                   const Divider(),
                 ],
               );

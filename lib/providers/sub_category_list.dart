@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sssv1/models/business_models.dart';
-import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/network_calling/http.dart';
 
@@ -23,9 +21,9 @@ class SubcategoryListProvider with ChangeNotifier{
     _subCategoryList = datalist ;
     _isLoading = false;
     notifyListeners();
-    print("datalist $datalist");
-    print("printing");
-    print(_subCategoryList.length);
+    // print("datalist $datalist");
+    // print("printing");
+    // print(_subCategoryList.length);
     // print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
   }

@@ -41,7 +41,7 @@ class _testRealEstateState extends State<testRealEstate> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -53,7 +53,7 @@ class _testRealEstateState extends State<testRealEstate> {
 
 class SearchListinReal extends StatefulWidget {
   final dynamic data;
-  SearchListinReal({required this.data});
+  const SearchListinReal({super.key, required this.data});
 
   @override
   State<SearchListinReal> createState() => _SearchListinRealState();
@@ -64,7 +64,7 @@ class _SearchListinRealState extends State<SearchListinReal> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -78,14 +78,14 @@ class _SearchListinRealState extends State<SearchListinReal> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     // color: Colors.blueAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, 10),
+                        offset:const Offset(0, 10),
                         blurRadius: 40,
                         spreadRadius: 0,
                         color:
-                            Color.fromARGB(255, 35, 35, 37).withOpacity(0.30),
+                           const Color.fromARGB(255, 35, 35, 37).withOpacity(0.30),
                       ),
                     ],
                   ),
@@ -114,7 +114,7 @@ class _SearchListinRealState extends State<SearchListinReal> {
                                 Expanded(
                                   child: Container(
                                     // height: 40,
-                                    margin: EdgeInsets.only(left: 10, top: 20),
+                                    margin: const EdgeInsets.only(left: 10, top: 20),
                                     // height: 10,
                                     // color: Color.fromRGBO(255, 152, 0, 1),
                                     child: Text(widget.data["name"],
@@ -127,9 +127,9 @@ class _SearchListinRealState extends State<SearchListinReal> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 10, top: 3),
+                                    margin: const EdgeInsets.only(left: 10, top: 3),
                                     // color: Colors.pinkAccent,
-                                    child: Text(
+                                    child:const Text(
                                         "5/f 18 on lane ST, central hong kong",
                                         // provider.data[int].address,maxLines: 2,
                                         style: TextStyle(
@@ -154,13 +154,13 @@ class _SearchListinRealState extends State<SearchListinReal> {
                   decoration: BoxDecoration(
                     // color: Color(0xfffffafa),
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, -22),
+                        offset:const Offset(0, -22),
                         blurRadius: 40,
                         spreadRadius: 0,
-                        color: Color(0xFF0073FF).withOpacity(0.10),
+                        color:const Color(0xFF0073FF).withOpacity(0.10),
                       ),
                     ],
                   ),
@@ -171,15 +171,15 @@ class _SearchListinRealState extends State<SearchListinReal> {
                     Expanded(
                         flex: 65,
                         child: Container(
-                          margin: EdgeInsets.only(top: 12),
+                          margin:const EdgeInsets.only(top: 12),
                           // color: Colors.grey,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children:const [
                               Text("3",
                                   // provider.data[int].rating.toString(),
                                   style: TextStyle(fontSize: 20)),
-                              const SizedBox(
+                              SizedBox(
                                 width: 3,
                               ),
                               Text(
@@ -196,7 +196,7 @@ class _SearchListinRealState extends State<SearchListinReal> {
                         child: Row(children: [
                           Expanded(
                             child: Container(
-                                margin: EdgeInsets.only(left: 14),
+                                margin:const EdgeInsets.only(left: 14),
                                 // color: Colors.redAccent,
                                 child: const Text(
                                   "342",

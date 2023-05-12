@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables
 
-import 'dart:convert';
+
 
 import 'package:flutter/Material.dart';
-import 'package:http/http.dart' as http;
 import 'package:sssv1/comments/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
+import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/screens/sai/mapscreen.dart';
 import 'package:sssv1/screens/sai/popup.dart';
@@ -16,7 +16,7 @@ import 'package:sssv1/utils/constants.dart';
 
 class RealEstateProfile extends StatefulWidget {
   String uid;
-  RealEstateProfile({required this.uid});
+  RealEstateProfile({super.key, required this.uid});
   
 
   @override
@@ -48,19 +48,22 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
 
   @override
   void initState() {
-    print(widget.uid);
+    // print(widget.uid);
     super.initState();
     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
     data.businessProfileProvider(widget.uid);
     var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
     dataAsk.askCommunityProvider(widget.uid);
+    var datacomments = Provider.of<CommentSectionProvider>(context, listen: false);
+    datacomments.commentSectionProvider(widget.uid);
     // print(widget.uid);
   }
 
   @override
   Widget build(BuildContext context) {
-    var dataAsk = Provider.of<AskCommunityProvider>(context);
+    // var dataAsk = Provider.of<AskCommunityProvider>(context);
     var data = Provider.of<BusinessProfileProvider>(context);
+    var datacomments = Provider.of<CommentSectionProvider>(context);
     // Map<int, bool> showRemainingAnswers = {};
     // final _commentcontroller = TextEditingController();
 
@@ -74,7 +77,8 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
         
         
         onPressed: () {
-          _showModalbottomSheet(context);
+          // _showModalbottomSheet(context);
+
         },
         backgroundColor: tgPrimaryColor,
         child: Icon(
@@ -99,7 +103,8 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
         ),
         shape: Border(bottom: BorderSide(color: tgDarkPrimaryColor)),
       ),
-      body: data.isLoading  ? Center(child: CircularProgressIndicator()) :
+      body: data.isLoading  ? Center(child: Image.asset("images/loading2.gif"),) :
+      // data.isLoading  ? Center(child: CircularProgressIndicator()) :
       ListView(
         // shrinkWrap: true,
         //     scrollDirection: Axis.vertical,
@@ -466,7 +471,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                   topRight: Radius.circular(25)
                   )
               ),
-              child: Text("Comments (29)", style: TextStyle(color: Colors.white, fontSize: 16),),
+              child: Text("Comments ${datacomments.getCommentsData!.comments.length}", style: TextStyle(color: Colors.white, fontSize: 16),),
             ),
           )
           

@@ -12,7 +12,7 @@ class _CategoryGridState extends State<CategoryGrid> {
   Widget build(BuildContext context) {
     return Scaffold(body:
     GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
     crossAxisCount: 2, // number of columns
     crossAxisSpacing: 2, // spacing between columns
     mainAxisSpacing: 20, // spacing between rows
@@ -38,12 +38,12 @@ class _CategoryGridState extends State<CategoryGrid> {
             right: 0,
             bottom: 10,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+              margin:const EdgeInsets.symmetric(horizontal: 10),
               height: 100,
               width: double.infinity,
               //  color: Colors.amber,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),color:Colors.white70 ),
-              child: Center(child: Text("FOOD",style: TextStyle(fontSize: 17), )),
+              child:const Center(child: Text("FOOD",style: TextStyle(fontSize: 17), )),
             ),
           ),
       ],),

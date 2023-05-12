@@ -20,9 +20,10 @@ class _SubcategoryState extends State<Subcategory> {
 
 @override
   void initState() {
+    super.initState();
     var data = Provider.of<SubcategoryProvider>(context, listen: false);
     data.subCategoryProvider(widget.subCat);
-    print("init called");
+    // print("init called");
 
   }
   
@@ -30,17 +31,17 @@ class _SubcategoryState extends State<Subcategory> {
 
   @override
   Widget build(BuildContext context) {
-    print("build");
+    // print("build");
     var data = Provider.of<SubcategoryProvider>(context);
-    print('loading1 ${data.isLoading}');
+    // print('loading1 ${data.isLoading}');
     // data.subCategoryProvider(widget.subCat);
-    print('loading2 ${data.isLoading}');
+    // print('loading2 ${data.isLoading}');
 
     
     return Scaffold(
       appBar: AppBar(title: Text(widget.subCat)),
-      body: 
-      data.isLoading  ? Center(child: CircularProgressIndicator()) : 
+      body: data.isLoading  ? Center(child: Image.asset("images/loading2.gif"),) : 
+      // data.isLoading  ? Center(child: CircularProgressIndicator()) : 
       Padding(
         padding: const EdgeInsets.all(15.0),
         child: GridView.builder(
@@ -53,7 +54,7 @@ class _SubcategoryState extends State<Subcategory> {
           // childAspectRatio: 170 / 250,
           childAspectRatio: 150 / 230,
         ) ,
-          itemBuilder:(BuildContext, int){
+          itemBuilder:(BuildContext context,int int){
             return 
             SizedBox(
             // height: 220,
@@ -62,8 +63,8 @@ class _SubcategoryState extends State<Subcategory> {
             child: GestureDetector(
               onTap: (){
                 Navigators().navigatorPush(context, SubCategoryList(subCat:data.subcategoryData!.subcategories[int].toString() ,));
-                print(data.subcategoryData!.subcategories[int]);
-                print("clicked");
+                // print(data.subcategoryData!.subcategories[int]);
+                // print("clicked");
               },
               child: Column(children: [
                 Expanded(
@@ -74,7 +75,7 @@ class _SubcategoryState extends State<Subcategory> {
                       decoration: BoxDecoration(
                         color: Colors.cyanAccent,
                         borderRadius: BorderRadius.circular(10),
-                        image:DecorationImage(image: AssetImage("images/darkback2.jpg", ),
+                        image:const DecorationImage(image: AssetImage("images/darkback2.jpg", ),
                         fit: BoxFit.cover) ),
             
                     ),
@@ -106,7 +107,7 @@ class _SubcategoryState extends State<Subcategory> {
                     decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(10)),
-                      child: Center(child: Text(data.subcategoryData!.subcategories[int].toString(), style: TextStyle(color: Colors.white),)),
+                      child: Center(child: Text(data.subcategoryData!.subcategories[int].toString(), style:const TextStyle(color: Colors.white),)),
                       
                   ),
                 )

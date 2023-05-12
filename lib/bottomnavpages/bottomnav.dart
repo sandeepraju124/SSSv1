@@ -47,7 +47,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.deepOrange,
       body: pages[_currentIndex],
       extendBody: true,
       bottomNavigationBar: SingleChildScrollView(
@@ -55,17 +55,18 @@ class _BottomNavPageState extends State<BottomNavPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SafeArea(
+
               child: Container(
                 padding: EdgeInsets.all(4),
                 margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 decoration: BoxDecoration(
                   // color: Colors.transparent,
                   // color: getDecorationColor(_currentIndex),
-                  color: Colors.white,
+                  color: secondaryColor10LightTheme,
                   // border: Border.all(color: Colors.black, width: 0.06),
 
                   border: Border.all(
-                    color: tgPrimaryColor,
+                    color: Colors.grey,
                     width: 1.5,
                   ),
 

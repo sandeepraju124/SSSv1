@@ -5,6 +5,7 @@ import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/category_models.dart';
+import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 
 class Http {
@@ -86,9 +87,24 @@ Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
   var url = Uri.parse(uri);
     var response = await http.get(url);
   if (response.statusCode == 200) {
-    print(response.body);
+    // print(response.body);
     var askCommunity = AskTheCommunityModels.fromJson(json.decode(response.body));
     return askCommunity;
+  } else {
+    throw Exception('Failed to load business profile');
+  }
+}
+
+
+// used this for comment scetion
+
+Future<CommentSectionModels> fetchComments(String uri) async {
+  var url = Uri.parse(uri);
+    var response = await http.get(url);
+  if (response.statusCode == 200) {
+    // print(response.body);
+    var comments = CommentSectionModels.fromJson(json.decode(response.body));
+    return comments;
   } else {
     throw Exception('Failed to load business profile');
   }
