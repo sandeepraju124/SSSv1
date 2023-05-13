@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
-import 'package:sssv1/screens/sai/RealEstateProfile.dart';
+import 'package:sssv1/screens/RealEstateProfile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 

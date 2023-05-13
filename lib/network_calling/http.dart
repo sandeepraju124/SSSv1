@@ -7,6 +7,8 @@ import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
+import 'package:sssv1/models/users_models.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Http {
   List<Business> business = [];
@@ -110,190 +112,51 @@ Future<CommentSectionModels> fetchComments(String uri) async {
   }
 }
 
+// used this for post comments
+// not using alreday implemented in provider
 
-  // Future<List<ServicesModel>> getData() async {
-  //   List<ServicesModel> resList = [];
-  //   try {
-  //     var url = 'https://revolution.azurewebsites.net/services/restaurant';
-  //     var request = http.Request('GET', Uri.parse(url));
-  //     http.StreamedResponse response = await request.send();
-  //     if (response.statusCode == 200) {
-  //       var rawData = await response.stream.bytesToString();
-  //       //  print("checking raw data $rawData");
-  //       List<dynamic> _data = jsonDecode(rawData);
-  //       // print("checking raw decode data $_data");
-  //       for (var element in _data) {
-  //         // print("checking each element data $element");
-  //         ServicesModel modeldata = ServicesModel.fromJson(element);
-  //         //  print("checking model data $modeldata");
-  //         resList.add(modeldata);
-  //         // print("checking resList $resList");
-  //       }
-  //       return resList;
-  //     } else {
-  //       print(response.reasonPhrase);
-  //       return [];
-  //     }
-  //   } catch (e) {
-  //     // print("exemption $e");
-  //     rethrow;
-  //   }
-  // }
+// Future<void> postComments(String uri, body) async {
+//   // var url = Uri.parse(uri);
+//   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+//   final response = await http.post(Uri.parse(uri), headers: headers, body:body);
+//     // var response = await http.get(url);
+//   if (response.statusCode == 200) {
+//     // print(response.body);
+//     print('Data posted successfully');
+//   } else {
+//      throw Exception('Error posting data: ${response.statusCode}');
+//   }
+// }
 
 
 
-  Future<Map<String, dynamic>> getSingleServiceData(id) async {
-    final response = await http
-        .get(Uri.parse("https://revolution.azurewebsites.net/serviceid/$id"));
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to retrieve data');
-    }
-  }
 
-// getting search list data
 
-  // Future<List<SearchListModels>> getSearchlistData() async {
-  //   List<SearchListModels> resList = [];
-  //   try {
-  //     var url = 'https://revolution.azurewebsites.net/users';
-  //     var request = http.Request('GET', Uri.parse(url));
-  //     http.StreamedResponse response = await request.send();
-  //     if (response.statusCode == 200) {
-  //       var rawData = await response.stream.bytesToString();
-  //       List<dynamic> _data = jsonDecode(rawData);
-  //       for (var element in _data) {
-  //         SearchListModels modeldata = SearchListModels.fromJson(element);
-  //         resList.add(modeldata);
-  //         //  print("http called");
-  //       }
-  //       return resList;
-  //     } else {
-  //       print(response.reasonPhrase);
-  //       return [];
-  //     }
-  //   } catch (e) {
-  //     // print("exemption $e");
-  //     rethrow;
-  //   }
-  // }
-
-  // void updateState(){
-  //   Future<List<RestaurantModels>> list = getRestaurantData();
-
-  // }
-
-// -----------------------------------------------------------------------------------------------------
-  // getting  restaurant comments api data
-
-  // Future<List<CommentsModel>> getRestaurantCommentsData(resname) async {
-  //   List<CommentsModel> resList = [];
-  //   try {
-  //     var url = 'https://revolution.azurewebsites.net/rescommentname/$resname';
-  //     var request = http.Request('GET', Uri.parse(url));
-  //     // print("checking request $request");
-  //     http.StreamedResponse response = await request.send();
-  //     // print("checking raw data before $response");
-  //     if (response.statusCode == 200) {
-  //       var rawData = await response.stream.bytesToString();
-  //       //  print("checking raw data before $rawData");
-  //       Map<String, dynamic> data =
-  //           Map<String, dynamic>.from(json.decode(rawData));
-  //       // print("checking decode data $data");
-  //       // print(data["tatva"][1]["comment"]);
-  //       // print(data["tatva"][0]['comment']);
-  //       // for (var element in data["tatva"]) {
-  //       //   print("checking for each$element");
-
-  //       //  Rescommentonlyone modeldata =  Rescommentonlyone.fromJson(element);
-  //       //  resList.add(modeldata);
-  //       //  print("checking model data in http $modeldata");
-  //       // resList.add(modeldata);
-  //       // print("checking resList $resList");
-  //       // }
-  //       // CommentsModel modeldata = CommentsModel.fromJson(data);
-  //       // resList.add(modeldata);
-  //       //  print("checking model data in http $modeldata");
-  //       // print("checking resList $resList");
-
-  //       return resList;
-  //     } else {
-  //       print(response.reasonPhrase);
-  //       print("get in to else in http $response");
-  //       return [];
-  //     }
-  //   } catch (e) {
-  //     print("exemption: $e");
-  //     print('excemption catched');
-  //     throw e.toString();
-  //   }
-  // }
-
-// modeified above get comment code
-
-  // late Future<List<Comment>> commentsvar;
-
-  // set commentsFuture(Future<List<Comment>> value) {
-  //   commentsvar = value;
-  // }
-
-  // int getCommentsLength() {
-  //   int length = 0;
-  //   commentsvar.then((list) => length = list.length);
-  //   return length;
-  // }
-
-  // Future<List<Comment>> getComments(String serviceid) async {
-  //   print("getComments called");
-  //   final response = await http.get(Uri.parse(
-  //       "https://revolution.azurewebsites.net/commentsid/$serviceid"));
-  //   print("Response status code: ${response.statusCode}");
-  //   print("Response body: ${response.body}");
-
-  //   if (response.statusCode == 200) {
-  //     var body = json.decode(response.body);
-  //     print("body $body");
-  //     var commentsJson = body["comments"];
-  //     print("commentsJson $commentsJson");
-  //     // List<Comment> comments = commentsJson.map((commentJson) => Comment.fromJson(commentJson)).toList();
-  //     List<Comment> comments = (commentsJson as List<dynamic>)
-  //         .map((commentJson) =>
-  //             Comment.fromJson(commentJson as Map<String, dynamic>))
-  //         .toList();
-  //     // List<Comment> comments = commentsJson.map((commentJson) => Comment.fromJson(commentJson as Map<String, dynamic>)).toList();
-  //     // commentsvar = comments as Future<List<Comment>>;
-
-  //     print("comments $comments");
-  //     return comments;
-  //   } else {
-  //     throw Exception('Failed to load comments');
-  //   }
-  // }
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data
 
-  // Future<UserModel> fetchUserData() async {
-  //   final user = FirebaseAuth.instance.currentUser;
+  Future<UserModels> fetchUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
 
-  //   await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
 
-  //   final userid = user?.uid;
-  //   print("userid $userid");
+    final userid = user?.uid;
+    print("userid $userid");
 
-  //   final apiUrl = Uri.parse('https://von1.azurewebsites.net/user/$userid');
-  //   final response = await http.get(apiUrl);
-  //   print("response $response");
+    final apiUrl = Uri.parse('https://revolution.azurewebsites.net/user/$userid');
+    final response = await http.get(apiUrl);
+    print("response $response");
 
-  //   if (response.statusCode == 200) {
-  //     final responseBody = json.decode(response.body);
-  //     print("responseBody $responseBody");
-  //     return UserModel.fromJson(responseBody);
-  //   } else {
-  //     throw Exception('Failed to fetch data: ${response.statusCode}');
-  //   }
-  // }
+    if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      // print("responseBody $responseBody");
+      var userdata = UserModels.fromJson(responseBody);
+      return userdata;
+    } else {
+      throw Exception('Failed to fetch data: ${response.statusCode}');
+    }
+  }
 
   // Future<UserModel> fetchUsersData() async {
   //   final user = FirebaseAuth.instance.currentUser;

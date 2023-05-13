@@ -3,13 +3,13 @@
 
 
 import 'package:flutter/Material.dart';
-import 'package:sssv1/comments/commentpost.dart';
+import 'package:sssv1/widgets/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/widgets/Askthecommunity.dart';
-import 'package:sssv1/screens/sai/mapscreen.dart';
-import 'package:sssv1/screens/sai/popup.dart';
+import 'package:sssv1/screens/mapscreen.dart';
+import 'package:sssv1/widgets/popup.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sssv1/utils/constants.dart';
@@ -40,7 +40,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
             minChildSize: 0,
             builder: (context, scrollController) => SingleChildScrollView(
                   controller: scrollController,
-                  child: CommentPostPage(),
+                  child: CommentPostPage(uid: widget.uid),
                 )));
   }
 
@@ -64,6 +64,8 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
     // var dataAsk = Provider.of<AskCommunityProvider>(context);
     var data = Provider.of<BusinessProfileProvider>(context);
     var datacomments = Provider.of<CommentSectionProvider>(context);
+    print("build comment comm");
+    var datacomm = Provider.of<CommentSectionProvider>(context);
     // Map<int, bool> showRemainingAnswers = {};
     // final _commentcontroller = TextEditingController();
 
@@ -471,7 +473,9 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                   topRight: Radius.circular(25)
                   )
               ),
-              child: Text("Comments ${datacomments.getCommentsData!.comments.length}", style: TextStyle(color: Colors.white, fontSize: 16),),
+              child: 
+              datacomments.isLoading  ? Text("Comments ") :
+              Text("Comments ${datacomments.getCommentsData!.comments.length}", style: TextStyle(color: Colors.white, fontSize: 16),),
             ),
           )
           
