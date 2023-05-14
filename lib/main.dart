@@ -30,10 +30,9 @@ void main() async {
   );
 
   runApp(MultiProvider(providers: [
-
     ChangeNotifierProvider<SubcategoryProvider>(
       create: (_) => SubcategoryProvider(),
-      ),
+    ),
     ChangeNotifierProvider<SubcategoryListProvider>(
       create: (_) => SubcategoryListProvider(),
     ),

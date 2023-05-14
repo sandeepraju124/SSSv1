@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               // SearchBar(),
               Gap(15),
-              
+
               Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
@@ -157,8 +157,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.grey),
                     ),
                   )),
-                  Gap(10),
-                  Restaurant(),
+              Gap(10),
+              Restaurant(),
               Gap(20),
 
               Align(
@@ -175,13 +175,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
               // Explore(),
               Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: secondaryColor10LightTheme,
-                ),
-                margin: EdgeInsets.all(10),
-                
-                child: Explore()),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: secondaryColor10LightTheme,
+                  ),
+                  margin: EdgeInsets.all(10),
+                  child: Explore()),
             ]),
       ),
     );

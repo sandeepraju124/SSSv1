@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/subcategory.dart';
 
-
-
 class Explore extends StatelessWidget {
   const Explore({
     Key? key,
@@ -13,7 +11,7 @@ class Explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:const EdgeInsets.all(13),
+      margin: const EdgeInsets.all(13),
       child: Column(
         children: [
           // first row
@@ -22,66 +20,73 @@ class Explore extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    // Http().fetchSubcategoryData("https://revolution.azurewebsites.net/category/food");
+                    // Http().fetchSubcategoryData("https://zukhov.azurewebsites.net/category/food");
                     // await SubcategoryProvider().subCategoryProvider("retail");
                     // await subcategoryProvider.subCategoryProvider("retail");
                     // Navigators().navigatorPush(context, SubCategory());
-                    
+
                     // var data = Provider.of<SubcategoryProvider>(context);
-                  //   var data = Provider.of<SubcategoryProvider>(context);
-                  // data.subCategoryProvider("food");
+                    //   var data = Provider.of<SubcategoryProvider>(context);
+                    // data.subCategoryProvider("food");
 
-                    
-                     Navigators().navigatorPush(context, Subcategory(subCat: "food",));
-
+                    Navigators().navigatorPush(
+                        context,
+                        Subcategory(
+                          subCat: "food",
+                        ));
                   },
                   child: Container(
-                    margin:const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     height: 85,
                     // color: Colors.redAccent,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.8), // Set a transparent background color
-                    borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            offset:const Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                        image:const DecorationImage(
-                          image:
-                              // AssetImage("images/food.gif"),
-                              NetworkImage(
-                                  "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80"),
-                          fit: BoxFit.cover,
+                      color: Colors.grey.withOpacity(
+                          0.8), // Set a transparent background color
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
                         ),
-                        // color: Colors.red,
-                        // borderRadius: BorderRadius.all(Radius.circular(11))
-                        // color: Colors.red,
-                        ),
-                    child:const Align(
+                      ],
+                      image: const DecorationImage(
+                        image:
+                            // AssetImage("images/food.gif"),
+                            NetworkImage(
+                                "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80"),
+                        fit: BoxFit.cover,
+                      ),
+                      // color: Colors.red,
+                      // borderRadius: BorderRadius.all(Radius.circular(11))
+                      // color: Colors.red,
+                    ),
+                    child: const Align(
                         alignment: Alignment(-0.7, 0.5),
                         child: Text(
                           'Food',
-                          style: TextStyle(color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         )),
                   ),
                 ),
               ),
               Expanded(
                   child: GestureDetector(
-                    onTap: (){
-                       Navigators().navigatorPush(context, Subcategory(subCat: "retail",));
-                      
-                    },
-                    child: Container(
-                                  margin:const EdgeInsets.all(5),
-                                  height: 85,
-                                  decoration: const BoxDecoration(
-                      image: DecorationImage( 
+                onTap: () {
+                  Navigators().navigatorPush(
+                      context,
+                      Subcategory(
+                        subCat: "retail",
+                      ));
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  height: 85,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
                         image: NetworkImage(
                             "https://www.fujitsu.com/global/imagesgig5/blog-4_tcm100-6517144_tcm100-2750236-32.jpg"),
                         fit: BoxFit.cover,
@@ -90,22 +95,26 @@ class Explore extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(11))
                       // color: Colors.red,
                       ),
-                                  child:const Align(
+                  child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
                         'Retails',
                         style: TextStyle(color: Colors.white),
                       )),
-                                ),
-                  )),
+                ),
+              )),
               Expanded(
                   child: GestureDetector(
                 onTap: () {
                   // education
-                  Navigators().navigatorPush(context, Subcategory(subCat: "education",));
+                  Navigators().navigatorPush(
+                      context,
+                      Subcategory(
+                        subCat: "education",
+                      ));
                 },
                 child: Container(
-                  margin:const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   height: 85,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
@@ -117,7 +126,7 @@ class Explore extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(11))
                       // color: Colors.red,
                       ),
-                  child:const Align(
+                  child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
                         'education',
@@ -132,7 +141,7 @@ class Explore extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  margin:const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   height: 85,
                   // color: Colors.redAccent,
                   decoration: const BoxDecoration(
@@ -145,7 +154,7 @@ class Explore extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(11))
                       // color: Colors.red,
                       ),
-                  child:const Align(
+                  child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
                         'Shopping',
@@ -155,7 +164,7 @@ class Explore extends StatelessWidget {
               ),
               Expanded(
                   child: Container(
-                margin:const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 85,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -167,7 +176,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'spa',
@@ -176,7 +185,7 @@ class Explore extends StatelessWidget {
               )),
               Expanded(
                   child: Container(
-                margin:const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 85,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -188,7 +197,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'Meditation Centers',
@@ -202,7 +211,7 @@ class Explore extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  margin:const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   height: 85,
                   // color: Colors.redAccent,
                   decoration: const BoxDecoration(
@@ -215,7 +224,7 @@ class Explore extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(11))
                       // color: Colors.red,
                       ),
-                  child:const Align(
+                  child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
                         'Dance Schools',
@@ -237,7 +246,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'Doctors',
@@ -246,7 +255,7 @@ class Explore extends StatelessWidget {
               )),
               Expanded(
                   child: Container(
-                margin:const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 85,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -258,7 +267,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'Wedding planing',
@@ -272,7 +281,7 @@ class Explore extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  margin:const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   height: 85,
                   // color: Colors.redAccent,
                   decoration: const BoxDecoration(
@@ -285,7 +294,7 @@ class Explore extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(11))
                       // color: Colors.red,
                       ),
-                  child:const Align(
+                  child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
                         'DJ',
@@ -295,7 +304,7 @@ class Explore extends StatelessWidget {
               ),
               Expanded(
                   child: Container(
-                margin:const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 85,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -306,7 +315,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'Model',
@@ -315,7 +324,7 @@ class Explore extends StatelessWidget {
               )),
               Expanded(
                   child: Container(
-                margin:const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(5),
                 height: 85,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -327,7 +336,7 @@ class Explore extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(11))
                     // color: Colors.red,
                     ),
-                child:const Align(
+                child: const Align(
                     alignment: Alignment(-0.7, 0.5),
                     child: Text(
                       'swimming',

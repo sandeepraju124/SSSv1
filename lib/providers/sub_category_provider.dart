@@ -2,22 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 
-
-class SubcategoryProvider with ChangeNotifier{
-
+class SubcategoryProvider with ChangeNotifier {
   Subcategory? _subcategory;
   bool _isLoading = false;
 
   Subcategory? get subcategoryData => _subcategory;
   bool get isLoading => _isLoading;
 
-
   // List<Subcategory> _data = [];
   // List<Subcategory> get data => _data;
-  
+
   Future<void> subCategoryProvider(subcategory) async {
     _isLoading = true;
-    Subcategory datalist = await Http().fetchSubcategoryData("https://revolution.azurewebsites.net/category/$subcategory");
+    Subcategory datalist = await Http().fetchSubcategoryData(
+        "https://zukhov.azurewebsites.net/category/$subcategory");
     _subcategory = datalist;
     _isLoading = false;
     notifyListeners();
@@ -27,4 +25,4 @@ class SubcategoryProvider with ChangeNotifier{
     // print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
   }
-  }
+}
