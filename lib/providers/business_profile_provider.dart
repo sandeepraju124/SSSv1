@@ -14,12 +14,7 @@ class BusinessProfileProvider with ChangeNotifier {
 
   Future<void> businessProfileProvider(uid) async {
     _isLoading = true;
-<<<<<<< HEAD
     Businessprofile businessProfile = await Http().fetchBusinessProfile("https://zukhov.azurewebsites.net/uid/$uid");
-=======
-    Businessprofile businessProfile = await Http()
-        .fetchBusinessProfile("https://zukhov.azurewebsites.net/uid/$uid");
->>>>>>> 8c184f7bec83ac5cefc587f96c706a98a89bf54c
     _businessProfile = businessProfile;
     _isLoading = false;
     notifyListeners();

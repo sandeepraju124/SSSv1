@@ -30,6 +30,16 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
     var data = Provider.of<AskCommunityProvider>(context);
     return data.isLoading
         ? Center(child: CircularProgressIndicator())
+        : data.askCommunityData?.data.length == 0
+        ?  Center(
+          child: Column(
+            children: [
+              Text("be the first one to ask", style: TextStyle(color: Colors.grey)),
+              Image.asset(
+                height: 200,
+                "images/empty.gif",),
+            ],
+          ))
         : ListView.builder(
           physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
