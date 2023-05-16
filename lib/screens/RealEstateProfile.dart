@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/Material.dart';
+import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -13,6 +14,7 @@ import 'package:sssv1/widgets/popup.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/widgets/staggered_grid.dart';
 
 class RealEstateProfile extends StatefulWidget {
   String uid;
@@ -56,7 +58,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
     dataAsk.askCommunityProvider(widget.uid);
     var datacomments = Provider.of<CommentSectionProvider>(context, listen: false);
     datacomments.commentSectionProvider(widget.uid);
-    // print(widget.uid);
+    print(widget.uid);
   }
 
   @override
@@ -347,32 +349,38 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    // color: Colors.grey,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: 65,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                                border: Border.all(color: tgPrimaryColor)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.add_a_photo_outlined),
-                                iconSize: 26,
-                                color: Colors.black54,
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigators().navigatorPush(context, StaggeredGridq()); 
+                    }
+                    ,
+                    child: Container(
+                      // color: Colors.grey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 65,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                  border: Border.all(color: tgPrimaryColor)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.add_a_photo_outlined),
+                                  iconSize: 26,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            "Add Photo",
-                            style: TextStyle(fontSize: 12),
-                          )
-                        ]),
+                            Text(
+                              "Photo",
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ]),
+                    ),
                   ),
                 ),
               ],

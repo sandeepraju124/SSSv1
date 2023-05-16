@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/providers/allbusinesses.dart';
+import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/widgets/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -45,6 +47,12 @@ void main() async {
     ChangeNotifierProvider<CommentSectionProvider>(
       create: (_) => CommentSectionProvider(),
     ),
+    ChangeNotifierProvider<AllBusinessListProvider>(
+      create: (_) => AllBusinessListProvider(),
+    ),
+    // ChangeNotifierProvider<CommentSectionProvider>(
+    //   create: (_) => CommentSectionProvider(),
+    // ),
   ], child: MyApp()));
 }
 
@@ -65,8 +73,8 @@ class MyApp extends StatelessWidget {
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
-      home: redirection(),
-      // home: CommentPost(),
+      // home: redirection(),
+      home: Search(),
 
       // home: ShowModalComment(),
       // home:UserProfile(),

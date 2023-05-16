@@ -105,6 +105,25 @@ class Http {
     }
   }
 
+
+
+
+
+    // used this to show all business list foe search
+  Future<List<Businessprofile>> fetchAllBusinessListData(String uri) async {
+    var url = Uri.parse(uri);
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      final jsonList = json.decode(response.body) as List;
+      print("responsebody ${response.body}");
+      print("json $jsonList");
+      final List<Businessprofile> services = jsonList.map((json) => Businessprofile.fromJson(json)).toList();
+      return services;
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
 // used this for post comments
 // not using alreday implemented in provider
 
