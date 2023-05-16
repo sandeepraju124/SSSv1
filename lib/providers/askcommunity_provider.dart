@@ -14,12 +14,7 @@ class AskCommunityProvider with ChangeNotifier {
 
   Future<void> askCommunityProvider(uid) async {
     _isLoading = true;
-<<<<<<< HEAD
     AskTheCommunityModels datalist = await Http().fetchAskCommunity("https://zukhov.azurewebsites.net/askcommunity/$uid");
-=======
-    AskTheCommunityModels datalist = await Http().fetchAskCommunity(
-        "https://zukhov.azurewebsites.net/askcommunity/$uid");
->>>>>>> 8c184f7bec83ac5cefc587f96c706a98a89bf54c
     _askcommunity = datalist;
     _isLoading = false;
     notifyListeners();
