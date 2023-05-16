@@ -65,7 +65,7 @@ class _RealEstateProfileState extends State<RealEstateProfile> {
     var data = Provider.of<BusinessProfileProvider>(context);
     var datacomments = Provider.of<CommentSectionProvider>(context);
     print("build comment comm");
-    var datacomm = Provider.of<CommentSectionProvider>(context);
+    // var datacomm = Provider.of<CommentSectionProvider>(context);
     // Map<int, bool> showRemainingAnswers = {};
     // final _commentcontroller = TextEditingController();
 

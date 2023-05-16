@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/login/google_login_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/screens/terms_and_conditions.dart';
+import 'package:sssv1/utils/navigator.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -354,6 +356,38 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 10,
             ),
+            InkWell(
+              onTap: () {
+                final provider =
+                    Navigators().navigatorPush(context, TermsAndConditions());
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+
+                // color: Colors.white,
+                width: double.infinity,
+                child: ListTile(
+                  leading: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.edit_note_sharp,
+                        color: Colors.black,
+                      )),
+                  title: Text(
+                    "Terms & conditions",
+                  ),
+                  trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
+                ),
+              ),
+            ),
+            SizedBox(height: 10,),
 
             Container(
                 height: 160,

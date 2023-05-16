@@ -17,7 +17,7 @@ class SubcategoryProvider with ChangeNotifier{
   
   Future<void> subCategoryProvider(subcategory) async {
     _isLoading = true;
-    Subcategory datalist = await Http().fetchSubcategoryData("https://revolution.azurewebsites.net/category/$subcategory");
+    Subcategory datalist = await Http().fetchSubcategoryData("https://zukhov.azurewebsites.net/category/$subcategory");
     _subcategory = datalist;
     _isLoading = false;
     notifyListeners();

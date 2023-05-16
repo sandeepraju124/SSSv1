@@ -17,7 +17,7 @@ class CommentSectionProvider extends ChangeNotifier{
 
   Future<void> commentSectionProvider(uid)async {
     _isLoading = true;
-    CommentSectionModels commentsection = await Http().fetchComments("https://revolution.azurewebsites.net/commentsuid/$uid");
+    CommentSectionModels commentsection = await Http().fetchComments("https://zukhov.azurewebsites.net/commentsuid/$uid");
     _comments = commentsection;
     _isLoading = false;
     notifyListeners();
@@ -34,10 +34,10 @@ Future<bool> postCommentProvider({required String business_uid,required String u
     'user_id': user_id,
   };
   // print(body);
-  // var response = await Http().postComments("https://revolution.azurewebsites.net/addcomment", body);
+  // var response = await Http().postComments("https://zukhov.azurewebsites.net/addcomment", body);
   try {
     
-    var url = Uri.parse("https://revolution.azurewebsites.net/addcomment");
+    var url = Uri.parse("https://zukhov.azurewebsites.net/addcomment");
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     final response = await http.post(url, headers: headers, body: body);
     return response.statusCode == 200;

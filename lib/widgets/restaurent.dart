@@ -11,7 +11,7 @@ class Restaurant extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Business>>(
       future: Http().fetchBusinessData(
-          "https://revolution.azurewebsites.net/subcategory/restaurant"),
+          "https://zukhov.azurewebsites.net/subcategory/restaurant"),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Business> businesses = snapshot.data!;

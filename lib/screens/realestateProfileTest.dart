@@ -11,7 +11,7 @@ class testRealEstate extends StatefulWidget {
 
 class _testRealEstateState extends State<testRealEstate> {
   Future<List<dynamic>> getData() async {
-    String url = 'https://revolution.azurewebsites.net/services/realestate';
+    String url = 'https://zukhov.azurewebsites.net/services/realestate';
     http.Response response = await http.get(Uri.parse(url));
     List<dynamic> data = jsonDecode(response.body);
     return data;

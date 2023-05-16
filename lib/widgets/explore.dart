@@ -22,7 +22,7 @@ class Explore extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    // Http().fetchSubcategoryData("https://revolution.azurewebsites.net/category/food");
+                    // Http().fetchSubcategoryData("https://zukhov.azurewebsites.net/category/food");
                     // await SubcategoryProvider().subCategoryProvider("retail");
                     // await subcategoryProvider.subCategoryProvider("retail");
                     // Navigators().navigatorPush(context, SubCategory());

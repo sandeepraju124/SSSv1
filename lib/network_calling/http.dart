@@ -144,7 +144,7 @@ Future<CommentSectionModels> fetchComments(String uri) async {
     final userid = user?.uid;
     print("userid $userid");
 
-    final apiUrl = Uri.parse('https://revolution.azurewebsites.net/user/$userid');
+    final apiUrl = Uri.parse('https://zukhov.azurewebsites.net/user/$userid');
     final response = await http.get(apiUrl);
     print("response $response");
 
@@ -163,7 +163,7 @@ Future<CommentSectionModels> fetchComments(String uri) async {
   //   // await Future.delayed(const Duration(seconds: 2));
   //   final userid = user?.uid; //d8JpVQttpad6s5maOboGC0iCVaB3
   //   final apiUrl =
-  //       Uri.parse('https://revolution.azurewebsites.net/user/$userid');
+  //       Uri.parse('https://zukhov.azurewebsites.net/user/$userid');
   //   final response = await http.get(apiUrl);
   //   if (kDebugMode) {
   //     print("response $response");
@@ -200,7 +200,7 @@ Future<CommentSectionModels> fetchComments(String uri) async {
     //           "userid":"7447485859"
     // };
     try {
-      String url = "https://revolution.azurewebsites.net/user";
+      String url = "https://zukhov.azurewebsites.net/user";
       final response = await http.post(Uri.parse(url), body: body);
       if (response.statusCode != 200) {
         throw Exception('Failed to post data');
