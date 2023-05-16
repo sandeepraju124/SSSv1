@@ -5,24 +5,20 @@ import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import "package:http/http.dart" as http;
 
-class CommentSectionProvider extends ChangeNotifier{
-
+class CommentSectionProvider extends ChangeNotifier {
   CommentSectionModels? _comments;
   bool _isLoading = false;
 
-  CommentSectionModels? get getCommentsData  => _comments;
+  CommentSectionModels? get getCommentsData => _comments;
   bool get isLoading => _isLoading;
-  
 
-
-  Future<void> commentSectionProvider(uid)async {
+  Future<void> commentSectionProvider(uid) async {
     _isLoading = true;
     CommentSectionModels commentsection = await Http().fetchComments("https://zukhov.azurewebsites.net/commentsuid/$uid");
     _comments = commentsection;
     _isLoading = false;
     notifyListeners();
   }
-
 
   // ignore: non_constant_identifier_names
 Future<bool> postCommentProvider({required String business_uid,required String user_id, required String comment}) async {
@@ -51,6 +47,4 @@ Future<bool> postCommentProvider({required String business_uid,required String u
     notifyListeners();
   }
 }
-
-
 }

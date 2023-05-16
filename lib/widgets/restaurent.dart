@@ -72,7 +72,6 @@ class Restaurant extends StatelessWidget {
                                           style: const TextStyle(
                                               color: Colors.black)),
                                     ),
-                                    
                                   ],
                                 )),
                             // Column3 Description
@@ -102,11 +101,18 @@ class Restaurant extends StatelessWidget {
                                   color: Colors.yellow.withOpacity(0.5),
                                   spreadRadius: 2,
                                   blurRadius: 5,
-                                  offset:const Offset(0, 3),
+                                  offset: const Offset(0, 3),
                                 ),
                               ],
                             ),
-                            child:const Center(child: Text('4.5',style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,), )),
+                            child: const Center(
+                                child: Text(
+                              '4.5',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
                           ),
                         )
                       ],

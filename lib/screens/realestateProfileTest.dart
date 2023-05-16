@@ -81,11 +81,11 @@ class _SearchListinRealState extends State<SearchListinReal> {
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                     boxShadow: [
                       BoxShadow(
-                        offset:const Offset(0, 10),
+                        offset: const Offset(0, 10),
                         blurRadius: 40,
                         spreadRadius: 0,
-                        color:
-                           const Color.fromARGB(255, 35, 35, 37).withOpacity(0.30),
+                        color: const Color.fromARGB(255, 35, 35, 37)
+                            .withOpacity(0.30),
                       ),
                     ],
                   ),
@@ -114,7 +114,8 @@ class _SearchListinRealState extends State<SearchListinReal> {
                                 Expanded(
                                   child: Container(
                                     // height: 40,
-                                    margin: const EdgeInsets.only(left: 10, top: 20),
+                                    margin: const EdgeInsets.only(
+                                        left: 10, top: 20),
                                     // height: 10,
                                     // color: Color.fromRGBO(255, 152, 0, 1),
                                     child: Text(widget.data["name"],
@@ -127,9 +128,10 @@ class _SearchListinRealState extends State<SearchListinReal> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: const EdgeInsets.only(left: 10, top: 3),
+                                    margin:
+                                        const EdgeInsets.only(left: 10, top: 3),
                                     // color: Colors.pinkAccent,
-                                    child:const Text(
+                                    child: const Text(
                                         "5/f 18 on lane ST, central hong kong",
                                         // provider.data[int].address,maxLines: 2,
                                         style: TextStyle(
@@ -157,10 +159,10 @@ class _SearchListinRealState extends State<SearchListinReal> {
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                     boxShadow: [
                       BoxShadow(
-                        offset:const Offset(0, -22),
+                        offset: const Offset(0, -22),
                         blurRadius: 40,
                         spreadRadius: 0,
-                        color:const Color(0xFF0073FF).withOpacity(0.10),
+                        color: const Color(0xFF0073FF).withOpacity(0.10),
                       ),
                     ],
                   ),
@@ -171,11 +173,11 @@ class _SearchListinRealState extends State<SearchListinReal> {
                     Expanded(
                         flex: 65,
                         child: Container(
-                          margin:const EdgeInsets.only(top: 12),
+                          margin: const EdgeInsets.only(top: 12),
                           // color: Colors.grey,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
+                            children: const [
                               Text("3",
                                   // provider.data[int].rating.toString(),
                                   style: TextStyle(fontSize: 20)),
@@ -196,7 +198,7 @@ class _SearchListinRealState extends State<SearchListinReal> {
                         child: Row(children: [
                           Expanded(
                             child: Container(
-                                margin:const EdgeInsets.only(left: 14),
+                                margin: const EdgeInsets.only(left: 14),
                                 // color: Colors.redAccent,
                                 child: const Text(
                                   "342",

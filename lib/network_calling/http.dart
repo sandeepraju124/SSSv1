@@ -13,104 +13,97 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Http {
   List<Business> business = [];
 
-
   // used this for 5 restaurants showed in homepage
-  Future<List<Business>> fetchBusinessData(String uri)async{
-    
+  Future<List<Business>> fetchBusinessData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
       // print("json $jsonList");
-      business  = jsonList.map((json) => Business.fromJson(json)).toList();
+      business = jsonList.map((json) => Business.fromJson(json)).toList();
       // print(business);
       return business;
-    }else{
+    } else {
       throw Exception('Failed to fetch data');
     }
   }
 
   // used this to show subcatogories
   List<Subcategory> Category_data = [];
-  Future<Subcategory> fetchSubcategoryData(String uri)async{
-    
+  Future<Subcategory> fetchSubcategoryData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       var decodedResponse = json.decode(response.body);
       // print("responsebody ${response.body}");
       // print("decodedResponse $decodedResponse");
       var subcategory = Subcategory.fromJson(decodedResponse);
       // print("Category_data $subcategory");
       return subcategory;
-    }else{
+    } else {
       throw Exception('Failed to fetch data');
     }
   }
 
-
   // used this to show the list of subcategories
-  Future<List<Subcategorylist>> fetchSubcategoryListData(String uri)async{
-    
+  Future<List<Subcategorylist>> fetchSubcategoryListData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
       // print("json $jsonList");
-     final List<Subcategorylist> services = jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
+      final List<Subcategorylist> services =
+          jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
       return services;
-    }else{
+    } else {
       throw Exception('Failed to fetch data');
     }
   }
 
-
 // used this to show business profile
 
-Future<Businessprofile> fetchBusinessProfile(String uri) async {
-  var url = Uri.parse(uri);
+  Future<Businessprofile> fetchBusinessProfile(String uri) async {
+    var url = Uri.parse(uri);
     var response = await http.get(url);
-  if (response.statusCode == 200) {
-    var businessProfile = Businessprofile.fromJson(json.decode(response.body));
-    return businessProfile;
-  } else {
-    throw Exception('Failed to load business profile');
+    if (response.statusCode == 200) {
+      var businessProfile =
+          Businessprofile.fromJson(json.decode(response.body));
+      return businessProfile;
+    } else {
+      throw Exception('Failed to load business profile');
+    }
   }
-}
-
-
-
 
 // used this to show ask for community
 
-Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
-  var url = Uri.parse(uri);
+  Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
+    var url = Uri.parse(uri);
     var response = await http.get(url);
-  if (response.statusCode == 200) {
-    // print(response.body);
-    var askCommunity = AskTheCommunityModels.fromJson(json.decode(response.body));
-    return askCommunity;
-  } else {
-    throw Exception('Failed to load business profile');
+    if (response.statusCode == 200) {
+      // print(response.body);
+      var askCommunity =
+          AskTheCommunityModels.fromJson(json.decode(response.body));
+      return askCommunity;
+    } else {
+      throw Exception('Failed to load business profile');
+    }
   }
-}
-
 
 // used this for comment scetion
 
-Future<CommentSectionModels> fetchComments(String uri) async {
-  var url = Uri.parse(uri);
+  Future<CommentSectionModels> fetchComments(String uri) async {
+    var url = Uri.parse(uri);
     var response = await http.get(url);
-  if (response.statusCode == 200) {
-    // print(response.body);
-    var comments = CommentSectionModels.fromJson(json.decode(response.body));
-    return comments;
-  } else {
-    throw Exception('Failed to load business profile');
+    if (response.statusCode == 200) {
+      // print(response.body);
+      var comments = CommentSectionModels.fromJson(json.decode(response.body));
+      return comments;
+    } else {
+      throw Exception('Failed to load business profile');
+    }
   }
-}
 
 // used this for post comments
 // not using alreday implemented in provider
@@ -127,11 +120,6 @@ Future<CommentSectionModels> fetchComments(String uri) async {
 //      throw Exception('Error posting data: ${response.statusCode}');
 //   }
 // }
-
-
-
-
-
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data
