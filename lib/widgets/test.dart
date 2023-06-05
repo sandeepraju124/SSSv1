@@ -1,322 +1,165 @@
-
-// ignore_for_file: unused_import, avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import "package:flutter/material.dart";
-import "package:sssv1/models/business_profile.dart";
-import "package:sssv1/providers/business_profile_provider.dart";
-import "package:sssv1/providers/sub_category_provider.dart";
-import "package:provider/provider.dart";
-
+import "package:sssv1/utils/constants.dart";
 
 class Test extends StatefulWidget {
-  String uid;
-  Test({super.key,required this.uid });
+  const Test({Key? key}) : super(key: key);
 
   @override
   State<Test> createState() => _TestState();
 }
 
 class _TestState extends State<Test> {
+  TextEditingController _nameController =
+      TextEditingController(text: "sandeep");
+  bool _isEditing = false;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _nameController = TextEditingController(text: "sandeep");
+  // }
 
   @override
-  void initState() {
-    super.initState();
-    var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    data.businessProfileProvider(widget.uid);
-    print(widget.uid);
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
+  void _toggleEditing() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-   
-    var data = Provider.of<BusinessProfileProvider>(context);
-     
-    // searchlist.subCategoryProvider("retail");
-    // SubcategoryProvider().subCategoryProvider("retail");
     return Scaffold(
-      body: data.isLoading  ? Center(child: CircularProgressIndicator()) : 
-      Scaffold(
-                backgroundColor: Color(0xffCAD3D3),
-                body: SafeArea(
-                  child: ListView(
-                    shrinkWrap: true,
-                    // scrollDirection: Axis.vertical,
-                    children: [
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            height: 160,
-                            width: double.infinity,
-                            color: Colors.green,
-                            child: Image.asset(
-                              "images/restaurant/restaurant1.jpg",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: -65,
-                            child: Center(
-                              child: Container(
-                                height: 110,
-                                width: 210,
-                                // color: Colors.redAccent,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child:
-                                    Stack(clipBehavior: Clip.none, children: [
-                                  Padding(
-                                    padding:  EdgeInsets.only(
-                                        top: 5, left: 2, right: 2),
-                                    child: Container(
-                                      height: 40,
-                                      width: double.infinity,
-                                      child: Center(
-                                        child: Text(
-                                          data.businessProfileData!.businessName.toString(),
-                                          // widget.idpasses,
-                                          style: TextStyle(
-                                              fontFamily: "Roboto",
-                                              fontSize: 18,
-                                              color: Colors.black87),
-                                        ),
-                                      ),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffCAD3D3),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                            child: const Icon(
-                                              Icons.filter_outlined,
-                                            ),
-                                            height: 50,
-                                            width: 50,
-                                            decoration: const BoxDecoration(
-                                              color: Color(0xffCAD3D3),
-                                              shape: BoxShape.circle,
-                                            )),
-                                      )),
-                                  Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 50,
-                                          width: 50,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0xffCAD3D3),
-                                            shape: BoxShape.circle,
-                                          ),
-                                        ),
-                                      )),
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    bottom: -25,
-                                    child: Center(
-                                      child: Container(
-                                          height: 85,
-                                          width: 80,
-                                          // width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  "https://images.unsplash.com/photo-1683406004728-e69d720c37a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"),
-                                            ),
-                                            color: Colors.black,
-                                            shape: BoxShape.circle,
-                                          )),
-                                    ),
-                                  )
-                                ]),
-                              ),
-                            ),
-                          )
-                        ],
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: SafeArea(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey, // Set border color
+                    width: 2, // Set border width
+                  ),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 5,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(
+                      'images/restaurant/restaurant2.jpg'), // Replace with your image path
+                ),
+              ),
+              GestureDetector(
+                  onTap: _toggleEditing,
+                  child: Icon(_isEditing ? Icons.check : Icons.edit)),
+              SizedBox(
+                height: 16,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Username")),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.grey),
+                        color: _isEditing
+                            ? Colors.white
+                            : secondaryColor10LightTheme,
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      Text("gumadi pandu"
-                          // rescomments.data.length.toString()
-                          ),
-                      const SizedBox(
-                        height: 10,
+                      child: TextField(
+                        style: TextStyle(
+                            color: _isEditing ? Colors.black : Colors.grey),
+                        controller: _nameController,
+                        enabled: _isEditing,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(10.0),
+                        ),
                       ),
-                      Stack(
-                        children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 13),
-                                child: Container(
-                                    child: Image.asset("images/setting.png",
-                                        height: 10,
-                                        fit: BoxFit.none,
-                                        color: Color(0xff5F6368)),
-                                    height: 60,
-                                    width: 60,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    )),
-                              )),
-                          Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 13),
-                                child: Container(
-                                    child: const Icon(
-                                      Icons.filter_outlined,
-                                      color: Color(0xff5F6368),
-                                    ),
-                                    height: 60,
-                                    width: 60,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    )),
-                              ))
-                        ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 9,
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.grey),
+                        color: _isEditing
+                            ? Colors.white
+                            : secondaryColor10LightTheme,
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      child: TextField(
+                        style: TextStyle(
+                            color: _isEditing ? Colors.black : Colors.grey),
+                        controller: _nameController,
+                        enabled: _isEditing,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(10.0),
+                        ),
                       ),
-                      Container(
-                        height: 110,
-                        width: double.infinity,
-                        color: Colors.white,
-                        child: Row(children: [
-                          Expanded(
-                              child: Container(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text("Status",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto", fontSize: 20)),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  // Text(widget.idpasses),
-                                  Text(
-
-                                    "status",
-                                      // widget.idpasses,
-                                      style: const TextStyle(
-                                          fontFamily: "Roboto",
-                                          color: Colors.green))
-                                ]),
-                            // color: Colors.blueGrey,
-                          )),
-                          const VerticalDivider(
-                              color: Colors.grey,
-                              thickness: 2,
-                              indent: 20,
-                              endIndent: 20),
-                          Expanded(
-                              child: Container(
-                            // color: Colors.amber,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text("Premium",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto", fontSize: 20)),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Icon(
-                                    Icons.currency_rupee_rounded,
-                                    size: 20,
-                                    color: Colors.red,
-                                  )
-                                ]),
-                          )),
-                          const VerticalDivider(
-                              color: Colors.grey,
-                              thickness: 2,
-                              indent: 20,
-                              endIndent: 20),
-                          Expanded(
-                              child: Container(
-                            // color: Colors.pink,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Dine",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto", fontSize: 20)),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text("viidi peru enti",
-                                      // rescomments.data.length.toString(),
-                                      style: TextStyle(
-                                          fontFamily: "Roboto",
-                                          color: Colors.green))
-                                ]),
-                          )),
-                          const VerticalDivider(
-                              color: Colors.grey,
-                              thickness: 2,
-                              indent: 20,
-                              endIndent: 20),
-                          Expanded(
-                              child: Container(
-                            // color: Colors.deepOrange,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text("Type",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto", fontSize: 20)),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('Only Veg',
-                                      style: TextStyle(
-                                          fontFamily: "Roboto",
-                                          color: Colors.green))
-                                ]),
-                          ))
-                        ]),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        height: 120,
-                        color: Colors.blueAccent,
-                      ),
-                      const SizedBox(height: 10),
-                      // comment section whole container
-                      SizedBox(
-                        height: 400,
-                        child: ListView.builder(
-                            itemCount:
-                                // GetData().getCommentsLength(),
-                                2,
-                            // rescomments.data[0].comments.length,
-                            shrinkWrap: true,
-                            // scrollDirection: Axis.vertical,
-                            itemBuilder: (BuildContext context,int int) =>
-                                Text("skip for now")
-
-                            ),
-                      )
-                    ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.0),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("email")),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  // border: Border.all(color: Colors.grey),
+                  color: _isEditing ? Colors.white : secondaryColor10LightTheme,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: TextField(
+                  style:
+                      TextStyle(color: _isEditing ? Colors.black : Colors.grey),
+                  controller: _nameController,
+                  enabled: _isEditing,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.all(10.0),
                   ),
                 ),
-      
+              ),
+              TextButton(
+                onPressed: () {
+                  _toggleEditing();
+                },
+                child: Text("SAVE"),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -19,6 +19,7 @@ import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/subcategory.dart';
+import 'package:sssv1/widgets/test.dart';
 
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
       // home: redirection(),
       home: Search(),
 
-      // home: ShowModalComment(),
+      // home: Test(),
       // home:UserProfile(),
       // // home: BottomNavPage(),
       // home: BottomNavPage(),
