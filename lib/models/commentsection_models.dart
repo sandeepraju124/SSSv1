@@ -11,46 +11,57 @@ String commentSectionModelsToJson(CommentSectionModels data) => json.encode(data
 class CommentSectionModels {
     String id;
     String businessUid;
-    List<Comment> comments;
+    List<Review> reviews;
+    double overallRating;
+    Map<String, int> ratingCount;
 
     CommentSectionModels({
         required this.id,
         required this.businessUid,
-        required this.comments,
+        required this.reviews,
+        required this.overallRating,
+        required this.ratingCount,
     });
 
     factory CommentSectionModels.fromJson(Map<String, dynamic> json) => CommentSectionModels(
         id: json["_id"],
         businessUid: json["business_uid"],
-        comments: List<Comment>.from(json["comments"].map((x) => Comment.fromJson(x))),
+        reviews: List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
+        overallRating: json["overall_rating"]?.toDouble(),
+        ratingCount: Map.from(json["rating_count"]).map((k, v) => MapEntry<String, int>(k, v)),
     );
 
     Map<String, dynamic> toJson() => {
         "_id": id,
         "business_uid": businessUid,
-        "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
+        "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
+        "overall_rating": overallRating,
+        "rating_count": Map.from(ratingCount).map((k, v) => MapEntry<String, dynamic>(k, v)),
     };
 }
 
-class Comment {
+class Review {
     String comment;
     DateTime createdAt;
     String dp;
+    int rating;
     String userId;
     String username;
 
-    Comment({
+    Review({
         required this.comment,
         required this.createdAt,
         required this.dp,
+        required this.rating,
         required this.userId,
         required this.username,
     });
 
-    factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+    factory Review.fromJson(Map<String, dynamic> json) => Review(
         comment: json["comment"],
         createdAt: DateTime.parse(json["created_at"]),
         dp: json["dp"],
+        rating: json["rating"],
         userId: json["user_id"],
         username: json["username"],
     );
@@ -59,6 +70,7 @@ class Comment {
         "comment": comment,
         "created_at": createdAt.toIso8601String(),
         "dp": dp,
+        "rating": rating,
         "user_id": userId,
         "username": username,
     };

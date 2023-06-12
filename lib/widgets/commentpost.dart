@@ -130,7 +130,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                     child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: data.getCommentsData?.comments.length,
+                        itemCount: data.getCommentsData?.reviews.length,
                         itemBuilder: (BuildContext contex, int int) {
                           return Container(
                             // height: 100,
@@ -176,8 +176,10 @@ class _CommentPostPageState extends State<CommentPostPage> {
                                     child: RichText(
                                         text: TextSpan(children: [
                                       TextSpan(
-                                          text: data.getCommentsData
-                                              ?.comments[int].username,
+                                          text: data.getCommentsData?.reviews[int].username,
+                                          // data.getCommentsData
+                                          //     ?.comments[int].username,
+                                              
                                           style:
                                               TextStyle(color: Colors.black)),
                                       TextSpan(
@@ -185,7 +187,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                                       ),
                                       TextSpan(
                                           text: data.getCommentsData
-                                              ?.comments[int].comment,
+                                              ?.reviews[int].comment,
                                           style: TextStyle(color: Colors.grey))
                                     ])),
                                   ),

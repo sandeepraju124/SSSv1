@@ -18,6 +18,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
+import 'package:sssv1/widgets/review_rating.dart';
 import 'package:sssv1/widgets/subcategory.dart';
 import 'package:sssv1/widgets/test.dart';
 
@@ -74,8 +75,8 @@ class MyApp extends StatelessWidget {
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
-      // home: redirection(),
-      home: Search(),
+      home: redirection(),
+      // home: ReviewRating(),
 
       // home: Test(),
       // home:UserProfile(),

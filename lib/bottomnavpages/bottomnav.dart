@@ -67,10 +67,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
                   border: Border.all(
                     color: Colors.grey,
-                    width: 1.5,
+                    width: 1.1,
                   ),
 
-                  borderRadius: BorderRadius.all(Radius.circular(27)),
+                  borderRadius: BorderRadius.all(Radius.circular(28)),
                 ),
                 child: SizedBox(
                   // height: 50,
