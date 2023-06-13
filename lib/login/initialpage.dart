@@ -182,6 +182,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/navigator.dart';
 import 'Signupfolder/signupauth.dart';
 import 'package:provider/provider.dart';
 import 'authstate.dart';
@@ -199,198 +200,203 @@ class _InitialPageState extends State<InitialPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 26.0, vertical: 110.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20,),
+            Text(
+              'Welcome to our Application',
+              style: TextStyle(
+                
+                  // color: Colors.deepPurple.shade900,
+                  // Color tgDarkPrimaryColor: Color(#00796B),
+                  color: tgDarkPrimaryColor,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Create your Account',
+              style: TextStyle(
+                  color: tgSecondaryText,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 60.0),
+              child: Image.asset(
+                "assets/pic.png",
+                // height: 200,
+                width: 900,
+              ),
+            ),
+      
+            SizedBox(height: 30),
+      
+            // sign in field//
+      
+            // Row(
+            //   children: [
+            //     GestureDetector(
+            //       onTap: (() {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) {
+            //           return AuthState();
+            //         }));
+            //       }),
+            //       child: Container(
+            //         padding: EdgeInsets.all(17.0),
+            //         decoration: BoxDecoration(
+            //             border: Border.all(color: Colors.black45),
+            //             borderRadius: BorderRadius.circular(10.0)),
+            //         child: Text(
+            //           'Log in with Email',
+            //           style: TextStyle(
+            //               color: Colors.black87,
+            //               fontSize: 18,
+            //               fontWeight: FontWeight.bold),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+      
+            //   SizedBox(width: 8),
+      
+            //   // Flex(
+            //   //   direction: Axis.horizontal,
+      
+            //   Container(
+            //     padding: EdgeInsets.all(18.0),
+            //     decoration: BoxDecoration(
+            //         // border: Border.all(color: Colors.black45),
+            //         color: Colors.deepPurple.shade800,
+            //         borderRadius: BorderRadius.circular(10.0)),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) {
+            //           return Signupauth();
+            //         }));
+            //       },
+            //       child: Text(
+            //         "I 'AM NEW",
+            //         textAlign: TextAlign.center,
+            //         style: TextStyle(
+            //             color: Color.fromARGB(255, 252, 250, 250),
+            //             fontSize: 17,
+            //             fontWeight: FontWeight.bold),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+      
+            // sign field??
+            GestureDetector(
+              onTap: (){
+                Navigators().navigatorPush(context, AuthState());
+              },
+              child: Container(
+                          height: 40,
+                          margin: const EdgeInsets.symmetric(horizontal: 22),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: tgDividerColor),
+              // borderRadius: BorderRadius.circular(16), 
+              // color: tgDarkPrimaryColor
+              ),
+                        child: Align(
+                        alignment: Alignment.center,
+                          child: Text("Log in with Email", style: TextStyle(color: tgPrimaryText))),
+            
+                  ),
+            ),
+      
+            SizedBox(height: 10),
+      
+            GestureDetector(
+              onTap: () {
+                Navigators().navigatorPush(context, Signupauth());
+              },
+              child: Container(
+                height: 40,
+                margin: const EdgeInsets.symmetric(horizontal: 22),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    // borderRadius: BorderRadius.circular(16),
+                    color: tgDarkPrimaryColor),
+                child: const Align(
+                    alignment: Alignment.center,
+                    child: Text("I' AM NEW",
+                        style: TextStyle(color: Colors.white))),
+              ),
+            ),
+      
+            SizedBox(height: 10),
+       
+            GestureDetector(
+              onTap: (){
+                final provider = Provider.of<GoogleSignInController>(
+                    context,
+                    listen: false);
+                provider.login();
+                // Provider.of<GoogleSignInController>(context, listen: false)
+                //     .login();
+                // // // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                // // //   return GoogleAuthI();
+                // // // }));
+                // // Authgooglesignin().signInWithGoogle();
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) {
+                //   return GloginIntialPage();
+                // }));
+      
+              },
+              child: Container(
+                          height: 40,
+                          margin: const EdgeInsets.symmetric(horizontal: 22),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: tgDividerColor),
+              // color: Colors.
+              ),
+                        child:Align(
+                        alignment: Alignment.center,
+                          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Welcome to our Application',
-                  style: TextStyle(
-                      // color: Colors.deepPurple.shade900,
-                      // Color tgDarkPrimaryColor: Color(#00796B),
-                      color: tgDarkPrimaryColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Create your Account',
-                  style: TextStyle(
-                      color: tgSecondaryText,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 95),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 60.0),
-                  child: Image.asset(
-                    "assets/pic.png",
-                    // height: 200,
-                    width: 900,
-                  ),
+                  padding: const EdgeInsets.all(5.0),
+                  child: Image.asset(height: 23, "images/Google.png"),
                 ),
-
-                SizedBox(height: 30),
-
-                // sign in field//
-
-                // Row(
-                //   children: [
-                //     GestureDetector(
-                //       onTap: (() {
-                //         Navigator.push(context,
-                //             MaterialPageRoute(builder: (context) {
-                //           return AuthState();
-                //         }));
-                //       }),
-                //       child: Container(
-                //         padding: EdgeInsets.all(17.0),
-                //         decoration: BoxDecoration(
-                //             border: Border.all(color: Colors.black45),
-                //             borderRadius: BorderRadius.circular(10.0)),
-                //         child: Text(
-                //           'Log in with Email',
-                //           style: TextStyle(
-                //               color: Colors.black87,
-                //               fontSize: 18,
-                //               fontWeight: FontWeight.bold),
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-
-                //   SizedBox(width: 8),
-
-                //   // Flex(
-                //   //   direction: Axis.horizontal,
-
-                //   Container(
-                //     padding: EdgeInsets.all(18.0),
-                //     decoration: BoxDecoration(
-                //         // border: Border.all(color: Colors.black45),
-                //         color: Colors.deepPurple.shade800,
-                //         borderRadius: BorderRadius.circular(10.0)),
-                //     child: GestureDetector(
-                //       onTap: () {
-                //         Navigator.push(context,
-                //             MaterialPageRoute(builder: (context) {
-                //           return Signupauth();
-                //         }));
-                //       },
-                //       child: Text(
-                //         "I 'AM NEW",
-                //         textAlign: TextAlign.center,
-                //         style: TextStyle(
-                //             color: Color.fromARGB(255, 252, 250, 250),
-                //             fontSize: 17,
-                //             fontWeight: FontWeight.bold),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-
-                // sign field??
-
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        minimumSize: Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                        side:
-                            BorderSide(color: tgDarkPrimaryColor, width: 0.7)),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AuthState();
-                      }));
-                    },
-                    child: Text(
-                      'Log in with Email',
-                      style: TextStyle(
-                        color: tgPrimaryText,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-
-                SizedBox(height: 15),
-
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        // backgroundColor: Colors.deepPurple.shade800,
-                        backgroundColor: tgDarkPrimaryColor,
-                        minimumSize: Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11),
-                        ),
-                        side: BorderSide(color: Colors.black, width: 0.7)),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Signupauth();
-                      }));
-                    },
-                    child: Text(
-                      "I' AM NEW",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-
-                SizedBox(height: 15),
-
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    minimumSize: Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(11),
-                    ),
-                    side: BorderSide(
-                      color: tgDarkPrimaryColor,
-                      width: 0.7,
-                    ),
-                  ),
-                  onPressed: () {
-                    final provider = Provider.of<GoogleSignInController>(
-                        context,
-                        listen: false);
-                    provider.login();
-                    // Provider.of<GoogleSignInController>(context, listen: false)
-                    //     .login();
-                    // // // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    // // //   return GoogleAuthI();
-                    // // // }));
-                    // // Authgooglesignin().signInWithGoogle();
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //   return GloginIntialPage();
-                    // }));
-                  },
-                  label: Text(
-                    "Sign up with Google",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  icon: FaIcon(
-                    FontAwesomeIcons.google,
-                    color: Colors.red,
-                  ),
-                ),
+                Text("Sign up with Google", style: TextStyle(color: tgPrimaryText)),
               ],
-            )),
+                          )),
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+// "Sign up with Google",
+// onPressed: () {
+//                     final provider = Provider.of<GoogleSignInController>(
+//                         context,
+//                         listen: false);
+//                     provider.login();
+//                     // Provider.of<GoogleSignInController>(context, listen: false)
+//                     //     .login();
+//                     // // // Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                     // // //   return GoogleAuthI();
+//                     // // // }));
+//                     // // Authgooglesignin().signInWithGoogle();
+//                     // Navigator.push(context,
+//                     //     MaterialPageRoute(builder: (context) {
+//                     //   return GloginIntialPage();
+//                     // }));
+//                   },

@@ -5,12 +5,13 @@
 // import 'package:backendapp/utils/navigators.dart';
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/network_calling/http.dart';
-
 import '../../utils/constants.dart';
 
 class NewSignuppage extends StatefulWidget {
@@ -25,6 +26,16 @@ class _NewSignuppageState extends State<NewSignuppage> {
 
   // String selectedGender = "";
   Gender? _selectedGender;
+  File? _dp;
+
+
+  Future imagePicker(ImageSource source)async{
+    ImagePicker pick = ImagePicker();
+    final pickedFile = await pick.pickImage(source: source);
+    setState(() {
+      _dp = File(pickedFile!.path);
+    });
+  }
 
   Widget _buildGenderOption(Gender gender, String label) {
     return GestureDetector(
@@ -174,12 +185,23 @@ class _NewSignuppageState extends State<NewSignuppage> {
                   flex: 35,
                   child: Container(
                     padding: EdgeInsets.all(10),
+                    // color: Colors.red,
                     color: Colors.grey[200],
                     height: 150,
-                    child: const CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(
-                          "https://expertphotography.b-cdn.net/wp-content/uploads/2018/10/cool-profile-pictures-retouching-1.jpg"),
+                    child: GestureDetector(
+                      onTap: (){
+                          imagePicker(ImageSource.gallery);
+                      },
+                      child: _dp == null ?
+                       CircleAvatar(
+                        radius: 50,
+                        backgroundImage:
+                        AssetImage("images/defaulltdp.png") 
+                      ) :
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage:FileImage(_dp!) 
+                      ),
                     ),
                   ),
                 )

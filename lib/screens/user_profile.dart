@@ -21,6 +21,8 @@ class _UserProfileState extends State<UserProfile> {
     final user = FirebaseAuth.instance.currentUser;
     String? email = user?.email;
     String? name = user?.displayName;
+    final provider =
+        Provider.of<GoogleSignInController>(context, listen: false);
 
     return Scaffold(
         backgroundColor: Colors.grey[100],
@@ -323,8 +325,8 @@ class _UserProfileState extends State<UserProfile> {
             // logout
             InkWell(
               onTap: () {
-                final provider =
-                    Provider.of<GoogleSignInController>(context, listen: false);
+                // final provider =
+                //     Provider.of<GoogleSignInController>(context, listen: false);
                 provider.logOut();
               },
               child: Container(

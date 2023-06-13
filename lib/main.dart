@@ -52,9 +52,9 @@ void main() async {
     ChangeNotifierProvider<AllBusinessListProvider>(
       create: (_) => AllBusinessListProvider(),
     ),
-    // ChangeNotifierProvider<CommentSectionProvider>(
-    //   create: (_) => CommentSectionProvider(),
-    // ),
+    ChangeNotifierProvider<GoogleSignInController>(
+      create: (_) => GoogleSignInController(),
+    ),
   ], child: MyApp()));
 }
 

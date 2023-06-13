@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/navigator.dart';
 import '../google_login_controller.dart';
 import '../forgotpwpage.dart';
 import '../Signupfolder/signupauth.dart';
@@ -81,18 +82,19 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _emailcontroller,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  labelText: 'Email',
+                  contentPadding: EdgeInsets.all(10),
+                  labelText: 'email',
                   labelStyle: TextStyle(
                       color: tgSecondaryText,
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: tgDarkPrimaryColor),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: tgDividerColor),
+                    // borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: tgDarkPrimaryColor),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: tgDividerColor),
+                    // borderRadius: BorderRadius.circular(12),
                   ),
                   suffixIcon: Icon(
                     Icons.mail_outlined,
@@ -101,10 +103,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: 30),
-
+            SizedBox(height: 15),
+      
             //password field//
-
+      
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: TextField(
@@ -112,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: passwordObscured,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10),
                   labelText: 'Password',
                   labelStyle: TextStyle(
                       // color: Color.fromARGB(181, 0, 0, 0),
@@ -119,12 +122,12 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: tgDarkPrimaryColor),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: tgDividerColor),
+                    // borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: tgDarkPrimaryColor),
-                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: tgDividerColor),
+                    // borderRadius: BorderRadius.circular(12),
                   ),
                   suffixIcon: GestureDetector(
                     onTap: () {
@@ -142,10 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-
+      
             //forgot PW field//
             SizedBox(height: 10),
-
+      
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
@@ -169,37 +172,34 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-
+      
             SizedBox(height: 15),
-
+      
             //sign in field//
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: GestureDetector(
-                onTap: SignIn,
-                child: Container(
-                  padding: EdgeInsets.all(22.0),
-                  decoration: BoxDecoration(
-                      color: tgDarkPrimaryColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Center(
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 310),
-
+            // SignIn
+            // tgDarkPrimaryColor
+      
+            GestureDetector(
+        onTap: (){
+          SignIn();
+        },
+        child: Container(
+                height: 40,
+                margin: const EdgeInsets.symmetric(horizontal: 22),
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  // borderRadius: BorderRadius.circular(16), 
+                  color: tgDarkPrimaryColor),
+              child: const Align(
+              alignment: Alignment.center,
+                child: Text("SignIn", style: TextStyle(color: Colors.white))),
+        ),
+      ),
+      
+            SizedBox(height: 110),
+      
             // google signup//
-
+      
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: ElevatedButton.icon(
@@ -235,7 +235,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 30),
-
+      
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Row(children: [
@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(width: 5),
                   GestureDetector(
                     // onTap: widget.showSignupPage,
-
+      
                     onTap: (() {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {

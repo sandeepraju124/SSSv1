@@ -452,7 +452,7 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                   width: double.infinity,
                   height: 300,
                   // color: Colors.white,
-                  // child: MapScreenPage(),
+                  child: MapScreenPage(),
                 ),
 
                 SizedBox(
