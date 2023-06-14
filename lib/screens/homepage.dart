@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
-// import 'package:sssv1/providers/testprovider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/explore.dart';
-
 import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import 'package:provider/provider.dart';
@@ -65,63 +63,60 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       extendBody: true,
-      // appBar: AppBar(
-      //   //// this is to diable appbar arrowback functionality //
-      //   // automaticallyImplyLeading: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Image.asset(
+            "images/logo4.png",
+            width: 120,
+            height: 110,
+            color: Colors.black,
+          ),
+        ),
 
-      //   centerTitle: true,
-      //   title: Padding(
-      //     padding: EdgeInsets.symmetric(horizontal: 10),
-      //     child: Image.asset(
-      //       "images/logo4.png",
-      //       width: 120,
-      //       height: 110,
-      //       color: Colors.black,
-      //     ),
-      //   ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 16.5),
+        //   child: Builder(
+        //       builder: (context) => InkWell(
+        //             onTap: () {
+        //               Scaffold.of(context).openDrawer();
+        //             },
+        //             child: CircleAvatar(
+        //                 child: ClipOval(
+        //               child: Image.asset(
+        //                 'images/prof.png',
+        //               ),
+        //             )),
+        //           )),
+        // ),
 
-      //   // leading: Padding(
-      //   //   padding: const EdgeInsets.only(left: 16.5),
-      //   //   child: Builder(
-      //   //       builder: (context) => InkWell(
-      //   //             onTap: () {
-      //   //               Scaffold.of(context).openDrawer();
-      //   //             },
-      //   //             child: CircleAvatar(
-      //   //                 child: ClipOval(
-      //   //               child: Image.asset(
-      //   //                 'images/prof.png',
-      //   //               ),
-      //   //             )),
-      //   //           )),
-      //   // ),
-
-      //   // actions: [
-      //   //   Padding(
-      //   //     padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-      //   //     child: CircleAvatar(
-      //   //       radius: 28,
-      //   //       child: ClipOval(
-      //   //         child: Image.asset(
-      //   //           "images/prof.png",
-      //   //           fit: BoxFit.cover,
-      //   //           width: 48,
-      //   //           height: 48,
-      //   //         ),
-      //   //       ),
-      //   //     ),
-      //   //   ),
-      //   // ],
-      //   toolbarHeight: 75.0,
-      //   // backgroundColor: Colors.white,
-      //   // backgroundColor: tgPrimaryColor,
-      //   backgroundColor: Color.fromARGB(255, 78, 155, 151),
-      //   elevation: 3.0,
-      //   // leading: IconButton(
-      //   //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
-      //   //   onPressed: () {},
-      //   // ),
-      // ),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+        //     child: CircleAvatar(
+        //       radius: 28,
+        //       child: ClipOval(
+        //         child: Image.asset(
+        //           "images/prof.png",
+        //           fit: BoxFit.cover,
+        //           width: 48,
+        //           height: 48,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
+        toolbarHeight: 75.0,
+        // backgroundColor: Colors.white,
+        // backgroundColor: tgPrimaryColor,
+        backgroundColor: Colors.teal[50],
+        elevation: 3.0,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
+        //   onPressed: () {},
+        // ),
+      ),
       body: Container(
         color: Colors.white,
         // color: Colors.teal[50],
