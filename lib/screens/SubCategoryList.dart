@@ -1,13 +1,12 @@
 //  prefer_const_literals_to_create_immutables
 
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/screens/RealEstateProfile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
+
 
 class SubCategoryList extends StatefulWidget {
   String subCat;
@@ -18,6 +17,7 @@ class SubCategoryList extends StatefulWidget {
 }
 
 class _SubCategoryListState extends State<SubCategoryList> {
+
   @override
   void initState() {
     super.initState();
@@ -25,40 +25,31 @@ class _SubCategoryListState extends State<SubCategoryList> {
     data.subCategoryListProvider(widget.subCat);
     // print("suncat");
     // print(widget.subCat);
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<SubcategoryListProvider>(context);
-
+ 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.subCat),
-        // backgroundColor: Color.fromARGB(255, 78, 155, 151),
-        backgroundColor: tgAccentColor,
-      ),
-      body: data.isLoading
-          ? Center(
-              child: Image.asset("images/loading2.gif"),
-            )
-          :
-          // data.isLoading  ? Center(child: CircularProgressIndicator()) :
-          Material(
+      appBar: AppBar(title: Text(widget.subCat)),
+      body: data.isLoading  ? Center(child: Image.asset("images/loading2.gif"),) :
+      // data.isLoading  ? Center(child: CircularProgressIndicator()) :
+      Material(
               child: ListView.builder(
                 itemCount: data.subcategoryListData?.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
                       // Navigators().navigatorPush(context, testing2(uid:data.subcategoryListData![index].businessUid ));
-                      Navigators().navigatorPush(
-                          context,
-                          RealEstateProfile(
-                              uid: data
-                                  .subcategoryListData![index].businessUid));
+                      Navigators().navigatorPush(context, RealEstateProfile(uid:data.subcategoryListData![index].businessUid ));
                     },
                     child: Column(
                       children: [
-                        const SizedBox(
+                       const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -72,15 +63,14 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     // color: Colors.blueAccent,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(12)),
+                                    borderRadius:
+                                       const BorderRadius.all(Radius.circular(12)),
                                     boxShadow: [
                                       BoxShadow(
-                                        offset: const Offset(0, 10),
+                                        offset:const Offset(0, 10),
                                         blurRadius: 40,
                                         spreadRadius: 0,
-                                        color: const Color.fromARGB(
-                                                255, 35, 35, 37)
+                                        color:const Color.fromARGB(255, 35, 35, 37)
                                             .withOpacity(0.30),
                                         // color: tgPrimaryColor.withOpacity(0.30),
                                       ),
@@ -104,38 +94,32 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                           )),
                                       Expanded(
                                         child: Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 8, bottom: 8),
+                                          margin:const EdgeInsets.only(top: 8, bottom: 8),
                                           // color: Colors.red,
                                           child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               // mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                    data
-                                                        .subcategoryListData![
-                                                            index]
-                                                        .businessName,
+                                                  data.subcategoryListData![index].businessName,
                                                     // widget.data["name"],
                                                     //  "Kritunga Restaurant",
-
+                                                    
+                                                           
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 1),
                                                 const Text(
-                                                  "5/f 18 on lane ST, central hong kong near hong",
-                                                  // provider.data[int].address,maxLines: 2,
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.grey,
-                                                  ),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 2,
-                                                )
+                                                    "5/f 18 on lane ST, central hong kong near hong",
+                                                    // provider.data[int].address,maxLines: 2,
+                                                    style: TextStyle(
+                                                      fontSize: 11,
+                                                      color: Colors.grey,
+                                                    ),overflow:TextOverflow.ellipsis ,
+                                                    maxLines: 2,
+                                                    )
                                               ]),
                                         ),
                                       )
@@ -151,53 +135,49 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
                               Expanded(
                                 flex: 30,
-                                child: Stack(children: [
-                                  Container(
+                                child: Stack(
+                                  children: [
+                                    Container(
                                     decoration: BoxDecoration(
                                       // color: Color(0xfffffafa),
                                       color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
+                                      borderRadius:
+                                         const BorderRadius.all(Radius.circular(12)),
                                       boxShadow: [
                                         BoxShadow(
-                                          offset: const Offset(0, -22),
+                                          offset:const Offset(0, -22),
                                           blurRadius: 40,
                                           spreadRadius: 0,
                                           // color:
                                           //     Color(0xFF0073FF).withOpacity(0.10),
-                                          color:
-                                              tgPrimaryColor.withOpacity(0.30),
+                                          color: tgPrimaryColor.withOpacity(0.30),
                                         ),
                                       ],
                                     ),
                                     // margin: EdgeInsets.all(10),
                                     // height: 100,
                                     // color: Colors.greenAccent,
+                                    
                                   ),
-                                  const Align(
-                                      alignment: Alignment.center,
-                                      child: Text("4.5⭐",
-                                          style: TextStyle(fontSize: 16))),
-                                  const Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Text("344 💬",
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                color: Colors.grey))),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Text(
-                                          "30 km",
-                                          style: TextStyle(
-                                              fontSize: 11, color: Colors.grey),
-                                        )),
-                                  ),
-                                ]),
+                                  
+                                 const Align(
+                                    alignment: Alignment.center,
+                                    child: Text("4.5⭐",style: TextStyle(fontSize: 16))),
+                                  const  Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text("344 💬",style: TextStyle(fontSize: 11, color: Colors.grey))),
+                                    ),
+                                  const  Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Text("30 km", style: TextStyle(fontSize: 11, color: Colors.grey),)),
+                                    ),
+
+                                    ]
+                                ),
                               ),
                             ],
                           ),
