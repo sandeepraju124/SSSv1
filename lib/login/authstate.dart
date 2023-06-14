@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/bottomnavpages/bottomnav.dart';
 import 'package:sssv1/screens/homepage.dart';
 
 import './login folder/loginpage.dart';
@@ -16,7 +17,7 @@ class AuthState extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return MyHomePage();
+            return BottomNavPage();
           } else {
             return LoginPage();
           }
