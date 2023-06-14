@@ -43,11 +43,37 @@ class _BottomNavPageState extends State<BottomNavPage> {
   //     return Colors.transparent;
   //   }
   // }
+  @override
+  void initState() {
+    super.initState();
+    MyHomePage();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.deepOrange,
+
+      appBar: _currentIndex == 0
+          ? AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              title: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Image.asset(
+                  "images/logo4.png",
+                  width: 120,
+                  height: 110,
+                  color: Colors.black,
+                ),
+              ),
+              toolbarHeight: 75.0,
+              // backgroundColor: Colors.white,
+              // backgroundColor: tgPrimaryColor,
+              backgroundColor: Color.fromARGB(255, 78, 155, 151),
+              elevation: 3.0,
+            )
+          : null,
       body: pages[_currentIndex],
       extendBody: true,
       bottomNavigationBar: SingleChildScrollView(
@@ -55,7 +81,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SafeArea(
-
               child: Container(
                 padding: EdgeInsets.all(4),
                 margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
