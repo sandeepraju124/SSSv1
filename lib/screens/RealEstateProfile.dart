@@ -2,6 +2,7 @@
 
 import 'package:flutter/Material.dart';
 import 'package:sssv1/Askcommunitypages/Askthecommunity.dart';
+import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/commentpost.dart';
@@ -420,8 +421,7 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                       child: Text(
                         'Know About them',
                         style: TextStyle(
-                            fontSize: 20, 
-                            fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
@@ -448,12 +448,12 @@ class _RealEstateProfileState extends State<RealEstateProfile>
 
                 /////////////////// MAP Implement ///////////////////////
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 300,
-                  // color: Colors.white,
-                  child: MapScreenPage(),
-                ),
+                // SizedBox(
+                //   width: double.infinity,
+                //   height: 300,
+                //   // color: Colors.white,
+                //   child: MapScreenPage(),
+                // ),
 
                 SizedBox(
                   height: 8,
@@ -514,29 +514,43 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      Container(
-                        // height: 20,
-                        child: Text("1"),
+                      MapScreenPage(),
+                      AskForCommunityWidget(
+                        uid: widget.uid,
                       ),
-                      Container(
-                        // height: 30,
-                        child: AskForCommunityWidget(
-                          uid: widget.uid,
-                        ),
-                      ),
-                      Container(
-                          // height: 40,
-                          child: AmenitiesGridView()),
+                      AmenitiesGridView(),
                     ],
                   ),
                 ),
-               
+
                 // Divider(height: 2,color: tgDividerColor,),
-                 SizedBox(
+                SizedBox(
                   height: 20,
                 ),
                 ReviewRating(),
 
+                SizedBox(
+                  height: 20,
+                ),
+
+                GestureDetector(
+                  onTap: (){
+                    Navigators().navigatorPush(context, PostComment(businessUid: data.businessProfileData!.businessUid,));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    width: double.infinity,
+                    height: 40,
+                    
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey)
+                      
+                    ),
+                    child: Text("POST COMMENT"),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),

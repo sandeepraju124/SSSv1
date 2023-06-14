@@ -142,6 +142,8 @@ class Http {
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data
+  // we are not using this for getting uid we are directly using below line
+  // final user = FirebaseAuth.instance.currentUser;
 
   Future<UserModels> fetchUserData() async {
     final user = FirebaseAuth.instance.currentUser;
