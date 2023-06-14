@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
+import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/widgets/commentpost.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
@@ -55,6 +56,9 @@ void main() async {
     ChangeNotifierProvider<GoogleSignInController>(
       create: (_) => GoogleSignInController(),
     ),
+    // ChangeNotifierProvider<UserProvider>(
+    //   create: (_) => UserProvider(),
+    // ),
   ], child: MyApp()));
 }
 
@@ -76,7 +80,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       home: redirection(),
-      // home: ReviewRating(),
+      // home: PostComment(),
 
       // home: Test(),
       // home:UserProfile(),

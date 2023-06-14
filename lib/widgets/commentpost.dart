@@ -97,7 +97,7 @@ class _CommentPostPageState extends State<CommentPostPage> {
                                 final success = await data.postCommentProvider(
                                       business_uid: data.getCommentsData!.businessUid.toString(),
                                       user_id: useruid!,
-                                      comment: _commentcontroller.text,);
+                                      review: _commentcontroller.text,);
                                 if (success) {
                                   _commentcontroller.clear();
                                   ScaffoldMessenger.of(context).showSnackBar(

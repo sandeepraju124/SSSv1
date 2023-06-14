@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
@@ -20,31 +19,43 @@ class CommentSectionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ignore: non_constant_identifier_names
-Future<bool> postCommentProvider({required String business_uid,required String user_id, required String comment}) async {
-  // print("post comment");
-  _isLoading = true;
-  final body = {
-    'business_uid': business_uid,
-    'comment': comment,
-    'user_id': user_id,
-  };
-  // print(body);
-  // var response = await Http().postComments("https://zukhov.azurewebsites.net/addcomment", body);
+
+Future<bool> postCommentProvider({
+  required String business_uid,
+  required String user_id,
+  required String review,
+}) async {
   try {
-    
-    var url = Uri.parse("https://zukhov.azurewebsites.net/addcomment");
+    print("post comment");
+    _isLoading = true;
+
+    final body = {
+      'business_uid': business_uid,
+      'review': review,
+      'user_id': user_id,
+    };
+    print(body);
+
+    final url = Uri.parse("https://zukhov.azurewebsites.net/postcomment");
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
     final response = await http.post(url, headers: headers, body: body);
-    return response.statusCode == 200;
-    // print(response.body);
-    // print('Data posted successfully');
+
+    if (response.statusCode == 200) {
+      print('Data posted successfully');
+      notifyListeners();
+      return true;
+    } else {
+      print('Failed to post data. Status code: ${response.statusCode}');
+      return false;
+    }
   } catch (e) {
     print('Error posting data: $e');
     return false;
   } finally {
     _isLoading = false;
-    notifyListeners();
+    
   }
 }
+
 }
