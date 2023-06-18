@@ -183,7 +183,7 @@ class _PostCommentState extends State<PostComment> {
       ))),
       bottomNavigationBar: InkWell(
         onTap: () {
-          data.postCommentProvider(business_uid: widget.businessUid, user_id: userid, review: _reviewController.text);
+          data.postCommentProvider(business_uid: widget.businessUid, user_id: userid, review: _reviewController.text, rating: rating);
           // navigatorPush(context,SearchLocationScreen() );
         },
         child: Container(

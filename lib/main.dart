@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
-import 'package:sssv1/widgets/commentpost.dart';
+import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';

@@ -89,28 +89,31 @@ class _CommentPostPageState extends State<CommentPostPage> {
                         child: Container(
                           padding: EdgeInsets.only(right: 10),
                           child: ElevatedButton(
+                            onPressed: (){},
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: tgPrimaryColor,
                                 backgroundColor: secondaryColor10LightTheme,
                               ),
-                              onPressed: () async {
-                                final success = await data.postCommentProvider(
-                                      business_uid: data.getCommentsData!.businessUid.toString(),
-                                      user_id: useruid!,
-                                      review: _commentcontroller.text,);
-                                if (success) {
-                                  _commentcontroller.clear();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            'Comment posted successfully')),
-                                  );
-                                }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("Error posting comment"))
-                                  );
-                                }
-                              },
+                              // onPressed: () async {
+                              //   final success = await data.postCommentProvider(
+                              //         business_uid: data.getCommentsData!.businessUid.toString(),
+                              //         user_id: useruid!,
+                              //         review: _commentcontroller.text,
+                              //         // rating: rating,
+                              //         );
+                              //   if (success) {
+                              //     _commentcontroller.clear();
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       SnackBar(
+                              //           content: Text(
+                              //               'Comment posted successfully')),
+                              //     );
+                              //   }else{
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       SnackBar(content: Text("Error posting comment"))
+                              //     );
+                              //   }
+                              // },
                               child: Text(
                                 'Comment',
                                 style: TextStyle(color: tgPrimaryText),
