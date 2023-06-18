@@ -106,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
         "userid": userid.toString()
       };
       Http()
-          .postData('https://zukhov.azurewebsites.net/user', body)
+          .postData('$baseUrl/user', body)
           .then((value) => print('Data posted successfully'));
     } on FirebaseAuthException catch (e) {
       print(e);

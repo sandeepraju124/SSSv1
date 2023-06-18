@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class Restaurant extends StatelessWidget {
   const Restaurant({
@@ -11,7 +12,7 @@ class Restaurant extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Business>>(
       future: Http().fetchBusinessData(
-          "https://zukhov.azurewebsites.net/subcategory/restaurant"),
+          "$baseUrl/subcategory/restaurant"),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Business> businesses = snapshot.data!;

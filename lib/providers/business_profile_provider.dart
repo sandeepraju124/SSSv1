@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class BusinessProfileProvider with ChangeNotifier {
   Businessprofile? _businessProfile;
@@ -14,7 +15,7 @@ class BusinessProfileProvider with ChangeNotifier {
 
   Future<void> businessProfileProvider(uid) async {
     _isLoading = true;
-    Businessprofile businessProfile = await Http().fetchBusinessProfile("https://zukhov.azurewebsites.net/uid/$uid");
+    Businessprofile businessProfile = await Http().fetchBusinessProfile("$baseUrl/uid/$uid");
     _businessProfile = businessProfile;
     _isLoading = false;
     notifyListeners();

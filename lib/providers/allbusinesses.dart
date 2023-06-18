@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class AllBusinessListProvider with ChangeNotifier {
   List<Businessprofile> _allBusinessList = [];
@@ -17,7 +18,7 @@ class AllBusinessListProvider with ChangeNotifier {
     print("_allBusinessList $_allBusinessList");
     print("_allBusinessList ${_allBusinessList.length}");
     _isLoading = true;
-    List<Businessprofile> datalist = await Http().fetchAllBusinessListData("https://zukhov.azurewebsites.net/services");
+    List<Businessprofile> datalist = await Http().fetchAllBusinessListData("$baseUrl/services");
     _allBusinessList = datalist ;
     _isLoading = false;
     notifyListeners();

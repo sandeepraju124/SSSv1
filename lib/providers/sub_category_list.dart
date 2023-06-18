@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class SubcategoryListProvider with ChangeNotifier {
   List<Subcategorylist> _subCategoryList = [];
@@ -14,7 +15,7 @@ class SubcategoryListProvider with ChangeNotifier {
 
   Future<void> subCategoryListProvider(subcategory) async {
     _isLoading = true;
-    List<Subcategorylist> datalist = await Http().fetchSubcategoryListData("https://zukhov.azurewebsites.net/subcategory/$subcategory");
+    List<Subcategorylist> datalist = await Http().fetchSubcategoryListData("$baseUrl/subcategory/$subcategory");
     _subCategoryList = datalist ;
     _isLoading = false;
     notifyListeners();

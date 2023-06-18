@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import "package:http/http.dart" as http;
+import 'package:sssv1/utils/constants.dart';
 
 class CommentSectionProvider extends ChangeNotifier {
   CommentSectionModels? _comments;
@@ -13,7 +14,7 @@ class CommentSectionProvider extends ChangeNotifier {
 
   Future<void> commentSectionProvider(uid) async {
     _isLoading = true;
-    CommentSectionModels commentsection = await Http().fetchComments("https://zukhov.azurewebsites.net/commentsuid/$uid");
+    CommentSectionModels commentsection = await Http().fetchComments("$baseUrl/commentsuid/$uid");
     _comments = commentsection;
     _isLoading = false;
     notifyListeners();
@@ -38,7 +39,7 @@ Future<bool> postCommentProvider({
     };
     print(body);
 
-    final url = Uri.parse("https://zukhov.azurewebsites.net/postcomment");
+    final url = Uri.parse("$baseUrl/postcomment");
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     // final headers = {'Content-Type': 'application/json'};
     final encodedBody = jsonEncode(body);
