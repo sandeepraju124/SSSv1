@@ -5,7 +5,6 @@
 // import 'package:backendapp/utils/navigators.dart';
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -28,8 +27,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
   Gender? _selectedGender;
   File? _dp;
 
-
-  Future imagePicker(ImageSource source)async{
+  Future imagePicker(ImageSource source) async {
     ImagePicker pick = ImagePicker();
     final pickedFile = await pick.pickImage(source: source);
     setState(() {
@@ -61,6 +59,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
   final _mobilenumbercontroller = TextEditingController();
+
+  final formkey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -126,195 +126,238 @@ class _NewSignuppageState extends State<NewSignuppage> {
           )),
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-                  children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 65,
-                  child: SizedBox(
-                    // color: Colors.red,
-                    height: 150,
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextField(
-                              controller: _firstnamecontroller,
-                              decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(10),
-                                  border: OutlineInputBorder(),
-                                  labelText: 'First name',
-                                  labelStyle: TextStyle(color: tgSecondaryText),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: tgSecondaryText)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: tgAccentColor))),
-                              // autofocus: false,
-                              maxLines: null,
-                              keyboardType: TextInputType.text,
-                            ),
-                            SizedBox(height: 5),
-          
-                            ////last name ///////
-                            TextField(
-                              controller: _lastnamecontroller,
-                              decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(10),
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Last name',
-                                  labelStyle: TextStyle(color: tgSecondaryText),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: tgSecondaryText)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: tgAccentColor))),
-                              autofocus: false,
-                              maxLines: null,
-                              keyboardType: TextInputType.text,
-                            ),
-                          ]),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 35,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    // color: Colors.red,
-                    color: Colors.grey[200],
-                    height: 150,
-                    child: GestureDetector(
-                      onTap: (){
-                          imagePicker(ImageSource.gallery);
-                      },
-                      child: _dp == null ?
-                       CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                        AssetImage("images/defaulltdp.png") 
-                      ) :
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage:FileImage(_dp!) 
+        child: Form(
+          key: formkey,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 65,
+                    child: SizedBox(
+                      // color: Colors.red,
+                      height: 188,
+                      child: Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextFormField(
+                                controller: _firstnamecontroller,
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    border: OutlineInputBorder(),
+                                    labelText: 'First name',
+                                    labelStyle:
+                                        TextStyle(color: tgSecondaryText),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: tgSecondaryText)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: tgAccentColor))),
+                                // autofocus: false,
+                                maxLines: null,
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^[a-z A-Z]+$')
+                                          .hasMatch(value)) {
+                                    return "Enter First name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              SizedBox(height: 1),
+
+                              ////last name ///////
+                              TextFormField(
+                                controller: _lastnamecontroller,
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Last name',
+                                    labelStyle:
+                                        TextStyle(color: tgSecondaryText),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: tgSecondaryText)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: tgAccentColor))),
+                                autofocus: false,
+                                maxLines: null,
+                                keyboardType: TextInputType.text,
+                                validator: (value) {
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^[a-z A-Z]+$')
+                                          .hasMatch(value)) {
+                                    return "Enter Last name";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ]),
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 13,
-            ),
-            ///// Gender option ///////////
-          
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildGenderOption(Gender.male, "Male"),
-                _buildGenderOption(Gender.female, "Female"),
-                _buildGenderOption(Gender.preferNotToSay, "prefer not to say")
-              ],
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            const Divider(
-              height: 6,
-              thickness: 1,
-              color: secondaryColor10LightTheme,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          
-            ///////// email field////
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: _emailcontroller,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                    labelText: ' Email',
-                    labelStyle: TextStyle(color: tgSecondaryText),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgSecondaryText)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgAccentColor))),
-                autofocus: false,
-                maxLines: null,
-                keyboardType: TextInputType.emailAddress,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          
-            //// passsword field /////////
-          
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: _passwordcontroller,
-                keyboardType: TextInputType.text,
-                obscureText: passwordObscured,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: tgSecondaryText),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgSecondaryText)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgAccentColor)),
-                    suffixIcon: GestureDetector(
+                  Expanded(
+                    flex: 35,
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      // color: Colors.red,
+                      color: Colors.grey[200],
+                      height: 150,
+                      child: GestureDetector(
                         onTap: () {
-                          setState(() {
-                            passwordObscured = !passwordObscured;
-                          });
+                          imagePicker(ImageSource.gallery);
                         },
-                        child: Icon(
-                          passwordObscured
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility,
-                          color: Colors.grey.shade400,
-                        ))),
-                autofocus: false,
-                // maxLines: null,
+                        child: _dp == null
+                            ? CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    AssetImage("images/defaulltdp.png"))
+                            : CircleAvatar(
+                                radius: 50, backgroundImage: FileImage(_dp!)),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
-            SizedBox(height: 11),
-          
-            ///////mobilenumber field /////////
-          
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                controller: _mobilenumbercontroller,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    border: OutlineInputBorder(),
-                    labelText: ' Mobile Number',
-                    labelStyle: TextStyle(color: tgSecondaryText),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgSecondaryText)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: tgAccentColor))),
-                autofocus: false,
-                maxLines: null,
-                keyboardType: TextInputType.phone,
+              // SizedBox(
+              //   height: 5,
+              // ),
+              ///// Gender option ///////////
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildGenderOption(Gender.male, "Male"),
+                  _buildGenderOption(Gender.female, "Female"),
+                  _buildGenderOption(Gender.preferNotToSay, "prefer not to say")
+                ],
               ),
-            ),
-                  ],
+              SizedBox(
+                height: 6,
+              ),
+              const Divider(
+                height: 6,
+                thickness: 1,
+                color: secondaryColor10LightTheme,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              ///////// email field////
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: TextFormField(
+                  controller: _emailcontroller,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      border: OutlineInputBorder(),
+                      labelText: ' Email',
+                      labelStyle: TextStyle(color: tgSecondaryText),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgSecondaryText)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgAccentColor))),
+                  autofocus: false,
+                  maxLines: null,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Enter E-mail";
+                    }
+                    bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value);
+                    if (!emailValid) {
+                      return "Enter valid email";
+                    }
+                    return null;
+                  },
                 ),
-          )),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              //// passsword field /////////
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: TextFormField(
+                  controller: _passwordcontroller,
+                  keyboardType: TextInputType.text,
+                  obscureText: passwordObscured,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: tgSecondaryText),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgSecondaryText)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgAccentColor)),
+                      suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              passwordObscured = !passwordObscured;
+                            });
+                          },
+                          child: Icon(
+                            passwordObscured
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility,
+                            color: Colors.grey.shade400,
+                            size: 20.0,
+                          ))),
+                  autofocus: false,
+                  // maxLines: null,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Enter password";
+                    } else if (_passwordcontroller.text.length < 6) {
+                      return "Password should be more than 6 characters";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(height: 11),
+
+              ///////mobilenumber field /////////
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: _mobilenumbercontroller,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      border: OutlineInputBorder(),
+                      labelText: ' Mobile Number',
+                      labelStyle: TextStyle(color: tgSecondaryText),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgSecondaryText)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: tgAccentColor))),
+                  autofocus: false,
+                  maxLines: null,
+                  keyboardType: TextInputType.phone,
+                ),
+              ),
+            ],
+          ),
+        ),
+      )),
       bottomNavigationBar: InkWell(
-        onTap: signup,
+        onTap: () async {
+          if (formkey.currentState!.validate()) {
+            await signup();
+          }
+        },
         child: Container(
           height: 55,
           width: double.infinity,

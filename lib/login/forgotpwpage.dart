@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -50,14 +51,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          color: Colors.black,
+          color: tgDarkPrimaryColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         title: Text(
           'Reset password',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style:
+              TextStyle(color: tgDarkPrimaryColor, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -94,17 +96,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 // hintText: "User E-mail",
                 // hintStyle: TextStyle(
                 //     color: Colors.black54, fontWeight: FontWeight.bold),
-                suffixIcon: Icon(
-                  Icons.mail_outlined,
-                  color: Colors.deepPurple.shade600,
-                ),
+                suffixIcon:
+                    Icon(Icons.mail_outlined, color: tgLightPrimaryColor),
               ),
             ),
           ),
 
           MaterialButton(
             onPressed: passwordReset,
-            color: Colors.deepPurple.shade600,
+            color: tgDarkPrimaryColor,
             child: Text(
               'Reset Password',
               style: TextStyle(fontSize: 14, color: Colors.white),
