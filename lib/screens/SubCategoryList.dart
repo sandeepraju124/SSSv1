@@ -53,8 +53,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                       Navigators().navigatorPush(
                           context,
                           RealEstateProfile(
-                              uid: data
-                                  .subcategoryListData![index].businessUid));
+                              uid: 
+                              data.subcategoryListData![index].businessUid
+                              ));
                     },
                     child: Column(
                       children: [
@@ -71,7 +72,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    // color: Colors.blueAccent,
+                                    // color: tgLightPrimaryColor,
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(12)),
                                     boxShadow: [
@@ -119,6 +120,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                                         .subcategoryListData![
                                                             index]
                                                         .businessName,
+                                                        // style: TextStyle(color: Colors.white),
                                                     // widget.data["name"],
                                                     //  "Kritunga Restaurant",
 
@@ -147,16 +149,15 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                 width: 10,
                               ),
 
-                              /////// 2nd half of the container ///////////////
+                              /////// second half of the container ///////////////
 
                               Expanded(
                                 flex: 30,
                                 child: Stack(children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      // color: tgAccentColor,
+                                      color: tgAccentColor,
                                       // color: Colors.white,
-                                      color: tgLightPrimaryColor,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(12)),
                                       boxShadow: [
@@ -175,15 +176,18 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                     // height: 100,
                                     // color: Colors.greenAccent,
                                   ),
-                                  const Align(
+                                   Align(
                                       alignment: Alignment.center,
-                                      child: Text("4.5",
-                                          style: TextStyle(fontSize: 22, color: Colors.white))),
-                                  const Padding(
+                                      child: Text(
+                                        // "4.5",
+                                      data.subcategoryListData![index].overallRating.toString(),
+                                          style: TextStyle(fontSize: 23, color: Colors.white))),
+                                   Padding(
                                     padding: EdgeInsets.all(10.0),
                                     child: Align(
                                         alignment: Alignment.bottomLeft,
-                                        child: Text("344 💬",
+                                        child: Text(
+                                          data.subcategoryListData![index].reviewsLength.toString(),
                                             style: TextStyle(
                                                 fontSize: 11,
                                                 color: Colors.grey))),
@@ -195,7 +199,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                         child: Text(
                                           "30 km",
                                           style: TextStyle(
-                                              fontSize: 11, color: Colors.grey),
+                                              fontSize: 11, color: Colors.white),
                                         )),
                                   ),
                                 ]),

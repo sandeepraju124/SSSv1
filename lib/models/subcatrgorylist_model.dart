@@ -9,61 +9,49 @@ List<Subcategorylist> subcategorylistFromJson(String str) => List<Subcategorylis
 String subcategorylistToJson(List<Subcategorylist> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Subcategorylist {
-    String id;
     String businessDescription;
     String businessName;
     String businessUid;
-    String category;
     String contactInformation;
-    String country;
-    List<String> images;
     String latitude;
     String longitude;
+    double overallRating;
     String profileImage;
-    String subCategory;
+    int reviewsLength;
 
     Subcategorylist({
-        required this.id,
         required this.businessDescription,
         required this.businessName,
         required this.businessUid,
-        required this.category,
         required this.contactInformation,
-        required this.country,
-        required this.images,
         required this.latitude,
         required this.longitude,
+        required this.overallRating,
         required this.profileImage,
-        required this.subCategory,
+        required this.reviewsLength,
     });
 
     factory Subcategorylist.fromJson(Map<String, dynamic> json) => Subcategorylist(
-        id: json["_id"],
         businessDescription: json["business_description"],
         businessName: json["business_name"],
         businessUid: json["business_uid"],
-        category: json["category"],
         contactInformation: json["contact_information"],
-        country: json["country"],
-        images: List<String>.from(json["images"].map((x) => x)),
         latitude: json["latitude"],
         longitude: json["longitude"],
+        overallRating: json["overall_rating"]?.toDouble(),
         profileImage: json["profile_image"],
-        subCategory: json["sub_category"],
+        reviewsLength: json["reviews_length"],
     );
 
     Map<String, dynamic> toJson() => {
-        "_id": id,
         "business_description": businessDescription,
         "business_name": businessName,
         "business_uid": businessUid,
-        "category": category,
         "contact_information": contactInformation,
-        "country": country,
-        "images": List<dynamic>.from(images.map((x) => x)),
         "latitude": latitude,
         "longitude": longitude,
+        "overall_rating": overallRating,
         "profile_image": profileImage,
-        "sub_category": subCategory,
+        "reviews_length": reviewsLength,
     };
 }

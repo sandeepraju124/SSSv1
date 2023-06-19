@@ -19,12 +19,7 @@ class _PostCommentState extends State<PostComment> {
   int rating = 1;
   final TextEditingController _reviewController = TextEditingController();
 
-  @override
-  void dispose() {
-    _reviewController.dispose(); // Clean up the TextEditingController
-    super.dispose();
-    print("dispose called");
-  }
+  
 
 
   @override

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import "package:http/http.dart" as http;
-import 'package:sssv1/screens/sandy_onlyfor_testing.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/success_lottiejson.dart';
 
 class CommentSectionProvider extends ChangeNotifier {
   CommentSectionModels? _comments;
@@ -61,7 +61,7 @@ Future<bool> postCommentProvider({
         context,
         MaterialPageRoute(builder: (context) => lottie()),
       );
-      
+
       // Pop back to the previous screen after a delay (optional)
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pop(context);
