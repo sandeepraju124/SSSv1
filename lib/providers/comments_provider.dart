@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
@@ -28,11 +30,11 @@ Future<bool> postCommentProvider({
   required String review,
 }) async {
   try {
-    print("post comment");
+    // print("post comment");
     _isLoading = true;
 
     final body = {
-      'rating': rating,
+      'rating': rating.toString(),
       'business_uid': business_uid,
       'review': review,
       'user_id': user_id,
@@ -42,15 +44,17 @@ Future<bool> postCommentProvider({
     final url = Uri.parse("$baseUrl/postcomment");
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     // final headers = {'Content-Type': 'application/json'};
-    final encodedBody = jsonEncode(body);
+    // final encodedBody = jsonEncode(body);
 
-    final response = await http.post(url, headers: headers, body: encodedBody);
+    final response = await http.post(url, headers: headers, body: body);
     
 
 
     if (response.statusCode == 200) {
       print('Data posted successfully');
-      notifyListeners();
+      await commentSectionProvider(business_uid);
+      // notifyListeners();
+
       return true;
     } else {
       print('Failed to post data. Status code: ${response.statusCode}');
