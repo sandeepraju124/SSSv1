@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class ReviewRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("build reviewRating");
     var data = Provider.of<CommentSectionProvider>(context);
     
     // overall rating

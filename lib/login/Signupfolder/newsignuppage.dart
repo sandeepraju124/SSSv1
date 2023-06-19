@@ -168,7 +168,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                   return null;
                                 },
                               ),
-                              SizedBox(height: 1),
+                              // SizedBox(height: 10),
 
                               ////last name ///////
                               TextFormField(
