@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/bottomnavpages/bottomnav.dart';
-import 'package:sssv1/screens/homepage.dart';
+import 'package:sssv1/login/login%20folder/newloginpage.dart';
+// import 'package:sssv1/screens/homepage.dart';
 
-import './login folder/loginpage.dart';
+// import './login folder/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthState extends StatelessWidget {
@@ -19,7 +20,7 @@ class AuthState extends StatelessWidget {
           if (snapshot.hasData) {
             return BottomNavPage();
           } else {
-            return LoginPage();
+            return NewLoginPage();
           }
         },
       ),
