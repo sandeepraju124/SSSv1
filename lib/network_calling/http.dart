@@ -53,7 +53,7 @@ class Http {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
-      // print("responsebody ${response.body}");
+      print("responsebody ${response.body}");
       // print("json $jsonList");
       final List<Subcategorylist> services =
           jsonList.map((json) => Subcategorylist.fromJson(json)).toList();

@@ -19,6 +19,13 @@ class _PostCommentState extends State<PostComment> {
   int rating = 1;
   final TextEditingController _reviewController = TextEditingController();
 
+  @override
+  void dispose() {
+    _reviewController.dispose(); // Clean up the TextEditingController
+    super.dispose();
+    print("dispose called");
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +190,7 @@ class _PostCommentState extends State<PostComment> {
       ))),
       bottomNavigationBar: InkWell(
         onTap: () {
-          data.postCommentProvider(business_uid: widget.businessUid, user_id: userid, review: _reviewController.text, rating: rating);
+          data.postCommentProvider(business_uid: widget.businessUid, user_id: userid, review: _reviewController.text, rating: rating, context: context);
           // navigatorPush(context,SearchLocationScreen() );
         },
         child: Container(

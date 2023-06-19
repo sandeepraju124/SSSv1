@@ -154,8 +154,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                 child: Stack(children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      // color: Color(0xfffffafa),
-                                      color: Colors.white,
+                                      // color: tgAccentColor,
+                                      // color: Colors.white,
+                                      color: tgLightPrimaryColor,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(12)),
                                       boxShadow: [
@@ -176,8 +177,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                   ),
                                   const Align(
                                       alignment: Alignment.center,
-                                      child: Text("4.5⭐",
-                                          style: TextStyle(fontSize: 16))),
+                                      child: Text("4.5",
+                                          style: TextStyle(fontSize: 22, color: Colors.white))),
                                   const Padding(
                                     padding: EdgeInsets.all(10.0),
                                     child: Align(
