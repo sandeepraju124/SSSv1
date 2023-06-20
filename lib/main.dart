@@ -8,7 +8,7 @@ import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
-import 'package:sssv1/providers/rescomments_provider.dart';
+import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +56,9 @@ void main() async {
     ChangeNotifierProvider<GoogleSignInController>(
       create: (_) => GoogleSignInController(),
     ),
-    // ChangeNotifierProvider<UserProvider>(
-    //   create: (_) => UserProvider(),
-    // ),
+    ChangeNotifierProvider<RestaurantListProvider>(
+      create: (_) => RestaurantListProvider(),
+    ),
   ], child: MyApp()));
 }
 

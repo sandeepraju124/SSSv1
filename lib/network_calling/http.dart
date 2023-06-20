@@ -12,17 +12,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class Http {
-  List<Business> business = [];
+  List<Subcategorylist> business = [];
 
   // used this for 5 restaurants showed in homepage
-  Future<List<Business>> fetchBusinessData(String uri) async {
+  Future<List<Subcategorylist>> fetchBusinessData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
       // print("json $jsonList");
-      business = jsonList.map((json) => Business.fromJson(json)).toList();
+      business = jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
       // print(business);
       return business;
     } else {
@@ -54,7 +54,7 @@ class Http {
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
       print("responsebody ${response.body}");
-      // print("json $jsonList");
+      print("json $jsonList");
       final List<Subcategorylist> services =
           jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
       return services;
