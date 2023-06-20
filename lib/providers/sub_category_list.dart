@@ -20,7 +20,7 @@ class SubcategoryListProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
     // print("datalist $datalist");
-    print("printing");
+    // print("printing");
     // print(_subCategoryList[0].);
     // print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
