@@ -48,13 +48,14 @@ class Http {
   }
 
   // used this to show the list of subcategories
+  // also used this to show restaurant widget in homepage ----->
   Future<List<Subcategorylist>> fetchSubcategoryListData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
-      print("responsebody ${response.body}");
-      print("json $jsonList");
+      // print("responsebody ${response.body}");
+      // print("json $jsonList");
       final List<Subcategorylist> services =
           jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
       return services;
@@ -160,7 +161,7 @@ class Http {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      // print("responseBody $responseBody");
+      print("responseBody $responseBody");
       var userdata = UserModels.fromJson(responseBody);
       return userdata;
     } else {

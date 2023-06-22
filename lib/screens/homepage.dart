@@ -50,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;
+    // var userpro = Provider.of<UserProvider>(context, listen: false);
+    // userpro.userProvider();
     if (kDebugMode) {
       print("userid $userid");
     }
@@ -60,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
-    // var userpro = Provider.of<UserProvider>(context, listen: false);
+    
     // userpro.userProv();
 
     return Scaffold(

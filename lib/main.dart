@@ -59,6 +59,9 @@ void main() async {
     ChangeNotifierProvider<RestaurantListProvider>(
       create: (_) => RestaurantListProvider(),
     ),
+    ChangeNotifierProvider<UserProvider>(
+      create: (_) => UserProvider(),
+    ),
   ], child: MyApp()));
 }
 

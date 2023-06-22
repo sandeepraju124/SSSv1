@@ -6,12 +6,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import '../../utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class NewSignuppage extends StatefulWidget {
   const NewSignuppage({super.key});
@@ -72,7 +74,14 @@ class _NewSignuppageState extends State<NewSignuppage> {
     _passwordcontroller.dispose();
   }
 
-  Future signup() async {
+  
+
+  @override
+  Widget build(BuildContext context) {
+    var userpro = Provider.of<UserProvider>(context, listen: false);
+
+
+    Future signup() async {
     print('Sign up clicked');
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -86,7 +95,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
         'name': _firstnamecontroller.text.trim(),
         'email': _emailcontroller.text.trim(),
         "username": _lastnamecontroller.text.trim(),
-        "dp": "https://tinypng.com/images/social/website.jpg",
+        // "dp": "https://tinypng.com/images/social/website.jpg",
         "street": "hyderabad",
         "state": "telangana",
         "zipcode": "500072",
@@ -94,10 +103,35 @@ class _NewSignuppageState extends State<NewSignuppage> {
         "lng": "648",
         "userid": userid.toString()
       };
-      Http()
-          .postData("$baseUrl/user", body)
-          .then((value) => print("Data posted successfully"));
-    } on FirebaseAuthException catch (e) {
+      // Http()
+      //     .postData("$baseUrl/user", body)
+      //     .then((value) => print("Data posted successfully"));
+      final request = http.MultipartRequest("POST", Uri.parse("https://axispowers.azurewebsites.net/user"));
+      if (_dp != null){
+        request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
+      }
+      // ..files.add(await http.MultipartFile.fromPath('dp', _dp!.path))
+      request.fields.addAll(body);
+
+      final response = await request.send();
+      print(response.statusCode);
+      print(response);
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        print(responseBody);
+        // var userpro = Provider.of<UserProvider>(context, listen: false);
+        userpro.userProvider();
+        
+        print('user created successfully');
+        return 'user created successfully';
+      } else {
+        throw Exception('Failed to create user');
+      }
+    } catch (e) {
+      print(e.toString());
+      throw Exception('EXception Failed to create user : $e');
+    }
+     on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
           context: context,
@@ -107,10 +141,9 @@ class _NewSignuppageState extends State<NewSignuppage> {
             );
           });
     }
+    // final request = Http.
   }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           elevation: 1,
