@@ -1,12 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/login/google_login_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
+import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
+import 'package:get/get.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -322,12 +325,51 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 20,
             ),
-            // logout
-            InkWell(
+
+            //// logout //////////////////
+
+            GestureDetector(
               onTap: () {
-                // final provider =
-                //     Provider.of<GoogleSignInController>(context, listen: false);
-                provider.logOut();
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: tgTextIcon,
+                        // shape: Border.all(color: ),
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          'Are you sure you wanna logout?',
+                          style: TextStyle(fontSize: 16, letterSpacing: 0.2),
+                        ),
+
+                        actions: [
+                          // Padding(padding: EdgeInsets.only(bottom: 70)),
+                          MaterialButton(
+                            // color: tgLightPrimaryColor,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'No!',
+                              style: TextStyle(color: tgPrimaryColor),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: MaterialButton(
+                              // color: tgLightPrimaryColor,
+                              onPressed: () {
+                                provider.logOut();
+                              },
+                              child: Text(
+                                'Yes, logout',
+                                style: TextStyle(color: tgPrimaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    });
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -355,6 +397,7 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -389,7 +432,9 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
 
             Container(
                 height: 160,

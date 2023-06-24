@@ -27,6 +27,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
   Gender? _selectedGender;
   File? _dp;
 
+  //////////////////image /////////////////
+
   Future imagePicker(ImageSource source) async {
     ImagePicker pick = ImagePicker();
     final pickedFile = await pick.pickImage(source: source);
@@ -159,6 +161,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                 // autofocus: false,
                                 maxLines: null,
                                 keyboardType: TextInputType.text,
+
+                                ////////// validator  //////////
                                 validator: (value) {
                                   if (value!.isEmpty ||
                                       !RegExp(r'^[a-z A-Z]+$')
@@ -201,6 +205,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
                       ),
                     ),
                   ),
+
+                  /////////////// image upload optional ////////////////////
                   Expanded(
                     flex: 35,
                     child: Container(

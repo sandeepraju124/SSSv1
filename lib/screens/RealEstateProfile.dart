@@ -365,35 +365,31 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                             Navigators()
                                 .navigatorPush(context, StaggeredGridq());
                           },
-                          child: Container(
-                            // color: Colors.grey,
-                            child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    height: 65,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.white,
-                                        border:
-                                            Border.all(color: tgPrimaryColor)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.add_a_photo_outlined),
-                                        iconSize: 26,
-                                        color: Colors.black54,
-                                      ),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: 65,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: tgPrimaryColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.add_a_photo_outlined),
+                                      iconSize: 26,
+                                      color: Colors.black54,
                                     ),
                                   ),
-                                  Text(
-                                    "Photo",
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                ]),
-                          ),
+                                ),
+                                Text(
+                                  "Photo",
+                                  style: TextStyle(fontSize: 12),
+                                )
+                              ]),
                         ),
                       ),
                     ],
@@ -455,42 +451,44 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                 //   child: MapScreenPage(),
                 // ),
 
-                SizedBox(
-                  height: 8,
-                ),
+                // SizedBox(
+                //   height: 8,
+                // ),
 
-                Divider(
-                  color: Colors.blueGrey,
-                  thickness: .7,
-                ),
+                // Divider(
+                //   color: Colors.blueGrey,
+                //   thickness: .7,
+                // ),
 
                 ///////////////////// ASK COMMUNITY WIDGET //////////////
 
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Ask The Community',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                ),
-
-                // AskForCommunityWidget(
-                //   uid: widget.uid,
+                // Padding(
+                //   padding: const EdgeInsets.all(15.0),
+                //   child: Text(
+                //     'Ask The Community',
+                //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                //   ),
                 // ),
 
-                Divider(
-                  color: Colors.blueGrey,
-                  thickness: .7,
-                ),
+                // // AskForCommunityWidget(
+                // //   uid: widget.uid,
+                // // ),
+
+                // Divider(
+                //   color: Colors.blueGrey,
+                //   thickness: .7,
+                // ),
                 SizedBox(
-                  height: 10,
+                  height: 7,
                 ),
+
+                ///////////// tabview ///////////////////////
 
                 TabBar(
                     controller: _tabController,
                     // labelColor: tgAccentColor,
                     labelColor: secondaryColor60LightTheme,
-                    isScrollable: true,
+                    // isScrollable: true,
                     unselectedLabelColor: Colors.grey,
                     indicator: UnderlineTabIndicator(
                         borderRadius: BorderRadius.all(Radius.circular(2)),
@@ -503,21 +501,27 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                     ]),
 
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
 
-                Container(
+                SizedBox(
                   // color: Colors.red,
                   height: 400,
                   // height: double.infinity,
-                  width: double.infinity,
+                  // width: double.infinity,
+                  width: double.maxFinite,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
+                      //////first tab//////
                       MapScreenPage(),
+                      //////////////// second tab//////////////////
+
                       AskForCommunityWidget(
                         uid: widget.uid,
                       ),
+
+                      ////////////////// third tab////////
                       AmenitiesGridView(),
                     ],
                   ),
