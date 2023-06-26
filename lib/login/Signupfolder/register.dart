@@ -81,6 +81,11 @@ class _NewSignuppageState extends State<NewSignuppage> {
     var userpro = Provider.of<UserProvider>(context, listen: false);
 
 
+    // function things to do 
+    //register with firebase
+    //post data to mongodb 
+    //fetch data and store on provider after posting 
+
     Future signup() async {
     print('Sign up clicked');
     try {
@@ -95,7 +100,6 @@ class _NewSignuppageState extends State<NewSignuppage> {
         'name': _firstnamecontroller.text.trim(),
         'email': _emailcontroller.text.trim(),
         "username": _lastnamecontroller.text.trim(),
-        // "dp": "https://tinypng.com/images/social/website.jpg",
         "street": "hyderabad",
         "state": "telangana",
         "zipcode": "500072",
@@ -103,9 +107,6 @@ class _NewSignuppageState extends State<NewSignuppage> {
         "lng": "648",
         "userid": userid.toString()
       };
-      // Http()
-      //     .postData("$baseUrl/user", body)
-      //     .then((value) => print("Data posted successfully"));
       final request = http.MultipartRequest("POST", Uri.parse("https://axispowers.azurewebsites.net/user"));
       if (_dp != null){
         request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
@@ -119,7 +120,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
       if (response.statusCode == 200) {
         final responseBody = await response.stream.bytesToString();
         print(responseBody);
-        // var userpro = Provider.of<UserProvider>(context, listen: false);
+
+        //fetch data and store on provider
         userpro.userProvider();
         
         print('user created successfully');
@@ -141,7 +143,6 @@ class _NewSignuppageState extends State<NewSignuppage> {
             );
           });
     }
-    // final request = Http.
   }
 
     return Scaffold(

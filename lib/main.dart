@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
+import 'package:sssv1/screens/test.dart';
 import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       home: redirection(),
-      // home: lottie(),
+      // home: LocationTest(),
 
       // home: Test(),
       // home:UserProfile(),
