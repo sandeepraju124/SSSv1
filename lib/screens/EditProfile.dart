@@ -1,28 +1,33 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import "package:flutter/material.dart";
+import "package:sssv1/providers/user_provider.dart";
 import "package:sssv1/utils/constants.dart";
+import "package:provider/provider.dart";
 
-class SandyTest extends StatefulWidget {
-  const SandyTest({super.key});
+class EditProfile extends StatefulWidget {
+  const EditProfile({super.key});
 
   @override
-  State<SandyTest> createState() => _SandyTestState();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
 bool editing = false;
 
-class _SandyTestState extends State<SandyTest> {
+class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
+    var data = Provider.of<UserProvider>(context);
+
+
     TextEditingController _textEditingControllerFirstName =
-        TextEditingController(text: "sandeep");
+        TextEditingController(text: data.getUserData!.name.toString());
     TextEditingController _textEditingControllerSecondName =
-        TextEditingController(text: "Raju");
+        TextEditingController(text: data.getUserData!.username.toString());
     TextEditingController _textEditingControllerPhone =
-        TextEditingController(text: "9912277968");
+        TextEditingController(text: data.getUserData!.name.toString());
     TextEditingController _textEditingControllerEmail =
-        TextEditingController(text: "Sandeepraju124@gmail.com");
+        TextEditingController(text: data.getUserData!.email.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +81,7 @@ class _SandyTestState extends State<SandyTest> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    editing = true;
+                    editing = !editing;
                   });
                 },
                 child: Container(
@@ -114,7 +119,7 @@ class _SandyTestState extends State<SandyTest> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(10.0),
-                          labelText: "First Name",
+                          labelText: "Name",
                           hintText: "Enter your name",
                         ),
                       ),
@@ -139,7 +144,7 @@ class _SandyTestState extends State<SandyTest> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(10.0),
-                          labelText: "Second Name",
+                          labelText: "Username",
                           hintText: "Enter your name",
                         ),
                       ),

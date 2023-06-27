@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
+import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/screens/test.dart';
@@ -62,6 +63,9 @@ void main() async {
     ),
     ChangeNotifierProvider<UserProvider>(
       create: (_) => UserProvider(),
+    ),
+    ChangeNotifierProvider<LiveUserLocation>(
+      create: (_) => LiveUserLocation(),
     ),
   ], child: MyApp()));
 }

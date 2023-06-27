@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/login/google_login_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
+import 'package:sssv1/screens/EditProfile.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
 import 'package:sssv1/utils/navigator.dart';
 
@@ -261,22 +262,27 @@ class _UserProfileState extends State<UserProfile> {
                 child: Column(
                   children: [
                     Expanded(
-                        child: ListTile(
-                      leading: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.all(8),
-                          child: Icon(
-                            Icons.edit_note_sharp,
-                            color: Colors.black,
-                          )),
-                      title: Text(
-                        "Edit Profile",
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
-                    )),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigators().navigatorPush(context, EditProfile());
+                          },
+                          child: ListTile(
+                                              leading: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.all(8),
+                            child: Icon(
+                              Icons.edit_note_sharp,
+                              color: Colors.black,
+                            )),
+                                              title: Text(
+                          "Edit Profile",
+                                              ),
+                                              trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
+                                            ),
+                        )),
                     Divider(
                       color: Colors.grey,
                       endIndent: 30,

@@ -28,7 +28,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     Searchpage(),
     Communitypage(),
     // MyProfilepage(),
-    UserProfile(),
+     UserProfile(),
   ];
 
   // Color getDecorationColor(int index) {

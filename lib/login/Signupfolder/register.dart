@@ -181,7 +181,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.all(10),
                                     border: OutlineInputBorder(),
-                                    labelText: 'First name',
+                                    labelText: 'Name',
                                     labelStyle:
                                         TextStyle(color: tgSecondaryText),
                                     enabledBorder: OutlineInputBorder(
@@ -197,7 +197,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                   if (value!.isEmpty ||
                                       !RegExp(r'^[a-z A-Z]+$')
                                           .hasMatch(value)) {
-                                    return "Enter First name";
+                                    return "Enter Name";
                                   }
                                   return null;
                                 },
@@ -210,7 +210,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.all(10),
                                     border: OutlineInputBorder(),
-                                    labelText: 'Last name',
+                                    labelText: 'Username',
                                     labelStyle:
                                         TextStyle(color: tgSecondaryText),
                                     enabledBorder: OutlineInputBorder(
@@ -226,7 +226,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
                                   if (value!.isEmpty ||
                                       !RegExp(r'^[a-z A-Z]+$')
                                           .hasMatch(value)) {
-                                    return "Enter Last name";
+                                    return "Enter Username";
                                   }
                                   return null;
                                 },
@@ -385,7 +385,8 @@ class _NewSignuppageState extends State<NewSignuppage> {
             ],
           ),
         ),
-      )),
+      )
+      ),
       bottomNavigationBar: InkWell(
         onTap: () async {
           if (formkey.currentState!.validate()) {

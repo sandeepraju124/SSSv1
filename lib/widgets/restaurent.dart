@@ -24,9 +24,15 @@ class _RestaurantState extends State<Restaurant> {
   @override
   void initState() {
     var data = Provider.of<RestaurantListProvider>(context, listen: false);
-    print("fgh");
-    print(data);
-    data.subCategoryListProvider("restaurant");
+    // print("fgh");
+    // print(data);
+    if(data.subcategoryListData!.isEmpty){
+      data.subCategoryListProvider("restaurant");
+      // print("empty");
+      
+    }
+
+    
     // data.subCategoryProvider("restaurant");
     super.initState();
   }

@@ -3,10 +3,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sssv1/network_calling/http.dart';
+import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
-// import 'package:sssv1/providers/testprovider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -24,7 +25,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   // List<RestaurantModels> _data = [];
 
   bool isFirstTime = true;
@@ -32,13 +33,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    if (isFirstTime) {
-      print("function called");
-      setState(() {
-        isFirstTime = false;
-      });
+    // it will get the user location when latitude null
+    var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+    if (liveLoc.latitude == null){
+      print("null");
+      liveLoc.getCurrentLocation();
     }
+
+    var userprov = Provider.of<UserProvider>(context, listen: false);
+    if(userprov.getUserData== null){
+
+      userprov.userProvider();
+    }
+    
+
+
   }
+
 
 //   @override
 //   void initState() {
@@ -64,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
     print("homepage called");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // _getCurrentLocation();
-      print("only function called ");
     });
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;

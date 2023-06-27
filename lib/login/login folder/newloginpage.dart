@@ -4,7 +4,8 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:sssv1/login/Signupfolder/signupauth.dart";
-
+import 'package:sssv1/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import '../../utils/constants.dart';
 import '../forgotpwpage.dart';
 
@@ -24,6 +25,11 @@ class _NewLoginPageState extends State<NewLoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailcontroller.text.trim(),
           password: _passwordcontroller.text.trim());
+
+          // fetch users data
+          var userpro = Provider.of<UserProvider>(context, listen: false);
+          await userpro.userProvider();
+
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print(e);
@@ -55,6 +61,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // var userpro = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -262,6 +269,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                         child: FloatingActionButton(
                           backgroundColor: tgDarkPrimaryColor,
                           onPressed: () async {
+
                             if (formkey.currentState!.validate()) {
                               await signIn();
                             }

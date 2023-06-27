@@ -15,10 +15,9 @@ class Services extends StatelessWidget {
         margin: const EdgeInsets.only(right: 8),
         height: 200,
         width: double.infinity,
-        // color: Colors.amber,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black12, width: 1),
-            // color: Colors.white,
+            color: secondaryColor5LightTheme,
             borderRadius:const BorderRadius.all(Radius.circular(10))),
         child: Column(children: [
           Expanded(
@@ -36,9 +35,12 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: secondaryColor10LightTheme
+                            color: Colors.white
                             , shape: BoxShape.circle),
-                        child: Image.asset('images/services/caricon.png'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('images/services/carwash.png'),
+                        ),
                       ),
                     ),
                   ),
@@ -65,8 +67,11 @@ class Services extends StatelessWidget {
                           height: 40,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                          child: Image.asset('images/services/restaurant.png'),
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset('images/services/cutlery.png'),
+                          ),
                         ),
                       ),
                     ),
@@ -84,8 +89,13 @@ class Services extends StatelessWidget {
                       height: 40,
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                          color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                      child: Image.asset('images/services/realestate.png'),
+                          color: Colors.white
+                          // secondaryColor10LightTheme
+                          , shape: BoxShape.circle),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset('images/services/estateagent.png'),
+                      ),
                     ),
                   ),
                 ),
@@ -103,7 +113,10 @@ class Services extends StatelessWidget {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                             color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                        child: Image.asset('images/services/plumbing.png'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('images/services/plumber.png'),
+                        ),
                       ),
                     ),
                   ),
@@ -128,12 +141,15 @@ class Services extends StatelessWidget {
                           height: 40,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                          child: Image.asset('images/services/gym.png'),
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset('images/services/fitness.png'),
+                          ),
                         ),
                       ),
                     ),
-                    const Text('health')
+                    const Text('Gym')
                   ]),
                 )),
                 Expanded(
@@ -147,12 +163,15 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                        child: Image.asset('images/services/gymm.png'),
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('images/services/barber.png'),
+                        ),
                       ),
                     ),
                   ),
-                  const Text('gym')
+                  const Text('Barber')
                 ]))),
                 Expanded(
                     child: Container(
@@ -165,8 +184,11 @@ class Services extends StatelessWidget {
                         height: 40,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                            color: secondaryColor10LightTheme, shape: BoxShape.circle),
-                        child: Image.asset('images/services/bar.png'),
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('images/services/champagne.png'),
+                        ),
                       ),
                     ),
                   ),
@@ -185,11 +207,11 @@ class Services extends StatelessWidget {
                         decoration: const BoxDecoration(
                             color: secondaryColor10LightTheme, shape: BoxShape.circle),
                         child: const Align(
-                            alignment: Alignment.center, child: Text('MORE')),
+                            alignment: Alignment.center, child: Text('MORE', style: TextStyle(fontSize: 10),)),
                       ),
                     ),
                   ),
-                  const Text('gym')
+                  const Text('more')
                 ]))),
               ],
             )),
