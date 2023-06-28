@@ -5,7 +5,6 @@ import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
-import 'package:sssv1/screens/test.dart';
 import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -23,7 +22,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/review_rating.dart';
 import 'package:sssv1/widgets/subcategory.dart';
-import 'package:sssv1/widgets/test.dart';
+import 'package:sssv1/screens/SubCategoryList.dart';
 
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
@@ -88,7 +87,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       home: redirection(),
-      // home: LocationTest(),
+      // home: SubCategoryListi(subCat: 'restaurant',),
 
       // home: Test(),
       // home:UserProfile(),

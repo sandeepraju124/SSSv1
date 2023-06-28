@@ -36,13 +36,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // it will get the user location when latitude null
     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
     if (liveLoc.latitude == null){
-      print("null");
+      // print("null");
       liveLoc.getCurrentLocation();
     }
 
     var userprov = Provider.of<UserProvider>(context, listen: false);
     if(userprov.getUserData== null){
-
       userprov.userProvider();
     }
     
