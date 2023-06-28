@@ -5,7 +5,6 @@ import "package:sssv1/providers/sub_category_provider.dart";
 import 'package:provider/provider.dart';
 import "package:sssv1/utils/constants.dart";
 import "package:sssv1/utils/navigator.dart";
-import 'package:sssv1/screens/test1.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 
 class Subcategory extends StatefulWidget {

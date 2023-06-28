@@ -65,7 +65,8 @@ Future<bool> postCommentProvider({
       // Pop back to the previous screen after a delay (optional)
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pop(context);
-      });
+      }
+      );
 
       // notifyListeners();
 
