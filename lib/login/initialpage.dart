@@ -181,6 +181,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'Signupfolder/signupauth.dart';
@@ -238,13 +239,8 @@ class _InitialPageState extends State<InitialPage> {
                 SizedBox(height: 70),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 60.0),
-                  child: Image.asset(
-                    "assets/pic.png",
-                    // height: 200,
-                    width: 900,
-                  ),
+                  child: Lottie.asset("images/ratings.json" , height: 250),
                 ),
-
                 SizedBox(height: 40),
 
                 // sign in field//
