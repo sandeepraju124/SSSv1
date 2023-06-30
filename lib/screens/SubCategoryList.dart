@@ -1,5 +1,4 @@
 //  prefer_const_literals_to_create_immutables
-
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/screens/RealEstateProfile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SubCategoryList extends StatefulWidget {
   String subCat;
@@ -31,6 +31,21 @@ class _SubCategoryListState extends State<SubCategoryList> {
   Widget build(BuildContext context) {
     var data = Provider.of<SubcategoryListProvider>(context);
 
+    // const String phoneNumber = '918273746646';
+
+    void makePhoneCall(String phoneNumber) async {
+      // final String url = 'tel:$number';
+      final Uri launchUri = Uri(
+        scheme: 'tel',
+        path: phoneNumber,
+      );
+      if (await canLaunchUrl(launchUri)) {
+        await launchUrl(launchUri);
+      } else {
+        throw 'Could not launch $launchUri';
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.subCat),
@@ -47,28 +62,26 @@ class _SubCategoryListState extends State<SubCategoryList> {
               child: ListView.builder(
                 itemCount: data.subcategoryListData?.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigators().navigatorPush(context, testing2(uid:data.subcategoryListData![index].businessUid ));
-                      Navigators().navigatorPush(
-                          context,
-                          RealEstateProfile(
-                              uid: 
-                              data.subcategoryListData![index].businessUid
-                              ));
-                    },
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 100,
-                          margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 70,
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 100,
+                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 70,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigators().navigatorPush(
+                                      context,
+                                      RealEstateProfile(
+                                          uid: data.subcategoryListData![index]
+                                              .businessUid));
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -98,8 +111,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                           width: 75,
                                           height: 75,
                                           child: Image.network(
+                                            data.subcategoryListData![index]
+                                                .profileImage,
                                             // snapshot.data![index]['image'],
-                                            "https://plus.unsplash.com/premium_photo-1682800179834-c05e7c7d0a09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+                                            // "https://plus.unsplash.com/premium_photo-1682800179834-c05e7c7d0a09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
 
                                             fit: BoxFit.fill,
                                           )),
@@ -120,7 +135,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                                         .subcategoryListData![
                                                             index]
                                                         .businessName,
-                                                        // style: TextStyle(color: Colors.white),
+                                                    // style: TextStyle(color: Colors.white),
                                                     // widget.data["name"],
                                                     //  "Kritunga Restaurant",
 
@@ -145,70 +160,86 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
 
-                              /////// second half of the container ///////////////
+                            /////// second half of the container ///////////////
 
-                              Expanded(
-                                flex: 30,
-                                child: Stack(children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: tgAccentColor,
-                                      // color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: const Offset(0, -22),
-                                          blurRadius: 40,
-                                          spreadRadius: 0,
-                                          // color:
-                                          //     Color(0xFF0073FF).withOpacity(0.10),
-                                          color:
-                                              tgPrimaryColor.withOpacity(0.30),
-                                        ),
-                                      ],
+                            Expanded(
+                              flex: 30,
+                              child: GestureDetector(
+                                onTap: () {
+                                  print("click");
+                                  makePhoneCall(data.subcategoryListData![index]
+                                      .contactInformation);
+                                },
+                                child: SizedBox(
+                                  child: Stack(children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: tgAccentColor,
+                                        // color: Colors.white,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(12)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: const Offset(0, -22),
+                                            blurRadius: 40,
+                                            spreadRadius: 0,
+                                            // color:
+                                            //     Color(0xFF0073FF).withOpacity(0.10),
+                                            color: tgPrimaryColor
+                                                .withOpacity(0.30),
+                                          ),
+                                        ],
+                                      ),
+                                      // margin: EdgeInsets.all(10),
+                                      // height: 100,
+                                      // color: Colors.greenAccent,
                                     ),
-                                    // margin: EdgeInsets.all(10),
-                                    // height: 100,
-                                    // color: Colors.greenAccent,
-                                  ),
-                                   Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        // "4.5",
-                                      data.subcategoryListData![index].overallRating.toString(),
-                                          style: TextStyle(fontSize: 23, color: Colors.white))),
-                                   Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Align(
-                                        alignment: Alignment.bottomLeft,
+                                    Align(
+                                        alignment: Alignment.center,
                                         child: Text(
-                                          data.subcategoryListData![index].reviewsLength.toString(),
+                                            // "4.5",
+                                            data.subcategoryListData![index]
+                                                .overallRating
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 23,
+                                                color: Colors.white))),
+                                    Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Text(
+                                              data.subcategoryListData![index]
+                                                  .reviewsLength
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  fontSize: 11,
+                                                  color: Colors.grey))),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Text(
+                                            "30 km",
                                             style: TextStyle(
                                                 fontSize: 11,
-                                                color: Colors.grey))),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Text(
-                                          "30 km",
-                                          style: TextStyle(
-                                              fontSize: 11, color: Colors.white),
-                                        )),
-                                  ),
-                                ]),
+                                                color: Colors.white),
+                                          )),
+                                    ),
+                                  ]),
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 },
               ),

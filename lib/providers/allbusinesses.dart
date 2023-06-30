@@ -15,17 +15,17 @@ class AllBusinessListProvider with ChangeNotifier {
   // List<Subcategory> get data => _data;
 
   Future<void> allBusinessListProvider() async {
-    print("_allBusinessList $_allBusinessList");
-    print("_allBusinessList ${_allBusinessList.length}");
+    // print("_allBusinessList $_allBusinessList");
+    // print("_allBusinessList ${_allBusinessList.length}");
     _isLoading = true;
     List<Businessprofile> datalist = await Http().fetchAllBusinessListData("$baseUrl/services");
     _allBusinessList = datalist ;
     _isLoading = false;
     notifyListeners();
-    print("datalist $datalist");
-    print("printing");
-    print(_allBusinessList.length);
-     print(_allBusinessList);
+    // print("datalist $datalist");
+    // print("printing");
+    // print(_allBusinessList.length);
+    //  print(_allBusinessList);
     // print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
   }

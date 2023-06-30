@@ -45,7 +45,7 @@ class _PostCommentState extends State<PostComment> {
                   onTap: (){
                     Navigator.pop(context);
                   },
-                  child: Text(" << back", style: TextStyle(color: tgAccentColor), ))),
+                  child: Text("< sss", style: TextStyle(color: tgAccentColor), ))),
             ],
           ),
           ),

@@ -27,6 +27,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // List<RestaurantModels> _data = [];
 
+  bool isFirstTime = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (isFirstTime) {
+      print("function called");
+      setState(() {
+        isFirstTime = false;
+      });
+    }
+  }
+
 //   @override
 //   void initState() {
 //     // print('this is init in homepage');
@@ -48,8 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print("homepage called");
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // _getCurrentLocation();
+      print("only function called ");
+    });
     final user = FirebaseAuth.instance.currentUser;
     final userid = user?.uid;
+    // var userpro = Provider.of<UserProvider>(context, listen: false);
+    // userpro.userProvider();
     if (kDebugMode) {
       print("userid $userid");
     }
@@ -60,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
-    // var userpro = Provider.of<UserProvider>(context, listen: false);
+    
     // userpro.userProv();
 
     return Scaffold(

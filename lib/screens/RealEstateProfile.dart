@@ -165,9 +165,12 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                               height: double.infinity,
                               // color: Colors.lightBlue,
                               child: Image.network(
-                                "https://www.discoverlosangeles.com/sites/default/files/images/2019-01/laxbw-prime-1715-hor-wide.jpg?width=1600&height=1200&fit=crop&quality=78&auto=webp",
-                                // "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+                                data.businessProfileData!.profileImage,
+
+                                // "https://www.discoverlosangeles.com/sites/default/files/images/2019-01/laxbw-prime-1715-hor-wide.jpg?width=1600&height=1200&fit=crop&quality=78&auto=webp",
                                 fit: BoxFit.cover,
+
+
                               ),
                             ),
                           ),

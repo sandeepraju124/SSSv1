@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unrelated_type_equality_checks
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sssv1/login/google_login_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
@@ -21,6 +22,8 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
+    var data = Provider.of<UserProvider>(context, listen: false);
+
     final user = FirebaseAuth.instance.currentUser;
     String? email = user?.email;
     String? name = user?.displayName;
@@ -52,10 +55,15 @@ class _UserProfileState extends State<UserProfile> {
                     Expanded(
                       flex: 75,
                       child: Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'),
+                                data.getUserData?.dp == 0
+                                    ? "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
+                                    : (data.getUserData?.dp).toString(),
+
+                                // 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
+                              ),
                               fit: BoxFit.contain,
                             ),
                             color: Colors.grey,

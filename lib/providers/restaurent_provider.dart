@@ -3,7 +3,7 @@ import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/utils/constants.dart';
 
-class SubcategoryListProvider with ChangeNotifier {
+class RestaurantListProvider with ChangeNotifier {
   List<Subcategorylist> _subCategoryList = [];
   bool _isLoading = false;
 

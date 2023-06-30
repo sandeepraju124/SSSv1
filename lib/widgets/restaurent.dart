@@ -1,22 +1,38 @@
-import 'package:flutter/material.dart';
-import 'package:sssv1/models/business_models.dart';
-import 'package:sssv1/network_calling/http.dart';
-import 'package:sssv1/utils/constants.dart';
+// ignore_for_file: prefer_const_constructors
 
-class Restaurant extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:sssv1/providers/restaurent_provider.dart';
+import 'package:sssv1/screens/RealEstateProfile.dart';
+import 'package:provider/provider.dart';
+
+class Restaurant extends StatefulWidget {
   const Restaurant({
     super.key,
   });
 
   @override
+  State<Restaurant> createState() => _RestaurantState();
+}
+
+class _RestaurantState extends State<Restaurant> {
+  @override
+  void initState() {
+    var data = Provider.of<RestaurantListProvider>(context, listen: false);
+    print("fgh");
+    print(data);
+    data.subCategoryListProvider("restaurant");
+    // data.subCategoryProvider("restaurant");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Business>>(
-      future: Http().fetchBusinessData(
-          "$baseUrl/subcategory/restaurant"),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<Business> businesses = snapshot.data!;
-          return SizedBox(
+    var data = Provider.of<RestaurantListProvider>(context);
+    return data.isLoading
+        ? Center(
+            child: Image.asset("images/loading2.gif"),
+          )
+        : SizedBox(
             height: 270,
             width: double.infinity,
             // color: Colors.yellow,
@@ -24,16 +40,14 @@ class Restaurant extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 // shrinkWrap: true,
-                itemCount: businesses.length,
+                itemCount: data.subcategoryListData!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Business business = businesses[index];
                   return GestureDetector(
                     onTap: () async {
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => restaurantProfile(
-                      //           id: provider.data[index].id,
-                      //         ))
-                      //         );
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RealEstateProfile(
+                              uid: data
+                                  .subcategoryListData![index].businessUid)));
                     },
                     child: Stack(
                       children: [
@@ -49,7 +63,7 @@ class Restaurant extends StatelessWidget {
                               // color: Colors.amber,
                               height: 200,
                               child: Image.network(
-                                business.profileImage,
+                                data.subcategoryListData![index].profileImage,
 
                                 fit: BoxFit.cover,
                                 // "https://assets.vogue.in/photos/61b3753015fc923d29d9b585/2:3/w_2560%2Cc_limit/Silly-Food-Image-4-819x1024.jpeg"
@@ -65,7 +79,9 @@ class Restaurant extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
-                                      child: Text(business.businessName,
+                                      child: Text(
+                                          data.subcategoryListData![index]
+                                              .businessName,
                                           // "something",
                                           // provider.data[index].name,
                                           // maxLines: 1,
@@ -79,7 +95,9 @@ class Restaurant extends StatelessWidget {
                             Expanded(
                                 child: Container(
                               // color: Colors.teal,
-                              child: Text(business.businessDescription,
+                              child: Text(
+                                  data.subcategoryListData![index]
+                                      .businessDescription,
                                   // provider.data[index].despription,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -106,9 +124,10 @@ class Restaurant extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: const Center(
+                            child: Center(
                                 child: Text(
-                              '4.5',
+                              data.subcategoryListData![index].overallRating
+                                  .toString(),
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
@@ -121,26 +140,5 @@ class Restaurant extends StatelessWidget {
                   );
                 }),
           );
-          //       ListView.builder(
-          //         itemCount: businesses.length,
-          //         itemBuilder: (context, index) {
-          //           Business business = businesses[index];
-          //           return ListTile(
-          //   title: Text(business.businessName),
-          //   subtitle: Text(business.category),
-          // );
-          //         },
-          //       );
-        } else if (snapshot.hasError) {
-          return const Center(
-            child: Text('Failed to fetch data'),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
   }
 }

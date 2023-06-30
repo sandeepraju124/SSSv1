@@ -22,7 +22,7 @@ class SubcategoryProvider with ChangeNotifier {
     // print("datalist $datalist");
     // print("printing");
     // print(_subcategory?.subcategories[3]);
-    // print(subcategoryData?.subcategories.length.toString());
+    print(subcategoryData?.subcategories.length.toString());
     // print("changenotifier called");
   }
 }
