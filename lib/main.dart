@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/chat%20service/chat.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
@@ -83,7 +84,8 @@ class MyApp extends StatelessWidget {
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
-      home: redirection(),
+      // home: redirection(),
+      home: chatpage(),
       // home: LocationTest(),
 
       // home: Test(),
