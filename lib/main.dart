@@ -81,11 +81,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      // theme: ThemeData.dark(),
       // home: RealEstateProfile(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
-      // home: redirection(),
-      home: chatpage(),
+      home: redirection(),
+      // home: chatpage(),
       // home: LocationTest(),
 
       // home: Test(),

@@ -4,32 +4,33 @@
 
 import 'dart:convert';
 
-UserModels userModelsFromJson(String str) => UserModels.fromJson(json.decode(str));
+UserModels userModelsFromJson(String str) =>
+    UserModels.fromJson(json.decode(str));
 
 String userModelsToJson(UserModels data) => json.encode(data.toJson());
 
 class UserModels {
-    String id;
-    Address address;
-    String dp;
-    String email;
-    String name;
-    String userid;
-    String username;
-    String zipcode;
+  String id;
+  Address address;
+  String dp;
+  String email;
+  String name;
+  String userid;
+  String username;
+  String zipcode;
 
-    UserModels({
-        required this.id,
-        required this.address,
-        required this.dp,
-        required this.email,
-        required this.name,
-        required this.userid,
-        required this.username,
-        required this.zipcode,
-    });
+  UserModels({
+    required this.id,
+    required this.address,
+    required this.dp,
+    required this.email,
+    required this.name,
+    required this.userid,
+    required this.username,
+    required this.zipcode,
+  });
 
-    factory UserModels.fromJson(Map<String, dynamic> json) => UserModels(
+  factory UserModels.fromJson(Map<String, dynamic> json) => UserModels(
         id: json["_id"],
         address: Address.fromJson(json["address"]),
         dp: json["dp"].toString(),
@@ -38,9 +39,9 @@ class UserModels {
         userid: json["userid"],
         username: json["username"],
         zipcode: json["zipcode"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "address": address.toJson(),
         "dp": dp,
@@ -49,49 +50,49 @@ class UserModels {
         "userid": userid,
         "username": username,
         "zipcode": zipcode,
-    };
+      };
 }
 
 class Address {
-    Geo geo;
-    String state;
-    String street;
+  Geo geo;
+  String state;
+  String street;
 
-    Address({
-        required this.geo,
-        required this.state,
-        required this.street,
-    });
+  Address({
+    required this.geo,
+    required this.state,
+    required this.street,
+  });
 
-    factory Address.fromJson(Map<String, dynamic> json) => Address(
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
         geo: Geo.fromJson(json["geo"]),
         state: json["state"],
         street: json["street"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "geo": geo.toJson(),
         "state": state,
         "street": street,
-    };
+      };
 }
 
 class Geo {
-    String lat;
-    String lng;
+  String lat;
+  String lng;
 
-    Geo({
-        required this.lat,
-        required this.lng,
-    });
+  Geo({
+    required this.lat,
+    required this.lng,
+  });
 
-    factory Geo.fromJson(Map<String, dynamic> json) => Geo(
+  factory Geo.fromJson(Map<String, dynamic> json) => Geo(
         lat: json["lat"],
         lng: json["lng"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "lat": lat,
         "lng": lng,
-    };
+      };
 }

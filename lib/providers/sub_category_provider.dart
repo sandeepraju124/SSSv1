@@ -15,7 +15,9 @@ class SubcategoryProvider with ChangeNotifier {
 
   Future<void> subCategoryProvider(subcategory) async {
     _isLoading = true;
-    Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
+    Subcategory datalist =
+        await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
+    // Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$")
     _subcategory = datalist;
     _isLoading = false;
     notifyListeners();
