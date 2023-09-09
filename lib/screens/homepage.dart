@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:flutter/foundation.dart';
-import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sssv1/network_calling/http.dart';
@@ -160,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             physics: const ScrollPhysics(),
             children: [
               // SearchBar(),
-              Gap(15),
+              SizedBox(height: 15,),
 
               Align(
                   alignment: Alignment.centerLeft,
@@ -191,9 +190,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           color: Colors.grey),
                     ),
                   )),
-              Gap(10),
+              SizedBox(height: 10),
               Restaurant(),
-              Gap(20),
+              SizedBox(height: 20),
 
               Align(
                   alignment: Alignment.centerLeft,
