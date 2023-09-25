@@ -21,4 +21,4 @@ const Color secondaryColor5LightTheme= Color(0xFFF8F8F8);
 
 
 // urls
-const String baseUrl = "https://axispowers.azurewebsites.net";
+const String baseUrl = "https://stoic.azurewebsites.net";
