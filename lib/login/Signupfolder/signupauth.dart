@@ -7,7 +7,7 @@ import 'package:sssv1/bottomnavpages/bottomnav.dart';
 
 // import '../Signupfolder/signuppage.dart';
 
-import 'register.dart';
+import 'newsignup.dart';
 
 class Signupauth extends StatelessWidget {
   const Signupauth({super.key});

@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sssv1/network_calling/http.dart';
+// import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import '../../utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -74,76 +74,76 @@ class _NewSignuppageState extends State<NewSignuppage> {
     _passwordcontroller.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     var userpro = Provider.of<UserProvider>(context, listen: false);
 
-
-    // function things to do 
+    // function things to do
     //register with firebase
-    //post data to mongodb 
-    //fetch data and store on provider after posting 
+    //post data to mongodb
+    //fetch data and store on provider after posting
 
     Future signup() async {
-    print('Sign up clicked');
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailcontroller.text.trim(),
-          password: _passwordcontroller.text.trim());
+      print('Sign up clicked');
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailcontroller.text.trim(),
+            password: _passwordcontroller.text.trim());
 
-      final user = FirebaseAuth.instance.currentUser;
-      final userid = user?.uid;
+        final user = FirebaseAuth.instance.currentUser;
+        final userid = user?.uid;
 
-      Map<String, String> body = {
-        'name': _firstnamecontroller.text.trim(),
-        'email': _emailcontroller.text.trim(),
-        "username": _lastnamecontroller.text.trim(),
-        "street": "hyderabad",
-        "state": "telangana",
-        "zipcode": "500072",
-        "lat": "546",
-        "lng": "648",
-        "userid": userid.toString()
-      };
-      final request = http.MultipartRequest("POST", Uri.parse("https://axispowers.azurewebsites.net/user"));
-      if (_dp != null){
-        request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
+        Map<String, String> body = {
+          'name': _firstnamecontroller.text.trim(),
+          'email': _emailcontroller.text.trim(),
+          "username": _lastnamecontroller.text.trim(),
+          "street": "hyderabad",
+          "state": "telangana",
+          "zipcode": "500072",
+          "lat": "546",
+          "lng": "648",
+          "userid": userid.toString()
+        };
+        final request = http.MultipartRequest(
+            "POST",
+            Uri.parse(
+              "https://stoic.azurewebsites.net/user",
+            ));
+        if (_dp != null) {
+          request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
+        }
+        // ..files.add(await http.MultipartFile.fromPath('dp', _dp!.path))
+        request.fields.addAll(body);
+
+        final response = await request.send();
+        print(response.statusCode);
+        print(response);
+        if (response.statusCode == 200) {
+          final responseBody = await response.stream.bytesToString();
+          print(responseBody);
+
+          //fetch data and store on provider
+          userpro.userProvider();
+
+          print('user created successfully');
+          return 'user created successfully';
+        } else {
+          throw Exception('Failed to create user');
+        }
+      } on FirebaseAuthException catch (e) {
+        print(e);
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(e.message.toString()),
+              );
+            });
+      } catch (e) {
+        print(e.toString());
+        throw Exception('EXception Failed to create user : $e');
       }
-      // ..files.add(await http.MultipartFile.fromPath('dp', _dp!.path))
-      request.fields.addAll(body);
-
-      final response = await request.send();
-      print(response.statusCode);
-      print(response);
-      if (response.statusCode == 200) {
-        final responseBody = await response.stream.bytesToString();
-        print(responseBody);
-
-        //fetch data and store on provider
-        userpro.userProvider();
-        
-        print('user created successfully');
-        return 'user created successfully';
-      } else {
-        throw Exception('Failed to create user');
-      }
-    } catch (e) {
-      print(e.toString());
-      throw Exception('EXception Failed to create user : $e');
     }
-     on FirebaseAuthException catch (e) {
-      print(e);
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(e.message.toString()),
-            );
-          });
-    }
-  }
 
     return Scaffold(
       appBar: AppBar(
@@ -385,8 +385,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
             ],
           ),
         ),
-      )
-      ),
+      )),
       bottomNavigationBar: InkWell(
         onTap: () async {
           if (formkey.currentState!.validate()) {

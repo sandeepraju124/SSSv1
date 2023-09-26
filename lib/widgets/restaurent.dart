@@ -1,14 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:sssv1/models/category_models.dart';
-import 'package:sssv1/models/subcatrgorylist_model.dart';
-import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
-import 'package:sssv1/providers/sub_category_list.dart';
-import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/screens/RealEstateProfile.dart';
-import 'package:sssv1/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class Restaurant extends StatefulWidget {
@@ -26,13 +20,11 @@ class _RestaurantState extends State<Restaurant> {
     var data = Provider.of<RestaurantListProvider>(context, listen: false);
     // print("fgh");
     // print(data);
-    if(data.subcategoryListData!.isEmpty){
+    if (data.subcategoryListData!.isEmpty) {
       data.subCategoryListProvider("restaurant");
       // print("empty");
-      
     }
 
-    
     // data.subCategoryProvider("restaurant");
     super.initState();
   }

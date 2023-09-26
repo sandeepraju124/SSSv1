@@ -180,7 +180,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
@@ -239,7 +239,7 @@ class _InitialPageState extends State<InitialPage> {
                 SizedBox(height: 70),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 60.0),
-                  child: Lottie.asset("images/ratings.json" , height: 250),
+                  child: Lottie.asset("images/ratings.json", height: 250),
                 ),
                 SizedBox(height: 40),
 

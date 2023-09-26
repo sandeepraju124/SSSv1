@@ -10,6 +10,8 @@ import 'package:sssv1/screens/EditProfile.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
 import 'package:sssv1/utils/navigator.dart';
 
+import '../utils/constants.dart';
+
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
 
@@ -20,8 +22,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<UserProvider>(context,listen: false);
-
+    var data = Provider.of<UserProvider>(context, listen: false);
 
     final user = FirebaseAuth.instance.currentUser;
     String? email = user?.email;
@@ -57,13 +58,12 @@ class _UserProfileState extends State<UserProfile> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                data.getUserData!.dp == 0 ?
-                                "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
-                                 : data.getUserData!.dp.toString()
-                                
+                                data.getUserData?.dp == 0
+                                    ? "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
+                                    : (data.getUserData?.dp).toString(),
 
-                                  // 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-                                  ),
+                                // 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
+                              ),
                               fit: BoxFit.contain,
                             ),
                             color: Colors.grey,
@@ -263,11 +263,11 @@ class _UserProfileState extends State<UserProfile> {
                   children: [
                     Expanded(
                         child: GestureDetector(
-                          onTap: (){
-                            Navigators().navigatorPush(context, EditProfile());
-                          },
-                          child: ListTile(
-                                              leading: Container(
+                      onTap: () {
+                        Navigators().navigatorPush(context, EditProfile());
+                      },
+                      child: ListTile(
+                        leading: Container(
                             decoration: BoxDecoration(
                               color: Colors.grey[200],
                               borderRadius: BorderRadius.circular(10),
@@ -277,12 +277,12 @@ class _UserProfileState extends State<UserProfile> {
                               Icons.edit_note_sharp,
                               color: Colors.black,
                             )),
-                                              title: Text(
+                        title: Text(
                           "Edit Profile",
-                                              ),
-                                              trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
-                                            ),
-                        )),
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios_sharp, size: 20),
+                      ),
+                    )),
                     Divider(
                       color: Colors.grey,
                       endIndent: 30,
@@ -338,12 +338,49 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 20,
             ),
-            // logout
-            InkWell(
+
+            /////////////////// logout ///////////////
+
+            GestureDetector(
               onTap: () {
-                // final provider =
-                //     Provider.of<GoogleSignInController>(context, listen: false);
-                provider.logOut();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: tgTextIcon,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        "Are you sure you wanna logout",
+                        style: TextStyle(fontSize: 16, letterSpacing: 0.2),
+                      ),
+                      actions: [
+                        MaterialButton(
+                          // color: tgLightPrimaryColor,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'No!',
+                            style: TextStyle(color: tgPrimaryColor),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: MaterialButton(
+                            // color: tgLightPrimaryColor,
+                            onPressed: () {
+                              provider.logOut();
+                            },
+                            child: Text(
+                              'Yes, logout',
+                              style: TextStyle(color: tgPrimaryColor),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -371,9 +408,55 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
+
+            //  GestureDetector(
+            //   onTap: () {
+            //     showDialog(
+            //         context: context,
+            //         builder: (BuildContext context) {
+            //           return AlertDialog(
+            //             backgroundColor: tgTextIcon,
+            //             // shape: Border.all(color: ),
+            //             contentPadding: EdgeInsets.zero,
+            //             title: Text(
+            //               'Are you sure you wanna logout?',
+            //               style: TextStyle(fontSize: 16, letterSpacing: 0.2),
+            //             ),
+
+            //             actions: [
+            //               // Padding(padding: EdgeInsets.only(bottom: 70)),
+            //               MaterialButton(
+            //                 // color: tgLightPrimaryColor,
+            //                 onPressed: () {
+            //                   Navigator.of(context).pop();
+            //                 },
+            //                 child: Text(
+            //                   'No!',
+            //                   style: TextStyle(color: tgPrimaryColor),
+            //                 ),
+            //               ),
+            //               Padding(
+            //                 padding: const EdgeInsets.all(8.0),
+            //                 child: MaterialButton(
+            //                   // color: tgLightPrimaryColor,
+            //                   onPressed: () {
+            //                     provider.logOut();
+            //                   },
+            //                   child: Text(
+            //                     'Yes, logout',
+            //                     style: TextStyle(color: tgPrimaryColor),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           );
+            //         },
+            //  );
+            //   },
             SizedBox(
               height: 10,
             ),
+
             InkWell(
               onTap: () {
                 final provider =
@@ -405,7 +488,9 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
 
             Container(
                 height: 160,
