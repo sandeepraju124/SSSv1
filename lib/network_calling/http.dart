@@ -118,7 +118,7 @@ class Http {
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
-      print("json $jsonList");
+      // print("json $jsonList");
       final List<Businessprofile> services = jsonList.map((json) => Businessprofile.fromJson(json)).toList();
       return services;
     } else {
@@ -153,11 +153,11 @@ class Http {
     // await Future.delayed(const Duration(seconds: 2));
 
     final userid = user?.uid;
-    print("userid $userid");
+    // print("userid $userid");
 
     final apiUrl = Uri.parse('$baseUrl/user/$userid');
     final response = await http.get(apiUrl);
-    print("response $response");
+    // print("response $response");
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
@@ -218,7 +218,7 @@ class Http {
       }
     } catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        // print(e.toString());
       }
     }
   }

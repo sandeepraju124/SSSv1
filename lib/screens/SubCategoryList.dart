@@ -38,22 +38,27 @@ class _SubCategoryListState extends State<SubCategoryList> {
     // }
   }
 
-  Future<Map<String, String>?> fetchDistance(
-      String lat, String lang, String userLat, String userLang) async {
-    // print("hg");
+  Future<Map<String, String>?> fetchDistance(String lat, String lang, String userLat, String userLang) async {
 
-    // print(userLang);
-    // data.longitude;
-    Uri url = Uri.parse(
+    try{
+      Uri url = Uri.parse(
         "https://maps.googleapis.com/maps/api/directions/json?origin=$userLat,$userLang&destination=$lat,$lang&key=AIzaSyBIp8U5x3b2GVj1cjNU3N6funOz_tEUAdk");
         // print(url);
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+         final response = await http.get(url);
+         if(response.statusCode == 200){
+          final data = jsonDecode(response.body);
       String dist = data['routes'][0]["legs"][0]["distance"]["text"];
       String dura = data['routes'][0]["legs"][0]["duration"]["text"];
       return {"distance": dist, "duration": dura};
+         }else {
+          return {"distance": "-", "duration": "-"};
+         }
     }
+    catch (e){
+      print(e);
+      return {"distance": "-", "duration": "-"};
+    }
+    
   }
 
   void makePhoneCall(String phoneNumber)async {
