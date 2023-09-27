@@ -110,7 +110,7 @@ class Explore extends StatelessWidget {
                   Navigators().navigatorPush(
                       context,
                       Subcategory(
-                        subCat: "education",
+                        subCat: "Housing",
                       ));
                 },
                 child: Container(
@@ -129,7 +129,7 @@ class Explore extends StatelessWidget {
                   child: const Align(
                       alignment: Alignment(-0.7, 0.5),
                       child: Text(
-                        'education',
+                        'housing',
                         style: TextStyle(color: Colors.white),
                       )),
                 ),

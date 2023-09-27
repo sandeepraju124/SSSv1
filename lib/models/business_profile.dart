@@ -22,6 +22,7 @@ class Businessprofile {
     String longitude;
     String profileImage;
     String subCategory;
+    Hosingdetails? hosingdetails;
 
     Businessprofile({
         required this.id,
@@ -37,6 +38,7 @@ class Businessprofile {
         required this.longitude,
         required this.profileImage,
         required this.subCategory,
+        this.hosingdetails,
     });
 
     factory Businessprofile.fromJson(Map<String, dynamic> json) => Businessprofile(
@@ -53,6 +55,7 @@ class Businessprofile {
         longitude: json["longitude"],
         profileImage: json["profile_image"],
         subCategory: json["sub_category"],
+        hosingdetails: json["hosingdetails"] == null ? null : Hosingdetails.fromJson(json["hosingdetails"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -69,15 +72,55 @@ class Businessprofile {
         "longitude": longitude,
         "profile_image": profileImage,
         "sub_category": subCategory,
+        "hosingdetails": hosingdetails?.toJson(),
     };
 }
 
-enum Country { INDIA, COUNTRY_INDIA }
+enum Country {
+    COUNTRY_INDIA,
+    INDIA
+}
 
 final countryValues = EnumValues({
     "India": Country.COUNTRY_INDIA,
     "india": Country.INDIA
 });
+
+class Hosingdetails {
+    String ageofBuilding;
+    String bathroom;
+    String facing;
+    String furnishingStatus;
+    String gatedSecurity;
+    String rooms;
+
+    Hosingdetails({
+        required this.ageofBuilding,
+        required this.bathroom,
+        required this.facing,
+        required this.furnishingStatus,
+        required this.gatedSecurity,
+        required this.rooms,
+    });
+
+    factory Hosingdetails.fromJson(Map<String, dynamic> json) => Hosingdetails(
+        ageofBuilding: json["AgeofBuilding"],
+        bathroom: json["Bathroom"],
+        facing: json["Facing"],
+        furnishingStatus: json["FurnishingStatus"],
+        gatedSecurity: json["GatedSecurity"],
+        rooms: json["Rooms"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "AgeofBuilding": ageofBuilding,
+        "Bathroom": bathroom,
+        "Facing": facing,
+        "FurnishingStatus": furnishingStatus,
+        "GatedSecurity": gatedSecurity,
+        "Rooms": rooms,
+    };
+}
 
 class EnumValues<T> {
     Map<String, T> map;

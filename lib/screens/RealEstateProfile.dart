@@ -62,6 +62,7 @@ class _RealEstateProfileState extends State<RealEstateProfile>
     print(widget.uid);
   }
 
+
   @override
   Widget build(BuildContext context) {
     // var dataAsk = Provider.of<AskCommunityProvider>(context);
@@ -476,6 +477,11 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
+
+                // use this for adding additional widgets for spesific catogery
+                if(data.businessProfileData!.subCategory == "housingrent")
+                Text("this is for only hosing "),
+                Container(height: 40,color: Colors.lightBlue,),
 
                 // AskForCommunityWidget(
                 //   uid: widget.uid,
