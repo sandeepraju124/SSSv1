@@ -15,7 +15,8 @@ class BusinessProfileProvider with ChangeNotifier {
 
   Future<void> businessProfileProvider(uid) async {
     _isLoading = true;
-    Businessprofile businessProfile = await Http().fetchBusinessProfile("$baseUrl/uid/$uid");
+    Businessprofile businessProfile =
+        await Http().fetchBusinessProfile("$baseUrl/uid/$uid");
     _businessProfile = businessProfile;
     _isLoading = false;
     notifyListeners();

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
-import 'package:sssv1/screens/RealEstateProfile.dart';
+import 'package:sssv1/screens/defaultprofile.dart';
 import 'package:provider/provider.dart';
 
 class Restaurant extends StatefulWidget {
@@ -49,7 +49,7 @@ class _RestaurantState extends State<Restaurant> {
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RealEstateProfile(
+                          builder: (context) => DefaultProfile(
                               uid: data
                                   .subcategoryListData![index].businessUid)));
                     },

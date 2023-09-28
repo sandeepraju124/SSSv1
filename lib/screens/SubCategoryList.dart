@@ -8,7 +8,7 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:sssv1/screens/RealEstateProfile.dart';
+import 'package:sssv1/screens/defaultprofile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,41 +38,39 @@ class _SubCategoryListState extends State<SubCategoryList> {
     // }
   }
 
-  Future<Map<String, String>?> fetchDistance(String lat, String lang, String userLat, String userLang) async {
-
-    try{
+  Future<Map<String, String>?> fetchDistance(
+      String lat, String lang, String userLat, String userLang) async {
+    try {
       Uri url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/directions/json?origin=$userLat,$userLang&destination=$lat,$lang&key=AIzaSyBIp8U5x3b2GVj1cjNU3N6funOz_tEUAdk");
-        // print(url);
-         final response = await http.get(url);
-         if(response.statusCode == 200){
-          final data = jsonDecode(response.body);
-      String dist = data['routes'][0]["legs"][0]["distance"]["text"];
-      String dura = data['routes'][0]["legs"][0]["duration"]["text"];
-      return {"distance": dist, "duration": dura};
-         }else {
-          return {"distance": "-", "duration": "-"};
-         }
-    }
-    catch (e){
+          "https://maps.googleapis.com/maps/api/directions/json?origin=$userLat,$userLang&destination=$lat,$lang&key=AIzaSyBIp8U5x3b2GVj1cjNU3N6funOz_tEUAdk");
+      // print(url);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        String dist = data['routes'][0]["legs"][0]["distance"]["text"];
+        String dura = data['routes'][0]["legs"][0]["duration"]["text"];
+        return {"distance": dist, "duration": dura};
+      } else {
+        return {"distance": "-", "duration": "-"};
+      }
+    } catch (e) {
       print(e);
       return {"distance": "-", "duration": "-"};
     }
-    
   }
 
-  void makePhoneCall(String phoneNumber)async {
-      // final String url = 'tel:$number'; 
-      final Uri launchUri = Uri(
+  void makePhoneCall(String phoneNumber) async {
+    // final String url = 'tel:$number';
+    final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
-      if (await canLaunchUrl(launchUri)){
-        await launchUrl(launchUri);
-      }else{
-        throw 'Could not launch $launchUri';
-      }
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+    } else {
+      throw 'Could not launch $launchUri';
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +81,6 @@ class _SubCategoryListState extends State<SubCategoryList> {
     String UserLat = livedata.latitude.toString();
     String UserLang = livedata.longitude.toString();
     var data = Provider.of<SubcategoryListProvider>(context);
-
-    
 
     return Scaffold(
       appBar: AppBar(
@@ -159,7 +155,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   onTap: () {
                     Navigators().navigatorPush(
                         context,
-                        RealEstateProfile(
+                        DefaultProfile(
                             uid: data.subcategoryListData![index].businessUid));
                   },
                   child: Container(
@@ -243,7 +239,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     print("click");
-                    makePhoneCall( data.subcategoryListData![index].contactInformation);
+                    makePhoneCall(
+                        data.subcategoryListData![index].contactInformation);
                   },
                   child: SizedBox(
                     child: Stack(children: [

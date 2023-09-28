@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_const_constructors_in_immutables
 
 import 'package:flutter/Material.dart';
-import 'package:sssv1/Askcommunitypages/Askthecommunity.dart';
+import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/amenities.dart';
@@ -11,22 +11,21 @@ import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/screens/mapscreen.dart';
-import 'package:sssv1/widgets/popup.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/review_rating.dart';
 import 'package:sssv1/widgets/staggered_grid.dart';
 
-class RealEstateProfile extends StatefulWidget {
+class DefaultProfile extends StatefulWidget {
   String uid;
-  RealEstateProfile({super.key, required this.uid});
+  DefaultProfile({super.key, required this.uid});
 
   @override
-  _RealEstateProfileState createState() => _RealEstateProfileState();
+  _DefaultProfileState createState() => _DefaultProfileState();
 }
 
-class _RealEstateProfileState extends State<RealEstateProfile>
+class _DefaultProfileState extends State<DefaultProfile>
     with TickerProviderStateMixin {
   void _showModalbottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -61,7 +60,6 @@ class _RealEstateProfileState extends State<RealEstateProfile>
     datacomments.commentSectionProvider(widget.uid);
     print(widget.uid);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +109,7 @@ class _RealEstateProfileState extends State<RealEstateProfile>
       ),
       body: data.isLoading
           ? Center(
-              child: Image.asset("images/loading2.gif"),
+              child: Image.asset("images/loading.gif"),
             )
           :
           // data.isLoading  ? Center(child: CircularProgressIndicator()) :
@@ -148,19 +146,22 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                               color: tgPrimaryColor,
                               width: 1.5,
                             ),
+                            borderRadius: BorderRadius.circular(7),
                             color: Colors.white),
                         margin: EdgeInsets.only(left: 20, right: 20),
                         // color: Colors.white,
                         height: 110,
                         width: double.infinity,
+
                         child: Row(children: [
                           Expanded(
                             flex: 28,
                             child: Container(
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                color: tgPrimaryColor,
-                              )),
+                                    color: tgPrimaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(2)),
                               margin: EdgeInsets.all(10),
                               width: double.infinity,
                               height: double.infinity,
@@ -170,8 +171,6 @@ class _RealEstateProfileState extends State<RealEstateProfile>
 
                                 // "https://www.discoverlosangeles.com/sites/default/files/images/2019-01/laxbw-prime-1715-hor-wide.jpg?width=1600&height=1200&fit=crop&quality=78&auto=webp",
                                 fit: BoxFit.cover,
-
-
                               ),
                             ),
                           ),
@@ -192,8 +191,8 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                                                 .businessName
                                                 .toString(),
                                             style: TextStyle(
-                                              fontSize: 20,
-                                            )),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
                                       ),
                                     ),
                                   ),
@@ -421,33 +420,45 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(left: 11, top: 8),
                       child: Text(
                         'Know About them',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 60,
-                        color: Colors.white,
-                        child: Text(
-                          data.businessProfileData!.businessDescription
-                              .toString(),
-                          // 'If the sentence is the essential soul to express oneself in their own way, you in creating new knowledge but also enhance your brain function.',
-                          style: TextStyle(color: tgSecondaryText),
+                    Container(
+                        margin: EdgeInsets.only(left: 10, top: 1),
+                        height: 3, // Adjust the height of the line as needed
+                        width: 110, // Adjust the width of the line as needed
+                        color: tgPrimaryColor // Set the color of the line
                         ),
-                      ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 104,
+                            color: Colors.white,
+                            // child: Text(
+                            //   data.businessProfileData!.businessDescription
+                            //       .toString(),
+                            //   // 'If the sentence is the essential soul to express oneself in their own way, you in creating new knowledge but also enhance your brain function.',
+                            //   style: TextStyle(color: tgSecondaryText),
+                            // ),
+
+                            child: Text(
+                              data.businessProfileData!.businessDescription
+                                  .toString(),
+                              style:
+                                  TextStyle(color: secondaryColor40LightTheme),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-
-                Divider(
-                  color: Colors.blueGrey,
-                  thickness: .7,
                 ),
 
                 /////////////////// MAP Implement ///////////////////////
@@ -463,25 +474,10 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                   height: 8,
                 ),
 
-                Divider(
-                  color: Colors.blueGrey,
-                  thickness: .7,
-                ),
+                // use this for adding additional widgets for specific catogery
 
-                ///////////////////// ASK COMMUNITY WIDGET //////////////
-
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'Ask The Community',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                ),
-
-                // use this for adding additional widgets for spesific catogery
-                if(data.businessProfileData!.subCategory == "housingrent")
-                Text("this is for only hosing "),
-                Container(height: 40,color: Colors.lightBlue,),
+                if (data.businessProfileData!.subCategory == "housingrent")
+                  OverviewPage(),
 
                 // AskForCommunityWidget(
                 //   uid: widget.uid,
@@ -515,7 +511,7 @@ class _RealEstateProfileState extends State<RealEstateProfile>
                   height: 30,
                 ),
 
-                Container(
+                SizedBox(
                   // color: Colors.red,
                   height: 400,
                   // height: double.infinity,
