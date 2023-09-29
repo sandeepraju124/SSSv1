@@ -473,6 +473,10 @@ class _DefaultProfileState extends State<DefaultProfile>
                 SizedBox(
                   height: 8,
                 ),
+                Divider(
+                  color: Colors.blueGrey,
+                  thickness: .7,
+                ),
 
                 // use this for adding additional widgets for specific catogery
 
