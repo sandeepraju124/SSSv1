@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
 
@@ -68,9 +68,6 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                             color: Colors.grey,
                             shape: BoxShape.circle),
-                        //                 child: Image.network(
-                        //   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-                        // fit:BoxFit.cover ),
                       ),
                     ),
                     const SizedBox(

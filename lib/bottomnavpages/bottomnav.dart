@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/bottomnavpages/communitypage.dart';
 
 import 'package:sssv1/bottomnavpages/search.dart';
+import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/homepage.dart';
-import 'package:sssv1/screens/user_profile.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class BottomNavPage extends StatefulWidget {
@@ -28,7 +29,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
     Searchpage(),
     Communitypage(),
     // MyProfilepage(),
-     UserProfile(),
+    //  UserProfile(),
+    NewUserProfilePage(),
   ];
 
   // Color getDecorationColor(int index) {
@@ -91,8 +93,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
                   // border: Border.all(color: Colors.black, width: 0.06),
 
                   border: Border.all(
-                    color: Colors.grey,
-                    width: 1.1,
+                    color: Colors.black,
+                    width: 0.28,
                   ),
 
                   borderRadius: BorderRadius.all(Radius.circular(28)),
@@ -105,7 +107,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                     children: [
                       NavBarIcon(
                         text: "Home",
-                        icon: Icons.apps,
+                        icon: LineAwesomeIcons.home,
 
                         selected: _currentIndex == 0,
                         onPressed: () {
@@ -118,7 +120,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       ),
                       NavBarIcon(
                         text: "Search",
-                        icon: Icons.search_outlined,
+                        icon: LineAwesomeIcons.search,
                         selected: _currentIndex == 1,
                         onPressed: () {
                           setState(() {
@@ -130,7 +132,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       ),
                       NavBarIcon(
                         text: "Community",
-                        icon: Icons.comment_rounded,
+                        icon: LineAwesomeIcons.comment_dots,
                         selected: _currentIndex == 2,
                         onPressed: () {
                           setState(() {
@@ -142,7 +144,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       ),
                       NavBarIcon(
                         text: "MyProfile",
-                        icon: Icons.person,
+                        icon: LineAwesomeIcons.user_secret,
                         selected: _currentIndex == 3,
                         onPressed: () {
                           setState(() {

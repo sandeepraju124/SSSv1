@@ -68,6 +68,8 @@ dev_dependencies:
   google_maps_flutter: ^2.2.6
   flutter_staggered_grid_view: ^0.6.2
   image_picker: ^0.8.8
+  line_awesome_flutter: ^2.0.0
+  flutter_screenutil: ^5.9.0
 
   
 

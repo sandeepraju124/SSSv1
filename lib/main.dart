@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/providers/live_user_location.dart';
+import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/widgets/showcomment.dart';
@@ -24,6 +25,7 @@ import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/review_rating.dart';
 import 'package:sssv1/widgets/subcategory.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './login/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
@@ -88,6 +90,7 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       home: redirection(),
+      // home: NewUserProfilePage(),
       // home: OverviewPage(),
       // home: SubCategoryListi(subCat: 'restaurant',),
 
