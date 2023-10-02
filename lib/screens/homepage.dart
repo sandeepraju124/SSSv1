@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   }
 
-
 //   @override
 //   void initState() {
 //     // print('this is init in homepage');

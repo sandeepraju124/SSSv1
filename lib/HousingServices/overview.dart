@@ -182,7 +182,12 @@ class OverviewPage extends StatelessWidget {
               ],
             ),
           ),
-        )
+          
+        ),
+        Divider(
+                  color: Colors.blueGrey,
+                  thickness: .7,
+                ),
       ],
     );
   }

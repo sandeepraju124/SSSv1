@@ -143,7 +143,7 @@ class _DefaultProfileState extends State<DefaultProfile>
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(
-                              color: tgPrimaryColor,
+                              color: Colors.grey,
                               width: 1.5,
                             ),
                             borderRadius: BorderRadius.circular(7),
@@ -284,7 +284,7 @@ class _DefaultProfileState extends State<DefaultProfile>
                                       shape: BoxShape.circle,
                                       color: Colors.white,
                                       border:
-                                          Border.all(color: tgPrimaryColor)),
+                                          Border.all(color: tgAccentColor)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: IconButton(
@@ -314,7 +314,7 @@ class _DefaultProfileState extends State<DefaultProfile>
                                       shape: BoxShape.circle,
                                       color: Colors.white,
                                       border:
-                                          Border.all(color: tgPrimaryColor)),
+                                          Border.all(color: tgAccentColor)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: IconButton(
@@ -344,7 +344,7 @@ class _DefaultProfileState extends State<DefaultProfile>
                                       shape: BoxShape.circle,
                                       color: Colors.white,
                                       border:
-                                          Border.all(color: tgPrimaryColor)),
+                                          Border.all(color: tgAccentColor)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: IconButton(
@@ -380,7 +380,7 @@ class _DefaultProfileState extends State<DefaultProfile>
                                         shape: BoxShape.circle,
                                         color: Colors.white,
                                         border:
-                                            Border.all(color: tgPrimaryColor)),
+                                            Border.all(color: tgAccentColor)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: IconButton(
@@ -433,42 +433,24 @@ class _DefaultProfileState extends State<DefaultProfile>
                         width: 110, // Adjust the width of the line as needed
                         color: tgPrimaryColor // Set the color of the line
                         ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 104,
-                            color: Colors.white,
-                            // child: Text(
-                            //   data.businessProfileData!.businessDescription
-                            //       .toString(),
-                            //   // 'If the sentence is the essential soul to express oneself in their own way, you in creating new knowledge but also enhance your brain function.',
-                            //   style: TextStyle(color: tgSecondaryText),
-                            // ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: double.infinity,
+                        // height: 104,
+                        color: Colors.white,
 
-                            child: Text(
-                              data.businessProfileData!.businessDescription
-                                  .toString(),
-                              style:
-                                  TextStyle(color: secondaryColor40LightTheme),
-                            ),
-                          ),
+                        child: Text(
+                          data.businessProfileData!.businessDescription
+                              .toString(),
+                          style:
+                              TextStyle(color: secondaryColor40LightTheme),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
 
-                /////////////////// MAP Implement ///////////////////////
-
-                // SizedBox(
-                //   width: double.infinity,
-                //   height: 300,
-                //   // color: Colors.white,
-                //   child: MapScreenPage(),
-                // ),
 
                 SizedBox(
                   height: 8,
@@ -487,10 +469,10 @@ class _DefaultProfileState extends State<DefaultProfile>
                 //   uid: widget.uid,
                 // ),
 
-                Divider(
-                  color: Colors.blueGrey,
-                  thickness: .7,
-                ),
+                // Divider(
+                //   color: Colors.blueGrey,
+                //   thickness: .7,
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -512,12 +494,12 @@ class _DefaultProfileState extends State<DefaultProfile>
                     ]),
 
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
 
                 SizedBox(
                   // color: Colors.red,
-                  height: 400,
+                  height:300,
                   // height: double.infinity,
                   width: double.infinity,
                   child: TabBarView(
