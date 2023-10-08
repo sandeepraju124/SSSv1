@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
-import 'dart:convert';
-
 import 'package:flutter/Material.dart';
 import 'package:sssv1/Askcommunitypages/answers.dart';
 
 import '../utils/constants.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class Questionpage extends StatefulWidget {
   const Questionpage({super.key, required this.id});

@@ -1,8 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:sssv1/models/askthecom_models.dart';
-import 'package:sssv1/models/business_models.dart';
+
 import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/models/commentsection_models.dart';
@@ -22,7 +24,8 @@ class Http {
       var jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
       // print("json $jsonList");
-      business = jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
+      business =
+          jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
       // print(business);
       return business;
     } else {
@@ -107,11 +110,7 @@ class Http {
     }
   }
 
-
-
-
-
-    // used this to show all business list foe search
+  // used this to show all business list foe search
   Future<List<Businessprofile>> fetchAllBusinessListData(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
@@ -119,7 +118,8 @@ class Http {
       final jsonList = json.decode(response.body) as List;
       // print("responsebody ${response.body}");
       // print("json $jsonList");
-      final List<Businessprofile> services = jsonList.map((json) => Businessprofile.fromJson(json)).toList();
+      final List<Businessprofile> services =
+          jsonList.map((json) => Businessprofile.fromJson(json)).toList();
       return services;
     } else {
       throw Exception('Failed to fetch data');
