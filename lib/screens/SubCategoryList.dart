@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
@@ -154,9 +155,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     Navigators().navigatorPush(
-                        context,
-                        DefaultProfile(
-                            uid: data.subcategoryListData![index].businessUid));
+                      context,
+                      DefaultProfile(
+                          uid: data.subcategoryListData![index].businessUid),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

@@ -13,15 +13,16 @@ import 'package:sssv1/widgets/review_rating.dart';
 
 // import '../widgets/review_rating.dart';
 
-class TestApp extends StatefulWidget {
+class DefaultProfilePage extends StatefulWidget {
   final String uid;
-  const TestApp({super.key, required this.uid});
+  const DefaultProfilePage({super.key, required this.uid});
 
   @override
-  State<TestApp> createState() => _TestAppState();
+  State<DefaultProfilePage> createState() => _DefaultProfilePageState();
 }
 
-class _TestAppState extends State<TestApp> with TickerProviderStateMixin {
+class _DefaultProfilePageState extends State<DefaultProfilePage>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<BusinessProfileProvider>(context);

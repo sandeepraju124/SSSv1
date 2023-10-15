@@ -7,7 +7,7 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
-import 'package:sssv1/Tabview/tab_view.dart';
+import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -91,8 +91,8 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
 
-      home: TestApp(uid: ""),
-      // home: redirection(),
+      // home: DefaultProfilePage(uid: ""),
+      home: redirection(),
 
       // home: NewUserProfilePage(),
       // home: OverviewPage(),
