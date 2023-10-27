@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 import 'package:sssv1/screens/defaultprofile.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _RestaurantState extends State<Restaurant> {
     var data = Provider.of<RestaurantListProvider>(context);
     return data.isLoading
         ? Center(
-            child: Image.asset("images/loading2.gif"),
+            child: Image.asset("images/loading.gif"),
           )
         : SizedBox(
             height: 270,
@@ -49,9 +50,14 @@ class _RestaurantState extends State<Restaurant> {
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DefaultProfile(
-                              uid: data
-                                  .subcategoryListData![index].businessUid)));
+                          builder: (context) =>
+                              //  DefaultProfile(
+                              //     uid:
+                              //         data.subcategoryListData![index].businessUid),
+                              DefaultProfilePage(
+                                uid: data
+                                    .subcategoryListData![index].businessUid,
+                              )));
                     },
                     child: Stack(
                       children: [

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class MapScreenPage extends StatefulWidget {
   const MapScreenPage({super.key});
@@ -23,11 +24,30 @@ class _MapScreenPageState extends State<MapScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-        markers: {_markers},
-        mapType: MapType.normal,
-        // myLocationButtonEnabled: false,
-        // zoomControlsEnabled: false,
-        initialCameraPosition: _initialCameraPosition);
+    return
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     Text(
+        //       "Directions",
+        //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+        //     ),
+        //     Container(
+        //         margin: EdgeInsets.only(left: 10, top: 1),
+        //         height: 3, // Adjust the height of the line as needed
+        //         width: 70, // Adjust the width of the line as needed
+        //         color: tgPrimaryColor // Set the color of the line
+        //         ),
+        SizedBox(
+      height: 400,
+      child: GoogleMap(
+          markers: {_markers},
+          mapType: MapType.normal,
+          // myLocationButtonEnabled: false,
+          // zoomControlsEnabled: false,
+          initialCameraPosition: _initialCameraPosition),
+    );
+    //   ],
+    // );
   }
 }

@@ -18,7 +18,7 @@ const Color secondaryColor10LightTheme = Color(0xFFEEEEEE);
 const Color secondaryColor5LightTheme = Color(0xFFF8F8F8);
 
 // urls
-const String baseUrl = "https://stoic1137.azurewebsites.net/";
+const String baseUrl = "https://mossad.azurewebsites.net/";
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';

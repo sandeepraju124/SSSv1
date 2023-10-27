@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/Askcommunitypages/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/providers/live_user_location.dart';
@@ -8,6 +9,7 @@ import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
+import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/showcomment.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -92,7 +94,9 @@ class MyApp extends StatelessWidget {
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
 
       // home: DefaultProfilePage(uid: ""),
-      home: redirection(),
+      // home: redirection(),
+      home: Askcommpage(),
+      // home: AmenitiesGridView(),
 
       // home: NewUserProfilePage(),
       // home: OverviewPage(),

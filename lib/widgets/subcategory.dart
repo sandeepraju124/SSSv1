@@ -298,6 +298,7 @@ import 'package:provider/provider.dart';
 import "package:sssv1/utils/constants.dart";
 import "package:sssv1/utils/navigator.dart";
 import 'package:sssv1/screens/SubCategoryList.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -350,6 +351,11 @@ class _SubcategoryState extends State<Subcategory> {
     return Scaffold(
       backgroundColor: secondaryColor10LightTheme,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(LineAwesomeIcons.angle_left)),
         title: Text(
           widget.subCat,
           style: TextStyle(color: Colors.white),

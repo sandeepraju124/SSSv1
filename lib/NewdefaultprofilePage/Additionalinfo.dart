@@ -33,103 +33,14 @@ class AdditionalInfoPage extends StatelessWidget {
               ),
             ),
 
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 65,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(color: tgAccentColor)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(LineAwesomeIcons.comment),
-                                  iconSize: 26,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Text(
-                                "Ask Community",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            )
-                          ]),
-                    ),
-                    Expanded(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 65,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(color: tgAccentColor)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(LineAwesomeIcons.phone_volume),
-                                  iconSize: 26,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Text(
-                                "Call",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            )
-                          ]),
-                    ),
-                    Expanded(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 65,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(color: tgAccentColor)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.comment_bank_sharp),
-                                  iconSize: 26,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Text(
-                                "Add Review",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            )
-                          ]),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigators().navigatorPush(context, StaggeredGridq());
-                        },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 7),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -143,9 +54,7 @@ class AdditionalInfoPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
                                     onPressed: () {},
-                                    icon: Icon(
-                                      LineAwesomeIcons.image,
-                                    ),
+                                    icon: Icon(LineAwesomeIcons.comment),
                                     iconSize: 26,
                                     color: Colors.black54,
                                   ),
@@ -154,16 +63,111 @@ class AdditionalInfoPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 3),
                                 child: Text(
-                                  "Photo",
+                                  "Ask Community",
                                   style: TextStyle(fontSize: 12),
                                 ),
                               )
                             ]),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Expanded(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                height: 65,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(color: tgAccentColor)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(LineAwesomeIcons.phone_volume),
+                                    iconSize: 26,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Text(
+                                  "Call",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ]),
+                      ),
+                      Expanded(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                height: 65,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(color: tgAccentColor)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.comment_bank_sharp),
+                                    iconSize: 26,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Text(
+                                  "Add Review",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ]),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigators()
+                                .navigatorPush(context, StaggeredGridq());
+                          },
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: 65,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                      border: Border.all(color: tgAccentColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        LineAwesomeIcons.image,
+                                      ),
+                                      iconSize: 26,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Text(
+                                    "Photo",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                )
+                              ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
 
@@ -171,7 +175,8 @@ class AdditionalInfoPage extends StatelessWidget {
 
           Container(
             width: double.infinity,
-            height: 150,
+            // height: 170,
+            // height: MediaQuery.of(context).size.height / 8,
             decoration: BoxDecoration(
               border: Border(
                 // top: BorderSide(color: Colors.blueGrey, width: 0.6),
@@ -182,7 +187,7 @@ class AdditionalInfoPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 11, top: 8),
+                  padding: const EdgeInsets.only(left: 11, top: 12),
                   child: Text(
                     'Know About them',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -196,15 +201,15 @@ class AdditionalInfoPage extends StatelessWidget {
                     ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     // height: 104,
-                    color: Colors.white,
+                    // color: Colors.white,
 
                     child: Text(
-                      // data.businessProfileData!.businessDescription.toString(),
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat ",
-                      style: TextStyle(color: secondaryColor40LightTheme),
+                      data.businessProfileData!.businessDescription.toString(),
+                      // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat ",
+                      style: TextStyle(color: secondaryColor20LightTheme),
                     ),
                   ),
                 ),

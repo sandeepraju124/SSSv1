@@ -26,24 +26,18 @@ class AmenitiesGridView extends StatelessWidget {
         childAspectRatio: 5.0, // Width to height ratio of each item
       ),
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0.0,
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.check, color: Colors.green),
-              const SizedBox(
-                  width: 3.0), // Add spacing between the icon and text
-              Expanded(
-                child: Text(
-                  data.businessProfileData!.amenities[index].toString(),
-                  // amenities[index],
-                  style: const TextStyle(fontSize: 16.0),
-                ),
+        return Row(
+          children: [
+            const Icon(Icons.check, color: Colors.green),
+            const SizedBox(width: 3.0), // Add spacing between the icon and text
+            Expanded(
+              child: Text(
+                data.businessProfileData!.amenities[index].toString(),
+                // amenities[index],
+                style: const TextStyle(fontSize: 16.0),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );

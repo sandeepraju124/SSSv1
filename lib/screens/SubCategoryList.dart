@@ -13,6 +13,7 @@ import 'package:sssv1/screens/defaultprofile.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class SubCategoryList extends StatefulWidget {
   String subCat;
@@ -85,6 +86,11 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(LineAwesomeIcons.angle_left)),
         title: Text(widget.subCat),
         // backgroundColor: Color.fromARGB(255, 78, 155, 151),
         backgroundColor: tgAccentColor,
@@ -155,10 +161,12 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     Navigators().navigatorPush(
-                      context,
-                      DefaultProfile(
-                          uid: data.subcategoryListData![index].businessUid),
-                    );
+                        context,
+                        //   DefaultProfile(
+                        //       uid: data.subcategoryListData![index].businessUid),
+                        DefaultProfilePage(
+                          uid: data.subcategoryListData![index].businessUid,
+                        ));
                   },
                   child: Container(
                     decoration: BoxDecoration(
