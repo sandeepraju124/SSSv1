@@ -34,6 +34,36 @@ class _QuestionpageState extends State<Questionpage> {
     //   padding: const EdgeInsetsDirectional.only(
     //       top: 17, bottom: 17, start: 5, end: 5),
 
+  //   Future PostQ() async {
+  //     try {
+  //       final String apiUrl = 'https://your-api-endpoint.com/ask_community'; // Replace with your API endpoint
+
+  // // Create a Map to represent the data you want to send in the request body
+  // final Map<String, String> data = {
+  //   'question': question,
+  // };
+
+  // try {
+  //   final response = await http.post(
+  //     Uri.parse(apiUrl),
+  //     body: data,
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     print('Question posted successfully');
+  //   } else {
+  //     print('Failed to post question. Status code: ${response.statusCode}');
+  //     print('Response body: ${response.body}');
+  //   }
+ 
+
+
+
+  //     } catch (e) {
+  //       throw Exception("EXception Failed to post question : $e");
+  //     }
+  //   }
+
     return Scaffold(
         // backgroundColor: Colors.grey.shade200,
         appBar: AppBar(

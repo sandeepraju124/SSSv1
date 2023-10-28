@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, prefer_const_declarations, avoid_print
 
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
@@ -11,6 +11,7 @@ import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/models/users_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class Http {
@@ -193,6 +194,37 @@ class Http {
   //     throw Exception('Failed to fetch data');
   //   }
   // }
+
+// -------------------------------------------------------------------------------------------------------------------
+
+//////////////// post for ask community /////////////////////////
+
+  Future<void> PostAskcommunity(String Question) async {
+    final String url = "$baseUrl/post_question";
+
+// Create a Map to represent the data you want to send in the request body
+    final Map<String, dynamic> data = {
+      "question": Question,
+      "business_uid": "",
+      "userid": "",
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        print("question posted successfully");
+      } else {
+        print("Failed to post question. Status code : ${response.statusCode}");
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   // ------------------------------------------------------------------------------------
   // post user data

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/Askcommunitypages/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/Additionalinfo.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
@@ -158,10 +159,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       if (data.businessProfileData!.subCategory ==
                           "housingrent")
                         OverviewPage(),
+                      OverviewPage(),
                       AmenitiesGridView(),
-                      AskForCommunityWidget(uid: widget.uid),
-                      AskForCommunityWidget(uid: widget.uid),
-                      // AskForCommunityWidget(uid: widget.uid),
+                      AskForCommunityWidget(uid: ""),
                     ],
                   ),
                 ),

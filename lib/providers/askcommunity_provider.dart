@@ -15,7 +15,8 @@ class AskCommunityProvider with ChangeNotifier {
 
   Future<void> askCommunityProvider(uid) async {
     _isLoading = true;
-    AskTheCommunityModels datalist = await Http().fetchAskCommunity("$baseUrl/askcommunity/$uid");
+    AskTheCommunityModels datalist =
+        await Http().fetchAskCommunity("$baseUrl/askcommunity/$uid");
     _askcommunity = datalist;
     _isLoading = false;
     notifyListeners();

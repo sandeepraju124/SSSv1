@@ -4,106 +4,122 @@
 
 import 'dart:convert';
 
-AskTheCommunityModels askTheCommunityModelsFromJson(String str) => AskTheCommunityModels.fromJson(json.decode(str));
+AskTheCommunityModels askTheCommunityModelsFromJson(String str) =>
+    AskTheCommunityModels.fromJson(json.decode(str));
 
-String askTheCommunityModelsToJson(AskTheCommunityModels data) => json.encode(data.toJson());
+String askTheCommunityModelsToJson(AskTheCommunityModels data) =>
+    json.encode(data.toJson());
 
 class AskTheCommunityModels {
-    String id;
-    String businessUid;
-    List<Datum> data;
+  String id;
+  String businessUid;
+  List<Datum> data;
 
-    AskTheCommunityModels({
-        required this.id,
-        required this.businessUid,
-        required this.data,
-    });
+  AskTheCommunityModels({
+    required this.id,
+    required this.businessUid,
+    required this.data,
+  });
 
-    factory AskTheCommunityModels.fromJson(Map<String, dynamic> json) => AskTheCommunityModels(
+  factory AskTheCommunityModels.fromJson(Map<String, dynamic> json) =>
+      AskTheCommunityModels(
         id: json["_id"],
         businessUid: json["business_uid"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "business_uid": businessUid,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
+      };
 }
 
 class Datum {
-    List<Answer> answers;
-    Author author;
-    String question;
+  List<Answer> answers;
+  Qdetails qdetails;
+  String question;
 
-    Datum({
-        required this.answers,
-        required this.author,
-        required this.question,
-    });
+  Datum({
+    required this.answers,
+    required this.qdetails,
+    required this.question,
+  });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        answers: List<Answer>.from(json["answers"].map((x) => Answer.fromJson(x))),
-        author: Author.fromJson(json["author"]),
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        answers:
+            List<Answer>.from(json["answers"].map((x) => Answer.fromJson(x))),
+        qdetails: Qdetails.fromJson(json["qdetails"]),
         question: json["question"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
-        "author": author.toJson(),
+        "qdetails": qdetails.toJson(),
         "question": question,
-    };
+      };
 }
 
 class Answer {
-    String answer;
-    Author author;
+  Adetails adetails;
+  String answer;
 
-    Answer({
-        required this.answer,
-        required this.author,
-    });
+  Answer({
+    required this.adetails,
+    required this.answer,
+  });
 
-    factory Answer.fromJson(Map<String, dynamic> json) => Answer(
+  factory Answer.fromJson(Map<String, dynamic> json) => Answer(
+        adetails: Adetails.fromJson(json["adetails"]),
         answer: json["answer"],
-        author: Author.fromJson(json["author"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
+        "adetails": adetails.toJson(),
         "answer": answer,
-        "author": author.toJson(),
-    };
+      };
 }
 
-class Author {
-    String avatarUrl;
-    DateTime? createdAt;
-    String id;
-    DateTime? updatedAt;
-    String username;
+class Adetails {
+  String createdAt;
+  String userid;
 
-    Author({
-        required this.avatarUrl,
-        this.createdAt,
-        required this.id,
-        this.updatedAt,
-        required this.username,
-    });
+  Adetails({
+    required this.createdAt,
+    required this.userid,
+  });
 
-    factory Author.fromJson(Map<String, dynamic> json) => Author(
-        avatarUrl: json["avatar_url"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        id: json["id"],
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        username: json["username"],
-    );
+  factory Adetails.fromJson(Map<String, dynamic> json) => Adetails(
+        createdAt: json["created_at"],
+        userid: json["userid"],
+      );
 
-    Map<String, dynamic> toJson() => {
-        "avatar_url": avatarUrl,
-        "created_at": createdAt?.toIso8601String(),
-        "id": id,
-        "updated_at": updatedAt?.toIso8601String(),
-        "username": username,
-    };
+  Map<String, dynamic> toJson() => {
+        "created_at": createdAt,
+        "userid": userid,
+      };
+}
+
+class Qdetails {
+  String createdAt;
+  String questionid;
+  String userid;
+
+  Qdetails({
+    required this.createdAt,
+    required this.questionid,
+    required this.userid,
+  });
+
+  factory Qdetails.fromJson(Map<String, dynamic> json) => Qdetails(
+        createdAt: json["created_at"],
+        questionid: json["questionid"],
+        userid: json["userid"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "created_at": createdAt,
+        "questionid": questionid,
+        "userid": userid,
+      };
 }

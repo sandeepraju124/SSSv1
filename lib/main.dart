@@ -94,8 +94,9 @@ class MyApp extends StatelessWidget {
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
 
       // home: DefaultProfilePage(uid: ""),
-      // home: redirection(),
-      home: Askcommpage(),
+      home: redirection(),
+      // home: AskForCommunityWidget(uid: "11111111111111")
+
       // home: AmenitiesGridView(),
 
       // home: NewUserProfilePage(),
