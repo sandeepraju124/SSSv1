@@ -40,7 +40,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
   Widget build(BuildContext context) {
     var data = Provider.of<AskCommunityProvider>(context);
     return SizedBox(
-      height: 500,
+      height: 700,
       child: Column(
         children: [
           Padding(
@@ -115,11 +115,10 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  question.question,
+                                  "Q: ${question.question}",
                                   style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                               ListView.builder(
@@ -131,7 +130,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      answers[index].answer,
+                                      "A: ${answers[index].answer}",
                                       style: TextStyle(
                                           fontSize: 14, color: Colors.grey),
                                     ),
@@ -202,7 +201,8 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                                       border: Border.all(
                                           color: secondaryColor20LightTheme),
                                     ),
-                                    child: Text("Show more questions"),
+                                    child: Text(
+                                        "Show ${question.question.length} questions"),
                                   ),
                                 ),
 

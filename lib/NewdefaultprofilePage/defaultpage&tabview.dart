@@ -36,7 +36,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     data.businessProfileProvider(widget.uid);
 
     var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-    dataAsk.askCommunityProvider(widget.uid);
+    dataAsk.fetchAskCommunityData(widget.uid);
 
     var datacomments =
         Provider.of<CommentSectionProvider>(context, listen: false);

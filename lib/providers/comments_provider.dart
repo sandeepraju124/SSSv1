@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -17,71 +17,66 @@ class CommentSectionProvider extends ChangeNotifier {
 
   Future<void> commentSectionProvider(uid) async {
     _isLoading = true;
-    CommentSectionModels commentsection = await Http().fetchComments("$baseUrl/commentsuid/$uid");
+    CommentSectionModels commentsection =
+        await Http().fetchComments("$baseUrl/commentsuid/$uid");
     _comments = commentsection;
     _isLoading = false;
     notifyListeners();
   }
 
+  Future<bool> postCommentProvider({
+    required BuildContext context,
+    required int rating,
+    required String business_uid,
+    required String user_id,
+    required String review,
+  }) async {
+    try {
+      // print("post comment");
+      _isLoading = true;
 
-Future<bool> postCommentProvider({
-  required BuildContext context,
-  required int rating,
-  required String business_uid,
-  required String user_id,
-  required String review,
-}) async {
-  try {
-    // print("post comment");
-    _isLoading = true;
+      final body = {
+        'rating': rating.toString(),
+        'business_uid': business_uid,
+        'review': review,
+        'user_id': user_id,
+      };
+      print(body);
 
-    final body = {
-      'rating': rating.toString(),
-      'business_uid': business_uid,
-      'review': review,
-      'user_id': user_id,
-    };
-    print(body);
+      final url = Uri.parse("$baseUrl/postcomment");
+      final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+      // final headers = {'Content-Type': 'application/json'};
+      // final encodedBody = jsonEncode(body);
 
-    final url = Uri.parse("$baseUrl/postcomment");
-    final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    // final headers = {'Content-Type': 'application/json'};
-    // final encodedBody = jsonEncode(body);
+      final response = await http.post(url, headers: headers, body: body);
 
-    final response = await http.post(url, headers: headers, body: body);
-    
+      if (response.statusCode == 200) {
+        print('Data posted successfully');
+        await commentSectionProvider(business_uid);
 
+        // Navigate to the success screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => lottie()),
+        );
 
-    if (response.statusCode == 200) {
-      print('Data posted successfully');
-      await commentSectionProvider(business_uid);
+        // Pop back to the previous screen after a delay (optional)
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pop(context);
+        });
 
-      // Navigate to the success screen
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => lottie()),
-      );
+        // notifyListeners();
 
-      // Pop back to the previous screen after a delay (optional)
-      Future.delayed(Duration(seconds: 2), () {
-        Navigator.pop(context);
+        return true;
+      } else {
+        print('Failed to post data. Status code: ${response.statusCode}');
+        return false;
       }
-      );
-
-      // notifyListeners();
-
-      return true;
-    } else {
-      print('Failed to post data. Status code: ${response.statusCode}');
+    } catch (e) {
+      print('Error posting data: $e');
       return false;
+    } finally {
+      _isLoading = false;
     }
-  } catch (e) {
-    print('Error posting data: $e');
-    return false;
-  } finally {
-    _isLoading = false;
-    
   }
-}
-
 }
