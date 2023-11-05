@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/comments_provider.dart';
-import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,15 +18,12 @@ class _PostCommentState extends State<PostComment> {
   int rating = 1;
   final TextEditingController _reviewController = TextEditingController();
 
-  
-
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final userid = user!.uid;
     print(userid);
-    var data = Provider.of<CommentSectionProvider>(context, listen:false );
+    var data = Provider.of<CommentSectionProvider>(context, listen: false);
     // var userdata = Provider.of<UserProvider>(context);
     // print(rating);
     return Scaffold(
@@ -40,15 +36,18 @@ class _PostCommentState extends State<PostComment> {
           leading: Row(
             children: [
               Align(
-                alignment: Alignment.centerLeft,
-                child: GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text("< sss", style: TextStyle(color: tgAccentColor), ))),
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "< sss",
+                        style: TextStyle(color: tgAccentColor),
+                      ))),
             ],
           ),
-          ),
+        ),
       ),
       body: SingleChildScrollView(
           child: SafeArea(
@@ -185,7 +184,12 @@ class _PostCommentState extends State<PostComment> {
       ))),
       bottomNavigationBar: InkWell(
         onTap: () {
-          data.postCommentProvider(business_uid: widget.businessUid, user_id: userid, review: _reviewController.text, rating: rating, context: context);
+          data.postCommentProvider(
+              business_uid: widget.businessUid,
+              user_id: userid,
+              review: _reviewController.text,
+              rating: rating,
+              context: context);
           // navigatorPush(context,SearchLocationScreen() );
         },
         child: Container(

@@ -82,6 +82,8 @@ class AskCommunityProvider with ChangeNotifier {
       AskTheCommunityModels datalist =
           await Http().fetchAskCommunity("$baseUrl/askcommunity/$uid");
 
+      print("Fetched data: $datalist");
+
       // Update the existing data by appending the new data
       if (_askcommunity != null) {
         _askcommunity!.data.addAll(datalist.data);

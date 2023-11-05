@@ -77,7 +77,7 @@ class OverviewPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            "Furnishing Status : ${data.businessProfileData!.hosingdetails!.furnishingStatus.toString()}",
+                            "Furnishing Status : ${data.businessProfileData?.hosingdetails?.furnishingStatus.toString() ?? "N/A"}",
                             style: TextStyle(color: secondaryColor40LightTheme),
                           ),
                         ],
@@ -100,7 +100,7 @@ class OverviewPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            "Facing : ${data.businessProfileData!.hosingdetails!.facing.toString()}",
+                            "Facing : ${data.businessProfileData?.hosingdetails?.facing.toString() ?? "N/A"}",
                             style: TextStyle(color: secondaryColor40LightTheme),
                           ),
                         ],
@@ -123,7 +123,7 @@ class OverviewPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            "GatedSecurity : ${data.businessProfileData!.hosingdetails!.gatedSecurity.toString()}",
+                            "GatedSecurity : ${data.businessProfileData?.hosingdetails?.gatedSecurity.toString() ?? "N/A"}",
                             style: TextStyle(color: secondaryColor40LightTheme),
                           ),
                         ],
@@ -147,7 +147,7 @@ class OverviewPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            " Age of building : ${data.businessProfileData!.hosingdetails!.ageofBuilding.toString()}",
+                            " Age of building : ${data.businessProfileData?.hosingdetails?.ageofBuilding.toString() ?? "N/A"}",
                             style: TextStyle(color: secondaryColor40LightTheme),
                           ),
                         ],
@@ -171,7 +171,7 @@ class OverviewPage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            " Rooms : ${data.businessProfileData!.hosingdetails!.rooms.toString()}",
+                            " Rooms : ${data.businessProfileData?.hosingdetails?.rooms.toString() ?? "N/A"}",
                             style: TextStyle(color: secondaryColor40LightTheme),
                           ),
                         ],

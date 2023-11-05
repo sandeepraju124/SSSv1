@@ -22,7 +22,6 @@ import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/providers/test_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sssv1/widgets/Askthecommunity.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/review_rating.dart';
@@ -95,6 +94,7 @@ class MyApp extends StatelessWidget {
 
       // home: DefaultProfilePage(uid: ""),
       home: redirection(),
+      // home: AmenitiesGridView(),
       // home: AskForCommunityWidget(uid: "11111111111111")
 
       // home: AmenitiesGridView(),
