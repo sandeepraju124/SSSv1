@@ -16,14 +16,14 @@ import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
-import 'package:sssv1/widgets/showcomment.dart';
 // import 'package:sssv1/widgets/review_rating.dart';
 
 // import '../widgets/review_rating.dart';
 
 class DefaultProfilePage extends StatefulWidget {
-  final String uid;
   const DefaultProfilePage({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<DefaultProfilePage> createState() => _DefaultProfilePageState();
@@ -31,16 +31,22 @@ class DefaultProfilePage extends StatefulWidget {
 
 class _DefaultProfilePageState extends State<DefaultProfilePage>
     with TickerProviderStateMixin {
-  late TabController _tabController;
+  // late List<GlobalKey> _keys;
   late ScrollController _scrollController;
-  late List<GlobalKey> _keys;
+  late TabController _tabController;
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 5, vsync: this);
     _scrollController = ScrollController();
-    _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
+    // _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
 
     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
     data.businessProfileProvider(widget.uid);
@@ -53,46 +59,55 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
 
     datacomments.commentSectionProvider(widget.uid);
 
-    _scrollController.addListener(() {
-      if (_scrollController.offset >= 430) {
-        _tabController.animateTo(
-            1); // Change to the second tab when the scroll offset is greater than 200
-      } else if (_scrollController.offset >= 630) {
-        _tabController.animateTo(2);
-      } else if (_scrollController.offset >= 830) {
-        _tabController.animateTo(3);
-      } else if (_scrollController.offset >= 1030) {
-        _tabController.animateTo(4);
-      } else if (_scrollController.offset >= 1230) {
-        _tabController.animateTo(5);
-      } else {
-        // _tabController.animateTo(
-        //     _tabController.index); // Change to the first tab otherwise
+    // _scrollController.addListener(() {
+    //   if (_scrollController.offset >= 500) {
+    //     _tabController.animateTo(1);
+
+    //     // Change to the second tab when the scroll offset is greater than 200
+    //     // } else if (_scrollController.offset >= 530) {     //////////600
+    //     //   _tabController.animateTo(2);
+    //     // } else if (_scrollController.offset >= 1230 &&
+    //     //     _scrollController.offset < 1630) {                     /////////// 980
+    //     //   _tabController.animateTo(3);
+    //     // } else if (_scrollController.offset >= 1630) {          /////////1780
+    //     //   _tabController.animateTo(4);
+    //   } else if (_scrollController.offset >= 600 &&
+    //       _scrollController.offset < 900) {
+    //     _tabController.animateTo(2);
+    //   } else if (_scrollController.offset >= 980) {
+    //     _tabController.animateTo(3);
+    //   } else if (_scrollController.offset >= 1780) {
+    //     _tabController.animateTo(4);
+    //   } else {
+    //     // _tabController.animateTo(
+    //     //     _tabController.index); // Change to the first tab otherwise
+
+    //     _tabController.animateTo(0);
+    //   }
+    // });
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        if (_tabController.index == 0) {
+          _scrollController.animateTo(1 * 20,
+              duration: Duration(seconds: 1), curve: Curves.ease);
+        } else if (_tabController.index == 1) {
+          _scrollController.animateTo(2 * 90,
+              duration: Duration(seconds: 1), curve: Curves.ease);
+        } else if (_tabController.index == 2) {
+          _scrollController.animateTo(
+            3 * 220,
+            duration: Duration(seconds: 1),
+            curve: Curves.ease,
+          );
+        } else if (_tabController.index == 3) {
+          _scrollController.animateTo(4 * 230,
+              duration: Duration(seconds: 1), curve: Curves.ease);
+        } else if (_tabController.index == 4) {
+          _scrollController.animateTo(5 * 288,
+              duration: Duration(seconds: 1), curve: Curves.ease);
+        }
       }
     });
-//     _tabController.addListener(() {
-//   if (_tabController.indexIsChanging) {
-//     _scrollTo(_keys[_tabController.index]);
-//   }
-// });
-  }
-//  void _scrollTo(GlobalKey key) {
-//   final keyContext = key.currentContext;
-//   if (keyContext != null) {
-//     final box = keyContext.findRenderObject() as RenderBox;
-//     RenderObject? ancestorRenderObject = _scrollController.position.context.findRenderObject();
-//     _scrollController.animateTo(
-//       box.localToGlobal(Offset.zero, ancestor: ancestorRenderObject).dy,
-//       duration: Duration(milliseconds: 500),
-//       curve: Curves.easeInOut,
-//     );
-//   }
-// }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 
   @override
@@ -143,20 +158,19 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     ),
                   ),
                 ),
-
-                // Divider(
-                //   color: Colors.blueGrey,
-                //   thickness: .7,
-                // ),
-
                 SliverToBoxAdapter(
                   child: AdditionalInfoPage(),
                 ),
-
                 SliverPersistentHeader(
                   delegate: _SliverAppBarDelegate(
                     TabBar(
                       controller: _tabController,
+                      // onTap: (index) {
+                      //   _scrollController.animateTo(
+                      //       index * MediaQuery.of(context).size.height,
+                      //       duration: Duration(seconds: 1),
+                      //       curve: Curves.ease);
+                      // },
                       isScrollable: true,
                       labelColor: Colors.black87,
                       unselectedLabelColor: secondaryColor20LightTheme,
@@ -179,7 +193,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                 SliverToBoxAdapter(
                   child: AutoScaleTabBarView(
 //////////////////////// FYI : this above Autoscaletabbarview is a third party package ////////
-                    ///
+
                     controller: _tabController,
 
                     children: [
@@ -190,17 +204,27 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                           data.businessProfileData!.subCategory ==
                               "housingrent")
                         OverviewPage(),
-                      OverviewPage(),
-                      AmenitiesGridView(
-                          // key: _keys[2],
-                          ),
-                      PostComment(
-                          businessUid: data.businessProfileData!.businessUid),
-                      AskForCommunityWidget(uid: "")
+                      Container(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 7,
+                      ),
+                      // AmenitiesGridView(
+                      //     // key: _keys[2],
+                      //     ),
+                      // PostComment(
+                      //     businessUid: data.businessProfileData!.businessUid),
+                      // AskForCommunityWidget(uid: "")
                     ],
                   ),
                 ),
-
                 SliverToBoxAdapter(
                   // Replace with your additional information widget
 
@@ -210,36 +234,41 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         Container(color: Colors.white, child: OverviewPage()),
                   ),
                 ),
-
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                      height: 400,
+                      height: 200,
                       color: Colors.white,
                       child: AmenitiesGridView(),
                     ),
                   ),
                 ),
-
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                        height: 400,
+                        height: 500,
                         color: Colors.white,
                         child: PostComment(
                             businessUid:
                                 data.businessProfileData!.businessUid)),
                   ),
                 ),
-
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
+                        height: 500,
                         color: Colors.white,
                         child: AskForCommunityWidget(uid: "")),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Container(
+                        height: 500, color: Colors.white, child: Container()),
                   ),
                 ),
               ],
@@ -254,9 +283,15 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar _tabBar;
 
   @override
-  double get minExtent => _tabBar.preferredSize.height;
-  @override
   double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
+  }
 
   @override
   Widget build(
@@ -265,10 +300,5 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       color: Colors.white,
       child: _tabBar,
     );
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

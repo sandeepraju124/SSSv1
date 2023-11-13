@@ -41,7 +41,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
   Widget build(BuildContext context) {
     var data = Provider.of<AskCommunityProvider>(context, listen: true);
     return SizedBox(
-      height: 600,
+      height: 400,
       child: Column(
         children: [
           Padding(
