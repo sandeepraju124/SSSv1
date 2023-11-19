@@ -71,7 +71,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:sssv1/Askcommunitypages/answers.dart';
+import 'package:sssv1/Askcommunity%20Section/answers.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import "package:provider/provider.dart";

@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
@@ -18,7 +17,7 @@ class CommentSectionProvider extends ChangeNotifier {
   Future<void> commentSectionProvider(uid) async {
     _isLoading = true;
     CommentSectionModels commentsection =
-        await Http().fetchComments("$baseUrl/commentsuid/$uid");
+        await Http().fetchComments("$baseUrl/rescomments/$uid");
     _comments = commentsection;
     _isLoading = false;
     notifyListeners();

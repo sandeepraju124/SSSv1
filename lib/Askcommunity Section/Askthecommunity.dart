@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:sssv1/Askcommunitypages/answers.dart';
-import 'package:sssv1/Askcommunitypages/questions.dart';
+import 'package:sssv1/Askcommunity%20Section/answers.dart';
+import 'package:sssv1/Askcommunity%20Section/questions.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -80,8 +80,8 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                   height: 10,
                 ),
                 Divider(
-                  endIndent: 0.1,
-                  indent: 0.1,
+                  endIndent: 5,
+                  indent: 5,
                   color: Colors.grey, // Optional - set the color of the divider
                   thickness: 1, // Optional - set the thickness of the divider
                 ),
@@ -89,7 +89,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
             ),
           ),
           data.isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator(color: tgPrimaryColor))
               : data.askCommunityData?.data.isEmpty == true
                   ? Center(
                       child: Padding(

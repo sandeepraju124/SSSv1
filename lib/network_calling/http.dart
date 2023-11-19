@@ -11,7 +11,6 @@ import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/models/users_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class Http {
@@ -99,11 +98,24 @@ class Http {
 
 // used this for comment scetion
 
+  // Future<CommentSectionModels> fetchComments(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     // print(response.body);
+  //     var comments = CommentSectionModels.fromJson(json.decode(response.body));
+  //     return comments;
+  //   } else {
+  //     throw Exception('Failed to load business profile');
+  //   }
+  // }
+
   Future<CommentSectionModels> fetchComments(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
     if (response.statusCode == 200) {
-      // print(response.body);
       var comments = CommentSectionModels.fromJson(json.decode(response.body));
       return comments;
     } else {

@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/bottomnavpages/bottomnav.dart';
+import 'package:sssv1/utils/constants.dart';
 
 import './initialpage.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class redirection extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // CircularProgressIndicator shown during user loging
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: tgPrimaryColor),
             );
           } else if (snapshot.hasData) {
             // if user already login this screen shows

@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_const_declarations, avoid_print
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -116,7 +113,7 @@ class _AnswerpageState extends State<Answerpage> {
           onRefresh: _refreshData,
           child: data.isLoading
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(color: tgPrimaryColor),
                 )
               : ListView.builder(
                   physics: AlwaysScrollableScrollPhysics(),

@@ -58,11 +58,17 @@ class OverviewPage extends StatelessWidget {
                 style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
               ),
               Container(
-                  margin: EdgeInsets.only(left: 10, top: 1),
-                  height: 3, // Adjust the height of the line as needed
-                  width: 70, // Adjust the width of the line as needed
-                  color: tgPrimaryColor // Set the color of the line
-                  ),
+                margin: EdgeInsets.only(
+                  left: 6,
+                ),
+                height: 3, // Adjust the height of the line as needed
+                width: 75, // Adjust the width of the line as needed
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color:
+                                tgPrimaryColor))), // Set the color of the line
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -181,10 +187,10 @@ class OverviewPage extends StatelessWidget {
             ],
           ),
         ),
-        Divider(
-          color: Colors.blueGrey,
-          thickness: .7,
-        ),
+        // Divider(
+        //   color: Colors.blueGrey,
+        //   thickness: .7,
+        // ),
       ],
     );
   }

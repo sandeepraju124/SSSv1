@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:provider/provider.dart';
-import 'package:sssv1/Askcommunitypages/Askthecommunity.dart';
+import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/Additionalinfo.dart';
+import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/screens/mapscreen.dart';
-import 'package:sssv1/screens/postcomment.dart';
+import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/widgets/amenities.dart';
@@ -33,6 +34,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     with TickerProviderStateMixin {
   // late List<GlobalKey> _keys;
   late ScrollController _scrollController;
+
   late TabController _tabController;
 
   @override
@@ -60,8 +62,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     datacomments.commentSectionProvider(widget.uid);
 
     // _scrollController.addListener(() {
-    //   if (_scrollController.offset >= 500) {
-    //     _tabController.animateTo(1);
+    //   if (_scrollController.offset >= 2000) {
+    //     // _tabController.animateTo(1);
 
     //     // Change to the second tab when the scroll offset is greater than 200
     //     // } else if (_scrollController.offset >= 530) {     //////////600
@@ -71,13 +73,13 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     //     //   _tabController.animateTo(3);
     //     // } else if (_scrollController.offset >= 1630) {          /////////1780
     //     //   _tabController.animateTo(4);
-    //   } else if (_scrollController.offset >= 600 &&
-    //       _scrollController.offset < 900) {
-    //     _tabController.animateTo(2);
-    //   } else if (_scrollController.offset >= 980) {
-    //     _tabController.animateTo(3);
-    //   } else if (_scrollController.offset >= 1780) {
-    //     _tabController.animateTo(4);
+    //     // } else if (_scrollController.offset >= 600 &&
+    //     //     _scrollController.offset < 900) {
+    //     //   _tabController.animateTo(2);
+    //     // } else if (_scrollController.offset >= 980) {
+    //     //   _tabController.animateTo(3);
+    //     // } else if (_scrollController.offset >= 1780) {
+    //     //   _tabController.animateTo(4);
     //   } else {
     //     // _tabController.animateTo(
     //     //     _tabController.index); // Change to the first tab otherwise
@@ -95,16 +97,18 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
               duration: Duration(seconds: 1), curve: Curves.ease);
         } else if (_tabController.index == 2) {
           _scrollController.animateTo(
-            3 * 220,
+            3 * 210,
             duration: Duration(seconds: 1),
             curve: Curves.ease,
           );
         } else if (_tabController.index == 3) {
-          _scrollController.animateTo(4 * 230,
+          _scrollController.animateTo(4 * 212,
               duration: Duration(seconds: 1), curve: Curves.ease);
         } else if (_tabController.index == 4) {
-          _scrollController.animateTo(5 * 288,
+          _scrollController.animateTo(5 * 280,
               duration: Duration(seconds: 1), curve: Curves.ease);
+        } else if (_tabController.indexIsChanging) {
+          _tabController.animateTo(0);
         }
       }
     });
@@ -248,11 +252,13 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                        height: 500,
-                        color: Colors.white,
-                        child: PostComment(
-                            businessUid:
-                                data.businessProfileData!.businessUid)),
+                      height: 500,
+                      color: Colors.white,
+                      // child: PostComment(
+                      //     businessUid:
+                      //         data.businessProfileData!.businessUid)
+                      child: NewShowRewviewPage(),
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(

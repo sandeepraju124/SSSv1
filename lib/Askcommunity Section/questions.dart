@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_const_declarations, avoid_print
 
 import 'package:flutter/Material.dart';
-import 'package:sssv1/Askcommunitypages/displayquestions.dart';
+import 'package:sssv1/Askcommunity%20Section/displayquestions.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 
 import '../utils/constants.dart';

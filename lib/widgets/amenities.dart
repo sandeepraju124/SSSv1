@@ -24,11 +24,13 @@ class AmenitiesGridView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Container(
             decoration: BoxDecoration(
                 border: Border(
-              bottom: BorderSide(color: tgPrimaryColor, width: 3),
+              bottom: BorderSide(
+                color: tgPrimaryColor,
+              ),
             )),
             child: Text(
               'Amenities',
@@ -53,7 +55,10 @@ class AmenitiesGridView extends StatelessWidget {
                   children: [
                     const Icon(Icons.check, color: tgPrimaryColor),
                     const SizedBox(width: 3.0),
-                    Text(data.businessProfileData!.amenities[index].toString()),
+                    Text(
+                      data.businessProfileData!.amenities[index].toString(),
+                      style: TextStyle(color: secondaryColor40LightTheme),
+                    ),
                   ],
                 ),
               );
