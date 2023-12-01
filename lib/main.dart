@@ -10,7 +10,7 @@ import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/widgets/amenities.dart';
-import 'package:sssv1/Reviews%20Section/showcomment.dart';
+
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
@@ -29,7 +29,7 @@ import 'package:sssv1/widgets/subcategory.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import './login/google_login_controller.dart';
+import 'login/google_signinPages/google_login_controller.dart';
 import 'package:sssv1/firebase_options.dart';
 
 import 'login/redirection.dart';
@@ -94,19 +94,6 @@ class MyApp extends StatelessWidget {
 
       // home: DefaultProfilePage(uid: ""),
       home: redirection(),
-      // home: AmenitiesGridView(),
-      // home: AskForCommunityWidget(uid: "11111111111111")
-
-      // home: AmenitiesGridView(),
-
-      // home: NewUserProfilePage(),
-      // home: OverviewPage(),
-      // home: SubCategoryListi(subCat: 'restaurant',),
-
-      // home: Test(),
-      // home:UserProfile(),
-      // // home: BottomNavPage(),
-      // home: BottomNavPage(),
     );
   }
 }

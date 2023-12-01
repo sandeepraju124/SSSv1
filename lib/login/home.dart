@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import './google_login_controller.dart';
+import 'google_signinPages/google_login_controller.dart';
 
 class Home extends StatelessWidget {
-
   const Home({super.key});
 
   @override

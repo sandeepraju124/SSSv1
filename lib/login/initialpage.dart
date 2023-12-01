@@ -187,7 +187,7 @@ import 'package:sssv1/utils/navigator.dart';
 import 'Signupfolder/signupauth.dart';
 import 'package:provider/provider.dart';
 import 'authstate.dart';
-import 'google_login_controller.dart';
+import 'google_signinPages/google_login_controller.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({super.key});

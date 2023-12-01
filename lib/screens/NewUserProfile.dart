@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sssv1/login/google_login_controller.dart';
+import 'package:sssv1/login/google_signinPages/google_login_controller.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/EditProfile.dart';
 import 'package:sssv1/screens/homepage.dart';

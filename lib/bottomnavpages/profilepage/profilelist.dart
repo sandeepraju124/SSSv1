@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../login/google_login_controller.dart';
+import '../../login/google_signinPages/google_login_controller.dart';
 import 'package:provider/provider.dart';
 
 class Myprofilelist extends StatefulWidget {

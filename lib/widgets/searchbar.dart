@@ -1,5 +1,7 @@
 // search bar with row [icon][extended -> text field][icon]
 // sample image name -> searchbar
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
