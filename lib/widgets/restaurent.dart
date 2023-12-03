@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
-import 'package:sssv1/screens/defaultprofile.dart';
+
 import 'package:provider/provider.dart';
 
 class Restaurant extends StatefulWidget {
@@ -139,6 +139,8 @@ class _RestaurantState extends State<Restaurant> {
                               data.subcategoryListData![index].overallRating
                                   .toString(),
                               style: TextStyle(
+                                wordSpacing: 0.5,
+                                letterSpacing: -0.1,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               ),

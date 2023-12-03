@@ -4,14 +4,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sssv1/Askcommunity%20Section/questions.dart';
 import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/utils/constants.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class NewShowRewviewPage extends StatefulWidget {
   const NewShowRewviewPage({super.key});
@@ -28,25 +29,67 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
   //       .commentSectionProvider("PIZFOO4357128905678");
   // }
 
-  bool _showAllReviews = false;
+  final bool _showAllReviews = false;
 
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
+    var data2 = Provider.of<UserProvider>(context);
 
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.only(right: 277, top: 7),
+        padding: const EdgeInsets.only(top: 7),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Reviews",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  "Reviews",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                    width:
+                        10), // Add some space between the text and the rating bar
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        "(",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      ),
+                      RatingBar.builder(
+                        initialRating:
+                            Provider.of<CommentSectionProvider>(context)
+                                .averageRating,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 0.1),
+                        itemSize: 11,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber[700],
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                      Text(
+                        ")",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Container(
-              // margin: EdgeInsets.only(left: 10, top: 1),
+              margin: EdgeInsets.only(right: 280),
               height: 3,
               width: 70,
               decoration: BoxDecoration(
@@ -81,7 +124,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                   child: Row(
                     children: [
                       Text(
-                        "You wanna write your review?",
+                        "wanna type your review ?",
                         style: TextStyle(color: tgPrimaryText),
                       ),
                       Padding(
@@ -131,35 +174,11 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                           : data.getCommentsData!.reviews.length),
                   itemBuilder: (BuildContext context, int int) {
                     var review = data.getCommentsData!.reviews[int];
-                    // return Column(
-                    //   children: [
-                    //     Padding(
-                    //       padding: const EdgeInsets.only(
-                    //           top: 15, bottom: 15, left: 12),
-                    //       child: Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           Container(
-                    //             height: 22,
-                    //             decoration: BoxDecoration(
-                    //                 color: secondaryColor10LightTheme),
-                    //             child: Text("R :${review.comment}"),
-                    //           ),
-                    //           SizedBox(
-                    //             height: 30,
-                    //           ),
-                    //           Container(
-                    //             decoration: BoxDecoration(
-                    //                 border: Border(
-                    //                     bottom: BorderSide(
-                    //                         color:
-                    //                             secondaryColor10LightTheme))),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     )
-                    //   ],
-                    // );
+
+                    String stars(rating) {
+                      return List<String>.generate(rating, (index) => '⭐')
+                          .join();
+                    }
 
                     return Container(
                       margin: EdgeInsets.all(8.0),
@@ -180,14 +199,20 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                         title: Text(
                           review.comment,
                           style: TextStyle(
+                              fontFamily: "Roboto",
                               fontSize: 14.0,
                               fontWeight: FontWeight.w500,
-                              wordSpacing: 0.7,
+                              wordSpacing: 0.5,
+                              letterSpacing: -0.1,
                               color: secondaryColor60LightTheme),
                         ),
                         subtitle: Text(
-                          'Rating: ${review.rating}\nPosted by: ${review.userId} on ${review.createdAt}',
-                          style: TextStyle(fontSize: 12.0),
+                          'Rating: ${stars(review.rating)}\nPosted by: ${review.userId} on ${review.createdAt}',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: secondaryColor20LightTheme,
+                            fontFamily: "Roboto",
+                          ),
                         ),
                       ),
                     );
@@ -217,7 +242,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                   _showAllReviews
                       ? "All reviews are shown"
                       : "Show ${data.getCommentsData!.reviews.length - 2} more reviews",
-                  style: TextStyle(color: secondaryColor60LightTheme),
+                  style: TextStyle(color: secondaryColor80LightTheme),
                 ),
               ),
             ),

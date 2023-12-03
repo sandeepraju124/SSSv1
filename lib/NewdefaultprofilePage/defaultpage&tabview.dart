@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_new, unused_element
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_new, unused_element, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 // ignore: unused_import
@@ -12,12 +12,12 @@ import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/screens/mapscreen.dart';
-import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
-// import 'package:sssv1/widgets/review_rating.dart';
+
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // import '../widgets/review_rating.dart';
 
@@ -141,6 +141,27 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         LineAwesomeIcons.angle_left,
                         color: tgPrimaryText,
                       )),
+                  actions: [
+                    RatingBar.builder(
+                      initialRating:
+                          Provider.of<CommentSectionProvider>(context)
+                              .averageRating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                      itemSize: 12,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber[700],
+                        size: 20,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    ),
+                  ],
                   flexibleSpace: FlexibleSpaceBar(
                     title: Padding(
                       padding: const EdgeInsets.only(right: 2),
@@ -234,8 +255,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
 
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    child:
-                        Container(color: Colors.white, child: OverviewPage()),
+                    child: Container(
+                        color: secondaryColor5LightTheme,
+                        child: OverviewPage()),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -243,7 +265,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                       height: 200,
-                      color: Colors.white,
+                      color: secondaryColor5LightTheme,
                       child: AmenitiesGridView(),
                     ),
                   ),
@@ -253,10 +275,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                       height: 500,
-                      color: Colors.white,
-                      // child: PostComment(
-                      //     businessUid:
-                      //         data.businessProfileData!.businessUid)
+                      color: secondaryColor5LightTheme,
                       child: NewShowRewviewPage(),
                     ),
                   ),
@@ -265,8 +284,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                        height: 500,
-                        color: Colors.white,
+                        height: 600,
+                        color: secondaryColor5LightTheme,
                         child: AskForCommunityWidget(uid: "")),
                   ),
                 ),
@@ -274,7 +293,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                        height: 500, color: Colors.white, child: Container()),
+                        height: 600,
+                        color: secondaryColor5LightTheme,
+                        child: Container()),
                   ),
                 ),
               ],

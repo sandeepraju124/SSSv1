@@ -3,7 +3,7 @@
 // import 'package:backendapp/screens/map.dart';
 // import 'package:backendapp/utils/constants.dart';
 // import 'package:backendapp/utils/navigators.dart';
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -107,7 +107,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
         final request = http.MultipartRequest(
             "POST",
             Uri.parse(
-              "https://stoic.azurewebsites.net/user",
+              "$baseUrl/user",
             ));
         if (_dp != null) {
           request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));

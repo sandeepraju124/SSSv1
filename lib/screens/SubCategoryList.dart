@@ -9,7 +9,7 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:sssv1/screens/defaultprofile.dart';
+
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -224,9 +224,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                     "5/f 18 on lane ST, central hong kong near hong",
                                     // provider.data[int].address,maxLines: 2,
                                     style: TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.grey,
-                                    ),
+                                        fontSize: 11,
+                                        color: Colors.grey,
+                                        wordSpacing: 0.5,
+                                        letterSpacing: -0.1),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   )

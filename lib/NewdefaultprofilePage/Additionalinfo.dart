@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/Askcommunity%20Section/questions.dart';
+import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
@@ -53,7 +55,12 @@ class AdditionalInfoPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return Questionpage(id: "");
+                                      }));
+                                    },
                                     icon: Icon(LineAwesomeIcons.comment),
                                     iconSize: 26,
                                     color: Colors.black54,
@@ -111,7 +118,12 @@ class AdditionalInfoPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return showallreviewspage();
+                                      }));
+                                    },
                                     icon: Icon(Icons.comment_bank_sharp),
                                     iconSize: 26,
                                     color: Colors.black54,
@@ -209,7 +221,11 @@ class AdditionalInfoPage extends StatelessWidget {
                     child: Text(
                       data.businessProfileData!.businessDescription.toString(),
                       // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat ",
-                      style: TextStyle(color: secondaryColor20LightTheme),
+                      style: TextStyle(
+                          color: secondaryColor20LightTheme,
+                          fontFamily: "Roboto",
+                          wordSpacing: 0.5,
+                          letterSpacing: -0.1),
                     ),
                   ),
                 ),

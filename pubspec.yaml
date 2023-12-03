@@ -39,10 +39,27 @@ dependencies:
   photo_view: ^0.14.0
   lottie: ^2.3.2
   url_launcher: ^6.1.11
-  geolocator: ^9.0.2
+  geolocator: ^10.1.0
   fluttertoast: ^8.2.2
   shared_preferences: ^2.1.2
   autoscale_tabbarview: ^1.0.2
+  provider: ^6.1.1
+  firebase_core: ^2.24.0
+  flutter_lints: ^3.0.1
+  font_awesome_flutter: ^10.3.0
+  http: ^1.1.2
+  dio: ^5.4.0
+  google_sign_in: ^6.1.6
+  firebase_auth: ^4.2.0
+  cloud_firestore: ^4.2.0
+  cupertino_icons: ^1.0.2
+  google_maps_flutter: ^2.2.6
+  flutter_staggered_grid_view: ^0.7.0
+  image_picker: ^1.0.4
+  line_awesome_flutter: ^2.0.0
+  flutter_screenutil: ^5.9.0
+  flutter_rating_bar: ^4.0.1
+
   
   
 
@@ -56,22 +73,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-  firebase_core: ^2.4.1
-  font_awesome_flutter: ^10.3.0
-  http: ^0.13.5
-  dio: ^4.0.6
-  provider: ^6.0.5
-  google_sign_in: ^5.4.2
-  firebase_auth: ^4.2.0
-  cloud_firestore: ^4.2.0
-  cupertino_icons: ^1.0.2
-  google_maps_flutter: ^2.2.6
-  flutter_staggered_grid_view: ^0.6.2
-  image_picker: ^0.8.8
-  line_awesome_flutter: ^2.0.0
-  flutter_screenutil: ^5.9.0
-
+  
   
 
 # For information on the generic Dart part of this file, see the
@@ -111,13 +113,24 @@ flutter:
 #        - asset: assets/fonts/Roboto-Light.ttf
 #        - asset: assets/fonts/Roboto-MediumItalic.ttf
         - asset: font/fonts/Roboto-Medium.ttf
+        # - asset: font/fonts/NotoSans-Regular.ttf
+
+
+#          - family: Roboto
+#       fonts:
+# #        - asset: assets/fonts/Roboto-Light.ttf
+# #        - asset: assets/fonts/Roboto-MediumItalic.ttf
+#         - asset: font/fonts/Roboto-Medium.ttf
+
+
+
 
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+    # - family: Trajan Pro
+    #   fonts:
+    #     - asset: fonts/TrajanPro.ttf
+    #     - asset: fonts/TrajanPro_Bold.ttf
+    #       weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

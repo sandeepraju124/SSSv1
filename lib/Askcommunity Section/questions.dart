@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_const_declarations, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_const_declarations, avoid_print, use_build_context_synchronously
 
 import 'package:flutter/Material.dart';
 import 'package:sssv1/Askcommunity%20Section/displayquestions.dart';

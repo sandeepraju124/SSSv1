@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/login/google_signinPages/google_login_controller.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/EditProfile.dart';
-import 'package:sssv1/screens/homepage.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -65,11 +64,12 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
                 ),
                 child: ClipOval(
                   child: Image.network(
+                    // ignore: unrelated_type_equality_checks
                     data.getUserData?.dp == 0
                         ? "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
                         : (data.getUserData?.dp).toString(),
-                    width: 110,
-                    height: 110,
+                    width: 130,
+                    height: 130,
                     fit: BoxFit.cover,
                   ),
                 ),

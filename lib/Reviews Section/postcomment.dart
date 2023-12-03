@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +24,12 @@ class _PostCommentState extends State<PostComment> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final userid = user!.uid;
+
     print(userid);
     var data = Provider.of<CommentSectionProvider>(context, listen: false);
     // var userdata = Provider.of<UserProvider>(context);
     // print(rating);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
@@ -45,7 +48,7 @@ class _PostCommentState extends State<PostComment> {
             ),
           ),
           title: Text(
-            "Write your review",
+            "Express your opinion here",
             style: TextStyle(color: tgPrimaryText, fontSize: 18),
           ),
         ),
@@ -57,7 +60,18 @@ class _PostCommentState extends State<PostComment> {
                 child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                "How would you rate it ?",
+                style: TextStyle(
+                    fontSize: 18,
+                    wordSpacing: 0.5,
+                    letterSpacing: -0.4,
+                    fontWeight: FontWeight.w600,
+                    color: secondaryColor60LightTheme),
+              ),
+              SizedBox(height: 14),
               Row(
                 children: [
                   // star 1
@@ -67,16 +81,23 @@ class _PostCommentState extends State<PostComment> {
                         rating = 1;
                       });
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: tgDividerColor),
-                          color:
-                              rating >= 1 ? tgDarkPrimaryColor : Colors.white,
-                          borderRadius: BorderRadius.circular(3)),
-                      padding: EdgeInsets.all(5),
-                      child: Icon(rating >= 1 ? Icons.star : Icons.star_border,
-                          color: rating >= 1 ? Colors.white : tgDividerColor,
-                          size: 24),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: tgDividerColor),
+                              color: rating >= 1
+                                  ? tgDarkPrimaryColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(3)),
+                          padding: EdgeInsets.all(5),
+                          child: Icon(
+                              rating >= 1 ? Icons.star : Icons.star_border,
+                              color:
+                                  rating >= 1 ? Colors.white : tgDividerColor,
+                              size: 24),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -170,22 +191,41 @@ class _PostCommentState extends State<PostComment> {
                   )
                 ],
               ),
-              SizedBox(height: 16),
-              Container(
-                // margin: EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: TextField(
-                  controller: _reviewController,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(8),
-                    border: InputBorder.none,
-                    hintText: 'Write a review',
+              SizedBox(height: 24),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Write Your Review",
+                    style: TextStyle(
+                        fontSize: 18,
+                        wordSpacing: 0.5,
+                        letterSpacing: -0.4,
+                        fontWeight: FontWeight.w600,
+                        color: secondaryColor60LightTheme),
                   ),
-                ),
+                  SizedBox(height: 8),
+                  Container(
+                    // margin: EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: TextField(
+                      controller: _reviewController,
+                      maxLines: 7,
+                      style: TextStyle(
+                          color: secondaryColor60LightTheme, fontSize: 16),
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(8),
+                          border: InputBorder.none,
+                          hintText:
+                              'What did you like or dislike ? Can be very concisely ',
+                          hintStyle: TextStyle(
+                              color: secondaryColor20LightTheme, fontSize: 13)),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -193,12 +233,25 @@ class _PostCommentState extends State<PostComment> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-          data.postCommentProvider(
-              business_uid: widget.businessUid,
-              user_id: userid,
-              review: _reviewController.text,
-              rating: rating,
-              context: context);
+          if (_reviewController.text.trim().isEmpty) {
+            _showErrorDialog("Please enter your review before posting ");
+          } else {
+            data
+                .postCommentProvider(
+                  business_uid: widget.businessUid,
+                  user_id: userid,
+                  review: _reviewController.text,
+                  rating: rating,
+                  context: context,
+                )
+                .then((success) => {
+                      if (success)
+                        {
+                          _reviewController.clear(),
+                        }
+                    });
+          }
+
           // navigatorPush(context,SearchLocationScreen() );
         },
         child: Container(
@@ -208,10 +261,32 @@ class _PostCommentState extends State<PostComment> {
           child: Center(
               child: Text(
             "Post ",
-            style: TextStyle(color: Colors.white, fontSize: 17),
+            style: TextStyle(
+                // color: _isbuttonDisabled ? Colors.white54 : Colors.white,
+                fontSize: 17),
           )),
         ),
       ),
+    );
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(""),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
