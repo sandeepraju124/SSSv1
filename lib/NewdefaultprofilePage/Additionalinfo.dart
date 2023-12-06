@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
+import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
+import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
@@ -119,10 +121,150 @@ class AdditionalInfoPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
                                     onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return showallreviewspage();
-                                      }));
+                                      // showModalBottomSheet(
+                                      //     context: context,
+                                      //     backgroundColor: Colors.white,
+                                      //     shape: RoundedRectangleBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(10)),
+                                      //     builder: (context) {
+                                      //       return DisplayReviewBottomSheet(
+                                      //         businessUid: data
+                                      //             .businessProfileData!
+                                      //             .businessUid,
+                                      //       );
+                                      //     });
+
+                                      //   showModalBottomSheet(
+                                      //     context: context,
+                                      //     isScrollControlled: true,
+                                      //     backgroundColor: Colors.transparent,
+                                      //     builder: (context) {
+                                      //       return Builder(
+                                      //         builder: (context) {
+                                      //           return Padding(
+                                      //             padding: EdgeInsets.only(
+                                      //               bottom: MediaQuery.of(context)
+                                      //                   .viewInsets
+                                      //                   .bottom,
+                                      //             ),
+                                      //             child: SingleChildScrollView(
+                                      //               child: Container(
+                                      //                 decoration: BoxDecoration(
+                                      //                   color: Colors.white,
+                                      //                   borderRadius:
+                                      //                       BorderRadius.only(
+                                      //                     topLeft:
+                                      //                         Radius.circular(20),
+                                      //                     topRight:
+                                      //                         Radius.circular(20),
+                                      //                   ),
+                                      //                 ),
+                                      //                 child: Padding(
+                                      //                   padding:
+                                      //                       const EdgeInsets.all(
+                                      //                           4.0),
+                                      //                   child:
+                                      //                       DisplayReviewBottomSheet(
+                                      //                     businessUid: data
+                                      //                         .businessProfileData!
+                                      //                         .businessUid,
+                                      //                   ),
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      //           );
+                                      //         },
+                                      //       );
+                                      //     },
+                                      //   );
+
+                                      showModalBottomSheet(
+                                        context: context,
+                                        elevation: 6,
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (context) {
+                                          return Builder(
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom,
+                                                ),
+                                                child: SingleChildScrollView(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(20),
+                                                        topRight:
+                                                            Radius.circular(20),
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  20),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            // Set your desired header color
+                                                            color:
+                                                                tgLightPrimaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(20),
+                                                            ),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Add Review",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .black, // Set your desired text color
+                                                                  fontSize: 15,
+                                                                  // fontWeight:
+                                                                  //     FontWeight
+                                                                  //         .bold,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(4.0),
+                                                          child:
+                                                              DisplayReviewBottomSheet(
+                                                            businessUid: data
+                                                                .businessProfileData!
+                                                                .businessUid,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
                                     },
                                     icon: Icon(Icons.comment_bank_sharp),
                                     iconSize: 26,

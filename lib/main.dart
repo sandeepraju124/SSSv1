@@ -25,7 +25,7 @@ import 'package:sssv1/screens/search.dart';
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/restaurent.dart';
-import 'package:sssv1/widgets/review_rating.dart';
+
 import 'package:sssv1/widgets/subcategory.dart';
 
 import 'login/google_signinPages/google_login_controller.dart';

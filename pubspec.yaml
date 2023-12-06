@@ -40,7 +40,7 @@ dependencies:
   lottie: ^2.3.2
   url_launcher: ^6.1.11
   geolocator: ^10.1.0
-  fluttertoast: ^8.2.2
+  fluttertoast: ^8.2.4
   shared_preferences: ^2.1.2
   autoscale_tabbarview: ^1.0.2
   provider: ^6.1.1

@@ -124,7 +124,7 @@ class _displayQuestionsState extends State<displayQuestions> {
                         child: Text(
                           "Q: ${question.question} ",
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
+                              fontSize: 13.7, fontWeight: FontWeight.w300),
                         ),
                       ),
                     ),

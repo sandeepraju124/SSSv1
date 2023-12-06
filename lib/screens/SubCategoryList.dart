@@ -97,7 +97,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
       ),
       body: data.isLoading
           ? Center(
-              child: Image.asset("images/loading2.gif"),
+              child: CircularProgressIndicator(
+                color: tgDarkPrimaryColor,
+              ),
             )
           : Material(
               child: ListView.builder(

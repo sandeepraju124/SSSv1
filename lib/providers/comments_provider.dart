@@ -1,14 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
-import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
-import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import "package:http/http.dart" as http;
 import 'package:sssv1/utils/constants.dart';
-import 'package:sssv1/utils/success_lottiejson.dart';
 
 class CommentSectionProvider extends ChangeNotifier {
   final TextEditingController _reviewController = TextEditingController();

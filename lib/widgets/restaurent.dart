@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, duplicate_ignore
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/providers/restaurent_provider.dart';
 
 import 'package:provider/provider.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class Restaurant extends StatefulWidget {
   const Restaurant({
@@ -26,7 +27,6 @@ class _RestaurantState extends State<Restaurant> {
       // print("empty");
     }
 
-    // data.subCategoryProvider("restaurant");
     super.initState();
   }
 
@@ -35,7 +35,7 @@ class _RestaurantState extends State<Restaurant> {
     var data = Provider.of<RestaurantListProvider>(context);
     return data.isLoading
         ? Center(
-            child: Image.asset("images/loading.gif"),
+            child: CircularProgressIndicator(color: tgDarkPrimaryColor),
           )
         : SizedBox(
             height: 270,
@@ -50,11 +50,7 @@ class _RestaurantState extends State<Restaurant> {
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              //  DefaultProfile(
-                              //     uid:
-                              //         data.subcategoryListData![index].businessUid),
-                              DefaultProfilePage(
+                          builder: (context) => DefaultProfilePage(
                                 uid: data
                                     .subcategoryListData![index].businessUid,
                               )));
@@ -69,15 +65,12 @@ class _RestaurantState extends State<Restaurant> {
                           // color: Colors.green,
                           child: Column(children: [
                             // Column1 RestaurentImage
-                            Container(
+                            SizedBox(
                               // color: Colors.amber,
                               height: 200,
                               child: Image.network(
                                 data.subcategoryListData![index].profileImage,
-
                                 fit: BoxFit.cover,
-                                // "https://assets.vogue.in/photos/61b3753015fc923d29d9b585/2:3/w_2560%2Cc_limit/Silly-Food-Image-4-819x1024.jpeg"
-                                // provider.data[index].image
                               ),
                             ),
                             // Column2 RestaurentName and Rating
