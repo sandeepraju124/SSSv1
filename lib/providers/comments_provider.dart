@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: non_constant_identifier_names, avoid_print, prefer_const_constructors, use_build_context_synchronously, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/models/commentsection_models.dart';
@@ -94,59 +94,4 @@ class CommentSectionProvider extends ChangeNotifier {
     }
     return false;
   }
-
-//   Future<bool> postCommentProvider({
-//     required BuildContext context,
-//     required int rating,
-//     required String business_uid,
-//     required String user_id,
-//     required String user_name,
-//     required String review,
-//   }) async {
-//     try {
-//       _isLoading = true;
-
-//       final body = {
-//         'rating': rating.toString(),
-//         'business_uid': business_uid,
-//         'user_id': user_id,
-//         'user_name': user_name,
-//         'review': review,
-//       };
-//       print(body);
-
-//       final url = Uri.parse("$baseUrl/postcomment");
-//       final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-
-//       final response = await http.post(url, headers: headers, body: body);
-
-//       if (response.statusCode == 200) {
-//         print('Data posted successfully');
-//         await commentSectionProvider(business_uid);
-
-//         // Clear the text field
-//         // Assuming _reviewController is declared in the class
-//         // _reviewController.clear();
-
-//         // Navigate to the success screen
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(builder: (context) => lottie()),
-//         );
-
-//         // Pop back to the first screen after a successful post
-//         Navigator.popUntil(context, (route) => route.isFirst);
-
-//         return true;
-//       } else {
-//         print('Failed to post data. Status code: ${response.statusCode}');
-//         return false;
-//       }
-//     } catch (e) {
-//       print('Error posting data: $e');
-//       return false;
-//     } finally {
-//       _isLoading = false;
-//     }
-//   }
 }

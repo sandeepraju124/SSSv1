@@ -286,7 +286,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     child: Container(
                         height: 600,
                         color: secondaryColor5LightTheme,
-                        child: AskForCommunityWidget(uid: "")),
+                        child: AskForCommunityWidget(
+                          uid: "",
+                          Questionid: '',
+                        )),
                   ),
                 ),
                 SliverToBoxAdapter(

@@ -35,7 +35,7 @@ class _RestaurantState extends State<Restaurant> {
     var data = Provider.of<RestaurantListProvider>(context);
     return data.isLoading
         ? Center(
-            child: CircularProgressIndicator(color: tgDarkPrimaryColor),
+            child: CircularProgressIndicator(color: tgPrimaryColor),
           )
         : SizedBox(
             height: 270,

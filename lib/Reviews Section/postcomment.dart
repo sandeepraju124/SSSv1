@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:sssv1/models/commentsection_models.dart';
+import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -248,6 +248,11 @@ class _PostCommentState extends State<PostComment> {
                       if (success)
                         {
                           _reviewController.clear(),
+                          Navigator.pop(context),
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return showallreviewspage();
+                          })),
                         }
                     });
           }

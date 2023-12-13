@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_super_parameters, library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:sssv1/Askcommunity%20Section/answers.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
@@ -8,9 +8,12 @@ import 'package:sssv1/utils/constants.dart';
 import 'dart:math';
 
 class AskForCommunityWidget extends StatefulWidget {
-  const AskForCommunityWidget({Key? key, required this.uid}) : super(key: key);
+  const AskForCommunityWidget(
+      {Key? key, required this.uid, required this.Questionid})
+      : super(key: key);
 
   final String uid;
+  final String Questionid;
 
   @override
   _AskForCommunityWidgetState createState() => _AskForCommunityWidgetState();
@@ -19,6 +22,8 @@ class AskForCommunityWidget extends StatefulWidget {
 class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
   int displayQuestionCount = 2;
   Map<int, bool> showRemainingAnswers = {};
+
+  // ignore: non_constant_identifier_names
 
   // @override
   // void initState() {
@@ -32,7 +37,9 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
     setState(() {
       displayQuestionCount = data.askCommunityData?.data.length ?? 0;
       Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return Questionpage(id: "");
+        return Questionpage(
+          id: '',
+        );
       }));
     });
   }
@@ -67,7 +74,9 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return Questionpage(id: "");
+                        return Questionpage(
+                          id: '',
+                        );
                       }));
                     },
                     style: ElevatedButton.styleFrom(
@@ -162,9 +171,15 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                             if (hasRemainingAnswers)
                               GestureDetector(
                                 onTap: () {
-                                  setState(() {
-                                    showRemainingAnswers[int] = true;
-                                  });
+                                  // setState(() {
+                                  //   showRemainingAnswers[int] = true;
+                                  // });
+
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Answerpage(
+                                        questionid: widget.Questionid);
+                                  }));
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -187,7 +202,9 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Questionpage(id: "");
+                                    return Questionpage(
+                                      id: '',
+                                    );
                                   }));
                                 },
                                 child: Container(
@@ -201,7 +218,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                                         color: secondaryColor20LightTheme),
                                   ),
                                   child: Text(
-                                      "Show ${data.askCommunityData!.data.length - displayQuestionCount} questions"),
+                                      "Show ${data.askCommunityData!.data.length - displayQuestionCount} more questions"),
                                 ),
                               ),
                             const Divider(),

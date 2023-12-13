@@ -1,83 +1,16 @@
-// // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:sssv1/providers/askcommunity_provider.dart';
-// import 'package:sssv1/utils/constants.dart';
-
-// class displayQuestions extends StatefulWidget {
-//   const displayQuestions({super.key});
-
-//   @override
-//   State<displayQuestions> createState() => _displayQuestionsState();
-// }
-
-// class _displayQuestionsState extends State<displayQuestions> {
-//   @override
-//   Widget build(BuildContext context) {
-//     var data = Provider.of<AskCommunityProvider>(context);
-//     return data.isLoading
-//         ? Center(
-//             child: Image.asset("images/loading.gif"),
-//           )
-//         : ListView.builder(
-//             physics: NeverScrollableScrollPhysics(),
-//             shrinkWrap: true,
-//             itemCount: data.askCommunityData!.data.length,
-//             itemBuilder: (BuildContext context, int int) {
-//               var question = data.askCommunityData!.data[int];
-//               var answers = question.answers;
-
-//               return Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Padding(
-//                     padding: EdgeInsets.all(8.0),
-//                     child: Text(
-//                       "Q: ${question.question} ",
-//                       style:
-//                           TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-//                     ),
-//                   ),
-//                   ListView.builder(
-//                     shrinkWrap: true,
-//                     physics: NeverScrollableScrollPhysics(),
-//                     itemCount: answers.length,
-//                     itemBuilder: (BuildContext context, index) {
-//                       return Container(
-//                         decoration: BoxDecoration(
-//                             border: Border(
-//                                 bottom: BorderSide(
-//                                     color: secondaryColor10LightTheme))),
-//                         child: Padding(
-//                           padding: EdgeInsets.all(8.0),
-//                           child: Text(
-//                             "As: ${answers[index].answer}",
-//                             style: TextStyle(
-//                                 fontSize: 13,
-//                                 color: secondaryColor20LightTheme),
-//                           ),
-//                         ),
-//                       );
-//                     },
-//                   ),
-//                 ],
-//               );
-//             },
-//           );
-//   }
-// }
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import "package:provider/provider.dart";
 import 'package:flutter/material.dart';
 import 'package:sssv1/Askcommunity%20Section/answers.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/utils/constants.dart';
-import "package:provider/provider.dart";
 
 class displayQuestions extends StatefulWidget {
-  const displayQuestions({super.key});
+  displayQuestions({
+    super.key,
+  });
 
   @override
   State<displayQuestions> createState() => _displayQuestionsState();
@@ -93,7 +26,7 @@ class _displayQuestionsState extends State<displayQuestions> {
     var data = Provider.of<AskCommunityProvider>(context);
     return data.isLoading
         ? Center(
-            child: Image.asset("images/loading.gif"),
+            child: CircularProgressIndicator(color: tgPrimaryColor),
           )
         : RefreshIndicator(
             onRefresh: _refresh,

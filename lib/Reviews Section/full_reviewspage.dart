@@ -108,14 +108,18 @@ class _showallreviewspageState extends State<showallreviewspage> {
                       : ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: data.getCommentsData!.reviews.length,
+                          // itemCount: data.getCommentsData!.reviews.length,
+                          itemCount:
+                              data.getCommentsData!.reversedReviews.length,
+
                           // itemCount: _showAllReviews
                           //     ? data.getCommentsData!.reviews.length
                           //     : (data.getCommentsData!.reviews.length > 2j
                           //         ? 2
                           //         : data.getCommentsData!.reviews.length),
                           itemBuilder: (BuildContext context, int index) {
-                            var review = data.getCommentsData!.reviews[index];
+                            var review =
+                                data.getCommentsData!.reversedReviews[index];
 
                             String stars(rating) {
                               return List<String>.generate(
