@@ -53,13 +53,30 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
     data.businessProfileProvider(widget.uid);
 
-    var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-    dataAsk.fetchAskCommunityData(widget.uid);
+    // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+    // dataAsk.fetchAskCommunityData(widget.uid);
+
+    Future.delayed(Duration(seconds: 2), () {
+      var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+      dataAsk.fetchAskCommunityData(widget.uid);
+    });
 
     var datacomments =
         Provider.of<CommentSectionProvider>(context, listen: false);
-
     datacomments.commentSectionProvider(widget.uid);
+
+    // Future.microtask(() {
+    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+    //   data.businessProfileProvider(widget.uid);
+
+    //   var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+    //   dataAsk.fetchAskCommunityData(widget.uid);
+
+    //   var datacomments =
+    //       Provider.of<CommentSectionProvider>(context, listen: false);
+
+    //   datacomments.commentSectionProvider(widget.uid);
+    // });
 
     // _scrollController.addListener(() {
     //   if (_scrollController.offset >= 2000) {
@@ -287,8 +304,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         height: 600,
                         color: secondaryColor5LightTheme,
                         child: AskForCommunityWidget(
-                          uid: "",
-                          Questionid: '',
+                          uid: '',
+                          Questionid: "",
                         )),
                   ),
                 ),

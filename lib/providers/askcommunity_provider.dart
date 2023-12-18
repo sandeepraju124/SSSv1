@@ -17,32 +17,57 @@ class AskCommunityProvider with ChangeNotifier {
   AskTheCommunityModels? get askCommunityData => _askcommunity;
   bool get isLoading => _isLoading;
 
+  // Future<void> fetchAskCommunityData(String uid,
+  //     {String? newQuestionId}) async {
+  //   try {
+  //     _isLoading = true;
+  //     notifyListeners();
+
+  //     // Fetch new data
+  //     AskTheCommunityModels datalist =
+  //         await Http().fetchAskCommunity("$baseUrl/askcommunity/$uid");
+
+  //     print("Fetched data: $datalist");
+  //     print("New Question ID: $newQuestionId");
+
+  //     // Update the existing data by appending the new data
+  //     if (_askcommunity != null) {
+  //       if (newQuestionId != null) {
+  //         // Find the newly posted question
+  //         var newQuestion = datalist.data
+  //             .firstWhere((q) => q.qdetails.questionid == newQuestionId);
+  //         _askcommunity!.data.insert(0, newQuestion);
+  //       } else {
+  //         _askcommunity!.data.addAll(datalist.data);
+  //       }
+  //     } else {
+  //       _askcommunity = datalist;
+  //     }
+
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   } catch (e) {
+  //     // Handle errors and notify listeners
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
+
   Future<void> fetchAskCommunityData(String uid,
       {String? newQuestionId}) async {
     try {
       _isLoading = true;
       notifyListeners();
 
+      // Clear the existing data
+      _askcommunity = null;
+
       // Fetch new data
       AskTheCommunityModels datalist =
           await Http().fetchAskCommunity("$baseUrl/askcommunity/$uid");
 
-      print("Fetched data: $datalist");
-      print("New Question ID: $newQuestionId");
-
-      // Update the existing data by appending the new data
-      if (_askcommunity != null) {
-        if (newQuestionId != null) {
-          // Find the newly posted question
-          var newQuestion = datalist.data
-              .firstWhere((q) => q.qdetails.questionid == newQuestionId);
-          _askcommunity!.data.insert(0, newQuestion);
-        } else {
-          _askcommunity!.data.addAll(datalist.data);
-        }
-      } else {
-        _askcommunity = datalist;
-      }
+      // Update the data
+      _askcommunity = datalist;
 
       _isLoading = false;
       notifyListeners();

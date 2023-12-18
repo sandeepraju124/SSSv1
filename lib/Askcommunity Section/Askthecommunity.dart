@@ -146,7 +146,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                                   child: Text(
                                     "Q: ${question.question}",
                                     style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 13.5,
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),

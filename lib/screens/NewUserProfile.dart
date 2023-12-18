@@ -298,8 +298,9 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: MaterialButton(
                                   // color: tgLightPrimaryColor,
-                                  onPressed: () {
-                                    provider.logOut();
+                                  onPressed: () async {
+                                    await provider.logOut();
+                                    Navigator.of(context).pop();
                                   },
                                   child: Text(
                                     'Yes, logout',

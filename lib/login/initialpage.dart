@@ -222,7 +222,7 @@ class _InitialPageState extends State<InitialPage> {
                         // Color tgDarkPrimaryColor: Color(#00796B),
                         color: tgDarkPrimaryColor,
                         fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
                 SizedBox(height: 10),
