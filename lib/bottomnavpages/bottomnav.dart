@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sssv1/bottomnavpages/communitypage.dart';
 
-import 'package:sssv1/bottomnavpages/search.dart';
+import 'package:sssv1/bottomnavpages/searchpage.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -17,21 +17,19 @@ class BottomNavPage extends StatefulWidget {
 }
 
 class _BottomNavPageState extends State<BottomNavPage> {
-  final primaryColor = Colors.black;
-  final secondaryColor = Colors.black54;
   final accentColor = const Color(0xffffffff);
   final backgroundColor = Colors.black12.withOpacity(.2);
-
-  int _currentIndex = 0;
-
   final pages = [
     MyHomePage(),
-    Searchpage(),
+    SearchBarPage(),
     Communitypage(),
-    // MyProfilepage(),
-    //  UserProfile(),
     NewUserProfilePage(),
   ];
+
+  final primaryColor = Colors.black;
+  final secondaryColor = Colors.black54;
+
+  int _currentIndex = 0;
 
   // Color getDecorationColor(int index) {
   //   if (index == 0) {
@@ -181,12 +179,13 @@ class NavBarIcon extends StatelessWidget {
     this.selectedColor = Colors.black,
     this.defaultColor = Colors.grey,
   }) : super(key: key);
-  final String text;
-  final IconData icon;
-  final bool selected;
-  final Function() onPressed;
+
   final Color defaultColor;
+  final IconData icon;
+  final Function() onPressed;
+  final bool selected;
   final Color selectedColor;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

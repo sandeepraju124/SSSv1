@@ -266,4 +266,15 @@ class Http {
       }
     }
   }
+
+  Future<List<dynamic>> search(String query) async {
+    final response = await http.get(Uri.parse('$baseUrl/search?query=$query'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> results = jsonDecode(response.body);
+      return results;
+    } else {
+      throw Exception('Failed to load search results');
+    }
+  }
 }

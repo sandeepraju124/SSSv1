@@ -12,7 +12,6 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/explore.dart';
 
-import '../widgets/searchbar.dart';
 import '../widgets/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,18 +33,15 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.initState();
     // it will get the user location when latitude null
     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
-    if (liveLoc.latitude == null){
+    if (liveLoc.latitude == null) {
       // print("null");
       liveLoc.getCurrentLocation();
     }
 
     var userprov = Provider.of<UserProvider>(context, listen: false);
-    if(userprov.getUserData== null){
+    if (userprov.getUserData == null) {
       userprov.userProvider();
     }
-    
-
-
   }
 
 //   @override
@@ -87,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     }
 
     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
-    
+
     // userpro.userProv();
 
     return Scaffold(
@@ -158,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             physics: const ScrollPhysics(),
             children: [
               // SearchBar(),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
 
               Align(
                   alignment: Alignment.centerLeft,

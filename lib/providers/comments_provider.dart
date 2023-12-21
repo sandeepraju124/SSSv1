@@ -42,6 +42,8 @@ class CommentSectionProvider extends ChangeNotifier {
     return total / comments.reviews.length;
   }
 
+  ////////////////////////////////////////// post comment below //////////////////////////
+
   Future<bool> postCommentProvider({
     required BuildContext context,
     required int rating,
