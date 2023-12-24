@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sssv1/bottomnavpages/communitypage.dart';
+import 'package:sssv1/User_Activity%20Section/display_user_activities.dart';
 
 import 'package:sssv1/bottomnavpages/searchpage.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
@@ -19,10 +20,15 @@ class BottomNavPage extends StatefulWidget {
 class _BottomNavPageState extends State<BottomNavPage> {
   final accentColor = const Color(0xffffffff);
   final backgroundColor = Colors.black12.withOpacity(.2);
+
+  // final user = FirebaseAuth.instance.currentUser;
+
+  // String? userid;
+
   final pages = [
     MyHomePage(),
     SearchBarPage(),
-    Communitypage(),
+    UserActivityScreen(),
     NewUserProfilePage(),
   ];
 
@@ -47,6 +53,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   void initState() {
     super.initState();
     MyHomePage();
+    // userid = user?.uid;
   }
 
   @override
@@ -129,8 +136,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
                         selectedColor: primaryColor,
                       ),
                       NavBarIcon(
-                        text: "Community",
-                        icon: LineAwesomeIcons.comment_dots,
+                        text: "Your Activity",
+                        icon: Icons.rate_review_outlined,
                         selected: _currentIndex == 2,
                         onPressed: () {
                           setState(() {

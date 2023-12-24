@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/User_Activity%20Section/user_activity_model.dart';
 import 'package:sssv1/models/askthecom_models.dart';
 
 import 'package:sssv1/models/business_profile.dart';
@@ -57,7 +58,7 @@ class Http {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body) as List;
-      print("responsebody ${response.body}");
+      // print("responsebody ${response.body}");
       // print("json $jsonList");
       final List<Subcategorylist> services =
           jsonList.map((json) => Subcategorylist.fromJson(json)).toList();
@@ -182,63 +183,23 @@ class Http {
     }
   }
 
-  // Future<UserModel> fetchUsersData() async {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   // await Future.delayed(const Duration(seconds: 2));
-  //   final userid = user?.uid; //d8JpVQttpad6s5maOboGC0iCVaB3
-  //   final apiUrl =
-  //       Uri.parse('$baseUrl/user/$userid');
-  //   final response = await http.get(apiUrl);
-  //   if (kDebugMode) {
-  //     print("response $response");
-  //   }
-  //   if (response.statusCode == 200) {
-  //     if (kDebugMode) {
-  //       print('printing if statement');
-  //     }
-  //     final responseBody = await json.decode(response.body);
-  //     if (kDebugMode) {
-  //       print("response $responseBody");
-  //     }
+  //////////////////////////  userActivity ///////////////////////////
 
-  //     return UserModel.fromJson(responseBody);
-  //   } else {
-  //     throw Exception('Failed to fetch data');
-  //   }
-  // }
-
-// -------------------------------------------------------------------------------------------------------------------
-
-//////////////// post for ask community /////////////////////////
-
-  Future<void> PostAskcommunity(String Question) async {
-    final String url = "$baseUrl/post_question";
-
-// Create a Map to represent the data you want to send in the request body
-    final Map<String, dynamic> data = {
-      "question": Question,
-      "business_uid": "",
-      "userid": "",
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        body: data,
-      );
-
-      if (response.statusCode == 200) {
-        print("question posted successfully");
-      } else {
-        print("Failed to post question. Status code : ${response.statusCode}");
-        print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      print('Error: $e');
+  Future<UserActivityModel> fetchUserActivity(String uri) async {
+    var url = Uri.parse(uri);
+    // print('Request URL: $url');
+    var response = await http.get(url);
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
+    if (response.statusCode == 200) {
+      var userActivity = UserActivityModel.fromJson(json.decode(response.body));
+      return userActivity;
+    } else {
+      throw Exception('Failed to load user activity');
     }
   }
+// -------------------------------------------------------------------------------------------------------------------
 
-  // ------------------------------------------------------------------------------------
   // post user data
   // Function to perform the POST request
   Future<void> postData(String url, Map<String, String> body) async {

@@ -133,7 +133,10 @@ class _SearchBarPageState extends State<SearchBarPage> {
                                         fontSize: 12),
                                   ),
                                 ),
-                                trailing: Icon(Icons.keyboard_arrow_right),
+                                trailing: Icon(
+                                  LineAwesomeIcons.angle_right,
+                                  size: 16,
+                                ),
                                 onTap: () {
                                   Navigator.push(
                                     context,

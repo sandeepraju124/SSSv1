@@ -7,6 +7,7 @@ import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
+import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
@@ -21,7 +22,7 @@ import 'package:sssv1/providers/test_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
-import 'package:sssv1/screens/search.dart';
+
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/category_grid.dart';
 import 'package:sssv1/widgets/restaurent.dart';
@@ -68,6 +69,8 @@ void main() async {
     ChangeNotifierProvider<LiveUserLocation>(
       create: (_) => LiveUserLocation(),
     ),
+    ChangeNotifierProvider<UserActivityProvider>(
+        create: (_) => UserActivityProvider()),
   ], child: MyApp()));
 }
 
