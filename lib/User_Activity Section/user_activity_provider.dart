@@ -13,11 +13,11 @@ class UserActivityProvider extends ChangeNotifier {
 
   Future<void> userActivityProvider(uid) async {
     _isLoading = true;
+    Future.microtask(() => notifyListeners());
     UserActivityModel userActivity =
         await Http().fetchUserActivity("$baseUrl/user_activities/$uid");
     _userActivity = userActivity;
-    // print('Fetched User Activity: $userActivity');
     _isLoading = false;
-    notifyListeners();
+    Future.microtask(() => notifyListeners());
   }
 }

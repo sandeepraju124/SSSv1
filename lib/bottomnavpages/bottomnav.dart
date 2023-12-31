@@ -137,7 +137,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                       ),
                       NavBarIcon(
                         text: "Your Activity",
-                        icon: Icons.rate_review_outlined,
+                        icon: LineAwesomeIcons.accusoft,
                         selected: _currentIndex == 2,
                         onPressed: () {
                           setState(() {

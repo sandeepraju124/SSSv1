@@ -65,7 +65,7 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
                 child: ClipOval(
                   child: Image.network(
                     // ignore: unrelated_type_equality_checks
-                    data.getUserData?.dp == 0
+                    data.getUserData?.dp == 0 || data.getUserData?.dp == "0"
                         ? "https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
                         : (data.getUserData?.dp).toString(),
                     width: 130,

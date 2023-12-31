@@ -71,7 +71,7 @@ class UserActivityModelAnswer {
 
 class Adetails {
   DateTime createdAt;
-  User userid;
+  User? userid;
 
   Adetails({
     required this.createdAt,
@@ -80,7 +80,8 @@ class Adetails {
 
   factory Adetails.fromJson(Map<String, dynamic> json) => Adetails(
         createdAt: DateTime.parse(json["created_at"]),
-        userid: userValues.map[json["userid"]]!,
+        // userid: userValues.map[json["userid"]]!,
+        userid: json["userid"] != null ? userValues.map[json["userid"]] : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -126,7 +127,7 @@ class Comment {
   String comment;
   DateTime createdAt;
   int rating;
-  User userId;
+  User? userId;
 
   Comment({
     required this.businessName,
@@ -143,7 +144,8 @@ class Comment {
         comment: json["comment"],
         createdAt: DateTime.parse(json["created_at"]),
         rating: json["rating"],
-        userId: userValues.map[json["user_id"]]!,
+        userId:
+            json['user_id'] != null ? userValues.map[json['user_id']] : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -212,7 +214,7 @@ class QuestionAnswer {
 class Qdetails {
   DateTime createdAt;
   String questionid;
-  User userid;
+  User? userid;
 
   Qdetails({
     required this.createdAt,
@@ -223,7 +225,7 @@ class Qdetails {
   factory Qdetails.fromJson(Map<String, dynamic> json) => Qdetails(
         createdAt: DateTime.parse(json["created_at"]),
         questionid: json["questionid"],
-        userid: userValues.map[json["userid"]]!,
+        userid: json["userid"] != null ? userValues.map[json["userid"]] : null,
       );
 
   Map<String, dynamic> toJson() => {
