@@ -7,6 +7,9 @@ import 'package:sssv1/network_calling/http.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/utils/constants.dart';
 
+import 'package:lottie/lottie.dart';
+import 'package:sssv1/utils/success_lottiejson.dart';
+
 class SearchBarPage extends StatefulWidget {
   const SearchBarPage({Key? key}) : super(key: key);
 
@@ -72,10 +75,7 @@ class _SearchBarPageState extends State<SearchBarPage> {
       ),
       body: query.isEmpty
           ? Center(
-              child: Text(
-                '"Explore here 😀"',
-                style: TextStyle(fontSize: 14),
-              ),
+              child: Lottie.asset("images/Search.json", height: 127),
             )
           : FutureBuilder<List<dynamic>>(
               future: http.search(query),

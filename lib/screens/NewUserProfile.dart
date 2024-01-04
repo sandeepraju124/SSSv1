@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/User_Activity%20Section/display_user_activities.dart';
 import 'package:sssv1/login/google_signinPages/google_login_controller.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/EditProfile.dart';
@@ -145,44 +146,52 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
               Column(
                 children: [
                   Padding(padding: EdgeInsets.symmetric(horizontal: 78)),
-                  Container(
-                      width: 330,
-                      height: 46,
-                      decoration: BoxDecoration(
-                        color: secondaryColor10LightTheme,
-                        border: Border.all(color: Colors.black, width: 0.2),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey, // Shadow color
-                            offset: Offset(0, 2), // Offset of the shadow
-                            blurRadius: 4, // Spread of the shadow
-                            spreadRadius:
-                                0, // Optional: How much the shadow should expand
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Icon(
-                            LineAwesomeIcons.signature,
-                            color: secondaryColor40LightTheme,
-                          ),
-                          SizedBox(width: 85),
-                          Text(
-                            "Overview",
-                            style: TextStyle(
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return UserActivityScreen();
+                      }));
+                    },
+                    child: Container(
+                        width: 330,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          color: secondaryColor10LightTheme,
+                          border: Border.all(color: Colors.black, width: 0.2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey, // Shadow color
+                              offset: Offset(0, 2), // Offset of the shadow
+                              blurRadius: 4, // Spread of the shadow
+                              spreadRadius:
+                                  0, // Optional: How much the shadow should expand
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Icon(
+                              LineAwesomeIcons.signature,
+                              color: secondaryColor40LightTheme,
+                            ),
+                            SizedBox(width: 85),
+                            Text(
+                              "Overview",
+                              style: TextStyle(
+                                color: secondaryColor20LightTheme,
+                              ),
+                            ),
+                            SizedBox(width: 115),
+                            Icon(
+                              LineAwesomeIcons.angle_right,
                               color: secondaryColor20LightTheme,
                             ),
-                          ),
-                          SizedBox(width: 115),
-                          Icon(
-                            LineAwesomeIcons.angle_right,
-                            color: secondaryColor20LightTheme,
-                          ),
-                        ],
-                      )),
+                          ],
+                        )),
+                  ),
                   SizedBox(height: 30),
 
                   ///////////////////

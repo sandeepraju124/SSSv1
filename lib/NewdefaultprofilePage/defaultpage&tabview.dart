@@ -175,7 +175,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         size: 20,
                       ),
                       onRatingUpdate: (rating) {
-                        print(rating);
+                        // print(rating);
                       },
                     ),
                   ],
