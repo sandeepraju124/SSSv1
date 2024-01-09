@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sssv1/HousingServices/house_search.dart';
 
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/subcategory.dart';
@@ -140,26 +141,34 @@ class Explore extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 85,
-                  // color: Colors.redAccent,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            "https://www.kotak.com/content/dam/Kotak/product_card_images/how-credit-cards-enhance-your-shopping-experience.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(11))
-                      // color: Colors.red,
-                      ),
-                  child: const Align(
-                      alignment: Alignment(-0.7, 0.5),
-                      child: Text(
-                        'Shopping',
-                        style: TextStyle(color: Colors.white),
-                      )),
+                child: GestureDetector(
+                  onTap: () {
+                  // education
+                  Navigators().navigatorPush(
+                      context,HouseSearch()
+                      );
+                },
+                  child: Container(
+                    margin: const EdgeInsets.all(5),
+                    height: 85,
+                    // color: Colors.redAccent,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              "https://www.kotak.com/content/dam/Kotak/product_card_images/how-credit-cards-enhance-your-shopping-experience.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                        color: Colors.red,
+                        borderRadius: BorderRadius.all(Radius.circular(11))
+                        // color: Colors.red,
+                        ),
+                    child: const Align(
+                        alignment: Alignment(-0.7, 0.5),
+                        child: Text(
+                          'Shopping',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
                 ),
               ),
               Expanded(

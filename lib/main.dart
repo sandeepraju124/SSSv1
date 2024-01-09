@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
+import 'package:sssv1/HousingServices/house_search.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
@@ -88,7 +89,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: RealEstateProfile(),
+      // home: HouseSearch(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
 
