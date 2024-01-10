@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +12,7 @@ class HouseSearch extends StatefulWidget {
 
 class _HouseSearchState extends State<HouseSearch> {
   HosueType? _selectedType;
+  bool _showAdvanceFilters = false;
   Map<BHKType, bool> selectedBHKTypes = {
     BHKType.BHK1: false,
     BHKType.BHK2: false,
@@ -26,6 +27,18 @@ class _HouseSearchState extends State<HouseSearch> {
     RoomType.TripleSharing: false,
     RoomType.FourSharing: false,
   };
+
+  String _selectedDropdownMin = "Min";
+  String _selectedDropdownMax = "Max";
+  var _dropDowndownOptionsMin = ["Min", "1000", "2000", "3000", "4000", "5000"];
+  var _dropDowndownOptionsMax = [
+    "Max",
+    "10000",
+    "20000",
+    "30000",
+    "40000",
+    "50000"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +154,6 @@ class _HouseSearchState extends State<HouseSearch> {
                     ],
                   ),
                 ),
-                Text("gg")
               ],
             ),
 // PG/Hostel
@@ -185,8 +197,78 @@ class _HouseSearchState extends State<HouseSearch> {
                 ),
               ],
             ),
-
-        
+          // rest
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Text("Select Range"),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Center(
+                      child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      items: _dropDowndownOptionsMin.map((String item) {
+                        return DropdownMenuItem(value: item, child: Text(item));
+                      }).toList(),
+                      onChanged: (String? newvalue) {
+                        setState(() {
+                          _selectedDropdownMin = newvalue!;
+                        });
+                      },
+                      value: _selectedDropdownMin,
+                    ),
+                  )),
+                ),
+              ),
+              SizedBox(width: 15,),
+              Expanded(
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Center(
+                      child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      items: _dropDowndownOptionsMax.map((String item) {
+                        return DropdownMenuItem(value: item, child: Text(item));
+                      }).toList(),
+                      onChanged: (String? newvalue) {
+                        setState(() {
+                          _selectedDropdownMax = newvalue!;
+                        });
+                      },
+                      value: _selectedDropdownMax,
+                    ),
+                  )),
+                ),
+              )
+            ],
+          ),
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                _showAdvanceFilters = !_showAdvanceFilters;
+              });
+              // print(_showAdvanceFilters);
+            },
+            child: Text("click")),
+            if(_showAdvanceFilters)
+            Text("advance filters")
         ]),
       ),
     );
@@ -275,8 +357,6 @@ class _HouseSearchState extends State<HouseSearch> {
       ),
     );
   }
-
-  
 }
 
 enum HosueType { FullHouse, PG, PentHosue }
