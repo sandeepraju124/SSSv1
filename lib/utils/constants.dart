@@ -80,3 +80,45 @@ final kButtonTextStyle = TextStyle(
 //         displayColor: kDarkSecondaryColor,
 //       ),
 // );
+
+// Container(
+//                                   alignment: Alignment.center,
+//                                   margin: EdgeInsets.symmetric(
+//                                       horizontal: 30, vertical: 5),
+//                                   height: 30,
+//                                   width: double.infinity,
+//                                   decoration: BoxDecoration(
+//                                     border: Border.all(
+//                                         color: secondaryColor20LightTheme),
+//                                   ),
+//                                   child: Text(
+//                                       "Show ${data.askCommunityData!.data.length - displayQuestionCount} more questions"),
+//                                 ),
+
+Widget RetangularBorderBox(TextMsg) {
+  return Container(
+    height: 30,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      border: Border.all(color: secondaryColor20LightTheme),
+    ),
+    alignment: Alignment.center,
+    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+    child: Text(TextMsg),
+  );
+}
+
+
+// Container(
+//                                   alignment: Alignment.center,
+//                                   margin: EdgeInsets.symmetric(
+//                                       horizontal: 30, vertical: 5),
+//                                   height: 30,
+//                                   width: double.infinity,
+//                                   decoration: BoxDecoration(
+//                                     border: Border.all(
+//                                         color: secondaryColor20LightTheme),
+//                                   ),
+//                                   child: Text(
+//                                        more questions"),
+//                                 );

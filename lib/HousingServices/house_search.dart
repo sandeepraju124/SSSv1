@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class HouseSearch extends StatefulWidget {
   const HouseSearch({super.key});
@@ -12,7 +13,9 @@ class HouseSearch extends StatefulWidget {
 
 class _HouseSearchState extends State<HouseSearch> {
   HosueType? _selectedType;
+
   bool _showAdvanceFilters = false;
+
   Map<BHKType, bool> selectedBHKTypes = {
     BHKType.BHK1: false,
     BHKType.BHK2: false,
@@ -39,6 +42,9 @@ class _HouseSearchState extends State<HouseSearch> {
     "40000",
     "50000"
   ];
+
+  String _ShowAdvance = "Show Advance Filters";
+  String _HideAdvance = "Hide Advance Filters";
 
   @override
   Widget build(BuildContext context) {
@@ -205,71 +211,73 @@ class _HouseSearchState extends State<HouseSearch> {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Center(
-                      child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      items: _dropDowndownOptionsMin.map((String item) {
-                        return DropdownMenuItem(value: item, child: Text(item));
-                      }).toList(),
-                      onChanged: (String? newvalue) {
-                        setState(() {
-                          _selectedDropdownMin = newvalue!;
-                        });
-                      },
-                      value: _selectedDropdownMin,
-                    ),
-                  )),
+                child: _dropDown(
+                  options: _dropDowndownOptionsMin,
+                  onChanged: (String? newvalue) {
+                    setState(() {
+                      _selectedDropdownMin = newvalue!;
+                    });
+                  },
+                  selectedValue: _selectedDropdownMin,
                 ),
               ),
-              SizedBox(width: 15,),
+              SizedBox(width: 10,),
               Expanded(
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Center(
-                      child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      items: _dropDowndownOptionsMax.map((String item) {
-                        return DropdownMenuItem(value: item, child: Text(item));
-                      }).toList(),
-                      onChanged: (String? newvalue) {
-                        setState(() {
-                          _selectedDropdownMax = newvalue!;
-                        });
-                      },
-                      value: _selectedDropdownMax,
-                    ),
-                  )),
+                child: _dropDown(
+                  options: _dropDowndownOptionsMax,
+                  onChanged: (String? newvalue) {
+                    setState(() {
+                      _selectedDropdownMax = newvalue!;
+                    });
+                  },
+                  selectedValue: _selectedDropdownMax,
                 ),
-              )
+              ),
             ],
           ),
+          SizedBox(height: 10,),
+          
           GestureDetector(
-            onTap: (){
-              setState(() {
-                _showAdvanceFilters = !_showAdvanceFilters;
-              });
-              // print(_showAdvanceFilters);
-            },
-            child: Text("click")),
-            if(_showAdvanceFilters)
-            Text("advance filters")
+            onTap: () {
+                setState(() {
+                  _showAdvanceFilters = !_showAdvanceFilters;
+                });
+                // print(_showAdvanceFilters);
+              },
+            child:_showAdvanceFilters?  RetangularBorderBox(_HideAdvance): RetangularBorderBox(_ShowAdvance)),
+            if (_showAdvanceFilters) 
+            Text("advance")
+            
+            
         ]),
+      ),
+    );
+  }
+
+  Widget _dropDown({
+    required List<String> options,
+    required ValueChanged<String?> onChanged,
+    required String selectedValue,
+  }) {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1.0,
+        ),
+      ),
+      child: Center(
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            items: options.map((String item) {
+              return DropdownMenuItem<String>(value: item, child: Text(item));
+            }).toList(),
+            onChanged: onChanged,
+            value: selectedValue,
+          ),
+        ),
       ),
     );
   }
