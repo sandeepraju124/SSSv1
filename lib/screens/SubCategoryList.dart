@@ -222,16 +222,21 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1),
-                                  const Text(
-                                    "5/f 18 on lane ST, central hong kong near hong",
-                                    // provider.data[int].address,maxLines: 2,
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.grey,
-                                        wordSpacing: 0.5,
-                                        letterSpacing: -0.1),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    child: Text(
+                                      // "5/f 18 on lane ST, central hong kong near hong",
+                                      data.subcategoryListData![index]
+                                          .businessDescription,
+                                      // provider.data[int].address,maxLines: 2,
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          color: Colors.grey,
+                                          wordSpacing: 0.5,
+                                          letterSpacing: -0.1),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
                                   )
                                 ]),
                           ),

@@ -70,13 +70,29 @@ class Http {
 
 // used this to show business profile
 
+  // Future<Businessprofile> fetchBusinessProfile(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     var businessProfile =
+  //         Businessprofile.fromJson(json.decode(response.body));
+  //     return businessProfile;
+  //   } else {
+  //     throw Exception('Failed to load business profile');
+  //   }
+  // }
+
   Future<Businessprofile> fetchBusinessProfile(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      var businessProfile =
-          Businessprofile.fromJson(json.decode(response.body));
-      return businessProfile;
+      var jsonBody = json.decode(response.body);
+      if (jsonBody != null) {
+        var businessProfile = Businessprofile.fromJson(jsonBody);
+        return businessProfile;
+      } else {
+        throw Exception('JSON response is null');
+      }
     } else {
       throw Exception('Failed to load business profile');
     }
@@ -114,8 +130,8 @@ class Http {
   Future<CommentSectionModels> fetchComments(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
     if (response.statusCode == 200) {
       var comments = CommentSectionModels.fromJson(json.decode(response.body));
       return comments;
@@ -175,7 +191,7 @@ class Http {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      print("responseBody $responseBody");
+      // print("responseBody $responseBody");
       var userdata = UserModels.fromJson(responseBody);
       return userdata;
     } else {

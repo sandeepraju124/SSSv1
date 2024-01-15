@@ -17,14 +17,15 @@ class CommentSectionModels {
     required this.reviews,
   });
 
-  factory CommentSectionModels.fromJson(Map<String, dynamic> json) =>
-      CommentSectionModels(
-        id: json["_id"],
-        businessUid: json["business_uid"],
-        reviews:
-            List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
-      );
-
+  factory CommentSectionModels.fromJson(Map<String, dynamic> json) {
+    var reviewsJson = json["reviews"] as List<dynamic>? ?? [];
+    var reviewsList = reviewsJson.map((x) => Review.fromJson(x)).toList();
+    return CommentSectionModels(
+      id: json["_id"],
+      businessUid: json["business_uid"],
+      reviews: reviewsList,
+    );
+  }
   Map<String, dynamic> toJson() => {
         "_id": id,
         "business_uid": businessUid,

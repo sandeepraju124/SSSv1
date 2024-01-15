@@ -197,12 +197,14 @@ class _AnswerpageState extends State<Answerpage> {
                       ),
                       SizedBox(height: 20),
 
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: tgPrimaryColor))),
-                        child: Text("Previous Answers !"),
-                      ),
+                      if (data.askCommunityData!.data.isNotEmpty) ...[
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(color: tgPrimaryColor))),
+                          child: Text("Previous Answers !"),
+                        ),
+                      ],
 
                       SizedBox(height: 12),
 

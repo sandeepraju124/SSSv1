@@ -245,7 +245,15 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       if (data.businessProfileData != null &&
                           data.businessProfileData!.subCategory ==
                               "housingrent")
-                        OverviewPage(),
+                        Container(
+                          height: 7,
+                        ),
+                      if (data.businessProfileData == null ||
+                          data.businessProfileData!.subCategory !=
+                              "housingrent")
+                        Container(
+                          height: 7,
+                        ),
                       Container(
                         height: 7,
                       ),
@@ -255,21 +263,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       Container(
                         height: 7,
                       ),
-                      Container(
-                        height: 7,
-                      ),
-                      // AmenitiesGridView(
-                      //     // key: _keys[2],
-                      //     ),
-                      // PostComment(
-                      //     businessUid: data.businessProfileData!.businessUid),
-                      // AskForCommunityWidget(uid: "")
                     ],
                   ),
                 ),
                 SliverToBoxAdapter(
-                  // Replace with your additional information widget
-
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
@@ -281,7 +278,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                      height: 200,
+                      height: 250,
                       color: secondaryColor5LightTheme,
                       child: AmenitiesGridView(),
                     ),

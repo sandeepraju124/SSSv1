@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, unused_field, non_constant_identifier_names, constant_identifier_names, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -221,7 +221,9 @@ class _HouseSearchState extends State<HouseSearch> {
                   selectedValue: _selectedDropdownMin,
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Expanded(
                 child: _dropDown(
                   options: _dropDowndownOptionsMax,
@@ -235,20 +237,21 @@ class _HouseSearchState extends State<HouseSearch> {
               ),
             ],
           ),
-          SizedBox(height: 10,),
-          
+          SizedBox(
+            height: 10,
+          ),
+
           GestureDetector(
-            onTap: () {
+              onTap: () {
                 setState(() {
                   _showAdvanceFilters = !_showAdvanceFilters;
                 });
                 // print(_showAdvanceFilters);
               },
-            child:_showAdvanceFilters?  RetangularBorderBox(_HideAdvance): RetangularBorderBox(_ShowAdvance)),
-            if (_showAdvanceFilters) 
-            Text("advance")
-            
-            
+              child: _showAdvanceFilters
+                  ? RetangularBorderBox(_HideAdvance)
+                  : RetangularBorderBox(_ShowAdvance)),
+          if (_showAdvanceFilters) Text("advance")
         ]),
       ),
     );
@@ -287,7 +290,7 @@ class _HouseSearchState extends State<HouseSearch> {
       onTap: () {
         setState(() {
           _selectedType = type;
-          print(type);
+          // print(type);
         });
       },
       child: Container(
@@ -318,9 +321,7 @@ class _HouseSearchState extends State<HouseSearch> {
                 SvgPicture.asset("images/penthouse.svg", height: 30),
               Text(label),
             ],
-          )
-          // Text(label),
-          ),
+          )),
     );
   }
 
@@ -328,9 +329,9 @@ class _HouseSearchState extends State<HouseSearch> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          print(type);
+          // print(type);
           selectedBHKTypes[type] = !selectedBHKTypes[type]!;
-          print(selectedBHKTypes);
+          // print(selectedBHKTypes);
         });
       },
       child: Container(
@@ -349,7 +350,7 @@ class _HouseSearchState extends State<HouseSearch> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          print(type);
+          // print(type);
           selectedRoomTypes[type] = !selectedRoomTypes[type]!;
           // print(selectedBHKTypes);
         });

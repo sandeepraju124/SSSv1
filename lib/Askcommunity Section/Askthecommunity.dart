@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_super_parameters, library_private_types_in_public_api
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sssv1/Askcommunity%20Section/answers.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
@@ -88,12 +89,28 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                 SizedBox(
                   height: 10,
                 ),
-                Divider(
-                  endIndent: 5,
-                  indent: 5,
-                  color: Colors.grey, // Optional - set the color of the divider
-                  thickness: 1, // Optional - set the thickness of the divider
-                ),
+                // Divider(
+                //   endIndent: 5,
+                //   indent: 5,
+                //   color: Colors.grey, // Optional - set the color of the divider
+                //   thickness: 1, // Optional - set the thickness of the divider
+                // ),
+                if (data.askCommunityData!.data.isNotEmpty) ...[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 220, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(color: tgPrimaryColor))),
+                          child: Text("Commmunity Questions"),
+                        )
+                      ],
+                    ),
+                  )
+                ]
               ],
             ),
           ),
@@ -105,11 +122,11 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
                         children: [
-                          Text("be the first one to ask",
-                              style: TextStyle(color: Colors.grey)),
-                          Image.asset(
-                            height: 200,
-                            "images/empty.gif",
+                          Lottie.asset("images/Ask.json", height: 260),
+                          SizedBox(height: 13),
+                          Text(
+                            "Got questions? Your community has answers!",
+                            style: TextStyle(color: Colors.grey, fontSize: 13),
                           ),
                         ],
                       ),

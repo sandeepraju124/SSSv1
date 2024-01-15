@@ -25,14 +25,19 @@ class UserActivityModel {
 
   factory UserActivityModel.fromJson(Map<String, dynamic> json) =>
       UserActivityModel(
-        answers: List<UserActivityModelAnswer>.from(
-            json["answers"].map((x) => UserActivityModelAnswer.fromJson(x))),
-        comments: List<Comment>.from(
-            json["comments"].map((x) => Comment.fromJson(x))),
-        questions: List<Question>.from(
-            json["questions"].map((x) => Question.fromJson(x))),
+        answers: (json["answers"] as List?)
+                ?.map((x) => UserActivityModelAnswer.fromJson(x))
+                .toList() ??
+            [],
+        comments: (json["comments"] as List?)
+                ?.map((x) => Comment.fromJson(x))
+                .toList() ??
+            [],
+        questions: (json["questions"] as List?)
+                ?.map((x) => Question.fromJson(x))
+                .toList() ??
+            [],
       );
-
   Map<String, dynamic> toJson() => {
         "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
         "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
@@ -57,10 +62,12 @@ class UserActivityModelAnswer {
       UserActivityModelAnswer(
         adetails: Adetails.fromJson(json["adetails"]),
         answer: json["answer"],
-        businessName: businessNameValues.map[json["business_name"]]!,
-        businessUid: businessUidValues.map[json["business_uid"]]!,
+        businessName: businessNameValues.map[json["business_name"]] ??
+            BusinessName
+                .unknown, // Replace 'unknown' with a valid default value
+        businessUid: businessUidValues.map[json["business_uid"]] ??
+            BusinessUid.unknown, // Replace 'unknown' with a valid default value
       );
-
   Map<String, dynamic> toJson() => {
         "adetails": adetails.toJson(),
         "answer": answer,
@@ -101,7 +108,12 @@ final userValues = EnumValues({
       User.THE_0_O5_QK_R4_FRH_R4_UZ3_X_UKD_ZB_TJLSK_I2
 });
 
-enum BusinessName { DESIGNER_CLOTHING_BOUTIQUE, PIZZA_HUT, SUNITHA_NILAYAM }
+enum BusinessName {
+  DESIGNER_CLOTHING_BOUTIQUE,
+  PIZZA_HUT,
+  SUNITHA_NILAYAM,
+  unknown
+}
 
 final businessNameValues = EnumValues({
   "Designer Clothing Boutique": BusinessName.DESIGNER_CLOTHING_BOUTIQUE,
@@ -112,13 +124,14 @@ final businessNameValues = EnumValues({
 enum BusinessUid {
   DESRET7283940183475,
   PIZFOO4357128905678,
-  SPIFOO1653834921137
+  SPIFOO1653834921137,
+  unknown
 }
 
 final businessUidValues = EnumValues({
   "DESRET7283940183475": BusinessUid.DESRET7283940183475,
   "PIZFOO4357128905678": BusinessUid.PIZFOO4357128905678,
-  "SPIFOO1653834921137": BusinessUid.SPIFOO1653834921137
+  "SPIFOO1653834921137": BusinessUid.SPIFOO1653834921137,
 });
 
 class Comment {

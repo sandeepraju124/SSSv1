@@ -14,6 +14,8 @@ import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
+import "package:lottie/lottie.dart";
+
 class NewShowRewviewPage extends StatefulWidget {
   const NewShowRewviewPage({super.key});
 
@@ -35,7 +37,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
-    var data2 = Provider.of<UserProvider>(context);
+    // var data2 = Provider.of<UserProvider>(context);
 
     return Column(children: [
       Padding(
@@ -154,11 +156,12 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     children: [
-                      Text("be the first one to ask",
-                          style: TextStyle(color: Colors.grey)),
-                      Image.asset(
-                        height: 200,
-                        "images/empty.gif",
+                      SizedBox(height: 30),
+                      Lottie.asset("images/reviews.json", height: 210),
+                      Text(
+                        "Your opinion matters.\nPlease consider being the first to share your review",
+                        style: TextStyle(
+                            color: secondaryColor20LightTheme, fontSize: 10.8),
                       ),
                     ],
                   ),

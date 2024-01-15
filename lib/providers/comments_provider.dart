@@ -14,28 +14,42 @@ class CommentSectionProvider extends ChangeNotifier {
   CommentSectionModels? get getCommentsData => _comments;
   bool get isLoading => _isLoading;
 
+  // Future<void> commentSectionProvider(uid) async {
+  //   _isLoading = true;
+  //   CommentSectionModels commentsection =
+  //       await Http().fetchComments("$baseUrl/rescomments/$uid");
+  //   _comments = commentsection;
+  //   _isLoading = false;
+  //   notifyListeners();
+  // }
+
   Future<void> commentSectionProvider(uid) async {
     _isLoading = true;
-    CommentSectionModels commentsection =
-        await Http().fetchComments("$baseUrl/rescomments/$uid");
-    _comments = commentsection;
-    _isLoading = false;
-    notifyListeners();
+    try {
+      CommentSectionModels commentsection =
+          await Http().fetchComments("$baseUrl/rescomments/$uid");
+      _comments = commentsection;
+    } catch (e) {
+      print('Error fetching comments: $e');
+      _comments = null; // Set to null if there's an error
+    } finally {
+      _isLoading = false; // Ensure isLoading is set to false when done
+      notifyListeners();
+    }
   }
 
   ///////////////////// Average calculating ///////////////////
-
   double get averageRating {
-    if (_comments != null) {
+    if (_comments?.reviews.isNotEmpty == true) {
       return calculateAverageRating(_comments!);
     } else {
-      return 0.0; // or handle this case differently if you prefer
+      return 0.0; // Return 0.0 if there are no comments or if _comments is null
     }
   }
 
   double calculateAverageRating(CommentSectionModels comments) {
     if (comments.reviews.isEmpty) {
-      return 0.0; // or return null, or throw an exception, etc...
+      return 0.0;
     }
 
     int total = comments.reviews.fold(0, (sum, review) => sum + review.rating);

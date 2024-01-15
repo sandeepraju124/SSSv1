@@ -113,7 +113,7 @@ class AskCommunityProvider with ChangeNotifier {
           ),
         );
 
-        print("Server response: ${response.body}");
+        // print("Server response: ${response.body}");
 
         // Parse the response to get the questionid of the newly posted question
         var responseJson = jsonDecode(response.body);
@@ -138,7 +138,7 @@ class AskCommunityProvider with ChangeNotifier {
         return true;
       } else {
         print("Failed to post question. Status code: ${response.statusCode}");
-        print('Response body: ${response.body}');
+        // print('Response body: ${response.body}');
         // You can handle errors here, e.g., showing an error message to the user.
       }
     } catch (e) {
@@ -214,7 +214,7 @@ class AskCommunityProvider with ChangeNotifier {
         return true;
       } else {
         print("Failed to post answer. Status code: ${response.statusCode}");
-        print('Response body: ${response.body}');
+        // print('Response body: ${response.body}');
         // You can handle errors here, e.g., showing an error message to the user.
       }
     } catch (e) {

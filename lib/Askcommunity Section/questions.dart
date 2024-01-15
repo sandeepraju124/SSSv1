@@ -103,18 +103,21 @@ class _QuestionpageState extends State<Questionpage> {
               ),
               SizedBox(height: 23),
 
-              Padding(
-                padding: const EdgeInsets.only(right: 190),
-                child: Container(
-                  decoration: BoxDecoration(
-                      border:
-                          Border(bottom: BorderSide(color: tgPrimaryColor))),
-                  child: Text(
-                    "Below! All Previously asked Q&A.",
-                    style: TextStyle(fontSize: 13),
+              if (data.askCommunityData!.data.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.only(right: 190),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border:
+                            Border(bottom: BorderSide(color: tgPrimaryColor))),
+                    child: Text(
+                      "Below! All Previously asked Q&A.",
+                      style: TextStyle(fontSize: 13),
+                    ),
                   ),
                 ),
-              ),
+              ],
+
               SizedBox(height: 7),
 
               Divider(

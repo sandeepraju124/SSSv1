@@ -28,8 +28,10 @@ class UserActivityProvider extends ChangeNotifier {
       UserActivityModel userActivity =
           await Http().fetchUserActivity("$baseUrl/user_activities/$uid");
       _userActivity = userActivity;
-    } catch (e) {
+    } catch (e, stacktrace) {
+      // Capture the stack trace
       print('Failed to fetch user activity: $e');
+      print('Stack trace: $stacktrace'); // Log the stack trace
       // handle the error as needed
     } finally {
       _isLoading = false;
