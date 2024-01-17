@@ -78,7 +78,7 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
 
               SizedBox(height: 4),
               Text(
-                data.getUserData!.name.toString(),
+                data.getUserData?.name ?? 'Default Name',
                 style:
                     TextStyle(fontSize: 13, color: secondaryColor60LightTheme),
               ),
@@ -86,7 +86,7 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
 
               ///// column for both email and button ///////
               Text(
-                data.getUserData!.email.toString(),
+                data.getUserData?.email ?? 'No Email',
                 style:
                     TextStyle(fontSize: 11, color: secondaryColor20LightTheme),
               ),

@@ -9,6 +9,7 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
@@ -228,7 +229,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                       // "5/f 18 on lane ST, central hong kong near hong",
                                       data.subcategoryListData![index]
                                           .businessDescription,
-                                      // provider.data[int].address,maxLines: 2,
+
                                       style: TextStyle(
                                           fontSize: 11,
                                           color: Colors.grey,
@@ -283,6 +284,23 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         // height: 100,
                         // color: Colors.greenAccent,
                       ),
+                      Positioned(
+                        top: 8.0,
+                        right: 11.0,
+                        child: RatingBarIndicator(
+                          rating: double.parse(data
+                              .subcategoryListData![index].overallRating
+                              .toString()),
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            // color: tgDarkPrimaryColor,
+                          ),
+                          itemCount: 5,
+                          itemSize: 11,
+                          direction: Axis.horizontal,
+                        ),
+                      ),
                       Align(
                           alignment: Alignment.center,
                           child: Text(
@@ -307,9 +325,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
                             alignment: Alignment.bottomRight,
                             child: Text(
                               // "33",
-                              distance.toString() == null
-                                  ? "..."
-                                  : distance.toString(),
+                              // distance.toString() == null
+                              //     ? "..."
+                              //     : distance.toString(),
+                              distance.toString(),
                               style:
                                   TextStyle(fontSize: 11, color: Colors.white),
                             )),

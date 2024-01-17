@@ -1,17 +1,24 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/network_calling/http.dart';
 
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
+
+import 'package:provider/provider.dart';
 
 import 'package:lottie/lottie.dart';
-import 'package:sssv1/utils/success_lottiejson.dart';
+import "package:flutter_rating_bar/flutter_rating_bar.dart";
 
 class SearchBarPage extends StatefulWidget {
-  const SearchBarPage({Key? key}) : super(key: key);
+  const SearchBarPage({super.key});
 
   @override
   State<SearchBarPage> createState() => _SearchBarPageState();
@@ -20,10 +27,35 @@ class SearchBarPage extends StatefulWidget {
 class _SearchBarPageState extends State<SearchBarPage> {
   bool isSearchExpanded = false;
   String query = '';
-  Http http = Http();
+  Http customhttp = Http();
+
+  Future<Map<String, String>?> fetchDistance(
+      String lat, String lang, String userLat, String userLang) async {
+    try {
+      Uri url = Uri.parse(
+          "https://maps.googleapis.com/maps/api/directions/json?origin=$userLat,$userLang&destination=$lat,$lang&key=AIzaSyBIp8U5x3b2GVj1cjNU3N6funOz_tEUAdk");
+      // print(url);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        String dist = data['routes'][0]["legs"][0]["distance"]["text"];
+        String dura = data['routes'][0]["legs"][0]["duration"]["text"];
+        return {"distance": dist, "duration": dura};
+      } else {
+        return {"distance": "-", "duration": "-"};
+      }
+    } catch (e) {
+      // print(e);
+      return {"distance": "-", "duration": "-"};
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var livedata = Provider.of<LiveUserLocation>(context);
+    String userLat = livedata.latitude.toString();
+    String userLang = livedata.longitude.toString();
+
     return Scaffold(
       backgroundColor: secondaryColor5LightTheme,
       appBar: AppBar(
@@ -78,13 +110,34 @@ class _SearchBarPageState extends State<SearchBarPage> {
               child: Lottie.asset("images/Search.json", height: 127),
             )
           : FutureBuilder<List<dynamic>>(
-              future: http.search(query),
+              future: customhttp.search(query),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: CircularProgressIndicator(
-                    color: tgPrimaryColor,
-                  ));
+                  /////////// shimmer loading effect  ////////////////
+
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: ListTile(
+                      leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Container(
+                            width: 70,
+                            height: 250,
+                            color: Colors.white,
+                          )),
+                      title: Container(
+                        width: double.infinity,
+                        height: 10.0,
+                        color: Colors.white,
+                      ),
+                      subtitle: Container(
+                        width: double.infinity,
+                        height: 10.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
@@ -92,65 +145,173 @@ class _SearchBarPageState extends State<SearchBarPage> {
                     itemCount: snapshot.data?.length ?? 0,
                     itemBuilder: (context, index) {
                       var result = snapshot.data![index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          shadowColor: tgDarkPrimaryColor,
-                          color: const Color.fromARGB(255, 193, 228, 225),
-                          // color: tgLightPrimaryColor,
-                          elevation: 4,
-                          child: SizedBox(
-                            height: 100,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 13, bottom: 13),
+                      return FutureBuilder<Map<String, String>?>(
+                        future: fetchDistance(
+                          result['latitude'],
+                          result['longitude'],
+                          userLat,
+                          userLang,
+                        ),
+                        builder: (context, distanceSnapshot) {
+                          if (distanceSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            /////////////// shimmer loading effect /////////////////
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
                               child: ListTile(
                                 leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    result["profile_image"] == null ||
-                                            result["profile_image"].isEmpty
-                                        ? "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Noto_Emoji_v2.034_1f3e0.svg/800px-Noto_Emoji_v2.034_1f3e0.svg.png"
-                                        : result['profile_image'],
-                                    width: 70,
-                                    height: 250,
-                                    fit: BoxFit.cover,
-                                  ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Container(
+                                      width: 70,
+                                      height: 250,
+                                      color: Colors.white,
+                                    )),
+                                title: Container(
+                                  width: double.infinity,
+                                  height: 10.0,
+                                  color: Colors.white,
                                 ),
-                                title: Text(result['business_name'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: secondaryColor60LightTheme,
-                                        fontSize: 14)),
-                                subtitle: Padding(
-                                  padding: const EdgeInsets.only(top: 7),
-                                  child: Text(
-                                    result['business_description'],
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: secondaryColor40LightTheme,
-                                        fontSize: 12),
-                                  ),
+                                subtitle: Container(
+                                  width: double.infinity,
+                                  height: 10.0,
+                                  color: Colors.white,
                                 ),
-                                trailing: Icon(
-                                  LineAwesomeIcons.angle_right,
-                                  size: 16,
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DefaultProfilePage(
-                                        uid: result['business_uid'],
-                                      ),
-                                    ),
-                                  );
-                                },
                               ),
-                            ),
-                          ),
-                        ),
+                            );
+                          } else {
+                            final distance =
+                                distanceSnapshot.data?['distance'] ?? '...';
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                shadowColor: tgDarkPrimaryColor,
+                                color: const Color.fromARGB(255, 193, 228, 225),
+                                elevation: 4,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 4.0),
+                                          child: RatingBarIndicator(
+                                            rating: double.parse(
+                                                result['average_rating']
+                                                    .toString()),
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star,
+                                              color: Colors.amber.shade700,
+                                              // color: tgDarkPrimaryColor,
+                                            ),
+                                            itemCount: 5,
+                                            itemSize: 10.0,
+                                            direction: Axis.horizontal,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            width:
+                                                2), // Add space between the stars and the rating number
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 7),
+                                          child: Text(
+                                            result['average_rating'].toString(),
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                // fontWeight: FontWeight.bold,
+                                                fontSize: 9),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    ////////////// listile starts here ////////
+                                    Column(
+                                      children: [
+                                        ListTile(
+                                          leading: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              result["profile_image"] == null ||
+                                                      result["profile_image"]
+                                                          .isEmpty
+                                                  ? "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Noto_Emoji_v2.034_1f3e0.svg/800px-Noto_Emoji_v2.034_1f3e0.svg.png"
+                                                  : result['profile_image'],
+                                              width: 70,
+                                              height: 250,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          title: Text(result['business_name'],
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  color:
+                                                      secondaryColor60LightTheme,
+                                                  fontSize: 14)),
+                                          subtitle: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 7),
+                                            child: Text(
+                                              result['business_description'],
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  color:
+                                                      secondaryColor40LightTheme,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DefaultProfilePage(
+                                                  uid: result['business_uid'],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0, vertical: 3.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                result["country"],
+                                                style: TextStyle(
+                                                  color:
+                                                      secondaryColor40LightTheme,
+                                                  fontSize: 9,
+                                                ),
+                                              ),
+                                              Text(
+                                                " $distance Away",
+                                                style: TextStyle(
+                                                  color:
+                                                      secondaryColor40LightTheme,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       );
                     },
                   );

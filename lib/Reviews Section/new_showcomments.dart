@@ -57,11 +57,11 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                 Expanded(
                   child: Row(
                     children: [
-                      Text(
-                        "(",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w400),
-                      ),
+                      // Text(
+                      //   "(",
+                      //   style: TextStyle(
+                      //       fontSize: 16, fontWeight: FontWeight.w400),
+                      // ),
                       RatingBar.builder(
                         initialRating:
                             Provider.of<CommentSectionProvider>(context)
@@ -79,6 +79,21 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                         onRatingUpdate: (rating) {
                           print(rating);
                         },
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "(",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      ),
+                      Text(
+                        Provider.of<CommentSectionProvider>(context)
+                            .averageRating
+                            .toStringAsFixed(1),
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
                       ),
                       Text(
                         ")",

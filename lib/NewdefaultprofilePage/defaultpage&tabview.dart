@@ -159,24 +159,35 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         color: tgPrimaryText,
                       )),
                   actions: [
-                    RatingBar.builder(
-                      initialRating:
+                    Row(
+                      children: [
+                        RatingBar.builder(
+                          initialRating:
+                              Provider.of<CommentSectionProvider>(context)
+                                  .averageRating,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                          itemSize: 12,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber[700],
+                            size: 20,
+                          ),
+                          onRatingUpdate: (rating) {
+                            // print(rating);
+                          },
+                        ),
+                        SizedBox(width: 2),
+                        Text(
                           Provider.of<CommentSectionProvider>(context)
-                              .averageRating,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                      itemSize: 12,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber[700],
-                        size: 20,
-                      ),
-                      onRatingUpdate: (rating) {
-                        // print(rating);
-                      },
+                              .averageRating
+                              .toStringAsFixed(1),
+                          style: TextStyle(color: Colors.white, fontSize: 14),
+                        )
+                      ],
                     ),
                   ],
                   flexibleSpace: FlexibleSpaceBar(
@@ -195,7 +206,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                             ),
                     ),
                     background: Image.network(
-                      'https://th.bing.com/th/id/OIP.9Go9irZlGjlgtkYpdlX03gAAAA?pid=ImgDet&rs=1',
+                      data.businessProfileData!.profileImage,
                       fit: BoxFit.cover,
                     ),
                   ),
