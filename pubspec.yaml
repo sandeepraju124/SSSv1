@@ -62,6 +62,7 @@ dependencies:
   draggable_bottom_sheet: ^1.0.2
   flutter_svg: ^2.0.9
   shimmer: ^3.0.0
+  flutter_typeahead: ^5.1.0
 
   
   
