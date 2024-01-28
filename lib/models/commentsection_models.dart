@@ -44,12 +44,14 @@ class Review {
   DateTime createdAt;
   int rating;
   String userId;
+  String? username;
 
   Review({
     required this.comment,
     required this.createdAt,
     required this.rating,
     required this.userId,
+    this.username,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
@@ -57,6 +59,7 @@ class Review {
         createdAt: DateTime.parse(json["created_at"]),
         rating: json["rating"],
         userId: json["user_id"],
+        username: json["username"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,5 +67,6 @@ class Review {
         "created_at": createdAt.toIso8601String(),
         "rating": rating,
         "user_id": userId,
+        "username": username,
       };
 }

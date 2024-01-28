@@ -63,7 +63,7 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                       horizontal: 0,
                     ),
                     child: Icon(
-                      Icons.star,
+                      Icons.star_rounded,
                       color:
                           index < rating ? Colors.amber.shade700 : Colors.grey,
                       size: 32,

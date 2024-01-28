@@ -36,7 +36,7 @@ class Explore extends StatelessWidget {
                     Navigators().navigatorPush(
                         context,
                         Subcategory(
-                          subCat: "food",
+                          subCat: "Food",
                         ));
                   },
                   child: Container(
@@ -87,7 +87,7 @@ class Explore extends StatelessWidget {
                   Navigators().navigatorPush(
                       context,
                       Subcategory(
-                        subCat: "retail",
+                        subCat: "Retail",
                       ));
                 },
                 child: Container(

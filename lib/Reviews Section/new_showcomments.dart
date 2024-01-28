@@ -3,6 +3,8 @@
 // ignore: duplicate_ignore
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -11,8 +13,9 @@ import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
-import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+
+import "package:intl/intl.dart";
 
 import "package:lottie/lottie.dart";
 
@@ -32,6 +35,26 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
   // }
 
   final bool _showAllReviews = false;
+
+  Widget stars(int rating) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(
+        rating,
+        (index) => Icon(Icons.star_rounded,
+            color: Colors.amber[700],
+            // color: tgDarkPrimaryColor,
+            size: 16.0), // You can adjust the size as needed
+      ),
+    );
+  }
+
+  String formatDateTime(DateTime dateTime) {
+    final DateTime localDateTime = dateTime.toLocal();
+    final DateFormat dateFormatter = DateFormat('dd-MM-yyyy (EEE)', 'en_US');
+    final DateFormat timeFormatter = DateFormat('h:mm a', 'en_US');
+    return '${dateFormatter.format(localDateTime)} at ${timeFormatter.format(localDateTime)}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,10 +216,10 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                   itemBuilder: (BuildContext context, int int) {
                     var review = data.getCommentsData!.reviews[int];
 
-                    String stars(rating) {
-                      return List<String>.generate(rating, (index) => '⭐')
-                          .join();
-                    }
+                    // String stars(rating) {
+                    //   return List<String>.generate(rating, (index) => '⭐')
+                    //       .join();
+                    // }
 
                     return Container(
                       margin: EdgeInsets.all(8.0),
@@ -214,23 +237,37 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                         ],
                       ),
                       child: ListTile(
-                        title: Text(
-                          review.comment,
-                          style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              wordSpacing: 0.5,
-                              letterSpacing: -0.1,
-                              color: secondaryColor60LightTheme),
-                        ),
-                        subtitle: Text(
-                          'Rating: ${stars(review.rating)}\nPosted by: ${review.userId} on ${review.createdAt}',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: secondaryColor20LightTheme,
-                            fontFamily: "Roboto",
+                        title: Padding(
+                          padding: const EdgeInsets.only(top: 2, bottom: 8),
+                          child: Text(
+                            review.comment,
+                            style: TextStyle(
+                                fontFamily: "Roboto",
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                wordSpacing: 0.5,
+                                letterSpacing: -0.1,
+                                color: secondaryColor60LightTheme),
                           ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Rating: ",
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                                stars(review.rating),
+                              ],
+                            ), // This will display the row of stars
+
+                            Text(
+                              "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                          ],
                         ),
                       ),
                     );

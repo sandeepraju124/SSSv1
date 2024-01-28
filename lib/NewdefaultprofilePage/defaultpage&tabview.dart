@@ -140,8 +140,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     return Scaffold(
       body: data.isLoading
           ? Center(
-              child: Image.asset("images/loading.gif"),
-            )
+              child: CircularProgressIndicator(
+              color: tgDarkPrimaryColor,
+            ))
           : CustomScrollView(
               controller: _scrollController,
               slivers: <Widget>[

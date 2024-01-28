@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
@@ -12,7 +13,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/explore.dart';
 
-import '../widgets/services.dart';
+import '../Services (top) of homepage section/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   // List<RestaurantModels> _data = [];
 
   bool isFirstTime = true;
+  // bool _isLoading = true;
 
   @override
   void initState() {
@@ -42,7 +44,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     if (userprov.getUserData == null) {
       userprov.userProvider();
     }
+
+    // loadData();
+
+    // _isLoading = false;
   }
+
+  // Future<void> loadData() async {
+  //   try {
+  //     // Simulate a network call
+  //     await Future.delayed(Duration(seconds: 2));
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     // Handle error here
+  //     print("my lean cost $e");
+  //   }
+  // }
 
 //   @override
 //   void initState() {
@@ -65,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   // const MyHomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("homepage called");
+    // print("homepage called");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // _getCurrentLocation();
     });
@@ -73,14 +92,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     final userid = user?.uid;
     // var userpro = Provider.of<UserProvider>(context, listen: false);
     // userpro.userProvider();
-    if (kDebugMode) {
-      print("userid $userid");
-    }
+    // if (kDebugMode) {
+    //   print("userid $userid");
+    // }
 
-    // print(user?.email);
-    if (kDebugMode) {
-      print(user?.email);
-    }
+    // // print(user?.email);
+    // if (kDebugMode) {
+    //   print(user?.email);
+    // }
 
     // var searchlist = Provider.of<SearchlistProvider>(context, listen: false);
 
@@ -88,64 +107,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
     return Scaffold(
       extendBody: true,
-      // appBar: AppBar(
-      //   //// this is to diable appbar arrowback functionality //
-      //   // automaticallyImplyLeading: false,
+      /////////////////// Appbar for homepage is in BottomNav /////////////////////////
 
-      //   centerTitle: true,
-      //   title: Padding(
-      //     padding: EdgeInsets.symmetric(horizontal: 10),
-      //     child: Image.asset(
-      //       "images/logo4.png",
-      //       width: 120,
-      //       height: 110,
-      //       color: Colors.black,
-      //     ),
-      //   ),
-
-      //   // leading: Padding(
-      //   //   padding: const EdgeInsets.only(left: 16.5),
-      //   //   child: Builder(
-      //   //       builder: (context) => InkWell(
-      //   //             onTap: () {
-      //   //               Scaffold.of(context).openDrawer();
-      //   //             },
-      //   //             child: CircleAvatar(
-      //   //                 child: ClipOval(
-      //   //               child: Image.asset(
-      //   //                 'images/prof.png',
-      //   //               ),
-      //   //             )),
-      //   //           )),
-      //   // ),
-
-      //   // actions: [
-      //   //   Padding(
-      //   //     padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-      //   //     child: CircleAvatar(
-      //   //       radius: 28,
-      //   //       child: ClipOval(
-      //   //         child: Image.asset(
-      //   //           "images/prof.png",
-      //   //           fit: BoxFit.cover,
-      //   //           width: 48,
-      //   //           height: 48,
-      //   //         ),
-      //   //       ),
-      //   //     ),
-      //   //   ),
-      //   // ],
-      //   toolbarHeight: 75.0,
-      //   // backgroundColor: Colors.white,
-      //   // backgroundColor: tgPrimaryColor,
-      //   backgroundColor: Color.fromARGB(255, 78, 155, 151),
-      //   elevation: 3.0,
-      //   // leading: IconButton(
-      //   //   icon: const Icon(Icons.leak_remove, color: Colors.black, size: 35.0),
-      //   //   onPressed: () {},
-      //   // ),
-      // ),
-      body: Container(
+      body:
+          //  _isLoading
+          //     ? Shimmer.fromColors(
+          //         baseColor: Colors.grey[300]!,
+          //         highlightColor: Colors.grey[100]!,
+          //         child: Container(
+          //           width: double.infinity,
+          //           height: double.infinity,
+          //           color: Colors.white,
+          //         ),
+          //       )
+          //     :
+          Container(
         color: Colors.white,
         // color: Colors.teal[50],
         child: ListView(
@@ -166,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       "Our top pick",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
-                          fontSize: 20,
+                          fontSize: 17,
                           color: Colors.grey),
                     ),
                   )),
@@ -183,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       "Restaurant",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
-                          fontSize: 20,
+                          fontSize: 17,
                           color: Colors.grey),
                     ),
                   )),
@@ -196,10 +172,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                     child: Text(
-                      "categories",
+                      "Explore All ",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
-                          fontSize: 20,
+                          fontSize: 17,
                           color: Colors.grey),
                     ),
                   )),

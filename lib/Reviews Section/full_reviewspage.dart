@@ -7,6 +7,8 @@ import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:provider/provider.dart';
 
+import "package:intl/intl.dart";
+
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class showallreviewspage extends StatefulWidget {
@@ -17,6 +19,26 @@ class showallreviewspage extends StatefulWidget {
 }
 
 class _showallreviewspageState extends State<showallreviewspage> {
+  Widget stars(int rating) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(
+        rating,
+        (index) => Icon(Icons.star_rounded,
+            color: Colors.amber[700],
+            // color: tgDarkPrimaryColor,
+            size: 16.0), // You can adjust the size as needed
+      ),
+    );
+  }
+
+  String formatDateTime(DateTime dateTime) {
+    final DateTime localDateTime = dateTime.toLocal();
+    final DateFormat dateFormatter = DateFormat('dd-MM-yyyy (EEE)', 'en_US');
+    final DateFormat timeFormatter = DateFormat('h:mm a', 'en_US');
+    return '${dateFormatter.format(localDateTime)} at ${timeFormatter.format(localDateTime)}';
+  }
+
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
@@ -121,10 +143,10 @@ class _showallreviewspageState extends State<showallreviewspage> {
                             var review =
                                 data.getCommentsData!.reversedReviews[index];
 
-                            String stars(rating) {
-                              return List<String>.generate(
-                                  rating, (index) => '⭐').join();
-                            }
+                            // String stars(rating) {
+                            //   return List<String>.generate(
+                            //       rating, (index) => '⭐').join();
+                            // }
 
                             return Container(
                               margin: EdgeInsets.all(8.0),
@@ -153,9 +175,29 @@ class _showallreviewspageState extends State<showallreviewspage> {
                                       letterSpacing: -0.1,
                                       color: secondaryColor60LightTheme),
                                 ),
-                                subtitle: Text(
-                                  'Rating: ${stars(review.rating)}\nPosted by: ${review.userId} on ${review.createdAt}',
-                                  style: TextStyle(fontSize: 12.0),
+                                // subtitle: Text(
+                                //   'Rating: ${stars(review.rating)}\nPosted by: ${review.userId} on ${review.createdAt}',
+                                //   style: TextStyle(fontSize: 12.0),
+                                // ),
+
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Rating: ",
+                                          style: TextStyle(fontSize: 12.0),
+                                        ),
+                                        stars(review.rating),
+                                      ],
+                                    ), // This will display the row of stars
+                                    Text(
+                                      "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                                      style: TextStyle(fontSize: 12.0),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );

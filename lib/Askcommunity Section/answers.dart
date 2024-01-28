@@ -1,12 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, prefer_const_declarations
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class Answerpage extends StatefulWidget {
   const Answerpage({super.key, required this.questionid});

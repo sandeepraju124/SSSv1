@@ -66,7 +66,7 @@ class _SubcategoryState extends State<Subcategory> {
             icon: Icon(LineAwesomeIcons.angle_left)),
         title: Text(
           widget.subCat,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 17.2),
         ),
         backgroundColor: tgAccentColor,
       ),

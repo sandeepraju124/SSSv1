@@ -121,7 +121,9 @@ class OverviewPage extends StatelessWidget {
           SizedBox(width: 10),
           Text(
             "$label : ${value ?? "N/A"}",
-            style: TextStyle(color: secondaryColor40LightTheme),
+            style: TextStyle(
+                color: secondaryColor40LightTheme,
+                overflow: TextOverflow.ellipsis),
           ),
         ],
       ),

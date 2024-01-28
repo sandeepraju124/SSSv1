@@ -73,6 +73,8 @@ void main() async {
     ),
     ChangeNotifierProvider<UserActivityProvider>(
         create: (_) => UserActivityProvider()),
+    ChangeNotifierProvider<BusinessServicesProvider>(
+        create: (_) => BusinessServicesProvider()),
   ], child: MyApp()));
 }
 

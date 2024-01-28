@@ -13,7 +13,7 @@ import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 // ignore: unused_import
 import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/utils/constants.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'package:sssv1/User_Activity Section/user_activity_model.dart'
     as user_activity;
@@ -38,14 +38,31 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
         .userActivityProvider(userid);
   }
 
-  String stars(int rating) {
-    return List<String>.generate(rating, (index) => '⭐').join();
+  Widget stars(int rating) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(
+        rating,
+        (index) => Icon(Icons.star_rounded,
+            color: Colors.amber[700],
+
+            // color: tgDarkPrimaryColor,
+            size: 18.5), // You can adjust the size as needed
+      ),
+    );
   }
 
   Future<void> _handleRefresh() async {
     await Provider.of<UserActivityProvider>(context, listen: false)
         .userActivityProvider(userid);
     setState(() {});
+  }
+
+  String formatDateTime(DateTime dateTime) {
+    final DateTime localDateTime = dateTime.toLocal(); ///// for Local timezone
+    final DateFormat dateFormatter = DateFormat('dd-MM-yyyy (EEE)', 'en_US');
+    final DateFormat timeFormatter = DateFormat('h:mm a', 'en_US');
+    return '${dateFormatter.format(localDateTime)} at ${timeFormatter.format(localDateTime)}';
   }
 
   @override
@@ -125,7 +142,27 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 20),
+                                            // SizedBox(height: 7.0),
+                                            // SizedBox(height: 20),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 38),
+                                              child: Center(
+                                                child: Container(
+                                                    height: 5,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      color: tgPrimaryColor,
+                                                      border: Border(
+                                                          top: BorderSide(
+                                                              color:
+                                                                  tgPrimaryColor)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                    )),
+                                              ),
+                                            ),
                                             Container(
                                               decoration: BoxDecoration(
                                                   border: Border(
@@ -149,7 +186,9 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                       } else if (data.getUserActivityData!
                                           .comments.isEmpty) {
                                         return Padding(
-                                          padding: const EdgeInsets.all(40.0),
+                                          padding: const EdgeInsets.only(
+                                            top: 150,
+                                          ),
                                           child: Center(
                                               child: Text(
                                             "No Activity Yet",
@@ -189,25 +228,48 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                               ],
                                             ),
                                             child: ListTile(
-                                                leading: Text('$index. ',
-                                                    style:
-                                                        TextStyle(fontSize: 9)),
-                                                title: Text(
-                                                  comment.comment,
-                                                  style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      wordSpacing: 0.5,
-                                                      letterSpacing: -0.1,
-                                                      color:
-                                                          secondaryColor60LightTheme),
-                                                ),
-                                                subtitle: Text(
-                                                  "Rating: ${stars(comment.rating)}\nProvided for: ${comment.businessName}\nDate: ${comment.createdAt}",
+                                              leading: Text('$index. ',
                                                   style:
-                                                      TextStyle(fontSize: 12.0),
-                                                )),
+                                                      TextStyle(fontSize: 9)),
+                                              title: Text(
+                                                comment.comment,
+                                                style: TextStyle(
+                                                    fontSize: 14.5,
+                                                    fontWeight: FontWeight.w500,
+                                                    wordSpacing: 0.5,
+                                                    letterSpacing: -0.1,
+                                                    color:
+                                                        secondaryColor60LightTheme),
+                                              ),
+                                              // subtitle: Text(
+                                              //   "Rating: ${stars(comment.rating)}\nProvided for: ${comment.businessName}\nDate: ${comment.createdAt}",
+                                              //   style:
+                                              //       TextStyle(fontSize: 12.0),
+                                              // )
+
+                                              subtitle: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "Rating: ",
+                                                        style: TextStyle(
+                                                            fontSize: 12.0),
+                                                      ),
+                                                      stars(comment.rating),
+                                                    ],
+                                                  ), // This will display the row of stars
+
+                                                  Text(
+                                                    "Provided for: ${comment.businessName}\nDate: ${formatDateTime(comment.createdAt)}",
+                                                    style: TextStyle(
+                                                        fontSize: 12.0),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         );
                                       }
@@ -294,7 +356,26 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 20),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 38),
+                                              child: Center(
+                                                child: Container(
+                                                    height: 5,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      color: tgPrimaryColor,
+                                                      border: Border(
+                                                          top: BorderSide(
+                                                              color:
+                                                                  tgPrimaryColor)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                    )),
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
                                             Container(
                                               decoration: BoxDecoration(
                                                   border: Border(
@@ -316,7 +397,9 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                       } else if (data.getUserActivityData!
                                           .questions.isEmpty) {
                                         return Padding(
-                                          padding: const EdgeInsets.all(40.0),
+                                          padding: const EdgeInsets.only(
+                                            top: 150,
+                                          ),
                                           child: Center(
                                               child: Text(
                                             "No Activity Yet",
@@ -461,7 +544,26 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            SizedBox(height: 20),
+                                            // SizedBox(height: 20),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 38),
+                                              child: Center(
+                                                child: Container(
+                                                    height: 5,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      color: tgPrimaryColor,
+                                                      border: Border(
+                                                          top: BorderSide(
+                                                              color:
+                                                                  tgPrimaryColor)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                    )),
+                                              ),
+                                            ),
                                             Container(
                                               decoration: BoxDecoration(
                                                   border: Border(
@@ -483,7 +585,9 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                       } else if (data.getUserActivityData!
                                           .answers.isEmpty) {
                                         return Padding(
-                                          padding: const EdgeInsets.all(80.0),
+                                          padding: const EdgeInsets.only(
+                                            top: 150,
+                                          ),
                                           child: Center(
                                               child: Text(
                                             " No Activity Yet",

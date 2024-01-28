@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/utils/constants.dart';

@@ -23,7 +23,7 @@ class _RestaurantState extends State<Restaurant> {
     // print("fgh");
     // print(data);
     if (data.subcategoryListData!.isEmpty) {
-      data.subCategoryListProvider("restaurant");
+      data.subCategoryListProvider("Restaurant");
       // print("empty");
     }
 

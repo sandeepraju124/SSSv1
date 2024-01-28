@@ -91,8 +91,14 @@ class _SubCategoryListState extends State<SubCategoryList> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(LineAwesomeIcons.angle_left)),
-        title: Text(widget.subCat),
+            icon: Icon(
+              LineAwesomeIcons.angle_left,
+              size: 19,
+            )),
+        title: Text(
+          widget.subCat,
+          style: TextStyle(fontSize: 16.2),
+        ),
         // backgroundColor: Color.fromARGB(255, 78, 155, 151),
         backgroundColor: tgAccentColor,
       ),
