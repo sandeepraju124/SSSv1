@@ -10,6 +10,7 @@ import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:sssv1/providers/sub_category_provider.dart';
 
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
@@ -17,8 +18,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class SubCategoryList extends StatefulWidget {
-  String subCat;
-  SubCategoryList({Key? key, required this.subCat}) : super(key: key);
+  String keyy;
+  String value;
+  SubCategoryList({Key? key, required this.keyy, required this.value}) : super(key: key);
 
   @override
   _SubCategoryListState createState() => _SubCategoryListState();
@@ -31,8 +33,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
   @override
   void initState() {
     super.initState();
+    // var data = Provider.of<businessProvider>(context, listen: false);
+    // data.getBusinessProvider(widget.keyy, widget.value); 
     var data = Provider.of<SubcategoryListProvider>(context, listen: false);
-    data.subCategoryListProvider(widget.subCat);
+    data.subCategoryListProvider(widget.keyy, widget.value);
 
     // var livLoc = Provider.of<LiveUserLocation>(context, listen: false);
 
@@ -83,6 +87,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
     // print(livedata.longitude);
     String UserLat = livedata.latitude.toString();
     String UserLang = livedata.longitude.toString();
+    // var data = Provider.of<businessProvider>(context);
     var data = Provider.of<SubcategoryListProvider>(context);
 
     return Scaffold(
@@ -96,7 +101,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
               size: 19,
             )),
         title: Text(
-          widget.subCat,
+          widget.value,
           style: TextStyle(fontSize: 16.2),
         ),
         // backgroundColor: Color.fromARGB(255, 78, 155, 151),
@@ -110,12 +115,14 @@ class _SubCategoryListState extends State<SubCategoryList> {
             )
           : Material(
               child: ListView.builder(
-                itemCount: data.subcategoryListData?.length,
+                itemCount: data.subcategoryListData!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FutureBuilder(
                     future: fetchDistance(
-                        data.subcategoryListData![index].latitude,
-                        data.subcategoryListData![index].longitude,
+                        // data.subcategoryListData![index].latitude,
+                        // data.subcategoryListData![index].longitude,
+                        data.subcategoryListData![index].latitude.toString(),
+                        data.subcategoryListData![index].longitude.toString(),
                         UserLat,
                         UserLang),
                     builder: (context, snapshot) {
@@ -174,6 +181,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         //   DefaultProfile(
                         //       uid: data.subcategoryListData![index].businessUid),
                         DefaultProfilePage(
+                          // uid: data.subcategoryListData![index].businessUid,
                           uid: data.subcategoryListData![index].businessUid,
                         ));
                   },
@@ -204,7 +212,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                             width: 75,
                             height: 75,
                             child: Image.network(
-                              data.subcategoryListData![index].profileImage,
+                              // data.subcategoryListData![index].profileImage,
+                              data.subcategoryListData![index].profileImageUrl,
                               // snapshot.data![index]['image'],
                               // "https://plus.unsplash.com/premium_photo-1682800179834-c05e7c7d0a09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
 
@@ -221,8 +230,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                      data.subcategoryListData![index]
-                                          .businessName,
+                                      // data.subcategoryListData![index].businessName,
+                                      data.subcategoryListData![index].businessName,
                                       // style: TextStyle(color: Colors.white),
                                       // widget.data["name"],
                                       //  "Kritunga Restaurant",
@@ -233,8 +242,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                                     padding: const EdgeInsets.only(right: 5),
                                     child: Text(
                                       // "5/f 18 on lane ST, central hong kong near hong",
-                                      data.subcategoryListData![index]
-                                          .businessDescription,
+                                      // data.subcategoryListData![index].businessDescription,
+                                      data.subcategoryListData![index].businessDescription,
 
                                       style: TextStyle(
                                           fontSize: 11,
@@ -265,6 +274,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   onTap: () {
                     print("click");
                     makePhoneCall(
+                        // data.subcategoryListData![index].contactInformation);
                         data.subcategoryListData![index].contactInformation);
                   },
                   child: SizedBox(
@@ -294,9 +304,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         top: 8.0,
                         right: 11.0,
                         child: RatingBarIndicator(
-                          rating: double.parse(data
-                              .subcategoryListData![index].overallRating
-                              .toString()),
+                          rating: 4.0,
+                          // double.parse(data.subcategoryListData![index].overallRating.toString()),
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
                             color: Colors.amber,
@@ -310,9 +319,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                       Align(
                           alignment: Alignment.center,
                           child: Text(
-                              // "4.5",
-                              data.subcategoryListData![index].overallRating
-                                  .toString(),
+                              "4.5",
+                              // data.subcategoryListData![index].overallRating
+                              //     .toString(),
                               style: TextStyle(
                                   fontSize: 23, color: Colors.white))),
                       Padding(
@@ -320,8 +329,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                                data.subcategoryListData![index].reviewsLength
-                                    .toString(),
+                              "453",
+                                // data.subcategoryListData![index].reviewsLength
+                                //     .toString(),
                                 style: TextStyle(
                                     fontSize: 11, color: Colors.grey))),
                       ),

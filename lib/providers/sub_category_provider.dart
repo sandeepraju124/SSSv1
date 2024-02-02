@@ -1,28 +1,40 @@
 import 'package:flutter/cupertino.dart';
+import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/utils/constants.dart';
 
-class SubcategoryProvider with ChangeNotifier {
-  Subcategory? _subcategory;
+class businessProvider with ChangeNotifier {
+  late List<BusinessModel?> _businessData;
+  late List<String> _uniqueSubCategories;
   bool _isLoading = false;
 
-  Subcategory? get subcategoryData => _subcategory;
+  List<BusinessModel?> get getBusinessData => _businessData;
+  List get getUniqueSubcategoryData => _uniqueSubCategories;
   bool get isLoading => _isLoading;
 
   // List<Subcategory> _data = [];
   // List<Subcategory> get data => _data;
+  
 
-  Future<void> subCategoryProvider(subcategory) async {
+
+  Future<void> getBusinessProvider(key, value) async {
     _isLoading = true;
-    Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
-    _subcategory = datalist;
+    // Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
+    List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
+    _businessData = datalist;
+    _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();
+    print(_uniqueSubCategories);
+    print("_uniqueSubCategories");
+
+    
     _isLoading = false;
     notifyListeners();
     // print("datalist $datalist");
     // print("printing");
     // print(_subcategory?.subcategories[3]);
-    print(subcategoryData?.subcategories.length.toString());
+    // print(subcategoryData?.subcategories.length.toString());
+    print(getBusinessData.length);
     // print("changenotifier called");
   }
 }

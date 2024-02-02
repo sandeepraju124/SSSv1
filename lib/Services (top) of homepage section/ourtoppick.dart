@@ -10,16 +10,16 @@ import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
 
-class Services extends StatefulWidget {
-  const Services({
+class OurTopPick extends StatefulWidget {
+  const OurTopPick({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<OurTopPick> createState() => _OurTopPickState();
 }
 
-class _ServicesState extends State<Services> {
+class _OurTopPickState extends State<OurTopPick> {
   late BusinessServicesProvider businessServicesProvider;
 
   @override
@@ -110,7 +110,8 @@ class _ServicesState extends State<Services> {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return SubCategoryList(
-                                  subCat: businessServicesProvider
+                                keyy: "sub_category",
+                                  value: businessServicesProvider
                                       .subcategories[i]);
                             }));
                           },

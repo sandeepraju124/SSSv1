@@ -8,9 +8,10 @@ import 'package:sssv1/widgets/subcategory.dart';
 import 'package:lottie/lottie.dart';
 
 class Explore extends StatelessWidget {
-  const Explore({
+   Explore({
     Key? key,
   }) : super(key: key);
+  String keyy = "category" ;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,8 @@ class Explore extends StatelessWidget {
                     Navigators().navigatorPush(
                         context,
                         Subcategory(
-                          subCat: "Food",
+                          keyy: keyy,
+                          value: "Food",
                         ));
                   },
                   child: Container(
@@ -87,7 +89,8 @@ class Explore extends StatelessWidget {
                   Navigators().navigatorPush(
                       context,
                       Subcategory(
-                        subCat: "Retail",
+                        keyy: keyy,
+                        value: "Retail",
                       ));
                 },
                 child: Container(
@@ -126,7 +129,8 @@ class Explore extends StatelessWidget {
                   Navigators().navigatorPush(
                       context,
                       Subcategory(
-                        subCat: "Housing",
+                        keyy: keyy,
+                        value: "Housing",
                       ));
                 },
                 child: Container(
@@ -268,8 +272,8 @@ class Explore extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigators().navigatorPush(
-                        context, Subcategory(subCat: "Shopping"));
+                    // Navigators().navigatorPush(
+                    //     context, Subcategory(subCat: "Shopping"));
                   },
                   child: Container(
                     margin: const EdgeInsets.all(5),

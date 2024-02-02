@@ -13,7 +13,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/explore.dart';
 
-import '../Services (top) of homepage section/services.dart';
+import '../Services (top) of homepage section/ourtoppick.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           color: Colors.grey),
                     ),
                   )),
-              Services(),
+              OurTopPick(),
               SizedBox(
                 height: 10,
               ),

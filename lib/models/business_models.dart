@@ -1,89 +1,65 @@
-// // To parse this JSON data, do
-// //
-// //     final business = businessFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final businessModel = businessModelFromJson(jsonString);
 
-// import 'dart:convert';
+import 'dart:convert';
 
-// List<Business> businessFromJson(String str) => List<Business>.from(json.decode(str).map((x) => Business.fromJson(x)));
+List<BusinessModel> businessModelFromJson(String str) => List<BusinessModel>.from(json.decode(str).map((x) => BusinessModel.fromJson(x)));
 
-// String businessToJson(List<Business> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String businessModelToJson(List<BusinessModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-// class Business {
-//     String id;
-//     String businessDescription;
-//     String businessName;
-//     String businessUid;
-//     String category;
-//     String contactInformation;
-//     Country country;
-//     List<String> images;
-//     String latitude;
-//     String longitude;
-//     String profileImage;
-//     String subCategory;
+class BusinessModel {
+    String address;
+    String businessDescription;
+    String businessName;
+    String businessUid;
+    String category;
+    String contactInformation;
+    String country;
+    double latitude;
+    double longitude;
+    String profileImageUrl;
+    String subCategory;
 
-//     Business({
-//         required this.id,
-//         required this.businessDescription,
-//         required this.businessName,
-//         required this.businessUid,
-//         required this.category,
-//         required this.contactInformation,
-//         required this.country,
-//         required this.images,
-//         required this.latitude,
-//         required this.longitude,
-//         required this.profileImage,
-//         required this.subCategory,
-//     });
+    BusinessModel({
+        required this.address,
+        required this.businessDescription,
+        required this.businessName,
+        required this.businessUid,
+        required this.category,
+        required this.contactInformation,
+        required this.country,
+        required this.latitude,
+        required this.longitude,
+        required this.profileImageUrl,
+        required this.subCategory,
+    });
 
-//     factory Business.fromJson(Map<String, dynamic> json) => Business(
-//         id: json["_id"],
-//         businessDescription: json["business_description"],
-//         businessName: json["business_name"],
-//         businessUid: json["business_uid"],
-//         category: json["category"],
-//         contactInformation: json["contact_information"],
-//         country: countryValues.map[json["country"]]!,
-//         images: List<String>.from(json["images"].map((x) => x)),
-//         latitude: json["latitude"],
-//         longitude: json["longitude"],
-//         profileImage: json["profile_image"],
-//         subCategory: json["sub_category"],
-//     );
+    factory BusinessModel.fromJson(Map<String, dynamic> json) => BusinessModel(
+        address: json["address"],
+        businessDescription: json["business_description"],
+        businessName: json["business_name"],
+        businessUid: json["business_uid"],
+        category: json["category"],
+        contactInformation: json["contact_information"],
+        country: json["country"],
+        latitude: json["latitude"]?.toDouble(),
+        longitude: json["longitude"]?.toDouble(),
+        profileImageUrl: json["profile_image_url"],
+        subCategory: json["sub_category"],
+    );
 
-//     Map<String, dynamic> toJson() => {
-//         "_id": id,
-//         "business_description": businessDescription,
-//         "business_name": businessName,
-//         "business_uid": businessUid,
-//         "category": category,
-//         "contact_information": contactInformation,
-//         "country": countryValues.reverse[country],
-//         "images": List<dynamic>.from(images.map((x) => x)),
-//         "latitude": latitude,
-//         "longitude": longitude,
-//         "profile_image": profileImage,
-//         "sub_category": subCategory,
-//     };
-// }
-
-// // ignore: constant_identifier_names
-// enum Country { INDIA, COUNTRY_INDIA }
-
-// final countryValues = EnumValues({
-//     "India": Country.COUNTRY_INDIA,
-//     "india": Country.INDIA
-// });
-
-// class EnumValues<T> {
-//     Map<String, T> map;
-//     late Map<T, String> reverseMap;
-
-//     EnumValues(this.map);
-
-//     Map<T, String> get reverse {
-//         reverseMap = map.map((k, v) => MapEntry(v, k));
-//         return reverseMap;
-//     }
-// }
+    Map<String, dynamic> toJson() => {
+        "address": address,
+        "business_description": businessDescription,
+        "business_name": businessName,
+        "business_uid": businessUid,
+        "category": category,
+        "contact_information": contactInformation,
+        "country": country,
+        "latitude": latitude,
+        "longitude": longitude,
+        "profile_image_url": profileImageUrl,
+        "sub_category": subCategory,
+    };
+}

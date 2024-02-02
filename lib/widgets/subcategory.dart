@@ -11,9 +11,10 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Subcategory extends StatefulWidget {
-  String subCat;
+  String keyy;
+  String value;
 
-  Subcategory({super.key, required this.subCat});
+  Subcategory({required this.keyy, required this.value});
 
   @override
   State<Subcategory> createState() => _SubcategoryState();
@@ -33,29 +34,15 @@ class _SubcategoryState extends State<Subcategory> {
   @override
   void initState() {
     super.initState();
-    var data = Provider.of<SubcategoryProvider>(context, listen: false);
-    data.subCategoryProvider(widget.subCat);
+    var data = Provider.of<businessProvider>(context, listen: false);
+    data.getBusinessProvider(widget.keyy, widget.value); 
   }
 
-  // Future<void> saveBusinessDetails(
-  //     String businessName, String businessUid) async {
-  //   await FirebaseFirestore.instance.collection("businessdetails").add({
-  //     "businessName": businessName,
-  //     "businessUid": businessUid,
-  //     "subcategory": widget.subCat,
-  //     // Add more details here as needed
-  //   });
-  // }
-
-  // print(businessdetails) {
-  //   // TODO: implement print
-  //   throw UnimplementedError();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<SubcategoryProvider>(context);
-
+    var data = Provider.of<businessProvider>(context);
+    // List _uniqueSubCategories = data.getUniqueSubcategoryData;
     return Scaffold(
       backgroundColor: secondaryColor10LightTheme,
       appBar: AppBar(
@@ -65,7 +52,7 @@ class _SubcategoryState extends State<Subcategory> {
             },
             icon: Icon(LineAwesomeIcons.angle_left)),
         title: Text(
-          widget.subCat,
+          widget.value,
           style: TextStyle(color: Colors.white, fontSize: 17.2),
         ),
         backgroundColor: tgAccentColor,
@@ -79,7 +66,9 @@ class _SubcategoryState extends State<Subcategory> {
           : Padding(
               padding: const EdgeInsets.all(15.0),
               child: GridView.builder(
-                itemCount: data.subcategoryData?.subcategories.length,
+                // itemCount: data.subcategoryData?.subcategories.length,
+                // itemCount: data.getBusinessData.length,
+                itemCount: data.getUniqueSubcategoryData.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
@@ -87,10 +76,11 @@ class _SubcategoryState extends State<Subcategory> {
                   childAspectRatio: 150 / 230,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  final category = data.subcategoryData!.subcategories[index];
+                  // String category = data.getBusinessData[index]!.subCategory;
+                  String subcategory = data.getUniqueSubcategoryData[index];
                   // print(category);
 
-                  final gifImage = categoryGifs[category] ?? 'images/food.gif';
+                  final gifImage = categoryGifs[subcategory] ?? 'images/food.gif';
 
                   return SizedBox(
                     child: GestureDetector(
@@ -98,7 +88,8 @@ class _SubcategoryState extends State<Subcategory> {
                         Navigators().navigatorPush(
                           context,
                           SubCategoryList(
-                            subCat: category,
+                            keyy: "sub_category",
+                            value: subcategory,
                           ),
                         );
 
@@ -152,7 +143,7 @@ class _SubcategoryState extends State<Subcategory> {
                               ),
                               child: Center(
                                 child: Text(
-                                  category,
+                                  subcategory,
                                   style: const TextStyle(color: Colors.black54),
                                 ),
                               ),

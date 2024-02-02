@@ -51,6 +51,8 @@ class _SearchLocationScreenState extends State<SearchLocationScreen> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,8 +142,9 @@ class _SearchLocationScreenState extends State<SearchLocationScreen> {
               // itemCount: 1,
               itemBuilder: (context, index) => LocationListTile(
                     press: () {
-                      print(placePredictions[index].placeId);
+                      print("143    " +  placePredictions[index].placeId);
                       selectedPlace = placePredictions[index];
+                      // calclulate_geohash();
                       showConfirmationDialog(context,placePredictions[index].description);
                       // Navigator.push(
                       //   context,

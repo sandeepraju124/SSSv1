@@ -68,7 +68,9 @@ class AllSubcategoriesPage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return SubCategoryList(subCat: subcategory);
+                        return SubCategoryList(
+                          keyy: "sub_category",
+                          value: subcategory);
                       }));
                     },
                     child: Column(
