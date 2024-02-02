@@ -39,12 +39,45 @@ class CommentSectionModels {
   }
 }
 
+// class Review {
+//   String comment;
+//   DateTime createdAt;
+//   int rating;
+//   String userId;
+//   String? username;
+
+//   Review({
+//     required this.comment,
+//     required this.createdAt,
+//     required this.rating,
+//     required this.userId,
+//     this.username,
+//   });
+
+//   factory Review.fromJson(Map<String, dynamic> json) => Review(
+//         comment: json["comment"],
+//         createdAt: DateTime.parse(json["created_at"]),
+//         rating: json["rating"],
+//         userId: json["user_id"],
+//         username: json["username"],
+//       );
+
+//   Map<String, dynamic> toJson() => {
+//         "comment": comment,
+//         "created_at": createdAt.toIso8601String(),
+//         "rating": rating,
+//         "user_id": userId,
+//         "username": username,
+//       };
+
 class Review {
   String comment;
   DateTime createdAt;
   int rating;
   String userId;
   String? username;
+  String? reviewId;
+  DateTime? updatedAt;
 
   Review({
     required this.comment,
@@ -52,6 +85,8 @@ class Review {
     required this.rating,
     required this.userId,
     this.username,
+    this.reviewId,
+    this.updatedAt,
   });
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
@@ -60,6 +95,10 @@ class Review {
         rating: json["rating"],
         userId: json["user_id"],
         username: json["username"],
+        reviewId: json["review_id"],
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,5 +107,7 @@ class Review {
         "rating": rating,
         "user_id": userId,
         "username": username,
+        "review_id": reviewId,
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

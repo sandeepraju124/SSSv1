@@ -48,6 +48,10 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<AskCommunityProvider>(context, listen: true);
+
+    // Use a local variable to simplify null checks
+    var askCommunityData = data.askCommunityData;
+
     return SizedBox(
       height: 400,
       child: Column(
@@ -95,7 +99,8 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                 //   color: Colors.grey, // Optional - set the color of the divider
                 //   thickness: 1, // Optional - set the thickness of the divider
                 // ),
-                if (data.askCommunityData!.data.isNotEmpty) ...[
+                if (askCommunityData != null &&
+                    askCommunityData.data.isNotEmpty) ...[
                   Padding(
                     padding: const EdgeInsets.only(right: 220, top: 10),
                     child: Column(
@@ -116,7 +121,7 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
           ),
           data.isLoading
               ? Center(child: CircularProgressIndicator(color: tgPrimaryColor))
-              : data.askCommunityData?.data.isEmpty == true
+              : askCommunityData == null || askCommunityData.data.isEmpty
                   ? Center(
                       child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -134,8 +139,8 @@ class _AskForCommunityWidgetState extends State<AskForCommunityWidget> {
                   : ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: min(displayQuestionCount,
-                          data.askCommunityData!.data.length),
+                      itemCount: min(
+                          displayQuestionCount, askCommunityData.data.length),
                       itemBuilder: (BuildContext context, int int) {
                         var question = data.askCommunityData!.data[int];
                         var answers = question.answers;

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, prefer_const_declarations
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/Askcommunity%20Section/edit%20Q&A/editanswerbottomsheet.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -24,54 +26,6 @@ class _AnswerpageState extends State<Answerpage> {
     _answercontroller.clear();
     super.dispose();
   }
-
-  // Future<void> PostAnswer(
-  //   String Answer,
-  //   String questionId,
-  // ) async {
-  //   final String url = "$baseUrl/post_answer";
-  //   final user = FirebaseAuth.instance.currentUser;
-
-  //   final userid = user?.uid;
-  //   final Map<String, dynamic> data = {
-  //     "answer": Answer,
-  //     "questionid": questionId,
-  //     "userid": userid,
-  //   };
-
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(url),
-  //       body: data,
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       print("Answer posted successfully");
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text("Answer posted successfully"),
-  //         ),
-  //       );
-  //       _answercontroller.clear();
-
-  //       // Provider.of<AskCommunityProvider>(context, listen: false)
-  //       //     .fetchAskCommunityData(userid!);
-
-  //       // You can add further logic here if needed, such as showing a success message.
-  //     } else {
-  //       print("Failed to post question. Status code: ${response.statusCode}");
-  //       print('Response body: ${response.body}');
-  //       // You can handle errors here, e.g., showing an error message to the user.
-  //     }
-  //   } catch (e) {
-  //     print('Error: $e');
-  //     // Handle any other exceptions that may occur during the request.
-  //   }
-  // }
-
-  // Future<void> _refreshData() async {
-  //   // ... (unchanged)
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,23 +69,6 @@ class _AnswerpageState extends State<Answerpage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Row(
-                      //   children: [
-                      //     CircleAvatar(
-                      //       backgroundImage: NetworkImage(
-                      //         "https://th.bing.com/th/id/R.c9c9904d93d37519ff2dc20a5d49822d?rik=%2b8eGxeUiX6ieLw&riu=http%3a%2f%2fstatic6.businessinsider.com%2fimage%2f56055b87dd0895cb7b8b4645-2400%2felon-musk-387.jpg&ehk=yx7rWOWwuAqxzomXOnkBGh%2bBSK18QWQB8ZwlnXvYDrw%3d&risl=&pid=ImgRaw&r=0",
-                      //       ),
-                      //     ),
-                      //     Padding(
-                      //       padding:
-                      //           const EdgeInsets.only(left: 10, right: 10),
-                      //       child: Text(
-                      //         'Musk',
-                      //         style: TextStyle(color: tgSecondaryText),
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
                       Padding(
                         padding: const EdgeInsets.only(top: 13, bottom: 5),
                         child: Text(
@@ -209,29 +146,197 @@ class _AnswerpageState extends State<Answerpage> {
                       ////////////////////// answers display //////////////
 
                       for (var answer in answers)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Card(
-                              margin: EdgeInsets.symmetric(
-                                vertical: 12,
+                        GestureDetector(
+                          onLongPress: () {
+                            final currentuser =
+                                FirebaseAuth.instance.currentUser?.uid;
+
+                            if (currentuser != null &&
+                                currentuser == answer.adetails.userid) {
+                              showModalBottomSheet(
+                                context: context,
+                                elevation: 6,
+                                isScrollControlled: true,
+                                backgroundColor: tgLightPrimaryColor,
+                                builder: (BuildContext context) {
+                                  return Wrap(
+                                    children: <Widget>[
+                                      ListTile(
+                                        leading: Icon(
+                                          Icons.edit,
+                                          size: 20.5,
+                                        ),
+                                        title: Text('Edit'),
+                                        onTap: () {
+                                          // Close the bottom sheet
+                                          Navigator.pop(context);
+
+                                          // Open the new modal bottom sheet after a delay
+                                          Future.delayed(Duration.zero, () {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: MediaQuery.of(
+                                                                context)
+                                                            .viewInsets
+                                                            .bottom),
+                                                    child:
+                                                        EditAnswerBottomSheet(
+                                                      businessUid: data
+                                                          .askCommunityData!
+                                                          .businessUid,
+                                                      questionId: question
+                                                          .qdetails.questionid,
+                                                      answerId: answer.adetails
+                                                              .answerid ??
+                                                          "",
+                                                      currentAnswerText:
+                                                          answer.answer ?? "",
+                                                    ));
+                                              },
+                                            );
+                                          });
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: Icon(
+                                          Icons.delete,
+                                          size: 20.5,
+                                        ),
+                                        title: Text('Delete'),
+                                        onTap: () {
+                                          // Close the bottom sheet
+                                          Navigator.pop(context);
+                                          // Show confirmation dialog
+                                          showDialog(
+                                            context: context,
+                                            builder:
+                                                (BuildContext dialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  'Confirm Delete',
+                                                  style: TextStyle(
+                                                      color:
+                                                          tgDarkPrimaryColor),
+                                                ),
+                                                content: Text(
+                                                    'Are you sure you want to delete this question?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(
+                                                                dialogContext)
+                                                            .pop(false),
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                          color:
+                                                              tgDarkPrimaryColor),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      Navigator.of(
+                                                              dialogContext)
+                                                          .pop();
+
+                                                      await data
+                                                          .deleteAnswer(
+                                                        context,
+                                                        data.askCommunityData!
+                                                            .businessUid,
+                                                        question.qdetails
+                                                            .questionid,
+                                                        answer.adetails
+                                                                .answerid ??
+                                                            "",
+                                                      )
+                                                          .then((success) {
+                                                        if (success) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content: Text(
+                                                                  "Question deleted Successfully"),
+                                                              behavior:
+                                                                  SnackBarBehavior
+                                                                      .floating,
+                                                            ),
+                                                          );
+                                                        } else {
+                                                          // Optionally, show an error message if the deletion failed
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              content: Text(
+                                                                  "Failed to delete question"),
+                                                              behavior:
+                                                                  SnackBarBehavior
+                                                                      .floating,
+                                                            ),
+                                                          );
+                                                        }
+                                                        Navigator.of(
+                                                                dialogContext)
+                                                            .pop();
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      'Delete',
+                                                      style: TextStyle(
+                                                          color:
+                                                              tgDarkPrimaryColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  "Oops! This answer can only be edited or removed by its original poster.",
+                                  style: TextStyle(fontSize: 12.5),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                              ));
+                            }
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Card(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                color: tgLightPrimaryColor,
+                                elevation: 0.9,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("A: ${answer.answer}"),
+                                ),
                               ),
-                              color: tgLightPrimaryColor,
-                              elevation: 0.9,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("A: ${answer.answer}"),
-                              ),
-                            ),
-                            Divider(
-                              thickness: 0.4,
-                              indent: 0.6,
-                              endIndent: 0.6,
-                            )
-                          ],
+                              Divider(
+                                thickness: 0.4,
+                                indent: 0.6,
+                                endIndent: 0.6,
+                              )
+                            ],
+                          ),
                         ),
                       SizedBox(height: 10),
 

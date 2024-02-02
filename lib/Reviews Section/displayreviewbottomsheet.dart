@@ -63,7 +63,7 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                       horizontal: 0,
                     ),
                     child: Icon(
-                      Icons.star_rounded,
+                      Icons.star,
                       color:
                           index < rating ? Colors.amber.shade700 : Colors.grey,
                       size: 32,
@@ -102,10 +102,10 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText:
-                            'What did you like or dislike? Be concise and helpful.',
+                            'Share your experience and help others make informed decisions',
                         hintStyle: TextStyle(
                           color: Colors.grey,
-                          fontSize: 14,
+                          fontSize: 12,
                         ),
                       ),
                     ),

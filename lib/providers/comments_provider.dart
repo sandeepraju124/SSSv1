@@ -110,4 +110,114 @@ class CommentSectionProvider extends ChangeNotifier {
     }
     return false;
   }
+
+  ///////////////   Edit comment ////////////
+
+  Future<bool> editCommentProvider({
+    required BuildContext
+        context, // Added context parameter to show the snackbar
+    required String business_uid,
+    required String review_id,
+    required String user_id,
+    required int rating,
+    required String review,
+  }) async {
+    try {
+      _isLoading = true;
+
+      final body = {
+        'business_uid': business_uid,
+        'review_id': review_id,
+        'user_id': user_id,
+        'rating': rating.toString(),
+        'review': review,
+      };
+
+      final url = Uri.parse("$baseUrl/editcomment");
+      final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+      final response = await http.put(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print("comment edited successfully");
+        _isLoading = false;
+
+        // Show a snackbar with a success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Review updated successfully"),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+        // Refresh the comments to reflect the changes
+        await commentSectionProvider(business_uid);
+
+        return true;
+      } else {
+        print("Failed to edit comment. Status code: ${response.statusCode}");
+        print('Response body: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Error editing comment: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+    }
+  }
+
+  /////////////////  delete comment //////////////////
+  ///
+  Future<bool> deleteCommentProvider({
+    required BuildContext context, // Context needed to show the snackbar
+    required String business_uid,
+    required String review_id,
+    required String user_id,
+  }) async {
+    try {
+      _isLoading = true;
+
+      final body = {
+        'business_uid': business_uid,
+        'review_id': review_id,
+        'user_id': user_id,
+      };
+
+      final url = Uri.parse("$baseUrl/deletecomment");
+      final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+      final response = await http.delete(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        print("comment deleted successfully");
+        _isLoading = false;
+
+        // Check if the context is still mounted before showing the SnackBar
+        // if (!mounted) return false;
+
+        // Show a snackbar with a success message
+        // Check if the context is not null and the current route is still active before showing the SnackBar
+        // if (context != null && Navigator.canPop(context)) {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text("Comment deleted successfully"),
+        //     behavior: SnackBarBehavior.floating,
+        //   ),
+        // );
+        // }
+
+        // Refresh the comments to reflect the changes
+        await commentSectionProvider(business_uid);
+
+        return true;
+      } else {
+        print("Failed to delete comment. Status code: ${response.statusCode}");
+        print('Response body: ${response.body}');
+        return false;
+      }
+    } catch (e) {
+      print('Error deleting comment: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+    }
+  }
 }

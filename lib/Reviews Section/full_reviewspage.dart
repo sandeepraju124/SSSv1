@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
+import 'package:sssv1/Reviews%20Section/updatereviewbottomsheet.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -27,7 +30,7 @@ class _showallreviewspageState extends State<showallreviewspage> {
         (index) => Icon(Icons.star_rounded,
             color: Colors.amber[700],
             // color: tgDarkPrimaryColor,
-            size: 16.0), // You can adjust the size as needed
+            size: 21.0), // You can adjust the size as needed
       ),
     );
   }
@@ -43,8 +46,11 @@ class _showallreviewspageState extends State<showallreviewspage> {
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
+    final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+        GlobalKey<ScaffoldMessengerState>();
 
     return Scaffold(
+      key: scaffoldMessengerKey,
       appBar: AppBar(
         backgroundColor: tgPrimaryColor,
         leading: IconButton(
@@ -148,56 +154,237 @@ class _showallreviewspageState extends State<showallreviewspage> {
                             //       rating, (index) => '⭐').join();
                             // }
 
-                            return Container(
-                              margin: EdgeInsets.all(8.0),
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: ListTile(
-                                leading: Text('${index + 1}. ',
-                                    style: TextStyle(fontSize: 9)),
-                                title: Text(
-                                  review.comment,
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                      wordSpacing: 0.5,
-                                      letterSpacing: -0.1,
-                                      color: secondaryColor60LightTheme),
-                                ),
-                                // subtitle: Text(
-                                //   'Rating: ${stars(review.rating)}\nPosted by: ${review.userId} on ${review.createdAt}',
-                                //   style: TextStyle(fontSize: 12.0),
-                                // ),
+                            return InkWell(
+                              onLongPress: () {
+                                // Assuming 'currentUserId' is the ID of the current user
+                                // and 'review.userId' contains the ID of the user who posted the comment
+                                // You need to define or fetch 'currentUserId' from your user management system
+                                final Currentuser =
+                                    FirebaseAuth.instance.currentUser?.uid;
+                                // String? userid;
 
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 5),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Rating: ",
-                                          style: TextStyle(fontSize: 12.0),
-                                        ),
-                                        stars(review.rating),
-                                      ],
-                                    ), // This will display the row of stars
-                                    Text(
-                                      "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
-                                      style: TextStyle(fontSize: 12.0),
+                                ////// below edit & delete options only being dispalyed if authorized Userid matches ///////
+
+                                if (Currentuser != null &&
+                                    Currentuser == review.userId) {
+                                  showModalBottomSheet(
+                                    backgroundColor: tgLightPrimaryColor,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Wrap(
+                                        children: <Widget>[
+                                          ListTile(
+                                            leading: Icon(
+                                              Icons.edit,
+                                              size: 20.5,
+                                            ),
+                                            title: Text(
+                                              'Edit',
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                              showModalBottomSheet(
+                                                context: context,
+                                                elevation: 6,
+                                                isScrollControlled: true,
+                                                backgroundColor: Colors.white,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.only(
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets
+                                                              .bottom,
+                                                    ),
+                                                    child: UpdatecommentPage(
+                                                      businessUid: data1
+                                                          .businessProfileData!
+                                                          .businessUid,
+                                                      reviewId: review.reviewId
+                                                          .toString(),
+                                                      userId: review.userId,
+                                                      currentReview:
+                                                          review.comment,
+                                                      currentRating:
+                                                          review.rating,
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                          ListTile(
+                                            leading: Icon(
+                                              Icons.delete,
+                                              size: 20.3,
+                                            ),
+                                            title: Text(
+                                              'Delete',
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                            onTap: () {
+                                              // Close the bottom sheet first
+                                              Navigator.pop(context); //
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                      'Confirm Deletion',
+                                                      style: TextStyle(
+                                                          color:
+                                                              tgDarkPrimaryColor),
+                                                    ),
+                                                    content: Text(
+                                                        'Are you sure you want to delete this comment?'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  tgDarkPrimaryColor),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop(); // Dismiss the dialog but do nothing
+                                                        },
+                                                      ),
+                                                      TextButton(
+                                                        child: Text(
+                                                          'Delete',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  tgDarkPrimaryColor),
+                                                        ),
+                                                        onPressed: () {
+                                                          data
+                                                              .deleteCommentProvider(
+                                                                  context:
+                                                                      context,
+                                                                  business_uid: data1
+                                                                      .businessProfileData!
+                                                                      .businessUid,
+                                                                  review_id: review
+                                                                      .reviewId
+                                                                      .toString(),
+                                                                  user_id: review
+                                                                      .userId)
+                                                              .then(
+                                                                  (success) => {
+                                                                        if (success)
+                                                                          {
+                                                                            scaffoldMessengerKey.currentState?.showSnackBar(
+                                                                              SnackBar(
+                                                                                content: Text('Review deleted successfully'),
+                                                                                behavior: SnackBarBehavior.floating,
+                                                                              ),
+                                                                            ),
+                                                                            // Navigator.pop(context) // Close the dialog
+                                                                          }
+                                                                        else
+                                                                          {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                content: Text('Failed to delete comment'),
+                                                                                behavior: SnackBarBehavior.floating,
+                                                                              ),
+                                                                            )
+                                                                          }
+                                                                      });
+                                                          Navigator.of(context)
+                                                              .pop(); // Dismiss the dialog after attempting to delete
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "Oops! This review can only be edited or removed by its original poster.",
+                                        style: TextStyle(fontSize: 12.5),
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                    ),
+                                  );
+                                }
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3),
                                     ),
                                   ],
+                                ),
+                                child: ListTile(
+                                  leading: Text('${index + 1}. ',
+                                      style: TextStyle(fontSize: 9)),
+                                  title: Text(
+                                    review.comment,
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                        wordSpacing: 0.5,
+                                        letterSpacing: -0.1,
+                                        color: secondaryColor60LightTheme),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 5),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Rated: ",
+                                            style: TextStyle(fontSize: 12.0),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 2),
+                                            child: stars(review.rating),
+                                          ),
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                                      //   style: TextStyle(fontSize: 12.0),
+                                      // ),
+
+                                      // review.updatedAt != null
+                                      //     ? Text(
+                                      //         "Updated on: ${formatDateTime(review.updatedAt!)}",
+                                      //         style: TextStyle(fontSize: 12.0),
+                                      //       )
+                                      //     : Container(),
+                                      Text(
+                                        review.updatedAt != null
+                                            ? "Posted by: ${review.username}\nLast Updated on: ${formatDateTime(review.updatedAt!)}"
+                                            : "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                                        style: TextStyle(fontSize: 12.0),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
