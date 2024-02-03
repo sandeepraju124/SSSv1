@@ -34,14 +34,18 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     // it will get the user location when latitude null
-    var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
-    if (liveLoc.latitude == null) {
-      // print("null");
-      liveLoc.getCurrentLocation();
-    }
+    // var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+    // if (liveLoc.latitude == null) {
+    //   print("called if in homepage init");
+    //   // print("null");
+    //   liveLoc.getCurrentLocation();
+    // }
 
     var userprov = Provider.of<UserProvider>(context, listen: false);
+    print("init in homepage init");
+    print(userprov.getUserData);
     if (userprov.getUserData == null) {
+      print("if called in homepage init for getUserData");
       userprov.userProvider();
     }
 

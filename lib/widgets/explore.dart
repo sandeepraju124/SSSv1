@@ -98,8 +98,9 @@ class Explore extends StatelessWidget {
                   height: 85,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(
-                            "https://img.freepik.com/free-photo/view-3d-cinema-elements_23-2150720756.jpg?t=st=1705147196~exp=1705150796~hmac=064111f14d03c4314f5407fab892108b6641c5fb89ad888566e46278f4704719&w=826"),
+                        image: AssetImage("images/nophotocommingsoon.jpg"),
+                        // NetworkImage(
+                        //     "https://img.freepik.com/free-photo/view-3d-cinema-elements_23-2150720756.jpg?t=st=1705147196~exp=1705150796~hmac=064111f14d03c4314f5407fab892108b6641c5fb89ad888566e46278f4704719&w=826"),
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(
@@ -138,8 +139,9 @@ class Explore extends StatelessWidget {
                   height: 85,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(
-                            "https://img.freepik.com/free-photo/mumbai-skyline-skyscrapers-construction_469504-21.jpg?w=826&t=st=1705152816~exp=1705153416~hmac=f4da6cd129c0f74553a92836c8a8cac0e9767c0360a8815e1a4dcfad6bd4b90b"),
+                        image: AssetImage("images/nophotocommingsoon.jpg"),
+                        // NetworkImage(
+                        //     "https://img.freepik.com/free-photo/mumbai-skyline-skyscrapers-construction_469504-21.jpg?w=826&t=st=1705152816~exp=1705153416~hmac=f4da6cd129c0f74553a92836c8a8cac0e9767c0360a8815e1a4dcfad6bd4b90b"),
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(
@@ -181,8 +183,9 @@ class Explore extends StatelessWidget {
                     // color: Colors.redAccent,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(
-                              "https://img.freepik.com/free-photo/young-beautiful-woman-having-face-massage-relaxing-spa_1150-3124.jpg?w=826&t=st=1705148796~exp=1705149396~hmac=c85f8f4dd8c07b08011e526a15d5ae88f2d07a710a0a03b239817d176a2e307f"),
+                          image: AssetImage("images/nophotocommingsoon.jpg"),
+                          // NetworkImage(
+                          //     "https://img.freepik.com/free-photo/young-beautiful-woman-having-face-massage-relaxing-spa_1150-3124.jpg?w=826&t=st=1705148796~exp=1705149396~hmac=c85f8f4dd8c07b08011e526a15d5ae88f2d07a710a0a03b239817d176a2e307f"),
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(
@@ -212,8 +215,9 @@ class Explore extends StatelessWidget {
                 height: 85,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://brightonpanelworks.com.au/wp-content/uploads/2022/05/mechanic-in-overalls-repairing-car-in-auto-repair-2021-08-29-22-51-18-utc-1-1080x675.jpg"),
+                      image: AssetImage("images/nophotocommingsoon.jpg"),
+                      // NetworkImage(
+                      //     "https://brightonpanelworks.com.au/wp-content/uploads/2022/05/mechanic-in-overalls-repairing-car-in-auto-repair-2021-08-29-22-51-18-utc-1-1080x675.jpg"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(
@@ -241,8 +245,9 @@ class Explore extends StatelessWidget {
                 height: 85,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://img.freepik.com/premium-photo/people-enjoying-party_53876-32853.jpg?w=826"),
+                      image: AssetImage("images/nophotocommingsoon.jpg"),
+                      // NetworkImage(
+                      //     "https://img.freepik.com/premium-photo/people-enjoying-party_53876-32853.jpg?w=826"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(
@@ -281,8 +286,9 @@ class Explore extends StatelessWidget {
                     // color: Colors.redAccent,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage(
-                              "https://img.freepik.com/free-photo/female-friends-out-shopping-together_53876-25041.jpg?w=826&t=st=1705149348~exp=1705149948~hmac=b6d873ace3791d96af33ee5aa883844bab728060680e138cb604a9dffd1f1cdd"),
+                          image: AssetImage("images/nophotocommingsoon.jpg"),
+                          // NetworkImage(
+                          //     "https://img.freepik.com/free-photo/female-friends-out-shopping-together_53876-25041.jpg?w=826&t=st=1705149348~exp=1705149948~hmac=b6d873ace3791d96af33ee5aa883844bab728060680e138cb604a9dffd1f1cdd"),
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(
@@ -312,8 +318,9 @@ class Explore extends StatelessWidget {
                 height: 85,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://img.freepik.com/free-photo/medical-banner-with-doctor-wearing-goggles_23-2149611193.jpg?w=826&t=st=1705149984~exp=1705150584~hmac=568b242a91f3be0b575b157adb4c6dedb4615cadabbd1bbbcdc0260677c0d1eb"),
+                      image: AssetImage("images/nophotocommingsoon.jpg"),
+                      // NetworkImage(
+                      //     "https://img.freepik.com/free-photo/medical-banner-with-doctor-wearing-goggles_23-2149611193.jpg?w=826&t=st=1705149984~exp=1705150584~hmac=568b242a91f3be0b575b157adb4c6dedb4615cadabbd1bbbcdc0260677c0d1eb"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(
@@ -341,8 +348,9 @@ class Explore extends StatelessWidget {
                 height: 85,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          "https://img.freepik.com/free-photo/urban-city-architecture_649448-5343.jpg?w=826&t=st=1705149947~exp=1705150547~hmac=f815260218c081a8e67cc7d6ea64735607dd30fec1594893eca29a485099f2e4"),
+                      image: AssetImage("images/nophotocommingsoon.jpg"),
+                      // NetworkImage(
+                      //     "https://img.freepik.com/free-photo/urban-city-architecture_649448-5343.jpg?w=826&t=st=1705149947~exp=1705150547~hmac=f815260218c081a8e67cc7d6ea64735607dd30fec1594893eca29a485099f2e4"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(
@@ -373,8 +381,9 @@ class Explore extends StatelessWidget {
                   // color: Colors.redAccent,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(
-                            "https://img.freepik.com/free-photo/city-committed-education-collage-concept_23-2150062222.jpg?w=826&t=st=1705149453~exp=1705150053~hmac=777122c6aec29b4a6dacf11e9098e9011dc6cb6866c42166c77d311e294efd32"),
+                        image: AssetImage("images/nophotocommingsoon.jpg"),
+                        // NetworkImage(
+                        //     "https://img.freepik.com/free-photo/city-committed-education-collage-concept_23-2150062222.jpg?w=826&t=st=1705149453~exp=1705150053~hmac=777122c6aec29b4a6dacf11e9098e9011dc6cb6866c42166c77d311e294efd32"),
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(
@@ -402,9 +411,10 @@ class Explore extends StatelessWidget {
                       image: DecorationImage(
                         // image: AssetImage("images/modell.jpeg"),
 
-                        image: NetworkImage(
-                            "https://img.freepik.com/free-photo/cute-pet-collage-isolated_23-2150007407.jpg?w=740&t=st=1705149510~exp=1705150110~hmac=23ed8c8dbf1277fba3d1423799a6a764b07d63d203cb8a7c0b8b12c2356ded36"),
-                        fit: BoxFit.cover,
+                        image: AssetImage("images/nophotocommingsoon.jpg"),
+                        // NetworkImage(
+                        //     "https://img.freepik.com/free-photo/cute-pet-collage-isolated_23-2150007407.jpg?w=740&t=st=1705149510~exp=1705150110~hmac=23ed8c8dbf1277fba3d1423799a6a764b07d63d203cb8a7c0b8b12c2356ded36"),
+                        // fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(
                               0.1), // Adjust the opacity to make it darker or lighter

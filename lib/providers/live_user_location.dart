@@ -2,11 +2,13 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:sssv1/network_calling/http.dart';
 
 class LiveUserLocation extends ChangeNotifier{
 
   double? latitude;
   double? longitude;
+  String? locationName;
 
 
   void getCurrentLocation() async {
@@ -49,8 +51,9 @@ class LiveUserLocation extends ChangeNotifier{
     desiredAccuracy: LocationAccuracy.high,
   );
 
-  latitude = position.latitude;
+ latitude = position.latitude;
  longitude = position.longitude;
+ locationName = await Http().getLocationName(latitude!,longitude!,"AIzaSyBIp8U5x3b2GVj1cjNU3N6funOz_tEUAdk");
  notifyListeners();
 
   print(latitude);

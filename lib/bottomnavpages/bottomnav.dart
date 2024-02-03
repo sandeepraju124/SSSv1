@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors, use_super_parameters
+// ignore_for_file: prefer_const_constructors, use_super_parameters, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sssv1/User_Activity%20Section/display_user_activities.dart';
 
 import 'package:sssv1/bottomnavpages/searchpage.dart';
+import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -52,11 +54,19 @@ class _BottomNavPageState extends State<BottomNavPage> {
   void initState() {
     super.initState();
     MyHomePage();
+    var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+    if (liveLoc.latitude == null) {
+      print("called if in bottonnavbar init");
+      // print("null");
+      liveLoc.getCurrentLocation();
+    }
+
     // userid = user?.uid;
   }
 
   @override
   Widget build(BuildContext context) {
+    var data = Provider.of<LiveUserLocation>(context);
     return Scaffold(
       // backgroundColor: Colors.deepOrange,
 
@@ -81,7 +91,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
                   children: [
                     Text("Change Address ⤵",style: TextStyle(fontSize: 15, color: Colors.white)),
                     SizedBox(height: 2,), 
-                    Text("Shamshiguda",style: TextStyle(fontSize: 12, color: Colors.white))]),
+                    Text(
+                      data.locationName.toString()
+                      // "Shamshiguda"
+                      ,style: TextStyle(fontSize: 12, color: Colors.white))]),
               // automaticallyImplyLeading: false,
               // centerTitle: true,
               // ),

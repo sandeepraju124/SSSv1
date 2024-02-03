@@ -70,6 +70,38 @@ class Http {
   }
 }
 
+
+
+Future<String> getLocationName(double latitude, double longitude, String apiKey) async{
+  final String baseurl = "https://maps.googleapis.com/maps/api/geocode/json";
+  final String endpoint = "$baseurl?latlng=$latitude,$longitude&key=$apiKey";
+
+  final response = await http.get(Uri.parse(endpoint));
+
+  if(response.statusCode == 200){
+    final Map<String, dynamic> data = json.decode(response.body);
+    // print(response.body);
+    print("body");
+    // print(data["results"][0]["formatted_address"]);
+    // print(data["results"][0]["address_components"][0]["short_name"]);
+
+    if (data.containsKey("results") && (data["results"] as List).isNotEmpty ){
+      List<dynamic> addressComponents = data["results"][0]["address_components"];
+      String shortName = addressComponents.isNotEmpty ? addressComponents[0]["short_name"] : "N/A";
+      print(shortName);
+      return shortName;
+      // return data["results"][0]["formatted_address"];
+    } else {
+      throw Exception("location not found");
+    }
+
+
+  }else {
+    throw Exception("Failed to load data");
+  }
+
+}
+
   // used this to show the list of subcategories
   // also used this to show restaurant widget in homepage ----->
   Future<List<Subcategorylist>> fetchSubcategoryListData(String uri) async {
@@ -132,19 +164,6 @@ class Http {
     }
   }
 
-// used this for comment scetion
-
-  // Future<CommentSectionModels> fetchComments(String uri) async {
-  //   var url = Uri.parse(uri);
-  //   var response = await http.get(url);
-  //   if (response.statusCode == 200) {
-  //     // print(response.body);
-  //     var comments = CommentSectionModels.fromJson(json.decode(response.body));
-  //     return comments;
-  //   } else {
-  //     throw Exception('Failed to load business profile');
-  //   }
-  // }
 
   Future<CommentSectionModels> fetchComments(String uri) async {
     var url = Uri.parse(uri);
@@ -175,21 +194,6 @@ class Http {
     }
   }
 
-// used this for post comments
-// not using alreday implemented in provider
-
-// Future<void> postComments(String uri, body) async {
-//   // var url = Uri.parse(uri);
-//   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-//   final response = await http.post(Uri.parse(uri), headers: headers, body:body);
-//     // var response = await http.get(url);
-//   if (response.statusCode == 200) {
-//     // print(response.body);
-//     print('Data posted successfully');
-//   } else {
-//      throw Exception('Error posting data: ${response.statusCode}');
-//   }
-// }
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data
@@ -210,10 +214,12 @@ class Http {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      // print("responseBody $responseBody");
+      print("responseBody $responseBody");
       var userdata = UserModels.fromJson(responseBody);
       return userdata;
     } else {
+      print('Failed to fetch data: ${response.statusCode}');
+      print('Response body: ${response.body}');
       throw Exception('Failed to fetch data: ${response.statusCode}');
     }
   }
