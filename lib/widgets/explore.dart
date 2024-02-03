@@ -60,9 +60,9 @@ class Explore extends StatelessWidget {
                       ],
                       image: const DecorationImage(
                         image:
-                            // AssetImage("images/food.gif"),
-                            NetworkImage(
-                                "https://img.freepik.com/free-photo/served-christmas-table-setting-dark-tones-with-golden-deco_1220-6601.jpg?w=826&t=st=1705147003~exp=1705147603~hmac=ea3bf112afe8869891fbb0856f8d0801bc8a6f00538ecf7766acc4a7d0701cbc"),
+                            AssetImage("images/foodexplore.jpg"),
+                            // NetworkImage(
+                            //     "https://img.freepik.com/free-photo/served-christmas-table-setting-dark-tones-with-golden-deco_1220-6601.jpg?w=826&t=st=1705147003~exp=1705147603~hmac=ea3bf112afe8869891fbb0856f8d0801bc8a6f00538ecf7766acc4a7d0701cbc"),
                         fit: BoxFit.cover,
                       ),
                       // color: Colors.red,

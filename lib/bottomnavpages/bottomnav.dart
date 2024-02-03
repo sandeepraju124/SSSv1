@@ -62,22 +62,34 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
       appBar: _currentIndex == 0
           ? AppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Image.asset(
-                  "images/logo4.png",
-                  width: 120,
-                  height: 110,
-                  color: Colors.black,
+            // padding: EdgeInsets.only(left: 5, bottom: 5, top: 5),
+              leading: Container(
+                margin: EdgeInsets.all(5),
+                  // color: Colors.indigo,
+                  decoration: BoxDecoration(
+                // color: Colors.redAccent,
+                // shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(10.0),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage('images/stevejobs.jpg'),
                 ),
-              ),
-              toolbarHeight: 75.0,
+              )),
+
+              title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Change Address ⤵",style: TextStyle(fontSize: 15, color: Colors.white)),
+                    SizedBox(height: 2,), 
+                    Text("Shamshiguda",style: TextStyle(fontSize: 12, color: Colors.white))]),
+              // automaticallyImplyLeading: false,
+              // centerTitle: true,
+              // ),
+              toolbarHeight: 63.0,
               // backgroundColor: Colors.white,
               // backgroundColor: tgPrimaryColor,
               backgroundColor: Color.fromARGB(255, 78, 155, 151),
-              elevation: 3.0,
+              elevation: 5.0,
             )
           : null,
       body: pages[_currentIndex],

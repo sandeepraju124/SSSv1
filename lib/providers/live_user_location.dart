@@ -55,6 +55,7 @@ class LiveUserLocation extends ChangeNotifier{
 
   print(latitude);
   print(longitude);
+  print(position);
 
   // Use the latitude and longitude in your application as needed
 }
