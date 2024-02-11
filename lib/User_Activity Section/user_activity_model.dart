@@ -61,7 +61,7 @@ class UserActivityModelAnswer {
   factory UserActivityModelAnswer.fromJson(Map<String, dynamic> json) =>
       UserActivityModelAnswer(
         adetails: Adetails.fromJson(json["adetails"]),
-        answer: json["answer"],
+        answer: json["answer"] as String?,
         businessName: businessNameValues.map[json["business_name"]] ??
             BusinessName
                 .unknown, // Replace 'unknown' with a valid default value
@@ -78,21 +78,24 @@ class UserActivityModelAnswer {
 
 class Adetails {
   DateTime createdAt;
+  String? answerid;
   User? userid;
 
   Adetails({
     required this.createdAt,
+    this.answerid,
     required this.userid,
   });
 
   factory Adetails.fromJson(Map<String, dynamic> json) => Adetails(
         createdAt: DateTime.parse(json["created_at"]),
-        // userid: userValues.map[json["userid"]]!,
+        answerid: json["answerid"], // Parse this field
         userid: json["userid"] != null ? userValues.map[json["userid"]] : null,
       );
 
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
+        "answerid": answerid,
         "userid": userValues.reverse[userid],
       };
 }
@@ -141,6 +144,7 @@ class Comment {
   DateTime createdAt;
   int rating;
   User? userId;
+  String? username;
 
   Comment({
     required this.businessName,
@@ -149,6 +153,7 @@ class Comment {
     required this.createdAt,
     required this.rating,
     required this.userId,
+    this.username,
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
@@ -159,6 +164,7 @@ class Comment {
         rating: json["rating"],
         userId:
             json['user_id'] != null ? userValues.map[json['user_id']] : null,
+        username: json['username'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -168,6 +174,7 @@ class Comment {
         "created_at": createdAt.toIso8601String(),
         "rating": rating,
         "user_id": userValues.reverse[userId],
+        "username": username,
       };
 }
 
@@ -228,34 +235,51 @@ class Qdetails {
   DateTime createdAt;
   String questionid;
   User? userid;
+  DateTime? updatedAt;
 
   Qdetails({
     required this.createdAt,
     required this.questionid,
     required this.userid,
+    this.updatedAt,
   });
 
   factory Qdetails.fromJson(Map<String, dynamic> json) => Qdetails(
         createdAt: DateTime.parse(json["created_at"]),
         questionid: json["questionid"],
         userid: json["userid"] != null ? userValues.map[json["userid"]] : null,
+        updatedAt: json["updated_at"] != null
+            ? DateTime.parse(json["updated_at"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "created_at": createdAt.toIso8601String(),
         "questionid": questionid,
         "userid": userValues.reverse[userid],
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
+
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   late Map<T, String> reverseMap;
+
+//   EnumValues(this.map);
+
+//   Map<T, String> get reverse {
+//     reverseMap = map.map((k, v) => MapEntry(v, k));
+//     return reverseMap;
+//   }
+// }
 
 class EnumValues<T> {
   Map<String, T> map;
   late Map<T, String> reverseMap;
 
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
+  EnumValues(this.map) {
     reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
   }
+
+  Map<T, String> get reverse => reverseMap;
 }

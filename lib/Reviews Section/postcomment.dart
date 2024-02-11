@@ -236,25 +236,23 @@ class _PostCommentState extends State<PostComment> {
           if (_reviewController.text.trim().isEmpty) {
             _showErrorDialog("Please enter your review before posting ");
           } else {
-            data
-                .postCommentProvider(
-                  business_uid: widget.businessUid,
-                  user_id: userid,
-                  review: _reviewController.text,
-                  rating: rating,
-                  context: context,
-                )
-                .then((success) => {
-                      if (success)
-                        {
-                          _reviewController.clear(),
-                          Navigator.pop(context),
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return showallreviewspage();
-                          })),
-                        }
-                    });
+            data.postCommentProvider(
+              business_uid: widget.businessUid,
+              user_id: userid,
+              // review: _reviewController.text,
+              rating: rating,
+              context: context, selectedSuggestions: [], userReviews: [],
+            ).then((success) => {
+                  if (success)
+                    {
+                      _reviewController.clear(),
+                      Navigator.pop(context),
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return showallreviewspage();
+                      })),
+                    }
+                });
           }
 
           // navigatorPush(context,SearchLocationScreen() );

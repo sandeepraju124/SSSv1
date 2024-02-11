@@ -58,29 +58,80 @@ class CommentSectionProvider extends ChangeNotifier {
 
   ////////////////////////////////////////// post comment below //////////////////////////
 
+  // Future<bool> postCommentProvider({
+  //   required BuildContext context,
+  //   required int rating,
+  //   required String business_uid,
+  //   required String user_id,
+  //   required String review,
+  // }) async {
+  //   try {
+  //     // print("post comment");
+  //     _isLoading = true;
+
+  //     final body = {
+  //       'rating': rating.toString(),
+  //       'business_uid': business_uid,
+  //       'review': review,
+  //       'user_id': user_id,
+  //     };
+  //     print(body);
+
+  //     final url = Uri.parse("$baseUrl/postcomment");
+  //     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  //     // final headers = {'Content-Type': 'application/json'};
+  //     // final encodedBody = jsonEncode(body);
+
+  //     final response = await http.post(url, headers: headers, body: body);
+  //     if (response.statusCode == 200) {
+  //       print("comment posted successfully");
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text("Your review posted Successfully"),
+  //           behavior: SnackBarBehavior.floating,
+  //         ),
+  //       );
+
+  //       await commentSectionProvider(business_uid);
+
+  //       _isLoading = false;
+  //       return true; //
+  //     } else {
+  //       // Handle error case
+  //       print("Failed to post comment. Status code: ${response.statusCode}");
+  //       print('Response body: ${response.body}');
+  //       // You can handle errors here, e.g., showing an error message to the user.
+  //     }
+  //   } catch (e) {
+  //     print('Error posting data: $e');
+  //     return false;
+  //   } finally {
+  //     _isLoading = false;
+  //   }
+  //   return false;
+  // }
   Future<bool> postCommentProvider({
     required BuildContext context,
     required int rating,
     required String business_uid,
     required String user_id,
-    required String review,
+    required List<String> selectedSuggestions, // List of selected suggestions
+    required List<String> userReviews, // List of user-written reviews
   }) async {
     try {
-      // print("post comment");
       _isLoading = true;
 
       final body = {
         'rating': rating.toString(),
         'business_uid': business_uid,
-        'review': review,
         'user_id': user_id,
+        'selected_suggestions':
+            selectedSuggestions.join(' + '), // Join the suggestions with ' + '
+        'user_reviews': userReviews.join(' + '), // Join the reviews with ' + '
       };
-      print(body);
 
       final url = Uri.parse("$baseUrl/postcomment");
       final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-      // final headers = {'Content-Type': 'application/json'};
-      // final encodedBody = jsonEncode(body);
 
       final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
@@ -95,12 +146,10 @@ class CommentSectionProvider extends ChangeNotifier {
         await commentSectionProvider(business_uid);
 
         _isLoading = false;
-        return true; //
+        return true;
       } else {
-        // Handle error case
         print("Failed to post comment. Status code: ${response.statusCode}");
         print('Response body: ${response.body}');
-        // You can handle errors here, e.g., showing an error message to the user.
       }
     } catch (e) {
       print('Error posting data: $e');
@@ -110,17 +159,67 @@ class CommentSectionProvider extends ChangeNotifier {
     }
     return false;
   }
-
   ///////////////   Edit comment ////////////
 
+  // Future<bool> editCommentProvider({
+  //   required BuildContext
+  //       context, // Added context parameter to show the snackbar
+  //   required String business_uid,
+  //   required String review_id,
+  //   required String user_id,
+  //   required int rating,
+  //   required String review,
+  // }) async {
+  //   try {
+  //     _isLoading = true;
+
+  //     final body = {
+  //       'business_uid': business_uid,
+  //       'review_id': review_id,
+  //       'user_id': user_id,
+  //       'rating': rating.toString(),
+  //       'review': review,
+  //     };
+
+  //     final url = Uri.parse("$baseUrl/editcomment");
+  //     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+  //     final response = await http.put(url, headers: headers, body: body);
+  //     if (response.statusCode == 200) {
+  //       print("comment edited successfully");
+  //       _isLoading = false;
+
+  //       // Show a snackbar with a success message
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text("Review updated successfully"),
+  //           behavior: SnackBarBehavior.floating,
+  //         ),
+  //       );
+  //       // Refresh the comments to reflect the changes
+  //       await commentSectionProvider(business_uid);
+
+  //       return true;
+  //     } else {
+  //       print("Failed to edit comment. Status code: ${response.statusCode}");
+  //       print('Response body: ${response.body}');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print('Error editing comment: $e');
+  //     return false;
+  //   } finally {
+  //     _isLoading = false;
+  //   }
+  // }
+
   Future<bool> editCommentProvider({
-    required BuildContext
-        context, // Added context parameter to show the snackbar
+    required BuildContext context,
     required String business_uid,
     required String review_id,
     required String user_id,
     required int rating,
-    required String review,
+    required String newReview, // This should be the combined review string
   }) async {
     try {
       _isLoading = true;
@@ -130,7 +229,7 @@ class CommentSectionProvider extends ChangeNotifier {
         'review_id': review_id,
         'user_id': user_id,
         'rating': rating.toString(),
-        'review': review,
+        'review': newReview, // Send the combined review string
       };
 
       final url = Uri.parse("$baseUrl/editcomment");

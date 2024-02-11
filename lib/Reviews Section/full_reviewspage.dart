@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/Reviews%20Section/updatereviewbottomsheet.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -83,7 +84,9 @@ class _showallreviewspageState extends State<showallreviewspage> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return PostComment(
+                      // return PostComment(
+                      //     businessUid: data1.businessProfileData!.businessUid);
+                      return DisplayReviewBottomSheet(
                           businessUid: data1.businessProfileData!.businessUid);
                     }));
                   },

@@ -600,10 +600,34 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                       } else {
                                         var answer = data.getUserActivityData!
                                             .answers[index - 1];
+                                        // final Question relatedQuestion = data
+                                        //     .getUserActivityData!.questions
+                                        //     .firstWhere(
+                                        //   (question) =>
+                                        //       // question.qdetails.userid ==
+                                        //       // answer.adetails.userid,
+                                        //       question.qdetails.questionid ==
+                                        //       answer.adetails.answerid,
+                                        //   orElse: () => Question(
+                                        //     answers: [],
+                                        //     businessName: '',
+                                        //     businessUid: '',
+                                        //     qdetails: user_activity.Qdetails(
+                                        //       createdAt: DateTime.now(),
+                                        //       questionid: '',
+                                        //       userid: userid != null
+                                        //           ? userValues.map[userid]
+                                        //           : null,
+                                        //     ),
+                                        //     question: 'no questions found',
+                                        //   ),
+                                        // );
                                         final Question relatedQuestion = data
                                             .getUserActivityData!.questions
                                             .firstWhere(
                                           (question) =>
+                                              // question.qdetails.questionid ==
+                                              // answer.adetails.answerid,
                                               question.qdetails.userid ==
                                               answer.adetails.userid,
                                           orElse: () => Question(
@@ -613,7 +637,9 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                             qdetails: user_activity.Qdetails(
                                               createdAt: DateTime.now(),
                                               questionid: '',
-                                              userid: userValues.map[userid]!,
+                                              userid: userid != null
+                                                  ? userValues.map[userid]
+                                                  : null,
                                             ),
                                             question: 'no questions found',
                                           ),
@@ -627,6 +653,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                   businessUidValues.reverse[
                                                           answer.businessUid] ??
                                                       'default_uid';
+                                              print(
+                                                  'Mapped uid from businessUid: $uid'); // Add this line to debug
                                               return DefaultProfilePage(
                                                   uid: uid);
                                             }));

@@ -476,7 +476,6 @@ class AskCommunityProvider with ChangeNotifier {
   }
 
   /////////////// Edit API for Answer /////////////////////
-
   Future<bool> editAnswer(
     BuildContext context,
     String businessUid,
@@ -494,18 +493,24 @@ class AskCommunityProvider with ChangeNotifier {
 
     final userid = user.uid;
 
-    final Map<String, dynamic> data = {
+    // Convert the data map to a form-encoded string
+    final data = {
       "business_uid": businessUid,
       "questionid": questionId,
       "answerid": answerId,
       "new_answer": newAnswerText,
       "userid": userid,
     };
+    final encodedData = Uri(queryParameters: data).query;
 
     try {
+      // print('Sending request with payload: $data');
       final response = await http.put(
         Uri.parse(url),
-        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }, // Set the content type to form data
+        body: encodedData,
       );
 
       if (response.statusCode == 200) {
@@ -535,6 +540,7 @@ class AskCommunityProvider with ChangeNotifier {
         return true;
       } else {
         print("Failed to edit answer. Status code: ${response.statusCode}");
+        print("Response body: ${response.body}");
       }
     } catch (e) {
       print('Error: $e');
@@ -560,18 +566,22 @@ class AskCommunityProvider with ChangeNotifier {
 
     final userid = user.uid;
 
-    final Map<String, dynamic> data = {
+    // Convert the data map to a form-encoded string
+    final data = {
       "business_uid": businessUid,
       "questionid": questionId,
       "answerid": answerId,
       "userid": userid,
     };
+    final encodedData = Uri(queryParameters: data).query;
 
     try {
       final response = await http.delete(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }, // Set the content type to form data
+        body: encodedData,
       );
 
       if (response.statusCode == 200) {

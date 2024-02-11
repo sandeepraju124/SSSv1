@@ -113,7 +113,7 @@ class _UpdatecommentPageState extends State<UpdatecommentPage> {
                         review_id: widget.reviewId,
                         user_id: widget.userId,
                         rating: _currentRating,
-                        review: _reviewController.text)
+                        newReview: _reviewController.text)
                     .then((success) => {
                           if (success)
                             {

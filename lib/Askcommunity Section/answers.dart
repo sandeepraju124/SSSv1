@@ -171,17 +171,27 @@ class _AnswerpageState extends State<Answerpage> {
                                           // Close the bottom sheet
                                           Navigator.pop(context);
 
-                                          // Open the new modal bottom sheet after a delay
-                                          Future.delayed(Duration.zero, () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Padding(
+                                          print(
+                                              "answerid : ${answer.adetails.answerid} ");
+
+                                          // Check if answerId is not null and not empty
+                                          if (answer.adetails.answerid !=
+                                                  null &&
+                                              answer.adetails.answerid!
+                                                  .isNotEmpty) {
+                                            // Open the new modal bottom sheet after a delay
+                                            Future.delayed(Duration.zero, () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Padding(
                                                     padding: EdgeInsets.only(
-                                                        bottom: MediaQuery.of(
-                                                                context)
-                                                            .viewInsets
-                                                            .bottom),
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets
+                                                              .bottom,
+                                                    ),
                                                     child:
                                                         EditAnswerBottomSheet(
                                                       businessUid: data
@@ -189,15 +199,28 @@ class _AnswerpageState extends State<Answerpage> {
                                                           .businessUid,
                                                       questionId: question
                                                           .qdetails.questionid,
+                                                      currentAnswerText:
+                                                          answer.answer ?? "",
                                                       answerId: answer.adetails
                                                               .answerid ??
                                                           "",
-                                                      currentAnswerText:
-                                                          answer.answer ?? "",
-                                                    ));
-                                              },
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            });
+                                          } else {
+                                            // Handle the case where answerId is null or empty
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    "Error: answerId is missing or invalid"),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                              ),
                                             );
-                                          });
+                                          }
                                         },
                                       ),
                                       ListTile(
