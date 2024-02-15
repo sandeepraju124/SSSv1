@@ -191,6 +191,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   ),
                   margin: EdgeInsets.all(10),
                   child: Explore()),
+                  GestureDetector(
+                    onTap: (() {
+                      Http().overall_rating("NEX1O16051534921137");
+                    }),
+                    child: Text("click"))
             ]),
       ),
     );

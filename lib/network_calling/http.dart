@@ -71,6 +71,26 @@ class Http {
   }
 }
 
+Future<double> overall_rating (String business_uid) async {
+
+  try{
+    final String apiUrl = 'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
+  final response = await http.get(Uri.parse(apiUrl));
+  if (response.statusCode == 200){
+    print(response.body);
+    final rating = double.parse(response.body) ;
+    return rating;
+  }else {
+    print("printing Exception");
+    // If the server did not return a 200 OK response, throw an exception.
+    throw Exception('Failed to load business data. Status code: ${response.statusCode}');
+  }
+  } catch (e) {
+    throw Exception('Failed to load business data: $e');
+  }
+  
+}
+
 
 
 Future<String> getLocationName(double latitude, double longitude, String apiKey) async{

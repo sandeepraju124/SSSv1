@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
+import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/home_restaurent_provider.dart';
 
 import 'package:provider/provider.dart';
@@ -47,6 +48,8 @@ class _RestaurantState extends State<Restaurant> {
                 // shrinkWrap: true,
                 itemCount: data.getHomeBusinessData.length,
                 itemBuilder: (BuildContext context, int index) {
+                  final overall = Http().overall_rating(data.getHomeBusinessData[index]!.businessUid);
+                  print(overall);
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -128,7 +131,9 @@ class _RestaurantState extends State<Restaurant> {
                               ],
                             ),
                             child: Center(
-                                child: Text("5",
+                                child: Text(
+                                  overall.toString(),
+                                  // "5",
                               // data.getHomeBusinessData[index]!.overallRating
                               //     .toString(),
                               style: TextStyle(
