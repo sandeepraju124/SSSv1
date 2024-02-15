@@ -36,17 +36,17 @@ class BusinessModel {
     });
 
     factory BusinessModel.fromJson(Map<String, dynamic> json) => BusinessModel(
-        address: json["address"],
-        businessDescription: json["business_description"],
-        businessName: json["business_name"],
-        businessUid: json["business_uid"],
-        category: json["category"],
-        contactInformation: json["contact_information"],
-        country: json["country"],
-        latitude: json["latitude"]?.toDouble(),
-        longitude: json["longitude"]?.toDouble(),
-        profileImageUrl: json["profile_image_url"],
-        subCategory: json["sub_category"],
+        address: json["address"] ?? "",
+        businessDescription: json["business_description"] ?? "",
+        businessName: json["business_name"]?? "",
+        businessUid: json["business_uid"]?? "",
+        category: json["category"]?? "",
+        contactInformation: json["contact_information"]?? "",
+        country: json["country"]?? "",
+        latitude: json["latitude"]?.toDouble()?? 0.0,
+        longitude: json["longitude"]?.toDouble()?? 0.0,
+        profileImageUrl: json["profile_image_url"]?? "",
+        subCategory: json["sub_category"]?? "",
     );
 
     Map<String, dynamic> toJson() => {

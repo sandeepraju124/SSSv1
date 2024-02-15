@@ -62,9 +62,10 @@ class Http {
     // If the server returns a 200 OK response, parse the JSON
     final List<dynamic> jsonList = json.decode(response.body);
     print("responsebody ${response.body}");
-      print("jsonList $jsonList");
+    print("jsonList $jsonList");
     return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
   } else {
+    print("printing Exception");
     // If the server did not return a 200 OK response, throw an exception.
     throw Exception('Failed to load business data');
   }

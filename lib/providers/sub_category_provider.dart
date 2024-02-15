@@ -22,6 +22,8 @@ class businessProvider with ChangeNotifier {
     _isLoading = true;
     // Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
     List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
+    print("datalist");
+    // print(datalist);
     _businessData = datalist;
     _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();
     print(_uniqueSubCategories);

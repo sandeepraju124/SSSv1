@@ -37,7 +37,7 @@ class Explore extends StatelessWidget {
                     Navigators().navigatorPush(
                         context,
                         Subcategory(
-                          keyy: keyy,
+                          keyy: keyy,  //category
                           value: "Food",
                         ));
                   },
