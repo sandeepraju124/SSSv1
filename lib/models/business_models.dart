@@ -20,6 +20,7 @@ class BusinessModel {
     double longitude;
     String profileImageUrl;
     String subCategory;
+    bool? isPremium;
 
     BusinessModel({
         required this.address,
@@ -33,6 +34,7 @@ class BusinessModel {
         required this.longitude,
         required this.profileImageUrl,
         required this.subCategory,
+        required this.isPremium,
     });
 
     factory BusinessModel.fromJson(Map<String, dynamic> json) => BusinessModel(
@@ -47,6 +49,7 @@ class BusinessModel {
         longitude: json["longitude"]?.toDouble()?? 0.0,
         profileImageUrl: json["profile_image_url"]?? "",
         subCategory: json["sub_category"]?? "",
+        isPremium: json["is_premium"] == null ? null : json["is_premium"] as bool,
     );
 
     Map<String, dynamic> toJson() => {

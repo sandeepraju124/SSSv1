@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
-import 'package:sssv1/providers/restaurent_provider.dart';
+import 'package:sssv1/providers/home_restaurent_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -19,11 +19,11 @@ class Restaurant extends StatefulWidget {
 class _RestaurantState extends State<Restaurant> {
   @override
   void initState() {
-    var data = Provider.of<RestaurantListProvider>(context, listen: false);
+    var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
     // print("fgh");
     // print(data);
-    if (data.subcategoryListData!.isEmpty) {
-      data.subCategoryListProvider("Restaurant");
+    if (data.getHomeBusinessData.isEmpty) {
+      data.getHomeBusinessProvider(key: "is_premium", value: "true");
       // print("empty");
     }
 
@@ -32,7 +32,7 @@ class _RestaurantState extends State<Restaurant> {
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<RestaurantListProvider>(context);
+    var data = Provider.of<HomeRestaurantListProvider>(context);
     return data.isLoading
         ? Center(
             child: CircularProgressIndicator(color: tgPrimaryColor),
@@ -45,14 +45,14 @@ class _RestaurantState extends State<Restaurant> {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 // shrinkWrap: true,
-                itemCount: data.subcategoryListData!.length,
+                itemCount: data.getHomeBusinessData.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DefaultProfilePage(
                                 uid: data
-                                    .subcategoryListData![index].businessUid,
+                                    .getHomeBusinessData[index]!.businessUid,
                               )));
                     },
                     child: Stack(
@@ -69,7 +69,7 @@ class _RestaurantState extends State<Restaurant> {
                               // color: Colors.amber,
                               height: 200,
                               child: Image.network(
-                                data.subcategoryListData![index].profileImage,
+                                data.getHomeBusinessData[index]!.profileImageUrl,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -83,8 +83,8 @@ class _RestaurantState extends State<Restaurant> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                          data.subcategoryListData![index]
-                                              .businessName,
+                                          data.getHomeBusinessData[index]
+                                              !.businessName,
                                           // "something",
                                           // provider.data[index].name,
                                           // maxLines: 1,
@@ -99,8 +99,8 @@ class _RestaurantState extends State<Restaurant> {
                                 child: Container(
                               // color: Colors.teal,
                               child: Text(
-                                  data.subcategoryListData![index]
-                                      .businessDescription,
+                                  data.getHomeBusinessData[index]
+                                      !.businessDescription,
                                   // provider.data[index].despription,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -128,9 +128,9 @@ class _RestaurantState extends State<Restaurant> {
                               ],
                             ),
                             child: Center(
-                                child: Text(
-                              data.subcategoryListData![index].overallRating
-                                  .toString(),
+                                child: Text("5",
+                              // data.getHomeBusinessData[index]!.overallRating
+                              //     .toString(),
                               style: TextStyle(
                                 wordSpacing: 0.5,
                                 letterSpacing: -0.1,
