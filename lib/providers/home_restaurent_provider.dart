@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/business_models.dart';
-import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/network_calling/http.dart';
-import 'package:sssv1/utils/constants.dart';
 
 // class HomeRestaurantListProvider with ChangeNotifier {
 //   List<Subcategorylist> _subCategoryList = [];
@@ -28,8 +26,6 @@ import 'package:sssv1/utils/constants.dart';
 //   }
 // }
 
-
-
 class HomeRestaurantListProvider with ChangeNotifier {
   List<BusinessModel?> _homebBusinessData = [];
   // late List<String> _uniqueSubCategories;
@@ -41,21 +37,19 @@ class HomeRestaurantListProvider with ChangeNotifier {
 
   // List<Subcategory> _data = [];
   // List<Subcategory> get data => _data;
-  
-
 
   Future<void> getHomeBusinessProvider({key, value}) async {
     _isLoading = true;
     // Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
-    List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-    print("datalist");
+    List<BusinessModel> datalist =
+        await Http().getBusinessData(key: key, value: value);
+    // print("datalist");
     // print(datalist);
     _homebBusinessData = datalist;
     // _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();
     // print(_uniqueSubCategories);
     // print("_uniqueSubCategories");
 
-    
     _isLoading = false;
     notifyListeners();
     // print("datalist $datalist");

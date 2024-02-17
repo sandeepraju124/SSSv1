@@ -66,25 +66,32 @@ class _EditQuestionbottomsheetState extends State<EditQuestionbottomsheet> {
               ],
             ),
           ),
-          TextField(
-            style: TextStyle(color: secondaryColor40LightTheme, fontSize: 13.2),
-            controller: _questionController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey[300],
-              hintText: "Kindly type your question here",
-              hintStyle: TextStyle(
-                color: secondaryColor20LightTheme,
-                fontSize: 13,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(17),
-                borderSide: BorderSide.none,
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 366,
+              child: TextField(
+                style: TextStyle(
+                    color: secondaryColor40LightTheme, fontSize: 13.2),
+                controller: _questionController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey[300],
+                  hintText: "Kindly type your question here",
+                  hintStyle: TextStyle(
+                    color: secondaryColor20LightTheme,
+                    fontSize: 13,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(17),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                autofocus: false,
+                maxLines: null,
               ),
             ),
-            autofocus: false,
-            maxLines: null,
           ),
           SizedBox(height: 12),
           SizedBox(
@@ -98,19 +105,11 @@ class _EditQuestionbottomsheetState extends State<EditQuestionbottomsheet> {
                 ),
               ),
               onPressed: () {
-                // if (_questionController.text.isEmpty) {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     SnackBar(content: Text("Please enter your question.")),
-                //   );
-                //   return;
-                // }
-
                 data
                     .editQuestion(
                   context,
-                  data.askCommunityData!
-                      .businessUid, // Replace with actual business_uid
-                  widget.questionId, // Replace with actual questionId
+                  data.askCommunityData!.businessUid,
+                  widget.questionId,
                   _questionController.text,
                 )
                     .then((success) {

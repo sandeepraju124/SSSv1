@@ -58,58 +58,6 @@ class CommentSectionProvider extends ChangeNotifier {
 
   ////////////////////////////////////////// post comment below //////////////////////////
 
-  // Future<bool> postCommentProvider({
-  //   required BuildContext context,
-  //   required int rating,
-  //   required String business_uid,
-  //   required String user_id,
-  //   required String review,
-  // }) async {
-  //   try {
-  //     // print("post comment");
-  //     _isLoading = true;
-
-  //     final body = {
-  //       'rating': rating.toString(),
-  //       'business_uid': business_uid,
-  //       'review': review,
-  //       'user_id': user_id,
-  //     };
-  //     print(body);
-
-  //     final url = Uri.parse("$baseUrl/postcomment");
-  //     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-  //     // final headers = {'Content-Type': 'application/json'};
-  //     // final encodedBody = jsonEncode(body);
-
-  //     final response = await http.post(url, headers: headers, body: body);
-  //     if (response.statusCode == 200) {
-  //       print("comment posted successfully");
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text("Your review posted Successfully"),
-  //           behavior: SnackBarBehavior.floating,
-  //         ),
-  //       );
-
-  //       await commentSectionProvider(business_uid);
-
-  //       _isLoading = false;
-  //       return true; //
-  //     } else {
-  //       // Handle error case
-  //       print("Failed to post comment. Status code: ${response.statusCode}");
-  //       print('Response body: ${response.body}');
-  //       // You can handle errors here, e.g., showing an error message to the user.
-  //     }
-  //   } catch (e) {
-  //     print('Error posting data: $e');
-  //     return false;
-  //   } finally {
-  //     _isLoading = false;
-  //   }
-  //   return false;
-  // }
   Future<bool> postCommentProvider({
     required BuildContext context,
     required int rating,
@@ -118,6 +66,7 @@ class CommentSectionProvider extends ChangeNotifier {
     required List<String> selectedSuggestions, // List of selected suggestions
     required List<String> userReviews, // List of user-written reviews
   }) async {
+    // print('postCommentProvider called'); // Debug print statement
     try {
       _isLoading = true;
 
@@ -150,6 +99,7 @@ class CommentSectionProvider extends ChangeNotifier {
       } else {
         print("Failed to post comment. Status code: ${response.statusCode}");
         print('Response body: ${response.body}');
+        return false;
       }
     } catch (e) {
       print('Error posting data: $e');
@@ -157,7 +107,6 @@ class CommentSectionProvider extends ChangeNotifier {
     } finally {
       _isLoading = false;
     }
-    return false;
   }
   ///////////////   Edit comment ////////////
 

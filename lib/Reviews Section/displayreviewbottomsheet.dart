@@ -151,6 +151,7 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
               ElevatedButton(
                 onPressed: _isReviewValid
                     ? () {
+                        // Debug print statement
                         List<String> selectedReviews = _selectedSuggestions
                             .asMap()
                             .entries
@@ -158,37 +159,59 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                             .map((entry) => entry.value)
                             .toList();
                         String otherReview = _reviewController.text.trim();
+
+                        // Check if the user-written review is not empty and not already in selected suggestions
                         if (otherReview.isNotEmpty &&
                             !selectedReviews.contains(otherReview) &&
                             !_selectedSuggestions.contains(otherReview)) {
                           selectedReviews.add(otherReview);
-                        } else if (otherReview.isEmpty &&
-                            selectedReviews.isEmpty) {
-                          // If there is no other review and no selected suggestions,
-                          // we should not proceed with the submission.
-                          return;
                         }
-                        // Now you can use selectedReviews list for submission
-                        data.postCommentProvider(
-                          context: context,
-                          rating: rating,
-                          business_uid: data.getCommentsData!.businessUid,
-                          user_id: userid,
-                          selectedSuggestions: selectedReviews,
-                          userReviews: [otherReview],
-                        ).then((success) => {
-                              if (success)
-                                {
-                                  _reviewController.clear(),
-                                  Navigator.pop(context),
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return showallreviewspage();
-                                    }),
-                                  )
-                                }
+
+                        // Check if at least one review is selected or user-written review is provided
+                        if (selectedReviews.isNotEmpty) {
+                          // Disable the button after it's pressed to prevent multiple submissions
+                          setState(() {
+                            _isReviewValid = false;
+                            // Debug print statement
+                          });
+
+                          // Now you can use selectedReviews list for submission
+                          data.postCommentProvider(
+                            context: context,
+                            rating: rating,
+                            business_uid: data.getCommentsData!.businessUid,
+                            user_id: userid,
+                            selectedSuggestions: selectedReviews,
+                            userReviews: [], // No need to pass user-written review here
+                          ).then((success) {
+                            if (success) {
+                              // Debug print statement
+                              _reviewController.clear();
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return showallreviewspage();
+                                }),
+                              );
+                            } else {
+                              // Debug print statement
+                            }
+                            // Re-enable the button after the submission is complete
+                            setState(() {
+                              _isReviewValid = true;
+                              // Debug print statement
                             });
+                          });
+                        } else {
+                          // Inform the user that they need to provide a review
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Please provide a review"),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
                       }
                     : null,
                 style: ElevatedButton.styleFrom(

@@ -114,7 +114,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
               duration: Duration(seconds: 1), curve: Curves.ease);
         } else if (_tabController.index == 2) {
           _scrollController.animateTo(
-            3 * 210,
+            3 * 250,
             duration: Duration(seconds: 1),
             curve: Curves.ease,
           );
@@ -300,7 +300,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                      height: 500,
+                      height: 600,
                       color: secondaryColor5LightTheme,
                       child: NewShowRewviewPage(),
                     ),

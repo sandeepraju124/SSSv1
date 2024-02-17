@@ -62,25 +62,32 @@ class _EditAnswerBottomSheetState extends State<EditAnswerBottomSheet> {
               ],
             ),
           ),
-          TextField(
-            style: TextStyle(color: secondaryColor40LightTheme, fontSize: 13.2),
-            controller: _answerController,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey[300],
-              hintText: "Kindly type your Answer here",
-              hintStyle: TextStyle(
-                color: secondaryColor20LightTheme,
-                fontSize: 13,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(17),
-                borderSide: BorderSide.none,
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 366,
+              child: TextField(
+                style: TextStyle(
+                    color: secondaryColor40LightTheme, fontSize: 13.2),
+                controller: _answerController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey[300],
+                  hintText: "Kindly type your Answer here",
+                  hintStyle: TextStyle(
+                    color: secondaryColor20LightTheme,
+                    fontSize: 13,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(17),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+                autofocus: false,
+                maxLines: null,
               ),
             ),
-            autofocus: false,
-            maxLines: null,
           ),
           SizedBox(height: 12),
           SizedBox(

@@ -76,77 +76,60 @@ class AskCommunityProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  // Future<void> fetchAskCommunityData(BuildContext context, String uid,
+  //     {String? newQuestionId}) async {
+  //   try {
+  //     _isLoading = true;
+  //     notifyListeners();
+
+  //     // Fetch new data from the server
+  //     final response = await http.get(Uri.parse("$baseUrl/askcommunity/$uid"));
+  //     // print('Response status: ${response.statusCode}');
+  //     // print('Response body: ${response.body}');
+
+  //     if (response.statusCode == 200) {
+  //       final datalist =
+  //           AskTheCommunityModels.fromJson(jsonDecode(response.body));
+  //       // print("Fetched data: $datalist");
+
+  //       // Check if the data is empty or not
+  //       if (datalist.data.isNotEmpty) {
+  //         // If the data is not empty, update the local data with the new data
+  //         _askcommunity = datalist;
+  //       }
+
+  //       _isLoading = false;
+  //       notifyListeners();
+  //     } else {
+  //       // Handle non-200 status codes
+  //       // print('Failed to fetch data. Status code: ${response.statusCode}');
+  //       _isLoading = false;
+  //       notifyListeners();
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(
+  //               'Failed to load data. Status code: ${response.statusCode}'),
+  //           behavior: SnackBarBehavior.floating,
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print('Error: $e');
+  //     _isLoading = false;
+  //     notifyListeners();
+  //     // Handle errors here
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Failed to load data.'),
+  //         behavior: SnackBarBehavior.floating,
+  //       ),
+  //     );
+  //   }
+  // }
 
   //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// below post  question API  //////////////////////////
 //////////////////////////////////////////////////////////////////////
-
-  // Future<bool> PostAskcommunity(
-  //   BuildContext context,
-  //   String business_uid,
-  //   String question,
-  // ) async {
-  //   const String url = "$baseUrl/post_question";
-  //   final user = FirebaseAuth.instance.currentUser;
-
-  //   final userid = user!.uid;
-
-  //   final Map<String, dynamic> data = {
-  //     "question": question,
-  //     "business_uid": business_uid,
-  //     "userid": userid,
-  //   };
-
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(url),
-  //       body: data,
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       print("Question posted successfully");
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(
-  //           content: Text("Your Question posted successfully"),
-  //           behavior: SnackBarBehavior.floating,
-  //         ),
-  //       );
-
-  //       // print("Server response: ${response.body}");
-
-  //       // Parse the response to get the questionid of the newly posted question
-  //       var responseJson = jsonDecode(response.body);
-  //       var newQuestionId = responseJson['questionid'];
-
-  //       // Create a new question object
-  //       var newQuestion = Datum(
-  //         answers: [], // Initialize with an empty list or provide actual answers
-  //         qdetails: Qdetails(
-  //             createdAt:
-  //                 DateTime.now().toIso8601String(), // Provide actual date
-  //             questionid: newQuestionId,
-  //             userid: userid // Provide actual user id
-  //             ),
-  //         question: question,
-  //       );
-
-  //       // Add the new question to the beginning of the list
-  //       _askcommunity!.data.insert(0, newQuestion);
-
-  //       notifyListeners();
-
-  //       return true;
-  //     } else {
-  //       print("Failed to post question. Status code: ${response.statusCode}");
-  //       // print('Response body: ${response.body}');
-  //       // You can handle errors here, e.g., showing an error message to the user.
-  //     }
-  //   } catch (e) {
-  //     print('Error: $e');
-  //     // Handle any other exceptions that may occur during the request.
-  //   }
-  //   return false;
-  // }
 
   Future<bool> PostAskcommunity(
     BuildContext context,
@@ -331,77 +314,6 @@ class AskCommunityProvider with ChangeNotifier {
   //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// below post answer API  //////////////////////////
 //////////////////////////////////////////////////////////////////////
-
-//   Future<bool> postAnswer(
-//     BuildContext context,
-//     String questionId,
-//     String answer,
-//   ) async {
-//     const String url = "$baseUrl/post_answer";
-//     final user = FirebaseAuth.instance.currentUser;
-
-//     final userid = user!.uid;
-
-//     final Map<String, dynamic> data = {
-//       "answer": answer,
-//       "questionid": questionId,
-//       "userid": userid,
-//     };
-
-//     try {
-//       final response = await http.post(
-//         Uri.parse(url),
-//         body: data,
-//       );
-
-//       if (response.statusCode == 200) {
-//         print("Answer posted successfully");
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text("Your Answer posted successfully"),
-//             behavior: SnackBarBehavior.floating,
-//           ),
-//         );
-
-//         print("Server response: ${response.body}");
-
-//         // Parse the response to get the answerid of the newly posted answer
-//         var responseJson = jsonDecode(response.body);
-//         var newAnswerId = responseJson['answerid'];
-
-//         // Create a new answer object
-//         var newAnswer = Answer(
-//           adetails: Adetails(
-//             createdAt: DateTime.now().toIso8601String(), // Provide actual date
-//             userid: userid, // Provide actual user id
-//           ),
-//           answer: answer,
-//         );
-
-// // Find the index of the question this answer belongs to
-//         int questionIndex = _askcommunity!.data
-//             .indexWhere((q) => q.qdetails.questionid == questionId);
-
-// // Check if the question was found
-//         if (questionIndex != -1) {
-//           // Add the new answer to the beginning of the answers list of the appropriate question
-//           _askcommunity!.data[questionIndex].answers.insert(0, newAnswer);
-//         }
-
-// // Notify listeners to update the UI
-//         notifyListeners();
-//         return true;
-//       } else {
-//         print("Failed to post answer. Status code: ${response.statusCode}");
-//         // print('Response body: ${response.body}');
-//         // You can handle errors here, e.g., showing an error message to the user.
-//       }
-//     } catch (e) {
-//       print('Error: $e');
-//       // Handle any other exceptions that may occur during the request.
-//     }
-//     return false;
-//   }
 
   Future<bool> postAnswer(
     BuildContext context,

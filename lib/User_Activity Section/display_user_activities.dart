@@ -1,19 +1,22 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/User_Activity%20Section/user_activity_model.dart';
 import 'package:lottie/lottie.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 // ignore: unused_import
 import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:intl/intl.dart';
+import 'package:collection/collection.dart';
 
 import 'package:sssv1/User_Activity Section/user_activity_model.dart'
     as user_activity;
@@ -43,14 +46,41 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
         rating,
-        (index) => Icon(Icons.star_rounded,
+        (index) => Icon(Icons.star,
             color: Colors.amber[700],
 
             // color: tgDarkPrimaryColor,
-            size: 18.5), // You can adjust the size as needed
+            size: 20), // You can adjust the size as needed
       ),
     );
   }
+
+  // Widget stars(int rating) {
+  //   // Define the colors for different rating ranges
+  //   // Color green = tgDarkPrimaryColor;
+  //   // Color yellow = Colors.amber.shade700;
+  //   // Color red = Colors.red.shade800;
+
+  //   // // Determine the color based on the rating
+  //   // Color color;
+  //   // if (rating >= 4) {
+  //   //   color = green;
+  //   // } else if (rating >= 2) {
+  //   //   color = yellow;
+  //   // } else {
+  //   //   color = red;
+  //   // }
+
+  //   // Generate the stars with the determined color
+  //   return Row(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: List.generate(
+  //       rating,
+  //       (index) => Icon(Icons.star,
+  //           color: color, size: 19), // Adjust the size as needed
+  //     ),
+  //   );
+  // }
 
   Future<void> _handleRefresh() async {
     await Provider.of<UserActivityProvider>(context, listen: false)
@@ -247,27 +277,35 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                               //       TextStyle(fontSize: 12.0),
                                               // )
 
-                                              subtitle: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "Rating: ",
-                                                        style: TextStyle(
-                                                            fontSize: 12.0),
-                                                      ),
-                                                      stars(comment.rating),
-                                                    ],
-                                                  ), // This will display the row of stars
+                                              subtitle: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 5),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          "Rated at: ",
+                                                          style: TextStyle(
+                                                              fontSize: 12.0,
+                                                              color:
+                                                                  secondaryColor20LightTheme),
+                                                        ),
+                                                        stars(comment.rating),
+                                                      ],
+                                                    ), // This will display the row of stars
 
-                                                  Text(
-                                                    "Provided for: ${comment.businessName}\nDate: ${formatDateTime(comment.createdAt)}",
-                                                    style: TextStyle(
-                                                        fontSize: 12.0),
-                                                  ),
-                                                ],
+                                                    Text(
+                                                      "Provided for: ${comment.businessName}\nDate: ${formatDateTime(comment.createdAt)}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.0,
+                                                          color:
+                                                              secondaryColor20LightTheme),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -450,12 +488,17 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                       color:
                                                           secondaryColor60LightTheme),
                                                 ),
-                                                subtitle: Text(
-                                                  "Question posed to '${question.businessName}' \non ${question.qdetails.createdAt}",
-                                                  style: TextStyle(
-                                                      color:
-                                                          secondaryColor40LightTheme,
-                                                      fontSize: 12),
+                                                subtitle: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 7),
+                                                  child: Text(
+                                                    "Question posed to '${question.businessName}' \non ${formatDateTime(question.qdetails.createdAt)}",
+                                                    style: TextStyle(
+                                                        color:
+                                                            secondaryColor20LightTheme,
+                                                        fontSize: 12),
+                                                  ),
                                                 )),
                                           ),
                                         );
@@ -571,7 +614,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                           color:
                                                               tgPrimaryColor))),
                                               child: Text(
-                                                "Your Responses",
+                                                "You provided an answer to the following questions !",
                                                 style: TextStyle(
                                                   fontSize: 15,
                                                   color:
@@ -600,63 +643,22 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                       } else {
                                         var answer = data.getUserActivityData!
                                             .answers[index - 1];
-                                        // final Question relatedQuestion = data
-                                        //     .getUserActivityData!.questions
-                                        //     .firstWhere(
-                                        //   (question) =>
-                                        //       // question.qdetails.userid ==
-                                        //       // answer.adetails.userid,
-                                        //       question.qdetails.questionid ==
-                                        //       answer.adetails.answerid,
-                                        //   orElse: () => Question(
-                                        //     answers: [],
-                                        //     businessName: '',
-                                        //     businessUid: '',
-                                        //     qdetails: user_activity.Qdetails(
-                                        //       createdAt: DateTime.now(),
-                                        //       questionid: '',
-                                        //       userid: userid != null
-                                        //           ? userValues.map[userid]
-                                        //           : null,
-                                        //     ),
-                                        //     question: 'no questions found',
-                                        //   ),
-                                        // );
-                                        final Question relatedQuestion = data
-                                            .getUserActivityData!.questions
-                                            .firstWhere(
-                                          (question) =>
-                                              // question.qdetails.questionid ==
-                                              // answer.adetails.answerid,
-                                              question.qdetails.userid ==
-                                              answer.adetails.userid,
-                                          orElse: () => Question(
-                                            answers: [],
-                                            businessName: '',
-                                            businessUid: '',
-                                            qdetails: user_activity.Qdetails(
-                                              createdAt: DateTime.now(),
-                                              questionid: '',
-                                              userid: userid != null
-                                                  ? userValues.map[userid]
-                                                  : null,
-                                            ),
-                                            question: 'no questions found',
-                                          ),
-                                        );
+
+                                        final Question? relatedQuestion = data
+                                            .getUserActivityData?.questions
+                                            .firstWhereOrNull((question) =>
+                                                question.answers.any((a) =>
+                                                    a.adetails.answerid ==
+                                                    answer.adetails.answerid));
                                         return GestureDetector(
                                           onTap: () {
                                             Navigator.push(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
-                                              String uid =
-                                                  businessUidValues.reverse[
-                                                          answer.businessUid] ??
-                                                      'default_uid';
-                                              print(
-                                                  'Mapped uid from businessUid: $uid'); // Add this line to debug
                                               return DefaultProfilePage(
-                                                  uid: uid);
+                                                  uid: relatedQuestion
+                                                          ?.businessUid ??
+                                                      "");
                                             }));
                                           },
                                           child: Container(
@@ -682,7 +684,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "You provided an answer to the following question:\n\n Q: ${relatedQuestion.question}",
+                                                    "Q: ${relatedQuestion?.question}",
                                                     style: TextStyle(
                                                         fontSize: 14.0,
                                                         fontWeight:
@@ -697,12 +699,36 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                               subtitle: Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 1.5, left: 5),
-                                                child: Text(
-                                                  "Your response was: '${answer.answer}'\n\nProvided for: '${answer.businessName}'\nSubmitted on: '${answer.adetails.createdAt}'",
-                                                  style: TextStyle(
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    style: TextStyle(
                                                       color:
                                                           secondaryColor40LightTheme,
-                                                      fontSize: 12),
+                                                      fontSize: 12,
+                                                    ),
+                                                    children: [
+                                                      TextSpan(
+                                                          text:
+                                                              "Your response was:  '",
+                                                          style: TextStyle(
+                                                              fontSize: 11)),
+                                                      TextSpan(
+                                                        text: answer.answer,
+                                                        style: TextStyle(
+                                                            color:
+                                                                secondaryColor60LightTheme,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 12.4),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                            "'\n\nProvided for: '${answer.businessName}'\nSubmitted on: '${formatDateTime(answer.adetails.createdAt)}'",
+                                                        style: TextStyle(
+                                                            fontSize: 10.2),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),

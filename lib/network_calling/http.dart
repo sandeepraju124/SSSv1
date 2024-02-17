@@ -53,75 +53,76 @@ class Http {
   }
 
 // recreating of above api
-  Future<List<BusinessModel>> getBusinessData({required String key, required String value}) async {
-  final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
+  Future<List<BusinessModel>> getBusinessData(
+      {required String key, required String value}) async {
+    final String apiUrl =
+        'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
 
-  final response = await http.get(Uri.parse(apiUrl));
+    final response = await http.get(Uri.parse(apiUrl));
 
-  if (response.statusCode == 200) {
-    // If the server returns a 200 OK response, parse the JSON
-    final List<dynamic> jsonList = json.decode(response.body);
-    print("responsebody ${response.body}");
-    print("jsonList $jsonList");
-    return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
-  } else {
-    print("printing Exception");
-    // If the server did not return a 200 OK response, throw an exception.
-    throw Exception('Failed to load business data');
-  }
-}
-
-Future<double> overall_rating (String business_uid) async {
-
-  try{
-    final String apiUrl = 'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
-  final response = await http.get(Uri.parse(apiUrl));
-  if (response.statusCode == 200){
-    print(response.body);
-    final rating = double.parse(response.body) ;
-    return rating;
-  }else {
-    print("printing Exception");
-    // If the server did not return a 200 OK response, throw an exception.
-    throw Exception('Failed to load business data. Status code: ${response.statusCode}');
-  }
-  } catch (e) {
-    throw Exception('Failed to load business data: $e');
-  }
-  
-}
-
-
-
-Future<String> getLocationName(double latitude, double longitude, String apiKey) async{
-  final String baseurl = "https://maps.googleapis.com/maps/api/geocode/json";
-  final String endpoint = "$baseurl?latlng=$latitude,$longitude&key=$apiKey";
-
-  final response = await http.get(Uri.parse(endpoint));
-
-  if(response.statusCode == 200){
-    final Map<String, dynamic> data = json.decode(response.body);
-    // print(response.body);
-    print("body");
-    // print(data["results"][0]["formatted_address"]);
-    // print(data["results"][0]["address_components"][0]["short_name"]);
-
-    if (data.containsKey("results") && (data["results"] as List).isNotEmpty ){
-      List<dynamic> addressComponents = data["results"][0]["address_components"];
-      String shortName = addressComponents.isNotEmpty ? addressComponents[0]["short_name"] : "N/A";
-      print(shortName);
-      return shortName;
-      // return data["results"][0]["formatted_address"];
+    if (response.statusCode == 200) {
+      // If the server returns a 200 OK response, parse the JSON
+      final List<dynamic> jsonList = json.decode(response.body);
+      // print("responsebody ${response.body}");
+      // print("jsonList $jsonList");
+      return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
     } else {
-      throw Exception("location not found");
+      print("printing Exception");
+      // If the server did not return a 200 OK response, throw an exception.
+      throw Exception('Failed to load business data');
     }
-
-
-  }else {
-    throw Exception("Failed to load data");
   }
 
-}
+  Future<double> overall_rating(String business_uid) async {
+    try {
+      final String apiUrl =
+          'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        print(response.body);
+        final rating = double.parse(response.body);
+        return rating;
+      } else {
+        print("printing Exception");
+        // If the server did not return a 200 OK response, throw an exception.
+        throw Exception(
+            'Failed to load business data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load business data: $e');
+    }
+  }
+
+  Future<String> getLocationName(
+      double latitude, double longitude, String apiKey) async {
+    final String baseurl = "https://maps.googleapis.com/maps/api/geocode/json";
+    final String endpoint = "$baseurl?latlng=$latitude,$longitude&key=$apiKey";
+
+    final response = await http.get(Uri.parse(endpoint));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      // print(response.body);
+      print("body");
+      // print(data["results"][0]["formatted_address"]);
+      // print(data["results"][0]["address_components"][0]["short_name"]);
+
+      if (data.containsKey("results") && (data["results"] as List).isNotEmpty) {
+        List<dynamic> addressComponents =
+            data["results"][0]["address_components"];
+        String shortName = addressComponents.isNotEmpty
+            ? addressComponents[0]["short_name"]
+            : "N/A";
+        print(shortName);
+        return shortName;
+        // return data["results"][0]["formatted_address"];
+      } else {
+        throw Exception("location not found");
+      }
+    } else {
+      throw Exception("Failed to load data");
+    }
+  }
 
   // used this to show the list of subcategories
   // also used this to show restaurant widget in homepage ----->
@@ -154,6 +155,22 @@ Future<String> getLocationName(double latitude, double longitude, String apiKey)
   //   }
   // }
 
+  // Future<Businessprofile> fetchBusinessProfile(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     var jsonBody = json.decode(response.body);
+  //     if (jsonBody != null) {
+  //       var businessProfile = Businessprofile.fromJson(jsonBody);
+  //       return businessProfile;
+  //     } else {
+  //       throw Exception('JSON response is null');
+  //     }
+  //   } else {
+  //     throw Exception('Failed to load business profile');
+  //   }
+  // }
+
   Future<Businessprofile> fetchBusinessProfile(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
@@ -165,26 +182,27 @@ Future<String> getLocationName(double latitude, double longitude, String apiKey)
       } else {
         throw Exception('JSON response is null');
       }
+    } else if (response.statusCode == 500) {
+      throw Exception('Server error: ${response.body}');
     } else {
-      throw Exception('Failed to load business profile');
+      throw Exception(
+          'Failed to load business profile. Status code: ${response.statusCode}, Response body: ${response.body}');
     }
   }
-
 // used this to show ask for community
 
   Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      // print(response.body);
-      var askCommunity =
-          AskTheCommunityModels.fromJson(json.decode(response.body));
+      var decodedJson = json.decode(response.body);
+      // print('Decoded JSON: $decodedJson'); // Debug print
+      var askCommunity = AskTheCommunityModels.fromJson(decodedJson);
       return askCommunity;
     } else {
       throw Exception('Failed to load business profile');
     }
   }
-
 
   Future<CommentSectionModels> fetchComments(String uri) async {
     var url = Uri.parse(uri);
@@ -215,7 +233,6 @@ Future<String> getLocationName(double latitude, double longitude, String apiKey)
     }
   }
 
-
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data
   // we are not using this for getting uid we are directly using below line
@@ -240,7 +257,7 @@ Future<String> getLocationName(double latitude, double longitude, String apiKey)
       return userdata;
     } else {
       print('Failed to fetch data: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      // print('Response body: ${response.body}');
       throw Exception('Failed to fetch data: ${response.statusCode}');
     }
   }
@@ -256,8 +273,11 @@ Future<String> getLocationName(double latitude, double longitude, String apiKey)
     if (response.statusCode == 200) {
       var userActivity = UserActivityModel.fromJson(json.decode(response.body));
       return userActivity;
+    } else if (response.statusCode == 404) {
+      throw Exception('User activity not found');
     } else {
-      throw Exception('Failed to load user activity');
+      throw Exception(
+          'Failed to load user activity with status code: ${response.statusCode}');
     }
   }
 // -------------------------------------------------------------------------------------------------------------------
