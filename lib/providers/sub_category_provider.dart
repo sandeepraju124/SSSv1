@@ -7,11 +7,14 @@ import 'package:sssv1/utils/constants.dart';
 class businessProvider with ChangeNotifier {
   late List<BusinessModel?> _businessData;
   late List<String> _uniqueSubCategories;
+  // late Map<String, double> _businessRating;
   bool _isLoading = false;
 
   List<BusinessModel?> get getBusinessData => _businessData;
   List get getUniqueSubcategoryData => _uniqueSubCategories;
   bool get isLoading => _isLoading;
+  // Map<String, double> get businessRating => _businessRating;
+
 
   // List<Subcategory> _data = [];
   // List<Subcategory> get data => _data;
@@ -22,7 +25,15 @@ class businessProvider with ChangeNotifier {
     _isLoading = true;
     // Subcategory datalist = await Http().fetchSubcategoryData("$baseUrl/category/$subcategory");
     List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-    print("datalist");
+    // _businessRating = {};
+
+    // for (var business in datalist){
+    //   double rating = await Http().overall_rating(business.businessUid);
+    //   _businessRating[business.businessUid] = rating;
+
+    // }
+
+    // print("datalist");
     // print(datalist);
     _businessData = datalist;
     _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();

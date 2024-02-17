@@ -48,8 +48,9 @@ class _RestaurantState extends State<Restaurant> {
                 // shrinkWrap: true,
                 itemCount: data.getHomeBusinessData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final overall = Http().overall_rating(data.getHomeBusinessData[index]!.businessUid);
-                  print(overall);
+                  // final overall = Http().overall_rating(data.getHomeBusinessData[index]!.businessUid);
+                  final overallRating = data.businessRating[data.getHomeBusinessData[index]!.businessUid]!['rating'];
+                  print(overallRating);
                   return GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -132,7 +133,7 @@ class _RestaurantState extends State<Restaurant> {
                             ),
                             child: Center(
                                 child: Text(
-                                  overall.toString(),
+                                  overallRating.toString(),
                                   // "5",
                               // data.getHomeBusinessData[index]!.overallRating
                               //     .toString(),

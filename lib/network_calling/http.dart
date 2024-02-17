@@ -63,7 +63,7 @@ class Http {
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, parse the JSON
       final List<dynamic> jsonList = json.decode(response.body);
-      // print("responsebody ${response.body}");
+      print("responsebody ${response.body}");
       // print("jsonList $jsonList");
       return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
     } else {
@@ -73,15 +73,18 @@ class Http {
     }
   }
 
-  Future<double> overall_rating(String business_uid) async {
+  Future<Map<String,dynamic>> overall_rating(String business_uid) async {
     try {
       final String apiUrl =
           'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         print(response.body);
-        final rating = double.parse(response.body);
-        return rating;
+        // final rating = double.parse(response.body);
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final double rating = responseData['overall_rating'].toDouble();
+        final int reviewsCount = responseData['reviews_count'];
+        return {'rating': rating, 'reviewsCount': reviewsCount};
       } else {
         print("printing Exception");
         // If the server did not return a 200 OK response, throw an exception.

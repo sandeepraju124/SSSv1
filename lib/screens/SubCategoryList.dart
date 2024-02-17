@@ -319,7 +319,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                       Align(
                           alignment: Alignment.center,
                           child: Text(
-                              "4.5",
+                            data.businessRating[data.subcategoryListData![index].businessUid]!['rating'].toString(),
+                              // "4.5",
                               // data.subcategoryListData![index].overallRating
                               //     .toString(),
                               style: TextStyle(
@@ -329,7 +330,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         child: Align(
                             alignment: Alignment.bottomLeft,
                             child: Text(
-                              "453",
+                              data.businessRating[data.subcategoryListData![index].businessUid]!['reviewsCount'].toString(),
+                              // "453",
                                 // data.subcategoryListData![index].reviewsLength
                                 //     .toString(),
                                 style: TextStyle(

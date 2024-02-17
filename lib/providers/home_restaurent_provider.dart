@@ -30,10 +30,12 @@ class HomeRestaurantListProvider with ChangeNotifier {
   List<BusinessModel?> _homebBusinessData = [];
   // late List<String> _uniqueSubCategories;
   bool _isLoading = false;
+  Map<String, Map<String, dynamic>> _businessRating = {};
 
   List<BusinessModel?> get getHomeBusinessData => _homebBusinessData;
   // List get getUniqueSubcategoryData => _uniqueSubCategories;
   bool get isLoading => _isLoading;
+  Map<String, Map<String, dynamic>> get businessRating => _businessRating;
 
   // List<Subcategory> _data = [];
   // List<Subcategory> get data => _data;
@@ -45,6 +47,11 @@ class HomeRestaurantListProvider with ChangeNotifier {
         await Http().getBusinessData(key: key, value: value);
     // print("datalist");
     // print(datalist);
+    for (var business in datalist){
+      Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
+      _businessRating[business.businessUid] = rating;
+    }
+    
     _homebBusinessData = datalist;
     // _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();
     // print(_uniqueSubCategories);
