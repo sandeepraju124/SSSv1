@@ -60,7 +60,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<BusinessProfileProvider>(context);
-    var amenities = data.businessProfileData?.amenities ?? [];
+    var amenities = data.businessProfileAddData?.amenities ?? [];
     int initialAmenitiesCount = 3;
 
     return Column(

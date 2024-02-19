@@ -5,11 +5,11 @@ import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class BusinessServicesProvider with ChangeNotifier {
-  List<Businessprofile> _services = [];
+  List<Businessprofileadd> _services = [];
   List<String> _subcategories = [];
   bool _isLoading = false;
 
-  List<Businessprofile> get services => _services;
+  List<Businessprofileadd> get services => _services;
   List<String> get subcategories => _subcategories;
   bool get isLoading => _isLoading;
 
@@ -38,7 +38,7 @@ class BusinessServicesProvider with ChangeNotifier {
           .cast<String>(); // Explicitly cast to List<String>
 
       _services = services
-          .map<Businessprofile>((item) => Businessprofile.fromJson(item))
+          .map<Businessprofileadd>((item) => Businessprofileadd.fromJson(item))
           .toSet() // convert to Set to remove duplicates
           .toList(); // convert back to List
       _subcategories = subcategories;
@@ -49,3 +49,4 @@ class BusinessServicesProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+

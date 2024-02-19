@@ -52,7 +52,7 @@ class _RestaurantState extends State<Restaurant> {
                   final overallRating = data.businessRating[data.getHomeBusinessData[index]!.businessUid]!['rating'];
                   print(overallRating);
                   return GestureDetector(
-                    onTap: () async {
+                    onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DefaultProfilePage(
                                 uid: data

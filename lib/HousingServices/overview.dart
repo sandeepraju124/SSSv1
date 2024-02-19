@@ -49,7 +49,7 @@ class OverviewPage extends StatelessWidget {
 
   // below are the helper widgets for respective business///
 
-  Widget _buildHousingDetails(Businessprofile businessProfileData) {
+  Widget _buildHousingDetails(Businessprofileadd businessProfileData) {
     var housingDetails = businessProfileData.hosingdetails;
     if (housingDetails == null) {
       return Text("No housing details available");

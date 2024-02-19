@@ -25,6 +25,7 @@ class DefaultProfilePage extends StatefulWidget {
   const DefaultProfilePage({super.key, required this.uid});
 
   final String uid;
+  final String keyy = "business_uid";
 
   @override
   State<DefaultProfilePage> createState() => _DefaultProfilePageState();
@@ -51,7 +52,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     // _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
 
     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    data.businessProfileProvider(widget.uid);
+    data.businessProfileProvider(widget.keyy, widget.uid);
 
     // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
     // dataAsk.fetchAskCommunityData(widget.uid);
@@ -207,7 +208,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                             ),
                     ),
                     background: Image.network(
-                      data.businessProfileData!.profileImage,
+                      data.businessProfileData!.profileImageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -283,7 +284,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                         color: secondaryColor5LightTheme,
-                        child: OverviewPage()),
+                        child: Text("commenting for now")
+                        // OverviewPage()
+                        ),
                   ),
                 ),
                 SliverToBoxAdapter(
