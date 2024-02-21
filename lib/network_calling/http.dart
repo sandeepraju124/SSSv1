@@ -73,7 +73,7 @@ class Http {
     }
   }
 
-  Future<Map<String,dynamic>> overall_rating(String business_uid) async {
+  Future<Map<String, dynamic>> overall_rating(String business_uid) async {
     try {
       final String apiUrl =
           'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
@@ -174,14 +174,14 @@ class Http {
   //   }
   // }
 
-  Future<Businessprofileadd> fetchBusinessProfile(String uri) async {
+  Future<Businessprofile> fetchBusinessProfile(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print(response.body);
       var jsonBody = json.decode(response.body);
       if (jsonBody != null) {
-        var businessProfile = Businessprofileadd.fromJson(jsonBody);
+        var businessProfile = Businessprofile.fromJson(jsonBody);
         return businessProfile;
       } else {
         throw Exception('JSON response is null');
@@ -193,7 +193,7 @@ class Http {
           'Failed to load business profile. Status code: ${response.statusCode}, Response body: ${response.body}');
     }
   }
-// used this to show ask for community
+// // used this to show ask for community
 
   Future<AskTheCommunityModels> fetchAskCommunity(String uri) async {
     var url = Uri.parse(uri);
@@ -222,20 +222,20 @@ class Http {
   }
 
   // used this to show all business list foe search
-  Future<List<Businessprofileadd>> fetchAllBusinessListData(String uri) async {
-    var url = Uri.parse(uri);
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      final jsonList = json.decode(response.body) as List;
-      // print("responsebody ${response.body}");
-      // print("json $jsonList");
-      final List<Businessprofileadd> services =
-          jsonList.map((json) => Businessprofileadd.fromJson(json)).toList();
-      return services;
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
+  // Future<List<Businessprofileadd>> fetchAllBusinessListData(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     final jsonList = json.decode(response.body) as List;
+  //     // print("responsebody ${response.body}");
+  //     // print("json $jsonList");
+  //     final List<Businessprofileadd> services =
+  //         jsonList.map((json) => Businessprofileadd.fromJson(json)).toList();
+  //     return services;
+  //   } else {
+  //     throw Exception('Failed to fetch data');
+  //   }
+  // }
 
 // -----------------------------------------------------------------------------------------------------
   // getting  users api data

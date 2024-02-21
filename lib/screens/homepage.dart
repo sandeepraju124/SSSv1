@@ -7,7 +7,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
-import 'package:sssv1/providers/service_provider.dart';
+import 'package:sssv1/providers/BusinessCategoriesProvider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           color: Colors.grey),
                     ),
                   )),
-              OurTopPick(),
+              OurtoppickPage(),
               SizedBox(
                 height: 10,
               ),
@@ -191,11 +191,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   ),
                   margin: EdgeInsets.all(10),
                   child: Explore()),
-                  GestureDetector(
-                    onTap: (() {
-                      Http().overall_rating("NEX1O16051534921137");
-                    }),
-                    child: Text("click"))
+              GestureDetector(
+                  onTap: (() {
+                    Http().overall_rating("NEX1O16051534921137");
+                  }),
+                  child: Text("click"))
             ]),
       ),
     );

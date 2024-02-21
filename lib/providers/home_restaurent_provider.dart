@@ -47,11 +47,12 @@ class HomeRestaurantListProvider with ChangeNotifier {
         await Http().getBusinessData(key: key, value: value);
     // print("datalist");
     // print(datalist);
-    for (var business in datalist){
-      Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
+    for (var business in datalist) {
+      Map<String, dynamic> rating =
+          await Http().overall_rating(business.businessUid);
       _businessRating[business.businessUid] = rating;
     }
-    
+
     _homebBusinessData = datalist;
     // _uniqueSubCategories = datalist.map((data) => data.subCategory).toSet().toList();
     // print(_uniqueSubCategories);

@@ -9,6 +9,7 @@ import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/HousingServices/test.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/Reviews%20Section/postcomment.dart';
+import 'package:sssv1/Services%20(top)%20of%20homepage%20section/ourtoppick.dart';
 import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
@@ -17,7 +18,7 @@ import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/home_restaurent_provider.dart';
-import 'package:sssv1/providers/service_provider.dart';
+import 'package:sssv1/providers/BusinessCategoriesProvider.dart';
 import 'package:sssv1/providers/sub_category_list.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/providers/test_provider.dart';
@@ -57,9 +58,9 @@ void main() async {
     ChangeNotifierProvider<CommentSectionProvider>(
       create: (_) => CommentSectionProvider(),
     ),
-    ChangeNotifierProvider<AllBusinessListProvider>(
-      create: (_) => AllBusinessListProvider(),
-    ),
+    // ChangeNotifierProvider<AllBusinessListProvider>(
+    //   create: (_) => AllBusinessListProvider(),
+    // ),
     ChangeNotifierProvider<GoogleSignInController>(
       create: (_) => GoogleSignInController(),
     ),
@@ -74,8 +75,8 @@ void main() async {
     ),
     ChangeNotifierProvider<UserActivityProvider>(
         create: (_) => UserActivityProvider()),
-    ChangeNotifierProvider<BusinessServicesProvider>(
-        create: (_) => BusinessServicesProvider()),
+    ChangeNotifierProvider<BusinessCategoriesProvider>(
+        create: (_) => BusinessCategoriesProvider()),
   ], child: MyApp()));
 }
 
@@ -99,6 +100,7 @@ class MyApp extends StatelessWidget {
 
       // home: DefaultProfilePage(uid: ""),
       home: redirection(),
+      // home: OurtoppickPage(),
     );
   }
 }

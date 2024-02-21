@@ -49,10 +49,11 @@ class _RestaurantState extends State<Restaurant> {
                 itemCount: data.getHomeBusinessData.length,
                 itemBuilder: (BuildContext context, int index) {
                   // final overall = Http().overall_rating(data.getHomeBusinessData[index]!.businessUid);
-                  final overallRating = data.businessRating[data.getHomeBusinessData[index]!.businessUid]!['rating'];
-                  print(overallRating);
+                  final overallRating = data.businessRating[
+                      data.getHomeBusinessData[index]!.businessUid]!['rating'];
+                  // print(overallRating);
                   return GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DefaultProfilePage(
                                 uid: data
@@ -73,7 +74,8 @@ class _RestaurantState extends State<Restaurant> {
                               // color: Colors.amber,
                               height: 200,
                               child: Image.network(
-                                data.getHomeBusinessData[index]!.profileImageUrl,
+                                data.getHomeBusinessData[index]!
+                                    .profileImageUrl,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -87,8 +89,8 @@ class _RestaurantState extends State<Restaurant> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                          data.getHomeBusinessData[index]
-                                              !.businessName,
+                                          data.getHomeBusinessData[index]!
+                                              .businessName,
                                           // "something",
                                           // provider.data[index].name,
                                           // maxLines: 1,
@@ -103,8 +105,8 @@ class _RestaurantState extends State<Restaurant> {
                                 child: Container(
                               // color: Colors.teal,
                               child: Text(
-                                  data.getHomeBusinessData[index]
-                                      !.businessDescription,
+                                  data.getHomeBusinessData[index]!
+                                      .businessDescription,
                                   // provider.data[index].despription,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,
@@ -133,8 +135,8 @@ class _RestaurantState extends State<Restaurant> {
                             ),
                             child: Center(
                                 child: Text(
-                                  overallRating.toString(),
-                                  // "5",
+                              overallRating.toString(),
+                              // "5",
                               // data.getHomeBusinessData[index]!.overallRating
                               //     .toString(),
                               style: TextStyle(

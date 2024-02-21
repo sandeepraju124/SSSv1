@@ -29,7 +29,7 @@ import 'package:sssv1/utils/constants.dart';
 //   }
 // }
 class BusinessProfileProvider with ChangeNotifier {
-  BusinessModel?  _businessProfile;
+  BusinessModel? _businessProfile;
   Businessprofile? _businessProfileAdd;
   bool _isLoading = false;
 
@@ -42,9 +42,11 @@ class BusinessProfileProvider with ChangeNotifier {
 
   Future<void> businessProfileProvider(key, value) async {
     _isLoading = true;
-    Businessprofile businessProfile =await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-    List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-    _businessProfile = datalist.first ;
+    Businessprofile businessProfile =
+        await Http().fetchBusinessProfile("$baseUrl/uid/$value");
+    List<BusinessModel> datalist =
+        await Http().getBusinessData(key: key, value: value);
+    _businessProfile = datalist.first;
     _businessProfileAdd = businessProfile;
     _isLoading = false;
     notifyListeners();

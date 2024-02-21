@@ -9,9 +9,6 @@ import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 
-import '../utils/navigator.dart';
-import '../widgets/staggered_grid.dart';
-
 class AdditionalInfoPage extends StatelessWidget {
   const AdditionalInfoPage({super.key});
 
@@ -227,10 +224,10 @@ class AdditionalInfoPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {
-                            Navigators()
-                                .navigatorPush(context, StaggeredGridq());
-                          },
+                          // onTap: () {
+                          //   Navigators()
+                          //       .navigatorPush(context, StaggeredGridq());
+                          // },
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
