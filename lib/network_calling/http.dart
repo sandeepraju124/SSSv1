@@ -174,19 +174,21 @@ class Http {
   //   }
   // }
 
-  Future<Businessprofile> fetchBusinessProfile(String uri) async {
+  Future<Businessprofileadd> fetchBusinessProfile(String uri) async {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print(response.body);
       var jsonBody = json.decode(response.body);
       if (jsonBody != null) {
-        var businessProfile = Businessprofile.fromJson(jsonBody);
+        var businessProfile = Businessprofileadd.fromJson(jsonBody);
         return businessProfile;
       } else {
+        // return Future.value(Null);
         throw Exception('JSON response is null');
       }
     } else if (response.statusCode == 500) {
+      // return Future.value(null);
       throw Exception('Server error: ${response.body}');
     } else {
       throw Exception(

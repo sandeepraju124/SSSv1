@@ -27,7 +27,9 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
               shrinkWrap: true,
               itemCount: amenities.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
+                print(amenities);
+                print("amenities..........");
+                return  ListTile(
                   leading: const Icon(
                     Icons.check,
                     color: tgPrimaryColor,
@@ -78,13 +80,15 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
           ),
         ),
         // Display the first 3 amenities
-        ListView.builder(
+        amenities.length >0 ? ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: amenities.length > initialAmenitiesCount
               ? initialAmenitiesCount
               : amenities.length,
           itemBuilder: (BuildContext context, int index) {
+            print(amenities);
+            print("amenities.length..........................");
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
@@ -107,7 +111,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
               ),
             );
           },
-        ),
+        ): Text("empty"),
 
         // "More" button
         if (amenities.length > initialAmenitiesCount)

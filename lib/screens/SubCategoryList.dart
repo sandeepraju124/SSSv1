@@ -176,6 +176,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 flex: 70,
                 child: GestureDetector(
                   onTap: () {
+                    print(data.subcategoryListData![index].businessUid,);
+                    print("business uid from subcategory list");
                     Navigators().navigatorPush(
                         context,
                         //   DefaultProfile(

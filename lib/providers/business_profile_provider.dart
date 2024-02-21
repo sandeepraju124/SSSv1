@@ -5,20 +5,29 @@ import 'package:sssv1/network_calling/http.dart';
 import 'package:sssv1/utils/constants.dart';
 
 // class BusinessProfileProvider with ChangeNotifier {
-//   Businessprofile? _businessProfile;
+//   BusinessModel?  _businessProfile;
+//   Businessprofileadd? _businessProfileAdd;
 //   bool _isLoading = false;
 
-//   Businessprofile? get businessProfileData => _businessProfile;
+//   BusinessModel? get businessProfileData => _businessProfile;
+//   Businessprofileadd? get businessProfileAddData => _businessProfileAdd;
 //   bool get isLoading => _isLoading;
 
-//   // List<Subcategory> _data = [];
-//   // List<Subcategory> get data => _data;
 
-//   Future<void> businessProfileProvider(uid) async {
+//   Future<void> businessProfileProvider(key, value) async {
+    
+
 //     _isLoading = true;
-//     Businessprofile businessProfile =
-//         await Http().fetchBusinessProfile("$baseUrl/uid/$uid");
-//     _businessProfile = businessProfile;
+//     print("businessProfileAdd");
+//     Businessprofileadd businessProfileAdd =await Http().fetchBusinessProfile("$baseUrl/uid/$value");
+//     print("businessProfileAdd");
+//     print(businessProfileAdd);
+//     List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
+//     print("datalist");
+//     print(datalist);
+    
+//     _businessProfile = datalist.first ;
+//     _businessProfileAdd = businessProfileAdd;
 //     _isLoading = false;
 //     notifyListeners();
 //     // print("datalist $datalist");
@@ -28,32 +37,45 @@ import 'package:sssv1/utils/constants.dart';
 //     // print("changenotifier called");
 //   }
 // }
+
 class BusinessProfileProvider with ChangeNotifier {
   BusinessModel? _businessProfile;
-  Businessprofile? _businessProfileAdd;
+  Businessprofileadd? _businessProfileAdd;
   bool _isLoading = false;
 
   BusinessModel? get businessProfileData => _businessProfile;
-  Businessprofile? get businessProfileAddData => _businessProfileAdd;
+  Businessprofileadd? get businessProfileAddData => _businessProfileAdd;
   bool get isLoading => _isLoading;
 
-  // List<Subcategory> _data = [];
-  // List<Subcategory> get data => _data;
-
   Future<void> businessProfileProvider(key, value) async {
-    _isLoading = true;
-    Businessprofile businessProfile =
-        await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-    List<BusinessModel> datalist =
-        await Http().getBusinessData(key: key, value: value);
-    _businessProfile = datalist.first;
-    _businessProfileAdd = businessProfile;
-    _isLoading = false;
-    notifyListeners();
-    // print("datalist $datalist");
-    // print("printing");
-    // print(_subcategory?.subcategories[3]);
-    // print(subcategoryData?.subcategories.length.toString());
-    // print("changenotifier called");
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      print("businessProfileAdd");
+      Businessprofileadd businessProfileAdd = await Http().fetchBusinessProfile("$baseUrl/uid/$value");
+      print("businessProfileAdd");
+      print(businessProfileAdd);
+
+      // List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
+      // print("datalist");
+      // print(datalist);
+
+      // _businessProfile = datalist.first;
+      _businessProfileAdd = businessProfileAdd;
+    } catch (error) {
+      // Handle the error appropriately, here we print it for debugging purposes
+      print("Error occurred: $error");
+
+      // You can set _businessProfileAdd to null or any default value if needed
+      _businessProfileAdd = null;
+    } finally {
+      List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
+      _businessProfile = datalist.first;
+      print("datalist");
+      print(datalist);
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }

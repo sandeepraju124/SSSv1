@@ -24,7 +24,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class DefaultProfilePage extends StatefulWidget {
   const DefaultProfilePage({super.key, required this.uid});
 
-  final String uid;
+  final String uid; //00000000000000
   final String keyy = "business_uid";
 
   @override
@@ -284,7 +284,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                         color: secondaryColor5LightTheme,
-                        child: Text("commenting for now")
+                        child: 
+                        Text("commenting for now")
                         // OverviewPage()
                         ),
                   ),
