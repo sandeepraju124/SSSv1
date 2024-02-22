@@ -34,7 +34,7 @@ class Explore extends StatelessWidget {
                     //   var data = Provider.of<SubcategoryProvider>(context);
                     // data.subCategoryProvider("food");
 
-                    Navigators().navigatorPush(
+                    navigatorPush(
                         context,
                         Subcategory(
                           keyy: keyy,  //category
@@ -86,7 +86,7 @@ class Explore extends StatelessWidget {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  Navigators().navigatorPush(
+                  navigatorPush(
                       context,
                       Subcategory(
                         keyy: keyy,
@@ -127,7 +127,7 @@ class Explore extends StatelessWidget {
                   child: GestureDetector(
                 onTap: () {
                   // education
-                  Navigators().navigatorPush(
+                  navigatorPush(
                       context,
                       Subcategory(
                         keyy: keyy,
@@ -175,7 +175,7 @@ class Explore extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     // education
-                    Navigators().navigatorPush(context, const HouseSearch());
+                    navigatorPush(context, const HouseSearch());
                   },
                   child: Container(
                     margin: const EdgeInsets.all(5),

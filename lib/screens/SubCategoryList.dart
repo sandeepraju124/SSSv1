@@ -178,7 +178,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                   onTap: () {
                     print(data.subcategoryListData![index].businessUid,);
                     print("business uid from subcategory list");
-                    Navigators().navigatorPush(
+                    navigatorPush(
                         context,
                         //   DefaultProfile(
                         //       uid: data.subcategoryListData![index].businessUid),

@@ -318,6 +318,7 @@ class Http {
 
   Future<List<dynamic>> search(String query) async {
     final response = await http.get(Uri.parse('$baseUrl/search?query=$query'));
+    // final response = await http.get(Uri.parse('$baseUrl/search?query=LPWQASZXC909642BVV'));
 
     if (response.statusCode == 200) {
       List<dynamic> results = jsonDecode(response.body);

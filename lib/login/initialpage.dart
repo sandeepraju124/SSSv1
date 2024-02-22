@@ -303,7 +303,7 @@ class _InitialPageState extends State<InitialPage> {
                 // sign field??
                 GestureDetector(
                   onTap: () {
-                    Navigators().navigatorPush(context, AuthState());
+                    navigatorPush(context, AuthState());
                   },
                   child: Container(
                     height: 40,
@@ -325,7 +325,7 @@ class _InitialPageState extends State<InitialPage> {
 
                 GestureDetector(
                   onTap: () {
-                    Navigators().navigatorPush(context, Signupauth());
+                    navigatorPush(context, Signupauth());
                   },
                   child: Container(
                     height: 40,

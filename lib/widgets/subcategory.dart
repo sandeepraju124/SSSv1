@@ -85,7 +85,7 @@ class _SubcategoryState extends State<Subcategory> {
                   return SizedBox(
                     child: GestureDetector(
                       onTap: () {
-                        Navigators().navigatorPush(
+                        navigatorPush(
                           context,
                           SubCategoryList(
                             keyy: "sub_category",

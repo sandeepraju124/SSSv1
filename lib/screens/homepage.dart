@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,10 +11,12 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/providers/sub_category_provider.dart';
 import 'package:sssv1/providers/BusinessCategoriesProvider.dart';
 import 'package:sssv1/providers/user_provider.dart';
+import 'package:sssv1/screens/testing.dart';
+import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/widgets/explore.dart';
-
+import 'package:http/http.dart' as http;
 import '../Services (top) of homepage section/ourtoppick.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -193,7 +197,20 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: Explore()),
               GestureDetector(
                   onTap: (() {
-                    Http().overall_rating("NEX1O16051534921137");
+                    // Future<List<dynamic>> _getSuggestions(String query) async {
+                    //   // final response = await http.get(Uri.parse('your_search_api_url?query=$query'));
+                    //   final response = await http
+                    //       .get(Uri.parse('$baseUrl/pg/search?query=$query'));
+                    //   print(response.body);
+                    //   if (response.statusCode == 200) {
+                    //     return List<dynamic>.from(json.decode(response.body));
+                    //   } else {
+                    //     throw Exception('Failed to load suggestions');
+                    //   }
+                    // }
+                    // _getSuggestions("Tea");
+                    navigatorPush(context, BusinessSearchScreen());
+                    // Http().overall_rating("NEX1O16051534921137");
                   }),
                   child: Text("click"))
             ]),
