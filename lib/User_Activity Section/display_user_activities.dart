@@ -45,13 +45,24 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        rating,
-        (index) => Icon(Icons.star,
-            color: Colors.amber[700],
-
-            // color: tgDarkPrimaryColor,
-            size: 20), // You can adjust the size as needed
-      ),
+          rating,
+          (index) => Padding(
+                padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                child: Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      color: tgDarkPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: Colors.black, width: 0.3)),
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.white,
+                    // color: Colors.amber[700],
+                    size: 12,
+                  ),
+                ),
+              )),
     );
   }
 
@@ -286,13 +297,13 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Text(
-                                                          "Rated at: ",
-                                                          style: TextStyle(
-                                                              fontSize: 12.0,
-                                                              color:
-                                                                  secondaryColor20LightTheme),
-                                                        ),
+                                                        // Text(
+                                                        //   "Rated at: ",
+                                                        //   style: TextStyle(
+                                                        //       fontSize: 12.0,
+                                                        //       color:
+                                                        //           secondaryColor20LightTheme),
+                                                        // ),
                                                         stars(comment.rating),
                                                       ],
                                                     ), // This will display the row of stars

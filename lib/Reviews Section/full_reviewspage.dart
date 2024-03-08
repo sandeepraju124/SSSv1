@@ -27,12 +27,24 @@ class _showallreviewspageState extends State<showallreviewspage> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        rating,
-        (index) => Icon(Icons.star_rounded,
-            color: Colors.amber[700],
-            // color: tgDarkPrimaryColor,
-            size: 21.0), // You can adjust the size as needed
-      ),
+          rating,
+          (index) => Padding(
+                padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                child: Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      color: tgDarkPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: Colors.black, width: 0.3)),
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.white,
+                    // color: Colors.amber[700],
+                    size: 12,
+                  ),
+                ),
+              )),
     );
   }
 
@@ -247,7 +259,9 @@ class _showallreviewspageState extends State<showallreviewspage> {
                                                 context: context,
                                                 elevation: 6,
                                                 isScrollControlled: true,
-                                                backgroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 255, 255, 255),
                                                 builder:
                                                     (BuildContext context) {
                                                   return Padding(
@@ -414,10 +428,10 @@ class _showallreviewspageState extends State<showallreviewspage> {
                                       SizedBox(height: 5),
                                       Row(
                                         children: [
-                                          Text(
-                                            "Rated: ",
-                                            style: TextStyle(fontSize: 12.0),
-                                          ),
+                                          // Text(
+                                          //   "Rated: ",
+                                          //   style: TextStyle(fontSize: 12.0),
+                                          // ),
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 bottom: 2),

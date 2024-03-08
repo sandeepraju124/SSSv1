@@ -41,12 +41,24 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        rating,
-        (index) => Icon(Icons.star,
-            color: Colors.amber[700],
-            // color: tgDarkPrimaryColor,
-            size: 18.0), // You can adjust the size as needed
-      ),
+          rating,
+          (index) => Padding(
+                padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                child: Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      color: tgDarkPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: Colors.black, width: 0.3)),
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.white,
+                    // color: Colors.amber[700],
+                    size: 12,
+                  ),
+                ),
+              )),
     );
   }
 
@@ -315,10 +327,10 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    "Rating: ",
-                                    style: TextStyle(fontSize: 12.0),
-                                  ),
+                                  // Text(
+                                  //   "Rating: ",
+                                  //   style: TextStyle(fontSize: 12.0),
+                                  // ),
                                   stars(review.rating),
                                 ],
                               ), // This will display the row of stars
