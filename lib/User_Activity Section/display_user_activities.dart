@@ -247,6 +247,7 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                             Navigator.push(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
+                                              print(comment.businessUid);
                                               return DefaultProfilePage(
                                                   uid: comment.businessUid);
                                             }));

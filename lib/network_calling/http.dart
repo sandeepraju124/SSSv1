@@ -53,23 +53,47 @@ class Http {
   }
 
 // recreating of above api
+  // Future<List<BusinessModel>> getBusinessData(
+  //     {required String key, required String value}) async {
+  //   final String apiUrl =
+  //       'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
+
+  //   final response = await http.get(Uri.parse(apiUrl));
+
+  //   if (response.statusCode == 200) {
+  //     // If the server returns a 200 OK response, parse the JSON
+  //     final List<dynamic> jsonList = json.decode(response.body);
+  //     print("responsebody ${response.body}");
+  //     // print("jsonList $jsonList");
+  //     return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
+  //   } else {
+  //     print("printing Exception");
+  //     // If the server did not return a 200 OK response, throw an exception.
+  //     throw Exception('Failed to load business data');
+  //   }
+  // }
+
   Future<List<BusinessModel>> getBusinessData(
       {required String key, required String value}) async {
     final String apiUrl =
         'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
 
-    final response = await http.get(Uri.parse(apiUrl));
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200) {
-      // If the server returns a 200 OK response, parse the JSON
-      final List<dynamic> jsonList = json.decode(response.body);
-      print("responsebody ${response.body}");
-      // print("jsonList $jsonList");
-      return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
-    } else {
-      print("printing Exception");
-      // If the server did not return a 200 OK response, throw an exception.
-      throw Exception('Failed to load business data');
+      // print('Response status code: ${response.statusCode}');
+      // print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonList = json.decode(response.body);
+        return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Failed to load business data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching business data: $e');
+      throw Exception('Failed to load business data: $e');
     }
   }
 
@@ -178,7 +202,7 @@ class Http {
     var url = Uri.parse(uri);
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       var jsonBody = json.decode(response.body);
       if (jsonBody != null) {
         var businessProfile = Businessprofileadd.fromJson(jsonBody);

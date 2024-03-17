@@ -616,12 +616,22 @@ class UserActivityModelAnswer {
     required this.businessUid,
   });
 
+  // factory UserActivityModelAnswer.fromJson(Map<String, dynamic> json) =>
+  //     UserActivityModelAnswer(
+  //       adetails: Adetails.fromJson(json["adetails"]),
+  //       answer: json["answer"],
+  //       businessName: json["business_name"],
+  //       businessUid: json["business_uid"],
+  //     );
+
   factory UserActivityModelAnswer.fromJson(Map<String, dynamic> json) =>
       UserActivityModelAnswer(
         adetails: Adetails.fromJson(json["adetails"]),
-        answer: json["answer"],
-        businessName: json["business_name"],
-        businessUid: json["business_uid"],
+        answer: json["answer"] ?? "", // provide a default value if null
+        businessName:
+            json["business_name"] ?? "", // provide a default value if null
+        businessUid:
+            json["business_uid"] ?? "", // provide a default value if null
       );
 
   Map<String, dynamic> toJson() => {
@@ -648,11 +658,18 @@ class Adetails {
   factory Adetails.fromJson(Map<String, dynamic> json) => Adetails(
         answerid: json["answerid"],
         createdAt: DateTime.parse(json["created_at"]),
-        userid: userValues.map[json["userid"]]!,
+        userid:
+            json["userid"] != null && userValues.map.containsKey(json["userid"])
+                ? userValues.map[json["userid"]]!
+                : User.unknown,
+// Provide a default value if user id is null
+
         updatedAt: json["updated_at"] == null
-            ? []
-            : List<DateTime>.from(
-                json["updated_at"]!.map((x) => DateTime.parse(x))),
+            ? null
+            : (json["updated_at"] is List<dynamic>
+                ? List<DateTime>.from(
+                    json["updated_at"].map((x) => DateTime.parse(x)))
+                : null),
       );
 
   Map<String, dynamic> toJson() => {
@@ -665,7 +682,7 @@ class Adetails {
       };
 }
 
-enum User { S4_V_SYG3_CIN_RWJO6_V9_NR_J08_R_ZD8_W1 }
+enum User { S4_V_SYG3_CIN_RWJO6_V9_NR_J08_R_ZD8_W1, unknown }
 
 final userValues = EnumValues({
   "S4vSYG3CinRwjo6V9NrJ08rZD8w1": User.S4_V_SYG3_CIN_RWJO6_V9_NR_J08_R_ZD8_W1
@@ -720,18 +737,35 @@ class Comment {
     required this.username,
   });
 
+  // factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+  //       businessName: json["business_name"],
+  //       businessUid: json["business_uid"],
+  //       comment: json["comment"],
+  //       createdAt: DateTime.parse(json["created_at"]),
+  //       rating: json["rating"],
+  //       reviewId: json["review_id"],
+  //       updatedAt: json["updated_at"] == null
+  //           ? null
+  //           : DateTime.parse(json["updated_at"]),
+  //       userId: userValues.map[json["user_id"]]!,
+  //       username: json["username"],
+  //     );
+
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-        businessName: json["business_name"],
-        businessUid: json["business_uid"],
-        comment: json["comment"],
+        businessName:
+            json["business_name"] ?? "", // provide a default value if null
+        businessUid:
+            json["business_uid"] ?? "", // provide a default value if null
+        comment: json["comment"] ?? "", // provide a default value if null
         createdAt: DateTime.parse(json["created_at"]),
-        rating: json["rating"],
-        reviewId: json["review_id"],
+        rating: json["rating"] ?? 0, // provide a default value if null
+        reviewId: json["review_id"] ?? "", // provide a default value if null
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        userId: userValues.map[json["user_id"]]!,
-        username: json["username"],
+        userId: userValues.map[json["user_id"]] ??
+            User.unknown, // provide a default value if null
+        username: json["username"] ?? "", // provide a default value if null
       );
 
   Map<String, dynamic> toJson() => {
@@ -762,13 +796,25 @@ class Question {
     required this.question,
   });
 
+  // factory Question.fromJson(Map<String, dynamic> json) => Question(
+  //       answers: List<QuestionAnswer>.from(
+  //           json["answers"].map((x) => QuestionAnswer.fromJson(x))),
+  //       businessName: json["business_name"],
+  //       businessUid: json["business_uid"],
+  //       qdetails: Qdetails.fromJson(json["qdetails"]),
+  //       question: json["question"],
+  //     );
+
   factory Question.fromJson(Map<String, dynamic> json) => Question(
         answers: List<QuestionAnswer>.from(
-            json["answers"].map((x) => QuestionAnswer.fromJson(x))),
-        businessName: json["business_name"],
-        businessUid: json["business_uid"],
-        qdetails: Qdetails.fromJson(json["qdetails"]),
-        question: json["question"],
+            (json["answers"] ?? []).map((x) => QuestionAnswer.fromJson(x))),
+        businessName:
+            json["business_name"] ?? "", // provide a default value if null
+        businessUid:
+            json["business_uid"] ?? "", // provide a default value if null
+        qdetails: Qdetails.fromJson(
+            json["qdetails"] ?? {}), // provide a default value if null
+        question: json["question"] ?? "", // provide a default value if null
       );
 
   Map<String, dynamic> toJson() => {
@@ -790,8 +836,8 @@ class QuestionAnswer {
   });
 
   factory QuestionAnswer.fromJson(Map<String, dynamic> json) => QuestionAnswer(
-        adetails: Adetails.fromJson(json["adetails"]),
-        answer: json["answer"],
+        adetails: Adetails.fromJson(json["adetails"] ?? {}),
+        answer: json["answer"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -813,13 +859,24 @@ class Qdetails {
     required this.userid,
   });
 
+  // factory Qdetails.fromJson(Map<String, dynamic> json) => Qdetails(
+  //       createdAt: DateTime.parse(json["created_at"]),
+  //       questionid: json["questionid"],
+  //       updatedAt: json["updated_at"] == null
+  //           ? null
+  //           : DateTime.parse(json["updated_at"]),
+  //       userid: userValues.map[json["userid"]]!,
+  //     );
+
   factory Qdetails.fromJson(Map<String, dynamic> json) => Qdetails(
         createdAt: DateTime.parse(json["created_at"]),
         questionid: json["questionid"],
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        userid: userValues.map[json["userid"]]!,
+        userid: json["userid"] != null
+            ? userValues.map[json["userid"]] ?? User.unknown
+            : User.unknown,
       );
 
   Map<String, dynamic> toJson() => {

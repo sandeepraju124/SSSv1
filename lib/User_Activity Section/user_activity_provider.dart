@@ -30,8 +30,8 @@ class UserActivityProvider extends ChangeNotifier {
       _userActivity = userActivity;
     } catch (e, stacktrace) {
       // Capture the stack trace
-      // print('Failed to fetch user activity: $e');
-      // print('Stack trace: $stacktrace'); // Log the stack trace
+      print('Failed to fetch user activity: $e');
+      print('Stack trace: $stacktrace'); // Log the stack trace
       // handle the error as needed
     } finally {
       _isLoading = false;

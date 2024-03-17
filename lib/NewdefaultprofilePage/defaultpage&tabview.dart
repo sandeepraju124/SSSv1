@@ -51,8 +51,13 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     _scrollController = ScrollController();
     // _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
 
-    var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    data.businessProfileProvider(widget.keyy, widget.uid);
+    // var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+    // data.businessProfileProvider(widget.keyy, widget.uid);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+      data.businessProfileProvider(widget.keyy, widget.uid);
+    });
 
     // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
     // dataAsk.fetchAskCommunityData(widget.uid);
@@ -201,14 +206,22 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                             )
                           : Text(
                               // "Hub Restaurant",
-                              data.businessProfileData!.businessName.toString(),
+                              // data.businessProfileData!.businessName.toString(),
+                              // Replace this line:
+// data.businessProfileData!.businessName.toString(),
+
+// With this line:
+                              data.businessProfileData?.businessName
+                                      .toString() ??
+                                  'Default Name',
 
                               style:
                                   TextStyle(color: Colors.white, fontSize: 17),
                             ),
                     ),
                     background: Image.network(
-                      data.businessProfileData!.profileImageUrl,
+                      data.businessProfileData?.profileImageUrl ??
+                          'https://upload.wikimedia.org/wikipedia/commons/4/45/MontreGousset001.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -284,9 +297,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                         color: secondaryColor5LightTheme,
-                        child: 
-                        Text("commenting for now")
-                        // OverviewPage()
+                        child: Text("commenting for now")
+                        // child:  OverviewPage(),
                         ),
                   ),
                 ),
