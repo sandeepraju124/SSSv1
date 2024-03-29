@@ -92,8 +92,124 @@ class Http {
             'Failed to load business data. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching business data: $e');
+      // print('Error fetching business data: $e');
       throw Exception('Failed to load business data: $e');
+    }
+  }
+
+  // Future<List<BusinessModel>> getBusinessLatLongData({
+  //   required String key,
+  //   required String value,
+  //   required String latitude,
+  //   required String longitude,
+  //   required String distance,
+  // }) async {
+  //   // Construct the API URL with the additional parameters
+  //   final String apiUrl =
+  //       'https://supernova1137.azurewebsites.net/pg/business/latlong?key=$key&value=$value&latitude=$latitude&longitude=$longitude&distance=$distance';
+
+  //   try {
+  //     final response = await http.get(Uri.parse(apiUrl));
+
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> jsonList = json.decode(response.body);
+  //       return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
+  //     } else {
+  //       throw Exception(
+  //           'Failed to load business data. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching business data: $e');
+  //     throw Exception('Failed to load business data: $e');
+  //   }
+  // }
+
+  // Future<List<BusinessModel>> getNearbyBusinesses({
+  //   required String key,
+  //   required String value,
+  //   required String latitude,
+  //   required String longitude,
+  //   required String distance,
+  // }) async {
+  //   final String apiUrl =
+  //       'https://supernova1137.azurewebsites.net/pg/business/latlong';
+
+  //   final Uri uri = Uri.parse(
+  //       '$apiUrl?latitude=$latitude&longitude=$longitude&distance=$distance&key=$key&value=$value');
+
+  //   try {
+  //     final response = await http.get(uri);
+  //     if (response.statusCode == 200) {
+  //       // Parse the response
+  //       final data = jsonDecode(response.body);
+  //       // Assuming the list of businesses is under a key called 'businesses'
+  //       // Make sure to replace 'businesses' with the actual key from the API response
+  //       List<dynamic>? businessesJson = data['businesses'];
+  //       if (businessesJson != null) {
+  //         List<BusinessModel> businesses = businessesJson
+  //             .map((item) => BusinessModel.fromJson(item))
+  //             .toList();
+  //         return businesses;
+  //       } else {
+  //         // print('No businesses found in the response');
+  //         return []; // Return an empty list if no businesses are found
+  //       }
+  //     } else {
+  //       // Handle error
+  //       // print('Failed to fetch nearby businesses: ${response.statusCode}');
+  //       throw Exception('Failed to load business data');
+  //     }
+  //   } catch (e) {
+  //     // Handle error
+  //     // print('Error fetching business data: $e');
+  //     throw Exception('Failed to load business data');
+  //   }
+  // }
+
+  Future<List<BusinessModel>> getNearbyBusinesses({
+    required String key,
+    required String value,
+    required String latitude,
+    required String longitude,
+    required String distance,
+  }) async {
+    final String apiUrl =
+        'https://supernova1137.azurewebsites.net/pg/business/latlong';
+
+    final Uri uri = Uri.parse(
+        '$apiUrl?latitude=$latitude&longitude=$longitude&distance=$distance&key=$key&value=$value');
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        // Parse the response
+        final data = jsonDecode(response.body);
+        // Assuming the list of businesses is under a key called 'businesses'
+        // Make sure to replace 'businesses' with the actual key from the API response
+        if (data is Map<String, dynamic> && data.containsKey('businesses')) {
+          var businessesJson = data['businesses'];
+          if (businessesJson is List) {
+            List<BusinessModel> businesses = businessesJson
+                .map((item) => BusinessModel.fromJson(item))
+                .toList();
+            return businesses;
+          } else {
+            print('Expected a list of businesses but got: $businessesJson');
+            return []; // Return an empty list if the data is not a list
+          }
+        } else {
+          print('No businesses found in the response');
+          return []; // Return an empty list if no businesses are found
+        }
+      } else {
+        // Handle non-200 status codes
+        print('Failed to fetch nearby businesses: ${response.statusCode}');
+        throw Exception('Failed to load business data');
+      }
+    } catch (e) {
+      // Handle any other exceptions
+      print('Error fetching business data: $e');
+      throw Exception('Failed to load business data');
     }
   }
 
@@ -103,14 +219,14 @@ class Http {
           'https://supernova1137.azurewebsites.net/overall_rating/$business_uid';
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         // final rating = double.parse(response.body);
         final Map<String, dynamic> responseData = json.decode(response.body);
         final double rating = responseData['overall_rating'].toDouble();
         final int reviewsCount = responseData['reviews_count'];
         return {'rating': rating, 'reviewsCount': reviewsCount};
       } else {
-        print("printing Exception");
+        // print("printing Exception");
         // If the server did not return a 200 OK response, throw an exception.
         throw Exception(
             'Failed to load business data. Status code: ${response.statusCode}');

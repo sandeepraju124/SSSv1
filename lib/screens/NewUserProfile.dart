@@ -50,7 +50,7 @@ class _NewUserProfilePageState extends State<NewUserProfilePage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 32, left: 22),
+          padding: const EdgeInsets.only(top: 32, left: 34),
           child: Column(
             children: [
               Container(

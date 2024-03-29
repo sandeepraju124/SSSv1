@@ -302,10 +302,10 @@ class _OurtoppickPageState extends State<OurtoppickPage> {
                 padding: EdgeInsets.all(8.0),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 4,
                     crossAxisSpacing: 8.0,
-                    mainAxisSpacing: 8.0,
-                    childAspectRatio: 3 / 2,
+                    mainAxisSpacing: 13.0,
+                    // childAspectRatio: 2 / 1.7,
                   ),
                   itemCount: categoryModel.categories.length > 7
                       ? 8
