@@ -48,7 +48,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white54,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: tgDarkPrimaryColor,
@@ -58,8 +58,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
         title: Text(
           'Reset password',
-          style:
-              TextStyle(color: tgDarkPrimaryColor, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: tgDarkPrimaryColor,
+              fontWeight: FontWeight.w200,
+              fontSize: 15),
         ),
       ),
       body: Column(
@@ -69,13 +71,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             'Enter your Email and we will send you a password reset link',
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(181, 0, 0, 0)),
+                fontSize: 15.5,
+                fontWeight: FontWeight.w300,
+                // color: Color.fromARGB(181, 0, 0, 0)
+                color: Colors.black),
           ),
           //email field//
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(12.0),
             child: TextField(
               controller: _emailcontroller,
               // style: TextStyle(color: Colors.white38),
@@ -84,8 +87,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 labelText: 'Enter your E-mail',
                 labelStyle: TextStyle(
                     color: Color.fromARGB(191, 0, 0, 0),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.5),
+                    fontWeight: FontWeight.w200,
+                    fontSize: 14),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black54),
                     borderRadius: BorderRadius.circular(12)),
@@ -107,7 +110,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             color: tgDarkPrimaryColor,
             child: Text(
               'Reset Password',
-              style: TextStyle(fontSize: 14, color: Colors.white),
+              style: TextStyle(fontSize: 12, color: Colors.white),
             ),
           ),
         ],

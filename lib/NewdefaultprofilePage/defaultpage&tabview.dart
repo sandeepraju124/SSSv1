@@ -296,10 +296,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                        color: secondaryColor5LightTheme,
-                        child: Text("commenting for now")
-                        // child:  OverviewPage(),
-                        ),
+                      color: secondaryColor5LightTheme,
+                      // child: Text("commenting for now")
+                      // child:  OverviewPage(),
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(

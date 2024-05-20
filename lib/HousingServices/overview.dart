@@ -1,6 +1,7 @@
 // // ignore_for_file: prefer_const_constructors
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
+// import 'package:sssv1/models/business_models.dart';
 // import 'package:sssv1/models/business_profile.dart';
 // import 'package:sssv1/providers/business_profile_provider.dart';
 // import 'package:sssv1/utils/constants.dart';
@@ -49,8 +50,8 @@
 
 //   // below are the helper widgets for respective business///
 
-//   Widget _buildHousingDetails(Businessprofileadd businessProfileData) {
-//     var housingDetails = businessProfileData.hosingdetails;
+//   Widget _buildHousingDetails(BusinessModel businessProfileData) {
+//     var housingDetails = businessProfileData.;
 //     if (housingDetails == null) {
 //       return Text("No housing details available");
 //     }
@@ -70,13 +71,13 @@
 //     );
 //   }
 
-//   Widget _buildRestaurantDetails(Businessprofile businessProfileData) {
+//   Widget _buildRestaurantDetails(BusinessModel businessProfileData) {
 //     // Assuming 'restaurantDetails' is specific to 'Restaurant' category
 //     // You will need to implement this method based on your actual data model
 //     return Container(); // Placeholder for actual implementation
 //   }
 
-//   Widget _buildMallDetails(Businessprofile businessProfileData) {
+//   Widget _buildMallDetails(BusinessModel businessProfileData) {
 //     var mallDetails = businessProfileData.malldetails;
 //     if (mallDetails == null) {
 //       return Text("No mall details available");

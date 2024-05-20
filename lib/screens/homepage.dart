@@ -147,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                     child: Text(
-                      "Our top pick",
+                      "Our top picks",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
                           fontSize: 17,
@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
                     child: Text(
-                      "Restaurant",
+                      "Restaurants",
                       style: TextStyle(
                           fontFamily: "RobotoMono",
                           fontSize: 17,
@@ -195,24 +195,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   ),
                   margin: EdgeInsets.all(10),
                   child: Explore()),
-              GestureDetector(
-                  onTap: (() {
-                    // Future<List<dynamic>> _getSuggestions(String query) async {
-                    //   // final response = await http.get(Uri.parse('your_search_api_url?query=$query'));
-                    //   final response = await http
-                    //       .get(Uri.parse('$baseUrl/pg/search?query=$query'));
-                    //   print(response.body);
-                    //   if (response.statusCode == 200) {
-                    //     return List<dynamic>.from(json.decode(response.body));
-                    //   } else {
-                    //     throw Exception('Failed to load suggestions');
-                    //   }
-                    // }
-                    // _getSuggestions("Tea");
-                    navigatorPush(context, BusinessSearchScreen());
-                    // Http().overall_rating("NEX1O16051534921137");
-                  }),
-                  child: Text("click"))
+              // GestureDetector(
+              //     onTap: (() {
+              //       // Future<List<dynamic>> _getSuggestions(String query) async {
+              //       //   // final response = await http.get(Uri.parse('your_search_api_url?query=$query'));
+              //       //   final response = await http
+              //       //       .get(Uri.parse('$baseUrl/pg/search?query=$query'));
+              //       //   print(response.body);
+              //       //   if (response.statusCode == 200) {
+              //       //     return List<dynamic>.from(json.decode(response.body));
+              //       //   } else {
+              //       //     throw Exception('Failed to load suggestions');
+              //       //   }
+              //       // }
+              //       // _getSuggestions("Tea");
+              //       navigatorPush(context, BusinessSearchScreen());
+              //       // Http().overall_rating("NEX1O16051534921137");
+              //     }),
+              //     child: Text("click"))
             ]),
       ),
     );

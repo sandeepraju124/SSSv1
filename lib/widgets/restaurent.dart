@@ -24,7 +24,7 @@ class _RestaurantState extends State<Restaurant> {
     // print("fgh");
     // print(data);
     if (data.getHomeBusinessData.isEmpty) {
-      data.getHomeBusinessProvider(key: "is_premium", value: "true");
+      data.getHomeBusinessProvider(key: "sub_category", value: "Restaurant");
       // print("empty");
     }
 
@@ -54,11 +54,14 @@ class _RestaurantState extends State<Restaurant> {
                   // print(overallRating);
                   return GestureDetector(
                     onTap: () {
-                      print(data.getHomeBusinessData[index]!.businessUid,);
+                      print(
+                        data.getHomeBusinessData[index]!.businessUid,
+                      );
                       print("business_uid");
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DefaultProfilePage(
-                                uid: data.getHomeBusinessData[index]!.businessUid,
+                                uid: data
+                                    .getHomeBusinessData[index]!.businessUid,
                               )));
                     },
                     child: Stack(
