@@ -39,7 +39,7 @@ class _RestaurantState extends State<Restaurant> {
             child: CircularProgressIndicator(color: tgPrimaryColor),
           )
         : SizedBox(
-            height: 270,
+            height: 290,
             width: double.infinity,
             // color: Colors.yellow,
             child: ListView.builder(
@@ -105,6 +105,7 @@ class _RestaurantState extends State<Restaurant> {
                                   ],
                                 )),
                             // Column3 Description
+
                             Expanded(
                                 child: Container(
                               // color: Colors.teal,

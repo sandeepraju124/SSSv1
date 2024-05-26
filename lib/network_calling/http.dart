@@ -73,26 +73,52 @@ class Http {
   //   }
   // }
 
+  // Future<List<BusinessModel>> getBusinessData(
+  //     {required String key, required String value}) async {
+  //   final String apiUrl =
+  //       'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
+
+  //   try {
+  //     final response = await http.get(Uri.parse(apiUrl));
+
+  //     // print('Response status code: ${response.statusCode}');
+  //     // print('Response body: ${response.body}');
+
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> jsonList = json.decode(response.body);
+  //       return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
+  //     } else {
+  //       throw Exception(
+  //           'Failed to load business data. Status code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     // print('Error fetching business data: $e');
+  //     throw Exception('Failed to load business data: $e');
+  //   }
+  // }
+
   Future<List<BusinessModel>> getBusinessData(
       {required String key, required String value}) async {
     final String apiUrl =
         'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
+    print('Calling API: $apiUrl');
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
-
-      // print('Response status code: ${response.statusCode}');
-      // print('Response body: ${response.body}');
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
+        print('Decoded JSON List: $jsonList');
+
         return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
       } else {
         throw Exception(
             'Failed to load business data. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      // print('Error fetching business data: $e');
+      print('Error fetching business data: $e');
       throw Exception('Failed to load business data: $e');
     }
   }
@@ -314,25 +340,56 @@ class Http {
   //   }
   // }
 
+  // Future<Businessprofileadd> fetchBusinessProfile(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     // print(response.body);
+  //     var jsonBody = json.decode(response.body);
+  //     if (jsonBody != null) {
+  //       var businessProfile = Businessprofileadd.fromJson(jsonBody);
+  //       return businessProfile;
+  //     } else {
+  //       // return Future.value(Null);
+  //       throw Exception('JSON response is null');
+  //     }
+  //   } else if (response.statusCode == 500) {
+  //     // return Future.value(null);
+  //     throw Exception('Server error: ${response.body}');
+  //   } else {
+  //     throw Exception(
+  //         'Failed to load business profile. Status code: ${response.statusCode}, Response body: ${response.body}');
+  //   }
+  // }
+
   Future<Businessprofileadd> fetchBusinessProfile(String uri) async {
+    print('Calling API: $uri');
     var url = Uri.parse(uri);
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      // print(response.body);
-      var jsonBody = json.decode(response.body);
-      if (jsonBody != null) {
-        var businessProfile = Businessprofileadd.fromJson(jsonBody);
-        return businessProfile;
+    try {
+      var response = await http.get(url);
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        var jsonBody = json.decode(response.body);
+        print('Decoded JSON Body: $jsonBody');
+
+        if (jsonBody != null) {
+          var businessProfile = Businessprofileadd.fromJson(jsonBody);
+          print('Parsed Business Profile: $businessProfile');
+          return businessProfile;
+        } else {
+          throw Exception('JSON response is null');
+        }
+      } else if (response.statusCode == 500) {
+        throw Exception('Server error: ${response.body}');
       } else {
-        // return Future.value(Null);
-        throw Exception('JSON response is null');
+        throw Exception(
+            'Failed to load business profile. Status code: ${response.statusCode}, Response body: ${response.body}');
       }
-    } else if (response.statusCode == 500) {
-      // return Future.value(null);
-      throw Exception('Server error: ${response.body}');
-    } else {
-      throw Exception(
-          'Failed to load business profile. Status code: ${response.statusCode}, Response body: ${response.body}');
+    } catch (e) {
+      print('Error fetching business profile: $e');
+      throw Exception('Failed to load business profile: $e');
     }
   }
 // // used this to show ask for community

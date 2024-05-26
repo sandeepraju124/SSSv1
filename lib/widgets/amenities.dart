@@ -29,7 +29,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
               itemBuilder: (BuildContext context, int index) {
                 print(amenities);
                 print("amenities..........");
-                return  ListTile(
+                return ListTile(
                   leading: const Icon(
                     Icons.check,
                     color: tgPrimaryColor,
@@ -80,38 +80,41 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
           ),
         ),
         // Display the first 3 amenities
-        amenities.length >0 ? ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: amenities.length > initialAmenitiesCount
-              ? initialAmenitiesCount
-              : amenities.length,
-          itemBuilder: (BuildContext context, int index) {
-            print(amenities);
-            print("amenities.length..........................");
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.start,
-                spacing: 3.0,
-                children: [
-                  const Icon(
-                    Icons.check,
-                    color: tgPrimaryColor,
-                    size: 17,
-                  ),
-                  SizedBox(width: 7),
-                  Text(
-                    amenities[index],
-                    style: const TextStyle(color: secondaryColor40LightTheme),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                ],
-              ),
-            );
-          },
-        ): Text("empty"),
+        amenities.length > 0
+            ? ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: amenities.length > initialAmenitiesCount
+                    ? initialAmenitiesCount
+                    : amenities.length,
+                itemBuilder: (BuildContext context, int index) {
+                  print(amenities);
+                  print("amenities.length..........................");
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      spacing: 3.0,
+                      children: [
+                        const Icon(
+                          Icons.check,
+                          color: tgPrimaryColor,
+                          size: 17,
+                        ),
+                        SizedBox(width: 7),
+                        Text(
+                          amenities[index],
+                          style: const TextStyle(
+                              color: secondaryColor40LightTheme),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              )
+            : Text("empty"),
 
         // "More" button
         if (amenities.length > initialAmenitiesCount)

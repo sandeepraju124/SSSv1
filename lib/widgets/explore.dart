@@ -126,12 +126,13 @@ class Explore extends StatelessWidget {
                   child: GestureDetector(
                 onTap: () {
                   // education
-                  navigatorPush(
-                      context,
-                      Subcategory(
-                        keyy: keyy,
-                        value: "Housing",
-                      ));
+                  // navigatorPush(
+                  //     context,
+                  //     Subcategory(
+                  //       keyy: keyy,
+                  //       value: "Housing",
+                  //     ));
+                  navigatorPush(context, const HouseSearch());
                 },
                 child: Container(
                   margin: const EdgeInsets.all(5),
@@ -174,7 +175,6 @@ class Explore extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     // education
-                    navigatorPush(context, const HouseSearch());
                   },
                   child: Container(
                     margin: const EdgeInsets.all(5),

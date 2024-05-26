@@ -17,7 +17,7 @@ class HousedataModel {
   int bedrooms;
   int buildingAge;
   String businessDescription;
-  dynamic businessEmail;
+  String? businessEmail;
   String businessName;
   String businessUid;
   bool carParking;
@@ -33,7 +33,7 @@ class HousedataModel {
   String price;
   String profileImageUrl;
   String subCategory;
-  dynamic userid;
+  String? userid;
 
   HousedataModel({
     required this.address,

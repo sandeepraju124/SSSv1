@@ -5,11 +5,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/models/Housedata_model.dart';
+import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/providers/Housedata_Provider.dart';
+import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
 
 // Define the SearchCriteria class
@@ -21,6 +22,25 @@ class SearchCriteria {
 
   SearchCriteria(
       {this.location, this.houseType, this.bhkType, this.priceRange});
+}
+
+// Add this function at the top of your file, outside of your widget class
+BusinessModel convertHouseToBusiness(HousedataModel house) {
+  return BusinessModel(
+    address: house.address,
+    businessDescription: house.businessDescription,
+    businessName: house.businessName,
+    businessUid: house.businessUid,
+    category: house.category,
+    contactInformation: house.contactInformation,
+    country: house.country,
+    latitude: house.latitude,
+    longitude: house.longitude,
+    profileImageUrl: house.profileImageUrl,
+    subCategory: house.subCategory,
+    isPremium:
+        null, // Assuming there's no corresponding field in HousedataModel
+  );
 }
 
 class HouseSearch extends StatefulWidget {
@@ -39,6 +59,7 @@ class _HouseSearchState extends State<HouseSearch> {
   Timer? _debounce;
   bool _suggestionSelected = false;
   SearchCriteria _selectedCriteria = SearchCriteria();
+  List<HousedataModel> _searchResults = [];
 
   bool _showAdvanceFilters = false;
 
@@ -87,132 +108,62 @@ class _HouseSearchState extends State<HouseSearch> {
     super.dispose();
   }
 
-  // void _onSearchQueryChanged() {
-  //   if (_debounce?.isActive ?? false) _debounce!.cancel();
-  //   _debounce = Timer(const Duration(milliseconds: 730), () {
-  //     final query = _searchController.text.trim();
-  //     if (query.isNotEmpty) {
-  //       _suggestionSelected = false;
-
-  //       // Build query parameters with all selected criteria
-  //       // Map<String, String> queryParams = {};
-  //       Map<String, String> queryParams = {'location': query};
-  //       if (_selectedCriteria.location != null) {
-  //         queryParams['location'] = _selectedCriteria.location!;
-  //       }
-  //       if (_selectedCriteria.houseType != null) {
-  //         queryParams['house_type'] =
-  //             _selectedCriteria.houseType!.toString().split('.').last;
-  //       }
-  //       if (_selectedCriteria.bhkType != null) {
-  //         queryParams['bedrooms'] = _selectedCriteria.bhkType!
-  //             .toString()
-  //             .split('.')
-  //             .last
-  //             .replaceAll('BHK', '');
-  //       }
-  //       if (_selectedCriteria.priceRange != null) {
-  //         queryParams['price'] = _selectedCriteria.priceRange!;
-  //       }
-
-  //       final houseProvider =
-  //           Provider.of<HouseProvider>(context, listen: false);
-  //       print(houseProvider);
-  //       houseProvider.fetchHouseData(queryParams).then((_) {
-  //         if (mounted && !_suggestionSelected) {
-  //           final suggestions =
-  //               houseProvider.houses.map((house) => house.location).toList();
-  //           setState(() {
-  //             _suggestions = suggestions;
-  //             if (_suggestions.isNotEmpty) {
-  //               _showOverlay();
-  //             } else {
-  //               _hideOverlay();
-  //               ScaffoldMessenger.of(context).showSnackBar(
-  //                 SnackBar(content: Text('No results found for "$query"')),
-  //               );
-  //             }
-  //           });
-  //         }
-  //       }).catchError((error) {
-  //         if (mounted && !_suggestionSelected) {
-  //           _hideOverlay();
-  //           ScaffoldMessenger.of(context).showSnackBar(
-  //             SnackBar(content: Text('Error fetching data: $error')),
-  //           );
-  //         }
-  //       });
-  //     } else {
-  //       setState(() {
-  //         _suggestions = [];
-  //         _hideOverlay();
-  //       });
-  //     }
-  //   });
-  // }
-
   void _onSearchQueryChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 730), () {
+    _debounce = Timer(const Duration(milliseconds: 600), () {
       final query = _searchController.text.trim();
       if (query.isNotEmpty) {
         _suggestionSelected = false;
-        _fetchDataWithCriteria();
+
+        // Build query parameters with all selected criteria
+        Map<String, String> queryParams = {'location': query};
+        if (_selectedCriteria.houseType != null) {
+          queryParams['house_type'] =
+              _selectedCriteria.houseType!.toString().split('.').last;
+        }
+        if (_selectedCriteria.bhkType != null) {
+          queryParams['bedrooms'] = _selectedCriteria.bhkType!
+              .toString()
+              .split('.')
+              .last
+              .replaceAll('BHK', '');
+        }
+        if (_selectedCriteria.priceRange != null) {
+          queryParams['price'] = _selectedCriteria.priceRange!;
+        }
+        print('Query Params: $queryParams'); // Debugging print
+
+        final houseProvider =
+            Provider.of<HouseProvider>(context, listen: false);
+        houseProvider.fetchHouseData(queryParams).then((_) {
+          if (mounted && !_suggestionSelected) {
+            final suggestions =
+                houseProvider.houses.map((house) => house.location).toList();
+            setState(() {
+              _suggestions = suggestions;
+              if (_suggestions.isNotEmpty) {
+                _showOverlay();
+              } else {
+                _hideOverlay();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('No results found for "$query"')),
+                );
+              }
+            });
+          }
+        }).catchError((error) {
+          if (mounted && !_suggestionSelected) {
+            _hideOverlay();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error fetching data: $error')),
+            );
+          }
+        });
       } else {
         setState(() {
           _suggestions = [];
           _hideOverlay();
         });
-      }
-    });
-  }
-
-  void _fetchDataWithCriteria() {
-    final houseProvider = Provider.of<HouseProvider>(context, listen: false);
-    final queryParams = <String, String>{};
-
-    if (_selectedCriteria.location != null) {
-      queryParams['location'] = _selectedCriteria.location!;
-    }
-    if (_selectedCriteria.houseType != null) {
-      queryParams['house_type'] =
-          _selectedCriteria.houseType!.toString().split('.').last;
-    }
-    if (_selectedCriteria.bhkType != null) {
-      queryParams['bedrooms'] = _selectedCriteria.bhkType!
-          .toString()
-          .split('.')
-          .last
-          .replaceAll('BHK', '');
-    }
-    if (_selectedCriteria.priceRange != null) {
-      queryParams['price'] = _selectedCriteria.priceRange!;
-    }
-
-    houseProvider.fetchHouseData(queryParams).then((_) {
-      if (mounted && !_suggestionSelected) {
-        final suggestions =
-            houseProvider.houses.map((house) => house.location).toList();
-        setState(() {
-          _suggestions = suggestions;
-          if (_suggestions.isNotEmpty) {
-            _showOverlay();
-          } else {
-            _hideOverlay();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content:
-                      Text('No results found for "${_searchController.text}"')),
-            );
-          }
-        });
-      }
-    }).catchError((error) {
-      if (mounted && !_suggestionSelected) {
-        _hideOverlay();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error fetching data: $error')),
-        );
       }
     });
   }
@@ -290,6 +241,7 @@ class _HouseSearchState extends State<HouseSearch> {
   void _removeLocation() {
     setState(() {
       _selectedCriteria.location = null;
+      _searchController.clear();
     });
   }
 
@@ -312,6 +264,65 @@ class _HouseSearchState extends State<HouseSearch> {
       _selectedCriteria.priceRange = null;
       _selectedDropdownMax = "Price"; // Reset the selected price range
     });
+  }
+
+  void _onSearchPressed() async {
+    print('Selected Criteria: $_selectedCriteria'); // Debugging print
+
+    final houseProvider = Provider.of<HouseProvider>(context, listen: false);
+
+    // Construct query parameters with only non-null values
+    Map<String, String> queryParams = {};
+    if (_selectedCriteria.location != null) {
+      queryParams['location'] = _selectedCriteria.location!;
+    }
+    if (_selectedCriteria.houseType != null) {
+      queryParams['house_type'] =
+          _selectedCriteria.houseType!.toString().split('.').last;
+    }
+    if (_selectedCriteria.bhkType != null) {
+      queryParams['bedrooms'] = _selectedCriteria.bhkType!
+          .toString()
+          .split('.')
+          .last
+          .replaceAll('BHK', '');
+    }
+    if (_selectedCriteria.priceRange != null) {
+      queryParams['price'] = _selectedCriteria.priceRange!;
+    }
+
+    print('Final Query Params: $queryParams'); // Debugging print
+
+    try {
+      final results = await houseProvider.fetchHouseData(queryParams);
+
+      if (results.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No results found for the selected criteria')),
+        );
+      } else {
+        // Convert HousedataModel to BusinessModel
+        List<BusinessModel> convertedResults =
+            results.map((house) => convertHouseToBusiness(house)).toList();
+
+        // Navigate to the SubCategoryList page with the converted search results
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubCategoryList(
+              keyy: 'house',
+              value: 'House Search Results',
+              houseSearchResults: convertedResults,
+              isHouseSearch: true,
+            ),
+          ),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching data: $error')),
+      );
+    }
   }
 
   @override
@@ -400,8 +411,8 @@ class _HouseSearchState extends State<HouseSearch> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Wrap(
-                    spacing: 8.0, // gap between adjacent chips
-                    runSpacing: 2.0, // gap between lines
+                    spacing: 12.0, // gap between adjacent chips
+                    runSpacing: 3.0, // gap between lines
 
                     children: [
                       Text(
@@ -436,7 +447,7 @@ class _HouseSearchState extends State<HouseSearch> {
                           _removePriceRange,
                         ),
                       ElevatedButton(
-                          onPressed: _fetchDataWithCriteria,
+                          onPressed: _onSearchPressed,
                           style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all<Color>(
                                   tgPrimaryColor),
@@ -451,6 +462,21 @@ class _HouseSearchState extends State<HouseSearch> {
               SizedBox(
                 height: 10,
               ),
+
+              // SizedBox(
+              //   height: 30, // Adjust the height according to your UI
+              //   child: ListView.builder(
+              //     itemCount: _searchResults.length,
+              //     itemBuilder: (context, index) {
+              //       // Customize the UI for each result item
+              //       return ListTile(
+              //         title: Text(_searchResults[index].businessName),
+              //         subtitle: Text(_searchResults[index].location),
+              //         // Add more details or actions if needed
+              //       );
+              //     },
+              //   ),
+              // ),
 
               Text("House Type", style: TextStyle(fontSize: 15)),
               SizedBox(
@@ -595,23 +621,23 @@ class _HouseSearchState extends State<HouseSearch> {
                 height: 10,
               ),
 
-              if (data.isLoading) Center(child: CircularProgressIndicator()),
-              if (!data.isLoading && data.houses.isNotEmpty)
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: data.houses.length,
-                  itemBuilder: (context, index) {
-                    var house = data.houses[index];
-                    return ListTile(
-                      title: Text(house.businessName),
-                      subtitle: Text(house.location),
-                    );
-                  },
-                ),
-              if (!data.isLoading && data.houses.isEmpty)
-                Center(
-                    child: Text('No houses found for the selected criteria')),
+              // if (data.isLoading) Center(child: CircularProgressIndicator()),
+              // if (!data.isLoading && data.houses.isNotEmpty)
+              //   ListView.builder(
+              //     shrinkWrap: true,
+              //     physics: NeverScrollableScrollPhysics(),
+              //     itemCount: data.houses.length,
+              //     itemBuilder: (context, index) {
+              //       var house = data.houses[index];
+              //       return ListTile(
+              //         title: Text(house.businessName),
+              //         subtitle: Text(house.location),
+              //       );
+              //     },
+              //   ),
+              // if (!data.isLoading && data.houses.isEmpty)
+              //   Center(
+              //       child: Text('No houses found for the selected criteria')),
 
               // GestureDetector(
               //     onTap: () {

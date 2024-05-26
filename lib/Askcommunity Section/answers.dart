@@ -88,7 +88,7 @@ class _AnswerpageState extends State<Answerpage> {
                           ),
                         ),
                         SizedBox(
-                          width: 360,
+                          width: 373.5,
                           child: TextField(
                             style: TextStyle(color: secondaryColor40LightTheme),
                             controller: _answercontroller,
@@ -113,7 +113,7 @@ class _AnswerpageState extends State<Answerpage> {
                         SizedBox(height: 8),
                         SizedBox(
                           height: 40,
-                          width: 360,
+                          width: 373.5,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: tgPrimaryColor,

@@ -46,10 +46,10 @@ class _QuestionpageState extends State<Questionpage> {
         body: ListView(children: [
           Column(
             children: [
-              SizedBox(height: 17),
+              SizedBox(height: 27),
 
               SizedBox(
-                width: 360,
+                width: 380,
                 child: TextField(
                   style: TextStyle(color: secondaryColor40LightTheme),
                   controller: _questioncontroller,
@@ -74,7 +74,7 @@ class _QuestionpageState extends State<Questionpage> {
               SizedBox(height: 12),
               SizedBox(
                 height: 40,
-                width: 360,
+                width: 380,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     // primary: tgPrimaryColor,

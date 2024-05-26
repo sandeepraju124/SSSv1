@@ -44,23 +44,108 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     super.dispose();
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _tabController = TabController(length: 5, vsync: this);
+  //   _scrollController = ScrollController();
+  //   // _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
+
+  //   // var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+  //   // data.businessProfileProvider(widget.keyy, widget.uid);
+
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+  //     data.businessProfileProvider(widget.keyy, widget.uid);
+  //   });
+
+  //   // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+  //   // dataAsk.fetchAskCommunityData(widget.uid);
+
+  //   Future.delayed(Duration(seconds: 2), () {
+  //     var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+  //     dataAsk.fetchAskCommunityData(widget.uid);
+  //   });
+
+  //   var datacomments =
+  //       Provider.of<CommentSectionProvider>(context, listen: false);
+  //   datacomments.commentSectionProvider(widget.uid);
+
+  //   // Future.microtask(() {
+  //   //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+  //   //   data.businessProfileProvider(widget.uid);
+
+  //   //   var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+  //   //   dataAsk.fetchAskCommunityData(widget.uid);
+
+  //   //   var datacomments =
+  //   //       Provider.of<CommentSectionProvider>(context, listen: false);
+
+  //   //   datacomments.commentSectionProvider(widget.uid);
+  //   // });
+
+  //   // _scrollController.addListener(() {
+  //   //   if (_scrollController.offset >= 2000) {
+  //   //     // _tabController.animateTo(1);
+
+  //   //     // Change to the second tab when the scroll offset is greater than 200
+  //   //     // } else if (_scrollController.offset >= 530) {     //////////600
+  //   //     //   _tabController.animateTo(2);
+  //   //     // } else if (_scrollController.offset >= 1230 &&
+  //   //     //     _scrollController.offset < 1630) {                     /////////// 980
+  //   //     //   _tabController.animateTo(3);
+  //   //     // } else if (_scrollController.offset >= 1630) {          /////////1780
+  //   //     //   _tabController.animateTo(4);
+  //   //     // } else if (_scrollController.offset >= 600 &&
+  //   //     //     _scrollController.offset < 900) {
+  //   //     //   _tabController.animateTo(2);
+  //   //     // } else if (_scrollController.offset >= 980) {
+  //   //     //   _tabController.animateTo(3);
+  //   //     // } else if (_scrollController.offset >= 1780) {
+  //   //     //   _tabController.animateTo(4);
+  //   //   } else {
+  //   //     // _tabController.animateTo(
+  //   //     //     _tabController.index); // Change to the first tab otherwise
+
+  //   //     _tabController.animateTo(0);
+  //   //   }
+  //   // });
+  //   _tabController.addListener(() {
+  //     if (_tabController.indexIsChanging) {
+  //       if (_tabController.index == 0) {
+  //         _scrollController.animateTo(1 * 20,
+  //             duration: Duration(seconds: 1), curve: Curves.ease);
+  //       } else if (_tabController.index == 1) {
+  //         _scrollController.animateTo(2 * 90,
+  //             duration: Duration(seconds: 1), curve: Curves.ease);
+  //       } else if (_tabController.index == 2) {
+  //         _scrollController.animateTo(
+  //           3 * 250,
+  //           duration: Duration(seconds: 1),
+  //           curve: Curves.ease,
+  //         );
+  //       } else if (_tabController.index == 3) {
+  //         _scrollController.animateTo(4 * 212,
+  //             duration: Duration(seconds: 1), curve: Curves.ease);
+  //       } else if (_tabController.index == 4) {
+  //         _scrollController.animateTo(5 * 280,
+  //             duration: Duration(seconds: 1), curve: Curves.ease);
+  //       } else if (_tabController.indexIsChanging) {
+  //         _tabController.animateTo(0);
+  //       }
+  //     }
+  //   });
+  // }
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 5, vsync: this);
     _scrollController = ScrollController();
-    // _keys = List<GlobalKey>.generate(5, (index) => GlobalKey());
-
-    // var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    // data.businessProfileProvider(widget.keyy, widget.uid);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var data = Provider.of<BusinessProfileProvider>(context, listen: false);
       data.businessProfileProvider(widget.keyy, widget.uid);
     });
-
-    // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-    // dataAsk.fetchAskCommunityData(widget.uid);
 
     Future.delayed(Duration(seconds: 2), () {
       var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
@@ -71,45 +156,6 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
         Provider.of<CommentSectionProvider>(context, listen: false);
     datacomments.commentSectionProvider(widget.uid);
 
-    // Future.microtask(() {
-    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    //   data.businessProfileProvider(widget.uid);
-
-    //   var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-    //   dataAsk.fetchAskCommunityData(widget.uid);
-
-    //   var datacomments =
-    //       Provider.of<CommentSectionProvider>(context, listen: false);
-
-    //   datacomments.commentSectionProvider(widget.uid);
-    // });
-
-    // _scrollController.addListener(() {
-    //   if (_scrollController.offset >= 2000) {
-    //     // _tabController.animateTo(1);
-
-    //     // Change to the second tab when the scroll offset is greater than 200
-    //     // } else if (_scrollController.offset >= 530) {     //////////600
-    //     //   _tabController.animateTo(2);
-    //     // } else if (_scrollController.offset >= 1230 &&
-    //     //     _scrollController.offset < 1630) {                     /////////// 980
-    //     //   _tabController.animateTo(3);
-    //     // } else if (_scrollController.offset >= 1630) {          /////////1780
-    //     //   _tabController.animateTo(4);
-    //     // } else if (_scrollController.offset >= 600 &&
-    //     //     _scrollController.offset < 900) {
-    //     //   _tabController.animateTo(2);
-    //     // } else if (_scrollController.offset >= 980) {
-    //     //   _tabController.animateTo(3);
-    //     // } else if (_scrollController.offset >= 1780) {
-    //     //   _tabController.animateTo(4);
-    //   } else {
-    //     // _tabController.animateTo(
-    //     //     _tabController.index); // Change to the first tab otherwise
-
-    //     _tabController.animateTo(0);
-    //   }
-    // });
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         if (_tabController.index == 0) {

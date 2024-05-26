@@ -1,83 +1,3 @@
-// import 'package:flutter/cupertino.dart';
-// import 'package:sssv1/models/business_models.dart';
-// import 'package:sssv1/models/business_profile.dart';
-// import 'package:sssv1/network_calling/http.dart';
-// import 'package:sssv1/utils/constants.dart';
-
-// // class BusinessProfileProvider with ChangeNotifier {
-// //   BusinessModel?  _businessProfile;
-// //   Businessprofileadd? _businessProfileAdd;
-// //   bool _isLoading = false;
-
-// //   BusinessModel? get businessProfileData => _businessProfile;
-// //   Businessprofileadd? get businessProfileAddData => _businessProfileAdd;
-// //   bool get isLoading => _isLoading;
-
-// //   Future<void> businessProfileProvider(key, value) async {
-
-// //     _isLoading = true;
-// //     print("businessProfileAdd");
-// //     Businessprofileadd businessProfileAdd =await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-// //     print("businessProfileAdd");
-// //     print(businessProfileAdd);
-// //     List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-// //     print("datalist");
-// //     print(datalist);
-
-// //     _businessProfile = datalist.first ;
-// //     _businessProfileAdd = businessProfileAdd;
-// //     _isLoading = false;
-// //     notifyListeners();
-// //     // print("datalist $datalist");
-// //     // print("printing");
-// //     // print(_subcategory?.subcategories[3]);
-// //     // print(subcategoryData?.subcategories.length.toString());
-// //     // print("changenotifier called");
-// //   }
-// // }
-
-// class BusinessProfileProvider with ChangeNotifier {
-//   BusinessModel? _businessProfile;
-//   Businessprofileadd? _businessProfileAdd;
-//   bool _isLoading = false;
-
-//   BusinessModel? get businessProfileData => _businessProfile;
-//   Businessprofileadd? get businessProfileAddData => _businessProfileAdd;
-//   bool get isLoading => _isLoading;
-
-//   Future<void> businessProfileProvider(key, value) async {
-//     try {
-//       _isLoading = true;
-//       notifyListeners();
-
-//       print("businessProfileAdd");
-//       Businessprofileadd businessProfileAdd = await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-//       print("businessProfileAdd");
-//       print(businessProfileAdd);
-
-//       // List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-//       // print("datalist");
-//       // print(datalist);
-
-//       // _businessProfile = datalist.first;
-//       _businessProfileAdd = businessProfileAdd;
-//     } catch (error) {
-//       // Handle the error appropriately, here we print it for debugging purposes
-//       print("Error occurred: $error");
-
-//       // You can set _businessProfileAdd to null or any default value if needed
-//       _businessProfileAdd = null;
-//     } finally {
-//       List<BusinessModel> datalist = await Http().getBusinessData(key: key, value: value);
-//       _businessProfile = datalist.first;
-//       print("datalist");
-//       print(datalist);
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-// }
-
 import 'package:flutter/cupertino.dart';
 import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/models/business_profile.dart';
@@ -95,100 +15,85 @@ class BusinessProfileProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  // Future<void> businessProfileProvider(key, value) async {
-  //   try {
-  //     _isLoading = true;
-  //     _error = null;
-  //     notifyListeners();
-
-  //     print("Fetching business profile data...");
-  //     Businessprofileadd businessProfileAdd =
-  //         await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-  //     print("Business profile data fetched successfully.");
-
-  //     // Fetch business data
-  //     print("Fetching business data...");
-  //     List<BusinessModel> dataList =
-  //         await Http().getBusinessData(key: key, value: value);
-  //     print("Business data fetched successfully.");
-
-  //     _businessProfileAdd = businessProfileAdd;
-  //     _businessProfile = dataList.isNotEmpty ? dataList.first : null;
-  //   } catch (error) {
-  //     // Handle the error appropriately, here we print it for debugging purposes
-  //     print("Error occurred: $error");
-
-  //     // Set the error message
-  //     _error = "Failed to fetch business data: $error";
-  //   } finally {
-  //     _isLoading = false;
-  //     notifyListeners();
-  //   }
-  // }
-
-  // Future<void> businessProfileProvider(key, value) async {
-  //   try {
-  //     _isLoading = true;
-  //     _error = null;
-  //     notifyListeners();
-
-  //     print("Fetching business profile data...");
-  //     Businessprofileadd businessProfileAdd =
-  //         await Http().fetchBusinessProfile("$baseUrl/uid/$value");
-  //     print("Business profile data fetched successfully.");
-
-  //     // Fetch business data
-  //     print("Fetching business data...");
-  //     List<BusinessModel> dataList =
-  //         await Http().getBusinessData(key: key, value: value);
-  //     print("Business data fetched successfully.");
-
-  //     if (dataList.isNotEmpty) {
-  //       _businessProfile = dataList.first;
-  //     } else {
-  //       // Handle the case when dataList is empty
-  //       throw Exception('Business data is empty');
-  //     }
-
-  //     _businessProfileAdd = businessProfileAdd;
-  //   } catch (error) {
-  //     // Handle the error appropriately, here we print it for debugging purposes
-  //     print("Error occurred: $error");
-
-  //     // Set the error message
-  //     _error = "Failed to fetch business data: $error";
-  //   } finally {
-  //     _isLoading = false;
-  //     notifyListeners();
-  //   }
-  // }
-  Future<void> businessProfileProvider(key, value) async {
+  Future<void> businessProfileProvider(String key, String value) async {
     try {
       _isLoading = true;
       _error = null;
       notifyListeners();
 
-      // Fetch business profile data
-      Businessprofileadd businessProfileAdd =
-          await Http().fetchBusinessProfile("$baseUrl/uid/$value");
+      // print('Fetching business profile for key: $key, value: $value');
+
+      // // Fetch business profile data
+      // Businessprofileadd businessProfileAdd =
+      //     await Http().fetchBusinessProfile("$baseUrl/uid/$value");
+
+      // print('Fetched Business Profile: ${businessProfileAdd.amenities}');
 
       // Fetch business data
       List<BusinessModel> dataList =
           await Http().getBusinessData(key: key, value: value);
 
+      // print('Fetched business data: ${dataList.length} items');
+
       if (dataList.isNotEmpty) {
         _businessProfile = dataList.first;
-        _businessProfileAdd = businessProfileAdd;
+        // _businessProfileAdd = businessProfileAdd;
+        // print('Business Profile set: ${_businessProfile!.businessName}');
       } else {
         // Handle the case when dataList is empty
         _error = 'Business data is empty';
+        // print(_error);
       }
     } catch (error) {
       // Handle the error appropriately, here we set the error message
       _error = "Failed to fetch business data: $error";
+      // print(_error);
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 }
+
+// class BusinessProfileProvider with ChangeNotifier {
+//   BusinessModel? _businessProfile;
+//   bool _isLoading = false;
+//   String? _error;
+
+//   BusinessModel? get businessProfileData => _businessProfile;
+//   bool get isLoading => _isLoading;
+//   String? get error => _error;
+
+//   Future<void> businessProfileProvider(String key, String value) async {
+//     try {
+//       _isLoading = true;
+//       _error = null;
+//       notifyListeners();
+
+//       print('Fetching business profile for key: $key, value: $value');
+
+//       // Fetch business data
+//       List<BusinessModel> dataList =
+//           await Http().getBusinessData(key: key, value: value);
+
+//       print('Fetched business data: ${dataList.length} items');
+
+//       if (dataList.isNotEmpty) {
+//         _businessProfile = dataList.first;
+//         print('Business Profile set: ${_businessProfile!.businessName}');
+//       } else {
+//         // Handle the case when dataList is empty
+//         _error = 'Business data is empty';
+//         print(_error);
+//       }
+//     } catch (error) {
+//       // Handle the error appropriately, here we set the error message
+//       _error = "Failed to fetch business data: $error";
+//       print(_error);
+//     } finally {
+//       _isLoading = false;
+//       notifyListeners();
+//     }
+//   }
+// }
+
