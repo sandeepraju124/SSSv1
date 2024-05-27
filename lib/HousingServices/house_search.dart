@@ -17,35 +17,6 @@ import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-// Define the SearchCriteria class
-class SearchCriteria {
-  String? location;
-  HosueType? houseType;
-  BHKType? bhkType; // Add this field
-  String? priceRange;
-
-  SearchCriteria(
-      {this.location, this.houseType, this.bhkType, this.priceRange});
-}
-
-// Add this function at the top of your file, outside of your widget class
-BusinessModel convertHouseToBusiness(HousedataModel house) {
-  return BusinessModel(
-    address: house.address,
-    businessDescription: house.businessDescription,
-    businessName: house.businessName,
-    businessUid: house.businessUid,
-    category: house.category,
-    contactInformation: house.contactInformation,
-    country: house.country,
-    latitude: house.latitude,
-    longitude: house.longitude,
-    profileImageUrl: house.profileImageUrl,
-    subCategory: house.subCategory,
-    isPremium:
-        null, // Assuming there's no corresponding field in HousedataModel
-  );
-}
 
 class HouseSearch extends StatefulWidget {
   const HouseSearch({super.key});
@@ -57,6 +28,8 @@ class HouseSearch extends StatefulWidget {
 class _HouseSearchState extends State<HouseSearch> {
   List<AutoCompletePrediction> placePredictions = [];
   var selectedPlace;
+  double? _latitude;
+  double? _longitude;
 
   HosueType? _selectedType;
   final TextEditingController _searchController = TextEditingController();
@@ -65,7 +38,7 @@ class _HouseSearchState extends State<HouseSearch> {
   OverlayEntry? _overlayEntry = null;
   Timer? _debounce;
   bool _suggestionSelected = false;
-  SearchCriteria _selectedCriteria = SearchCriteria();
+  // SearchCriteria _selectedCriteria = SearchCriteria();
   List<HousedataModel> _searchResults = [];
   Map<String, dynamic> _selectedCriteria2 = {};
 
@@ -108,7 +81,7 @@ class _HouseSearchState extends State<HouseSearch> {
   // var _dropDowndownOptionsMin = ["Min", "1000", "2000", "3000", "4000", "5000"];
   var _dropDowndownOptionsMax = [
     "Price",
-    "10000",
+    "10000", 
     "20000",
     "30000",
     "40000",
@@ -118,11 +91,11 @@ class _HouseSearchState extends State<HouseSearch> {
   String _ShowAdvance = "Show Advance Filters";
   String _HideAdvance = "Hide Advance Filters";
 
-  @override
-  void initState() {
-    super.initState();
-    _searchController.addListener(_onSearchQueryChanged);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // _searchController.addListener(_onSearchQueryChanged);
+  // }
 
   @override
   void dispose() {
@@ -169,6 +142,11 @@ class _HouseSearchState extends State<HouseSearch> {
         final body = json.decode(response.body);
         final lat = body['result']['geometry']['location']['lat'];
         final lng = body['result']['geometry']['location']['lng'];
+        _latitude = lat;
+        _longitude = lng;
+        // _selectedCriteria2['latitude'] = lat;
+        // _selectedCriteria2['longitude'] = lng;
+
         print('Latitude: $lat, Longitude: $lng');
         return {'latitude': lat, 'longitude': lng};
       } else {
@@ -180,204 +158,85 @@ class _HouseSearchState extends State<HouseSearch> {
     }
   }
 
-  void _onSearchQueryChanged() {
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 600), () {
-      final query = _searchController.text.trim();
-      if (query.isNotEmpty) {
-        _suggestionSelected = false;
+  
 
-        // Build query parameters with all selected criteria
-        Map<String, String> queryParams = {'location': query};
-        if (_selectedCriteria.houseType != null) {
-          queryParams['house_type'] =
-              _selectedCriteria.houseType!.toString().split('.').last;
-        }
-        if (_selectedCriteria.bhkType != null) {
-          queryParams['bedrooms'] = _selectedCriteria.bhkType!
-              .toString()
-              .split('.')
-              .last
-              .replaceAll('BHK', '');
-        }
-        if (_selectedCriteria.priceRange != null) {
-          queryParams['price'] = _selectedCriteria.priceRange!;
-        }
-        print('Query Params: $queryParams'); // Debugging print
 
-        final houseProvider =
-            Provider.of<HouseProvider>(context, listen: false);
-        houseProvider.fetchHouseData(queryParams).then((_) {
-          if (mounted && !_suggestionSelected) {
-            final suggestions =
-                houseProvider.houses.map((house) => house.location).toList();
-            setState(() {
-              _suggestions = suggestions;
-              if (_suggestions.isNotEmpty) {
-                _showOverlay();
-              } else {
-                _hideOverlay();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('No results found for "$query"')),
-                );
-              }
-            });
-          }
-        }).catchError((error) {
-          if (mounted && !_suggestionSelected) {
-            _hideOverlay();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error fetching data: $error')),
-            );
-          }
-        });
-      } else {
-        setState(() {
-          _suggestions = [];
-          _hideOverlay();
-        });
-      }
-    });
-  }
-
-  void _showOverlay() {
-    if (_overlayEntry != null) return;
-
-    _overlayEntry = _createOverlayEntry(_suggestions);
-    Overlay.of(context).insert(_overlayEntry!);
-  }
-
-  void _hideOverlay() {
-    if (_overlayEntry == null) return;
-
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-  }
-
-  OverlayEntry _createOverlayEntry(List<String> suggestions) {
-    return OverlayEntry(
-      builder: (BuildContext context) {
-        return Positioned(
-          top: 177.5,
-          left: 13.5,
-          right: 20,
-          child: Material(
-            elevation: 4,
-            borderRadius: BorderRadius.circular(10),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: suggestions.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            suggestions[index],
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Icon(Icons.directions),
-                        ],
-                      ),
-                      onTap: () => _selectSuggestion(suggestions[index]),
-                    ),
-                    Divider(
-                      endIndent: 10,
-                      indent: 10,
-                      thickness: 0.2,
-                      color: Colors.grey,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _selectSuggestion(String suggestion) {
-    _searchFocusNode.unfocus();
-    _suggestionSelected = true;
-    setState(() {
-      _selectedCriteria.location = suggestion;
-      _suggestions = [];
-      _searchController.clear();
-      _hideOverlay();
-    });
-  }
 
   void _removeLocation() {
     setState(() {
-      _selectedCriteria.location = null;
+      // _selectedCriteria.location = null;
       _searchController.clear();
     });
   }
 
+  
+Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
+  // Base URL
+  final String baseUrl = 'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
 
+  // Default parameters
+  final Map<String, String> defaultParams = {
+    'latitude': _latitude.toString(),
+    'longitude': _longitude.toString(),
+    'distance': '5000'
+  };
 
-  void _onSearchPressed() async {
-    print('Selected Criteria: $_selectedCriteria'); // Debugging print
+  // Combine default and provided parameters
+  final Map<String, String> params = {}..addAll(defaultParams);
 
-    final houseProvider = Provider.of<HouseProvider>(context, listen: false);
-
-    // Construct query parameters with only non-null values
-    Map<String, String> queryParams = {};
-    if (_selectedCriteria.location != null) {
-      queryParams['location'] = _selectedCriteria.location!;
+  queryParams.forEach((key, value) {
+    // if (value != null) {
+    //   params[key] = value.toString();
+    // }
+    if(key == 'houseType'){
+      params['house_type'] = 'apartment';
     }
-    if (_selectedCriteria.houseType != null) {
-      queryParams['house_type'] =
-          _selectedCriteria.houseType!.toString().split('.').last;
+    // if(key == 'houseType'){
+    //   params['house_type'] = value.toString();
+    // }
+    if(key == 'bedrooms'){
+      params['bedrooms'] = value.toString();
     }
-    if (_selectedCriteria.bhkType != null) {
-      queryParams['bedrooms'] = _selectedCriteria.bhkType!
-          .toString()
-          .split('.')
-          .last
-          .replaceAll('BHK', '');
+    if(key == 'priceRange'){
+      params['price'] = value.toString();
     }
-    if (_selectedCriteria.priceRange != null) {
-      queryParams['price'] = _selectedCriteria.priceRange!;
+    if(key == 'carParking'){
+      params['car_parking'] = value.toString();
     }
-
-    print('Final Query Params: $queryParams'); // Debugging print
-
-    try {
-      final results = await houseProvider.fetchHouseData(queryParams);
-
-      if (results.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No results found for the selected criteria')),
-        );
-      } else {
-        // Convert HousedataModel to BusinessModel
-        List<BusinessModel> convertedResults =
-            results.map((house) => convertHouseToBusiness(house)).toList();
-
-        // Navigate to the SubCategoryList page with the converted search results
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SubCategoryList(
-              keyy: 'house',
-              value: 'House Search Results',
-              houseSearchResults: convertedResults,
-              isHouseSearch: true,
-            ),
-          ),
-        );
-      }
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching data: $error')),
-      );
+    if(key == 'advance'){
+      params['advance'] = value.toString();
     }
+    if(key == 'buildingAge'){
+      params['building_age'] = value.toString();
+    }
+  });
+
+  // Construct the query string
+  final String queryString = Uri(queryParameters: params).query;
+  print('Query String: $queryString');
+
+  // Final URL
+  final String url = '$baseUrl?$queryString';
+
+  try {
+    final response = await http.get(Uri.parse(url));
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final data = jsonDecode(response.body);
+      print('House Data: $data');
+    } else {
+      print('Failed to load data: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error: $e');
   }
+}
 
+
+
+  
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<HouseProvider>(context);
@@ -408,6 +267,7 @@ class _HouseSearchState extends State<HouseSearch> {
                   child: Column(
                     children: [
                       TextField(
+                        
                         onChanged: (value) {
                           placeSearch(query: value);
                           print(value);
@@ -418,6 +278,7 @@ class _HouseSearchState extends State<HouseSearch> {
                         focusNode: _searchFocusNode,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10),
                             filled: true,
                             fillColor: Colors.grey[200],
                             hintText: "Search Location",
@@ -498,67 +359,7 @@ class _HouseSearchState extends State<HouseSearch> {
                             // location: placePredictions[index]!
                           )),
                 ),
-                // Display selected criteria
-                // if (_selectedCriteria.location != null ||
-                //     _selectedCriteria.houseType != null ||
-                //     _selectedCriteria.bhkType != null ||
-                //     _selectedCriteria.priceRange !=
-                //         null) // Include price range condition
-                  // Container(
-                  //   padding: EdgeInsets.all(10),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.grey[200],
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  //   child: Wrap(
-                  //     spacing: 12.0, // gap between adjacent chips
-                  //     runSpacing: 3.0, // gap between lines
-          
-                  //     children: [
-                  //       Text(
-                  //         "Selected Criteria:",
-                  //         style: TextStyle(fontWeight: FontWeight.bold),
-                  //       ),
-                  //       if (_selectedCriteria.location != null)
-                  //         _buildSelectedCriteriaContainer(
-                  //           context,
-                  //           _selectedCriteria.location!,
-                  //           _removeLocation,
-                  //         ),
-                  //       if (_selectedCriteria.houseType != null)
-                  //         _buildSelectedCriteriaContainer(
-                  //           context,
-                  //           _selectedCriteria.houseType!
-                  //               .toString()
-                  //               .split('.')
-                  //               .last,
-                  //           _removeHouseType,
-                  //         ),
-                  //       if (_selectedCriteria.bhkType != null)
-                  //         _buildSelectedCriteriaContainer(
-                  //           context,
-                  //           _selectedCriteria.bhkType!.toString().split('.').last,
-                  //           _removeBHKType,
-                  //         ),
-                  //       if (_selectedCriteria.priceRange != null)
-                  //         _buildSelectedCriteriaContainer(
-                  //           context,
-                  //           _selectedCriteria.priceRange!,
-                  //           _removePriceRange,
-                  //         ),
-                  //       ElevatedButton(
-                  //           onPressed: _onSearchPressed,
-                  //           // style: ButtonStyle(
-                  //           //     backgroundColor: WidgetStateProperty.all<Color>(
-                  //           //         tgPrimaryColor),
-                  //           //     elevation: WidgetStateProperty.all(10)),
-                  //           child: Text(
-                  //             "Search",
-                  //             style: TextStyle(color: Colors.black87),
-                  //           )),
-                  //     ],
-                  //   ),
-                  // ),
+              
                 SizedBox(
                   height: 10,
                 ),
@@ -600,21 +401,6 @@ class _HouseSearchState extends State<HouseSearch> {
                   ),
                 ),
                 SizedBox(height: 16),
-          
-                // SizedBox(
-                //   height: 30, // Adjust the height according to your UI
-                //   child: ListView.builder(
-                //     itemCount: _searchResults.length,
-                //     itemBuilder: (context, index) {
-                //       // Customize the UI for each result item
-                //       return ListTile(
-                //         title: Text(_searchResults[index].businessName),
-                //         subtitle: Text(_searchResults[index].location),
-                //         // Add more details or actions if needed
-                //       );
-                //     },
-                //   ),
-                // ),
           
                 Text("House Type", style: TextStyle(fontSize: 15)),
                 SizedBox(
@@ -792,21 +578,37 @@ class _HouseSearchState extends State<HouseSearch> {
               ]),
         ),
       ),
-      bottomNavigationBar: InkWell(
-        onTap: () {
-          print(placePredictions[0].placeId);
-        },
-        child: Container(
-          height: 55,
-          width: double.infinity,
-          color: tgAccentColor,
-          child: Center(
-              child:
-                  // _isLoading ? Center(child: CircularProgressIndicator(backgroundColor: Colors.white,)):
-                  Text(
-            "Print",
-            style: TextStyle(color: Colors.white, fontSize: 17),
-          )),
+      bottomNavigationBar: Visibility(
+        visible: _selectedCriteria2.isNotEmpty,
+        child: InkWell(
+          onTap: () {
+            // print(placePredictions[0].placeId);
+            print(_selectedCriteria2);
+            print(_latitude);
+            print(_longitude);
+            if (_latitude != null && _longitude != null) {
+              fetchHouseData(_selectedCriteria2);
+            }
+            if(_latitude==null && _longitude==null){
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please select a location')),
+              );
+            }
+        
+            // fetchHouseData(_selectedCriteria2);
+          },
+          child: Container(
+            height: 55,
+            width: double.infinity,
+            color: tgAccentColor,
+            child: Center(
+                child:
+                    // _isLoading ? Center(child: CircularProgressIndicator(backgroundColor: Colors.white,)):
+                    Text(
+              "Search",
+              style: TextStyle(color: Colors.white, fontSize: 17),
+            )),
+          ),
         ),
       ),
     );

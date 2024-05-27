@@ -11,40 +11,68 @@ class HouseProvider with ChangeNotifier {
   List<HousedataModel> get houses => _houses;
   bool get isLoading => _isLoading;
 
-  Future<List<HousedataModel>> fetchHouseData(
-      Map<String, String> queryParams) async {
-    try {
-      final url = Uri.parse(
-          'https://supernova1137.azurewebsites.net/pg/business/house-data');
-      final response =
-          await http.get(url.replace(queryParameters: queryParams));
+  Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
+  // Base URL
+  final String baseUrl = 'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
 
-      // print('Response status: ${response.statusCode}');
-      // print('Response body: ${response.body}');
+  // Default parameters
+  final Map<String, String> defaultParams = {
+    // 'latitude': _latitude.toString(),
+    // 'longitude': _longitude.toString(),
+    'distance': '5000'
+  };
 
-      if (response.statusCode == 200) {
-        final responseData = json.decode(response.body);
+  // Combine default and provided parameters 
+  final Map<String, String> params = {}..addAll(defaultParams);
 
-        if (responseData is List) {
-          _houses = responseData
-              .map((data) => HousedataModel.fromJson(data))
-              .toList();
-        } else if (responseData is Map && responseData.containsKey('message')) {
-          // Handle message, e.g., "No results found"
-          // print('Server message: ${responseData['message']}');
-          _houses = [];
-        } else {
-          throw Exception('Unexpected response format: ${response.body}');
-        }
-
-        notifyListeners();
-        return _houses; // Return the list of houses
-      } else {
-        throw Exception('Failed to load house data');
-      }
-    } catch (error) {
-      print('Error: $error');
-      rethrow;
+  queryParams.forEach((key, value) {
+    // if (value != null) {
+    //   params[key] = value.toString();
+    // }
+    if(key == 'houseType'){
+      params['house_type'] = 'apartment';
     }
+    // if(key == 'houseType'){
+    //   params['house_type'] = value.toString();
+    // }
+    if(key == 'bedrooms'){
+      params['bedrooms'] = value.toString();
+    }
+    if(key == 'priceRange'){
+      params['price'] = value.toString();
+    }
+    if(key == 'carParking'){
+      params['car_parking'] = value.toString();
+    }
+    if(key == 'advance'){
+      params['advance'] = value.toString();
+    }
+    if(key == 'buildingAge'){
+      params['building_age'] = value.toString();
+    }
+  });
+
+  // Construct the query string
+  final String queryString = Uri(queryParameters: params).query;
+  print('Query String: $queryString');
+
+  // Final URL
+  final String url = '$baseUrl?$queryString';
+
+  try {
+    final response = await http.get(Uri.parse(url));
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final data = jsonDecode(response.body);
+      HousedataModel Hosuedata = HousedataModel.fromJson(data);
+      print('House Data: $data');
+    } else {
+      print('Failed to load data: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error: $e');
   }
+}
 }
