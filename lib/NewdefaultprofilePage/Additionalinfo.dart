@@ -1,13 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
+import 'package:sssv1/NewdefaultprofilePage/photos.dart';
 import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/navigator.dart';
 
 class AdditionalInfoPage extends StatelessWidget {
   const AdditionalInfoPage({super.key});
@@ -223,15 +226,14 @@ class AdditionalInfoPage extends StatelessWidget {
                             ]),
                       ),
                       Expanded(
-                        child: GestureDetector(
-                          // onTap: () {
-                          //   Navigators()
-                          //       .navigatorPush(context, StaggeredGridq());
-                          // },
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  navigatorPush(context, AddPhotos());
+                                },
+                                child: Container(
                                   height: 65,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -249,15 +251,15 @@ class AdditionalInfoPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: Text(
-                                    "Photo",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                )
-                              ]),
-                        ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Text(
+                                  "Photo",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ]),
                       ),
                     ],
                   ),

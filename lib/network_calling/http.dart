@@ -10,6 +10,7 @@ import 'package:sssv1/models/business_models.dart';
 import 'package:sssv1/models/business_profile.dart';
 import 'package:sssv1/models/category_models.dart';
 import 'package:sssv1/models/commentsection_models.dart';
+import 'package:sssv1/models/service_models.dart';
 import 'package:sssv1/models/subcatrgorylist_model.dart';
 import 'package:sssv1/models/users_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -122,6 +123,25 @@ class Http {
       throw Exception('Failed to load business data: $e');
     }
   }
+
+
+  Future<ServicesModels> fetchMongoBusinessData(String uri) async {
+  try {
+    var url = Uri.parse(uri);
+    var response = await http.get(url);
+    // log(response.body);
+
+    if (response.statusCode == 200) {
+      return ServicesModels.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to load mongo business data");
+    }
+  } catch (e) {
+    // Handle any exceptions that occur during the HTTP request
+    print("Error fetching mongo business data: $e");
+    throw Exception("Failed to load mongo business data");
+  }
+}
 
   // Future<List<BusinessModel>> getBusinessLatLongData({
   //   required String key,

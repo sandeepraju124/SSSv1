@@ -11,6 +11,7 @@ import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
+import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/screens/mapscreen.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -155,6 +156,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     var datacomments =
         Provider.of<CommentSectionProvider>(context, listen: false);
     datacomments.commentSectionProvider(widget.uid);
+
+    var servicesData = Provider.of<ServicesProvider>(context,  listen: false).getMongoBusinessData(widget.uid);
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
@@ -348,10 +351,12 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     ),
                   ),
                 ),
+                
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
+                      // height: 400,
                       height: 250,
                       color: secondaryColor5LightTheme,
                       child: AmenitiesGridView(),

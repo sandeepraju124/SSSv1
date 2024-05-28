@@ -51,7 +51,7 @@
 //   // below are the helper widgets for respective business///
 
 //   Widget _buildHousingDetails(BusinessModel businessProfileData) {
-//     var housingDetails = businessProfileData.;
+//     var housingDetails = businessProfileData;
 //     if (housingDetails == null) {
 //       return Text("No housing details available");
 //     }
