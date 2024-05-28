@@ -20,9 +20,11 @@ class HousedataModel {
     String category;
     String contactInformation;
     String country;
+    String furnishingLevel;
     String houseFacing;
     String houseType;
     String location;
+    String preferred;
     String price;
     String profileImageUrl;
     String subCategory;
@@ -39,9 +41,11 @@ class HousedataModel {
         required this.category,
         required this.contactInformation,
         required this.country,
+        required this.furnishingLevel,
         required this.houseFacing,
         required this.houseType,
         required this.location,
+        required this.preferred,
         required this.price,
         required this.profileImageUrl,
         required this.subCategory,
@@ -59,9 +63,11 @@ class HousedataModel {
         category: json["category"],
         contactInformation: json["contact_information"],
         country: json["country"],
+        furnishingLevel: json["furnishing_level"],
         houseFacing: json["house_facing"],
         houseType: json["house_type"],
         location: json["location"],
+        preferred: json["preferred "],
         price: json["price"],
         profileImageUrl: json["profile_image_url"],
         subCategory: json["sub_category"],
@@ -79,9 +85,11 @@ class HousedataModel {
         "category": category,
         "contact_information": contactInformation,
         "country": country,
+        "furnishing_level": furnishingLevel,
         "house_facing": houseFacing,
         "house_type": houseType,
         "location": location,
+        "preferred ": preferred,
         "price": price,
         "profile_image_url": profileImageUrl,
         "sub_category": subCategory,

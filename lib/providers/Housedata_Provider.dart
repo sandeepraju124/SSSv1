@@ -1,78 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:sssv1/models/Housedata_model.dart';
 
-class HouseProvider with ChangeNotifier {
-  List<HousedataModel> _houses = [];
-  final bool _isLoading = false;
 
-  List<HousedataModel> get houses => _houses;
+
+class HouseProvider with ChangeNotifier {
+  List<HousedataModel> _houseData = [];
+  bool _isLoading = false;
+
+  List<HousedataModel> get houses => _houseData;
   bool get isLoading => _isLoading;
 
-  Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
-  // Base URL
-  final String baseUrl = 'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
+  Future<bool> fetchHouseData(Map<String, dynamic> queryParams, String latitude, String longitude) async {
+    // Base URL
+    final String baseUrl = 'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
 
-  // Default parameters
-  final Map<String, String> defaultParams = {
-    // 'latitude': _latitude.toString(),
-    // 'longitude': _longitude.toString(),
-    'distance': '5000'
-  };
+    // Default parameters
+    final Map<String, String> defaultParams = {
+      'latitude': latitude,
+      'longitude': longitude,
+      'distance': '5000'
+    };
 
-  // Combine default and provided parameters 
-  final Map<String, String> params = {}..addAll(defaultParams);
+    // Combine default and provided parameters 
+    final Map<String, String> params = {}..addAll(defaultParams);
 
-  queryParams.forEach((key, value) {
-    // if (value != null) {
-    //   params[key] = value.toString();
-    // }
-    if(key == 'houseType'){
-      params['house_type'] = 'apartment';
-    }
-    // if(key == 'houseType'){
-    //   params['house_type'] = value.toString();
-    // }
-    if(key == 'bedrooms'){
-      params['bedrooms'] = value.toString();
-    }
-    if(key == 'priceRange'){
-      params['price'] = value.toString();
-    }
-    if(key == 'carParking'){
-      params['car_parking'] = value.toString();
-    }
-    if(key == 'advance'){
-      params['advance'] = value.toString();
-    }
-    if(key == 'buildingAge'){
-      params['building_age'] = value.toString();
-    }
-  });
+    queryParams.forEach((key, value) {
+      if (value != null) {
+        switch (key) {
+          case 'houseType':
+            params['house_type'] = 'apartment';
+            break;
+          case 'bedrooms':
+            params['bedrooms'] = value.toString();
+            break;
+          case 'priceRange':
+            params['price'] = value.toString();
+            break;
+          case 'carParking':
+            params['car_parking'] = value.toString();
+            break;
+          case 'advance':
+            params['advance'] = value.toString();
+            break;
+          case 'buildingAge':
+            params['building_age'] = value.toString();
+            break;
+        }
+      }
+    });
 
-  // Construct the query string
-  final String queryString = Uri(queryParameters: params).query;
-  print('Query String: $queryString');
+    // Construct the query string
+    final String queryString = Uri(queryParameters: params).query;
+    print('Query String: $queryString');
 
-  // Final URL
-  final String url = '$baseUrl?$queryString';
+    // Final URL
+    final String url = '$baseUrl?$queryString';
 
-  try {
-    final response = await http.get(Uri.parse(url));
-    print(response.body);
+    try {
+      _isLoading = true;
+      notifyListeners();
 
-    if (response.statusCode == 200) {
-      // Parse the JSON response
-      final data = jsonDecode(response.body);
-      HousedataModel Hosuedata = HousedataModel.fromJson(data);
-      print('House Data: $data');
-    } else {
-      print('Failed to load data: ${response.statusCode}');
+      final response = await http.get(Uri.parse(url));
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final List<dynamic> data = jsonDecode(response.body);
+        _houseData = data.map((json) => HousedataModel.fromJson(json)).toList();
+        print('House Data: $data');
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      } else {
+        print('Failed to load data: ${response.statusCode}');
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+    } catch (e) {
+      print('Error: $e');
+      _isLoading = false;
+      notifyListeners();
+      return false;
     }
-  } catch (e) {
-    print('Error: $e');
   }
-}
 }

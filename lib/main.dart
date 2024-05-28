@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
+import 'package:sssv1/HousingServices/house_list.dart';
 import 'package:sssv1/HousingServices/house_search.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/HousingServices/test.dart';
@@ -102,7 +103,7 @@ class MyApp extends StatelessWidget {
 
       // home: DefaultProfilePage(uid: ""),
       home: redirection(),
-      // home: OurtoppickPage(),
+      // home: PropertyCard(),
     );
   }
 }

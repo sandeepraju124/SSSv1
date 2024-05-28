@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/HousingServices/house_list.dart';
 import 'package:sssv1/HousingServices/testlocationtile.dart';
 import 'package:sssv1/models/Housedata_model.dart';
 import 'package:sssv1/models/autocomplete_prediction_model.dart';
@@ -16,6 +17,7 @@ import 'package:sssv1/providers/Housedata_Provider.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/utils/navigator.dart';
 
 
 class HouseSearch extends StatefulWidget {
@@ -188,12 +190,12 @@ Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
     // if (value != null) {
     //   params[key] = value.toString();
     // }
-    if(key == 'houseType'){
-      params['house_type'] = 'apartment';
-    }
     // if(key == 'houseType'){
-    //   params['house_type'] = value.toString();
+    //   params['house_type'] = 'apartment';
     // }
+    if(key == 'houseType'){
+      params['house_type'] = value.toString().toLowerCase();
+    }
     if(key == 'bedrooms'){
       params['bedrooms'] = value.toString();
     }
@@ -410,14 +412,14 @@ Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildHouseOption(HosueType.Full_House, "Full House"),
+                      _buildHouseOption(HosueType.Apartment, "Appartment"),
                       _buildHouseOption(HosueType.PG, "PG/Hostel"),
                       _buildHouseOption(HosueType.PentHosue, "Pent Hosue")
                     ],
                   ),
                 ),
           // Full House
-                if (_selectedType == HosueType.Full_House)
+                if (_selectedType == HosueType.Apartment)
                   Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -587,7 +589,17 @@ Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
             print(_latitude);
             print(_longitude);
             if (_latitude != null && _longitude != null) {
-              fetchHouseData(_selectedCriteria2);
+              // fetchHouseData(_selectedCriteria2);
+              var insightDataProvileVisit = Provider.of<HouseProvider>(context,  listen: false);
+              insightDataProvileVisit.fetchHouseData(_selectedCriteria2,_latitude.toString(),_longitude.toString()).then((value) => 
+              insightDataProvileVisit.houses.isEmpty ? ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('No houses found for the selected criteria')),
+              ) : navigatorPush(context, PropertyCard()
+              // print("Data Found")
+              )
+              );
+              
+              // print(insightDataProvileVisit);
             }
             if(_latitude==null && _longitude==null){
               ScaffoldMessenger.of(context).showSnackBar(
@@ -717,7 +729,7 @@ Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
           child: Column(
             children: [
               // Icon(Icons.access_alarm_rounded),
-              if (type == HosueType.Full_House)
+              if (type == HosueType.Apartment)
                 SvgPicture.asset("images/fullhouse.svg", height: 30),
               if (type == HosueType.PG)
                 SvgPicture.asset("images/pg.svg", height: 30),
@@ -784,7 +796,7 @@ Future<void> fetchHouseData(Map<String, dynamic> queryParams) async {
   }
 }
 
-enum HosueType { Full_House, PG, PentHosue }
+enum HosueType { Apartment , PG, PentHosue }
 
 enum BHKType { BHK1, BHK2, BHK3, BHK4, BHK5, BHK6 }
 
@@ -1102,16 +1114,16 @@ enum RoomType { SingleRoom, DoubleSharing, TripleSharing, FourSharing }
 //             results.map((house) => convertHouseToBusiness(house)).toList();
 
 //         // Navigate to the SubCategoryList page with the converted search results
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => SubCategoryList(
-//               keyy: 'house',
-//               value: 'House Search Results',
-//               houseSearchResults: convertedResults,
-//               isHouseSearch: true,
-//             ),
-//           ),
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => SubCategoryList(
+        //       keyy: 'house',
+        //       value: 'House Search Results',
+        //       houseSearchResults: convertedResults,
+        //       isHouseSearch: true,
+        //     ),
+        //   ),
 //         );
 //       }
 //     } catch (error) {
