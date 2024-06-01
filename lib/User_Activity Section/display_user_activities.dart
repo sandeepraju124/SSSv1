@@ -723,7 +723,9 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                           text:
                                                               "Your response was:  '",
                                                           style: TextStyle(
-                                                              fontSize: 11)),
+                                                              fontSize: 11,
+                                                              fontFamily:
+                                                                  'RobotoMono')),
                                                       TextSpan(
                                                         text: answer.answer,
                                                         style: TextStyle(
@@ -737,7 +739,11 @@ class _UserActivityScreenState extends State<UserActivityScreen> {
                                                         text:
                                                             "'\n\nProvided for: '${answer.businessName}'\nSubmitted on: '${formatDateTime(answer.adetails.createdAt)}'",
                                                         style: TextStyle(
-                                                            fontSize: 10.2),
+                                                            fontSize: 10.2,
+                                                            fontFamily:
+                                                                'RobotoMono',
+                                                            color:
+                                                                secondaryColor40LightTheme),
                                                       ),
                                                     ],
                                                   ),

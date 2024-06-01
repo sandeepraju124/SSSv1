@@ -29,7 +29,6 @@ import 'package:sssv1/providers/test_provider.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
-import 'package:sssv1/testing.dart';
 
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/category_grid.dart';

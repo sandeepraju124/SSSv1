@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import 'package:sssv1/models/service_models.dart';
@@ -27,10 +26,11 @@ class ServicesProvider extends ChangeNotifier {
     _isLoading = true;
     try {
       // var uri = "https://supernova1137.azurewebsites.net/mongo/business?business_uid=HOMPLUS9PVd3F9W6NEW";
-      var uri = "https://supernova1137.azurewebsites.net/mongo/business?business_uid=HOMPLUmwIKNIYtSTNEWW";
+      var uri =
+          "https://supernova1137.azurewebsites.net/mongo/business?business_uid=HOMPLUmwIKNIYtSTNEWW";
       // var uri = "$baseUrl/mongo/business?business_uid=$business_uid";
       ServicesModels data = await Http().fetchMongoBusinessData(uri);
-      print("data from provider $data");
+      // print("data from provider $data");
       // print("data");
       _businessdata = data;
     } catch (e) {
@@ -40,5 +40,4 @@ class ServicesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 }

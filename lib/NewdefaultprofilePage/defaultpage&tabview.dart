@@ -157,7 +157,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
         Provider.of<CommentSectionProvider>(context, listen: false);
     datacomments.commentSectionProvider(widget.uid);
 
-    var servicesData = Provider.of<ServicesProvider>(context,  listen: false).getMongoBusinessData(widget.uid);
+    var servicesData = Provider.of<ServicesProvider>(context, listen: false)
+        .getMongoBusinessData(widget.uid);
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
@@ -315,8 +316,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
 
                     children: [
                       MapScreenPage(
-                          // key: _keys[0],
-                          ),
+                        businesses: data.businessProfileData != null
+                            ? [data.businessProfileData!]
+                            : [],
+                      ),
                       if (data.businessProfileData != null &&
                           data.businessProfileData!.subCategory ==
                               "housingrent")
@@ -351,7 +354,6 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     ),
                   ),
                 ),
-                
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),

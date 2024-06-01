@@ -106,12 +106,12 @@ class Http {
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
-      print('Response status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      // print('Response status code: ${response.statusCode}');
+      // print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
-        print('Decoded JSON List: $jsonList');
+        // print('Decoded JSON List: $jsonList');
 
         return jsonList.map((json) => BusinessModel.fromJson(json)).toList();
       } else {
@@ -124,24 +124,23 @@ class Http {
     }
   }
 
-
   Future<ServicesModels> fetchMongoBusinessData(String uri) async {
-  try {
-    var url = Uri.parse(uri);
-    var response = await http.get(url);
-    // log(response.body);
+    try {
+      var url = Uri.parse(uri);
+      var response = await http.get(url);
+      // log(response.body);
 
-    if (response.statusCode == 200) {
-      return ServicesModels.fromJson(json.decode(response.body));
-    } else {
+      if (response.statusCode == 200) {
+        return ServicesModels.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("Failed to load mongo business data");
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the HTTP request
+      print("Error fetching mongo business data: $e");
       throw Exception("Failed to load mongo business data");
     }
-  } catch (e) {
-    // Handle any exceptions that occur during the HTTP request
-    print("Error fetching mongo business data: $e");
-    throw Exception("Failed to load mongo business data");
   }
-}
 
   // Future<List<BusinessModel>> getBusinessLatLongData({
   //   required String key,
