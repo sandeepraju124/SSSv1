@@ -236,6 +236,7 @@ class _SubcategoryState extends State<Subcategory> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   String subcategory = data.getUniqueSubcategoryData[index];
+                  print("subcategory: $subcategory");
 
                   return GestureDetector(
                     onTap: () {

@@ -51,6 +51,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
       userLatitude = livedata.latitude!;
       userLongitude = livedata.longitude!;
+      print("userlat $userLatitude");
+      print("userlong $userLongitude");
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
       data.subCategoryListProvider(widget.keyy, widget.value);
     }
@@ -112,7 +114,16 @@ class _SubCategoryListState extends State<SubCategoryList> {
         setState(() {
           _showNearbyBusinesses = true;
         });
-      } else {
+      } else if (response.statusCode == 404) {
+        // Handle error
+        print('No businesses found within the specified distance');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('No businesses found within the specified distance'),
+          ),
+        );
+      }
+      else {
         print('Failed to fetch nearby businesses: ${response.statusCode}');
       }
     } catch (e) {
