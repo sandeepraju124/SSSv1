@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const Color tgDarkPrimaryColor = Color(0xFF00796B);
 const Color tgLightPrimaryColor = Color(0xFFB2DFDB);
@@ -107,6 +108,18 @@ Widget RetangularBorderBox(TextMsg) {
     child: Text(TextMsg),
   );
 }
+
+void makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+    } else {
+      throw 'Could not launch $launchUri';
+    }
+  }
 
 
 // Container(

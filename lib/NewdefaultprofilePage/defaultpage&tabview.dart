@@ -143,22 +143,26 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     _tabController = TabController(length: 5, vsync: this);
     _scrollController = ScrollController();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-      data.businessProfileProvider(widget.keyy, widget.uid);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+    //   data.businessProfileProvider(widget.keyy, widget.uid);
+    // });
 
-    Future.delayed(Duration(seconds: 2), () {
-      var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
-      dataAsk.fetchAskCommunityData(widget.uid);
-    });
+    // Future.delayed(Duration(seconds: 2), () {
+    //   var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
+    //   dataAsk.fetchAskCommunityData(widget.uid);
+    // });
+    var data = Provider.of<BusinessProfileProvider>(context, listen: false).businessProfileProvider(widget.keyy, widget.uid);
+    var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
+    var datacomments = Provider.of<CommentSectionProvider>(context, listen: false).commentSectionProvider(widget.uid);
+    var servicesData = Provider.of<ServicesProvider>(context, listen: false).getMongoBusinessData(widget.uid);
 
-    var datacomments =
-        Provider.of<CommentSectionProvider>(context, listen: false);
-    datacomments.commentSectionProvider(widget.uid);
+    // var datacomments =
+    //     Provider.of<CommentSectionProvider>(context, listen: false);
+    // datacomments.commentSectionProvider(widget.uid);
 
-    var servicesData = Provider.of<ServicesProvider>(context, listen: false)
-        .getMongoBusinessData(widget.uid);
+    // var servicesData = Provider.of<ServicesProvider>(context, listen: false)
+    //     .getMongoBusinessData(widget.uid);
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {

@@ -92,7 +92,11 @@ class AdditionalInfoPage extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      // makePhoneCall(displayData[index].contactInformation);
+                                      print(data.businessProfileData!.contactInformation);
+                                      makePhoneCall(data.businessProfileData!.contactInformation);
+                                    },
                                     icon: Icon(LineAwesomeIcons.phone_volume),
                                     iconSize: 26,
                                     color: Colors.black54,
@@ -227,40 +231,42 @@ class AdditionalInfoPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  navigatorPush(context, AddPhotos());
-                                },
-                                child: Container(
-                                  height: 65,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                      border: Border.all(color: tgAccentColor)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        LineAwesomeIcons.image,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    // navigatorPush(context, AddPhotos());
+                                  },
+                                  child: Container(
+                                    height: 65,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                        border: Border.all(color: tgAccentColor)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          navigatorPush(context, AddPhotos());
+                                        },
+                                        icon: Icon(
+                                          LineAwesomeIcons.image,
+                                        ),
+                                        iconSize: 26,
+                                        color: Colors.black54,
                                       ),
-                                      iconSize: 26,
-                                      color: Colors.black54,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text(
-                                  "Photo",
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              )
-                            ]),
-                      ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Text(
+                                    "Photo",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                )
+                              ]),
+                        ),
                     ],
                   ),
                 ],

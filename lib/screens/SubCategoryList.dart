@@ -78,17 +78,19 @@ class _SubCategoryListState extends State<SubCategoryList> {
     }
   }
 
-  void makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    if (await canLaunchUrl(launchUri)) {
-      await launchUrl(launchUri);
-    } else {
-      throw 'Could not launch $launchUri';
-    }
-  }
+  // void makePhoneCall(String phoneNumber) async {
+  //   final Uri launchUri = Uri(
+  //     scheme: 'tel',
+  //     path: phoneNumber,
+  //   );
+  //   if (await canLaunchUrl(launchUri)) {
+  //     await launchUrl(launchUri);
+  //   } else {
+  //     throw 'Could not launch $launchUri';
+  //   }
+  // }
+
+
 
   Future<void> fetchNearbyBusinesses(
       double userLat, double userLong, String key, String value) async {
@@ -213,6 +215,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
                     child: ListView.builder(
                       itemCount: displayData!.length,
                       itemBuilder: (BuildContext context, int index) {
+                        print(displayData[index].businessUid);
+                        print(displayData[index].latitude.toString());
+                        print(displayData[index].longitude.toString());
+
                         return FutureBuilder<Map<String, String>>(
                           future: fetchDistance(
                               displayData[index].latitude.toString(),
@@ -337,6 +343,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     print("click");
+                    print(displayData[index].contactInformation);
                     makePhoneCall(displayData[index].contactInformation);
                   },
                   child: SizedBox(

@@ -219,37 +219,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
           },
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Container(
-                  height: 30,
-                  width: 360,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: secondaryColor40LightTheme,
-                    ),
-                    // color: tgPrimaryColor
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 70),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Share your insights and help others!",
-                          style: TextStyle(color: tgPrimaryText, fontSize: 12),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 70),
-                          child: Icon(
-                            LineAwesomeIcons.angle_right,
-                            size: 20,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              )
+              RetangularBorderBox("Share your insights and help others!")
             ],
           ),
         ),
