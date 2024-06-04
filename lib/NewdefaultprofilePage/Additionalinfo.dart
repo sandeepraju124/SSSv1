@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
+import 'package:sssv1/NewdefaultprofilePage/operating_hours_display.dart';
 import 'package:sssv1/NewdefaultprofilePage/photos.dart';
 import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 
@@ -22,6 +23,8 @@ class AdditionalInfoPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: double.infinity,
@@ -94,8 +97,10 @@ class AdditionalInfoPage extends StatelessWidget {
                                   child: IconButton(
                                     onPressed: () {
                                       // makePhoneCall(displayData[index].contactInformation);
-                                      print(data.businessProfileData!.contactInformation);
-                                      makePhoneCall(data.businessProfileData!.contactInformation);
+                                      print(data.businessProfileData!
+                                          .contactInformation);
+                                      makePhoneCall(data.businessProfileData!
+                                          .contactInformation);
                                     },
                                     icon: Icon(LineAwesomeIcons.phone_volume),
                                     iconSize: 26,
@@ -231,49 +236,66 @@ class AdditionalInfoPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    // navigatorPush(context, AddPhotos());
-                                  },
-                                  child: Container(
-                                    height: 65,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.white,
-                                        border: Border.all(color: tgAccentColor)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: IconButton(
-                                        onPressed: () {
-                                          navigatorPush(context, AddPhotos());
-                                        },
-                                        icon: Icon(
-                                          LineAwesomeIcons.image,
-                                        ),
-                                        iconSize: 26,
-                                        color: Colors.black54,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  // navigatorPush(context, AddPhotos());
+                                },
+                                child: Container(
+                                  height: 65,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                      border: Border.all(color: tgAccentColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        navigatorPush(context, AddPhotos());
+                                      },
+                                      icon: Icon(
+                                        LineAwesomeIcons.image,
                                       ),
+                                      iconSize: 26,
+                                      color: Colors.black54,
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 3),
-                                  child: Text(
-                                    "Photo",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                )
-                              ]),
-                        ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Text(
+                                  "Photo",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              )
+                            ]),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 11, top: 12),
+            child: Text(
+              'Business Status',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 10, top: 1),
+              height: 3, // Adjust the height of the line as needed
+              width: 110, // Adjust the width of the line as needed
+              color: tgPrimaryColor // Set the color of the line
+              ),
+          SizedBox(
+            height: 10,
+          ),
 
+          SizedBox(height: 50, child: BusinessStatus()),
           /////// small description  ////////////////
 
           Container(

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/Additionalinfo.dart';
+import 'package:sssv1/NewdefaultprofilePage/operating_hours_display.dart';
 import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
@@ -55,10 +56,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
   //   // var data = Provider.of<BusinessProfileProvider>(context, listen: false);
   //   // data.businessProfileProvider(widget.keyy, widget.uid);
 
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-  //     data.businessProfileProvider(widget.keyy, widget.uid);
-  //   });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+    //   data.businessProfileProvider(widget.keyy, widget.uid);
+    // });
 
   //   // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
   //   // dataAsk.fetchAskCommunityData(widget.uid);
@@ -143,17 +144,18 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     _tabController = TabController(length: 5, vsync: this);
     _scrollController = ScrollController();
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    //   data.businessProfileProvider(widget.keyy, widget.uid);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+      data.businessProfileProvider(widget.keyy, widget.uid);
+      var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
+    });
 
     // Future.delayed(Duration(seconds: 2), () {
     //   var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
     //   dataAsk.fetchAskCommunityData(widget.uid);
     // });
-    var data = Provider.of<BusinessProfileProvider>(context, listen: false).businessProfileProvider(widget.keyy, widget.uid);
-    var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
+    // var data = Provider.of<BusinessProfileProvider>(context, listen: false).businessProfileProvider(widget.keyy, widget.uid);
+    // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
     var datacomments = Provider.of<CommentSectionProvider>(context, listen: false).commentSectionProvider(widget.uid);
     var servicesData = Provider.of<ServicesProvider>(context, listen: false).getMongoBusinessData(widget.uid);
 
