@@ -143,7 +143,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(right: 280),
+                margin: EdgeInsets.only(right: 320),
                 height: 3,
                 width: 70,
                 decoration: BoxDecoration(

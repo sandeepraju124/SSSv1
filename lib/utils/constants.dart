@@ -97,29 +97,32 @@ final kButtonTextStyle = TextStyle(
 //                                 ),
 
 Widget RetangularBorderBox(TextMsg) {
-  return Container(
-    height: 30,
-    width: double.infinity,
-    decoration: BoxDecoration(
-      border: Border.all(color: secondaryColor20LightTheme),
+  return Padding(
+    padding: const EdgeInsets.only(top: 15),
+    child: Container(
+      height: 30,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        border: Border.all(color: secondaryColor20LightTheme),
+      ),
+      alignment: Alignment.center,
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      child: Text(TextMsg),
     ),
-    alignment: Alignment.center,
-    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-    child: Text(TextMsg),
   );
 }
 
 void makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    if (await canLaunchUrl(launchUri)) {
-      await launchUrl(launchUri);
-    } else {
-      throw 'Could not launch $launchUri';
-    }
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: phoneNumber,
+  );
+  if (await canLaunchUrl(launchUri)) {
+    await launchUrl(launchUri);
+  } else {
+    throw 'Could not launch $launchUri';
   }
+}
 
 
 // Container(

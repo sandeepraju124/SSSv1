@@ -136,6 +136,7 @@ class _AnswerpageState extends State<Answerpage> {
                                             // data1.businessProfileProvider(
                                             //     FirebaseAuth
                                             //         .instance.currentUser!.uid),
+                                            data.fetchAskCommunityData // Ensure data is refreshed
                                           }
                                       });
                             },

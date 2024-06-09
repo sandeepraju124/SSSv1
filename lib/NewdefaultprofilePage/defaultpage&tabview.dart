@@ -56,10 +56,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
   //   // var data = Provider.of<BusinessProfileProvider>(context, listen: false);
   //   // data.businessProfileProvider(widget.keyy, widget.uid);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-    //   data.businessProfileProvider(widget.keyy, widget.uid);
-    // });
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //   var data = Provider.of<BusinessProfileProvider>(context, listen: false);
+  //   data.businessProfileProvider(widget.keyy, widget.uid);
+  // });
 
   //   // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false);
   //   // dataAsk.fetchAskCommunityData(widget.uid);
@@ -147,7 +147,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var data = Provider.of<BusinessProfileProvider>(context, listen: false);
       data.businessProfileProvider(widget.keyy, widget.uid);
-      var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
+      var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false)
+          .fetchAskCommunityData(widget.uid);
     });
 
     // Future.delayed(Duration(seconds: 2), () {
@@ -156,8 +157,11 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     // });
     // var data = Provider.of<BusinessProfileProvider>(context, listen: false).businessProfileProvider(widget.keyy, widget.uid);
     // var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false).fetchAskCommunityData(widget.uid);
-    var datacomments = Provider.of<CommentSectionProvider>(context, listen: false).commentSectionProvider(widget.uid);
-    var servicesData = Provider.of<ServicesProvider>(context, listen: false).getMongoBusinessData(widget.uid);
+    var datacomments =
+        Provider.of<CommentSectionProvider>(context, listen: false)
+            .commentSectionProvider(widget.uid);
+    var servicesData = Provider.of<ServicesProvider>(context, listen: false)
+        .getMongoBusinessData(widget.uid);
 
     // var datacomments =
     //     Provider.of<CommentSectionProvider>(context, listen: false);

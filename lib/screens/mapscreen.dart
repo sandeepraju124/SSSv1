@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sssv1/models/business_models.dart';
-import 'package:sssv1/utils/constants.dart';
 // Make sure to import the business model
 
 class MapScreenPage extends StatefulWidget {

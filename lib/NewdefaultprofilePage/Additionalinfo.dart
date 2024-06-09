@@ -278,24 +278,7 @@ class AdditionalInfoPage extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 11, top: 12),
-            child: Text(
-              'Business Status',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-          ),
-          Container(
-              margin: EdgeInsets.only(left: 10, top: 1),
-              height: 3, // Adjust the height of the line as needed
-              width: 110, // Adjust the width of the line as needed
-              color: tgPrimaryColor // Set the color of the line
-              ),
-          SizedBox(
-            height: 10,
-          ),
 
-          SizedBox(height: 50, child: BusinessStatus()),
           /////// small description  ////////////////
 
           Container(
@@ -315,12 +298,12 @@ class AdditionalInfoPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 11, top: 12),
                   child: Text(
                     'Know About them',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
                     margin: EdgeInsets.only(left: 10, top: 1),
-                    height: 3, // Adjust the height of the line as needed
+                    height: 1.7, // Adjust the height of the line as needed
                     width: 110, // Adjust the width of the line as needed
                     color: tgPrimaryColor // Set the color of the line
                     ),
@@ -354,6 +337,28 @@ class AdditionalInfoPage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 11, top: 12),
+            child: Text(
+              'Business Status',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 10, top: 1),
+              height: 1.7, // Adjust the height of the line as needed
+              width: 110, // Adjust the width of the line as needed
+              color: tgPrimaryColor // Set the color of the line
+              ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BusinessStatus(),
           ),
         ],
       ),
