@@ -6,35 +6,22 @@ import 'dart:convert';
 import 'package:sssv1/utils/constants.dart';
 
 class BusinessCategoriesProvider with ChangeNotifier {
-  List<Businesscategoriesmodel> _categories = [];
+  List<BusinessCategories> _categories = [];
   bool _isLoading = false;
 
-  List<Businesscategoriesmodel> get categories => _categories;
+  List<BusinessCategories> get categories => _categories;
   bool get isLoading => _isLoading;
 
-  // Future<void> fetchAllCategories() async {
-  //   _isLoading = true;
-  //   var response = await http.get(Uri.parse('$baseUrl/business_categories'));
-  //   if (response.statusCode == 200) {
-  //     var decodedResponse = json.decode(response.body);
-  //     _categories = decodedResponse
-  //         .map<Businesscategoriesmodel>(
-  //             (item) => Businesscategoriesmodel.fromJson(item))
-  //         .toList();
-  //   } else {
-  //     throw Exception('Failed to load categories');
-  //   }
-  //   _isLoading = false;
-  //   notifyListeners();
-  // }
   Future<void> fetchAllCategories() async {
     _isLoading = true;
     var response = await http.get(Uri.parse('$baseUrl/business_categories'));
     if (response.statusCode == 200) {
       var decodedResponse = json.decode(response.body);
-      // print('Decoded response: $decodedResponse'); // Debug print
-      _categories = [Businesscategoriesmodel.fromJson(decodedResponse)];
-      // print('Categories after parsing: $_categories'); // Debug print
+      List<BusinessCategories> categoriesList = [];
+      for (var category in decodedResponse) {
+        categoriesList.add(BusinessCategories.fromJson(category));
+      }
+      _categories = categoriesList;
     } else {
       throw Exception('Failed to load categories');
     }
