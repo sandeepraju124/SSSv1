@@ -376,7 +376,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
                   title: Text(
                     amenities[index],
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14.4,
                       color: Colors.black87,
                     ),
                   ),

@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:sssv1/HousingServices/business_houseModel.dart';
 import 'package:sssv1/User_Activity%20Section/user_activity_model.dart';
 import 'package:sssv1/models/askthecom_models.dart';
 import 'package:sssv1/models/business_models.dart';
@@ -98,11 +99,36 @@ class Http {
   //   }
   // }
 
+  Future<BusinessHousemodel?> fetchBusinessHouseData(String businessUid) async {
+    final String url =
+        'https://supernova1137.azurewebsites.net/pg/business/house-data?business_uid=$businessUid';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        // Assuming the data is a list and we need to filter by business_uid
+        final filteredData = data.firstWhere(
+            (json) => json['business_uid'] == businessUid,
+            orElse: () => null);
+        return filteredData != null
+            ? BusinessHousemodel.fromJson(filteredData)
+            : null;
+      } else {
+        throw Exception('Failed to load housing data');
+      }
+    } catch (e) {
+      print('Error fetching housing data: $e');
+      return null;
+    }
+  }
+
   Future<List<BusinessModel>> getBusinessData(
       {required String key, required String value}) async {
     final String apiUrl =
         'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
-    print('Calling API: $apiUrl');
+    // print('Calling API: $apiUrl');
 
     try {
       final response = await http.get(Uri.parse(apiUrl));

@@ -1,8 +1,8 @@
 // // ignore_for_file: prefer_const_constructors
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
+// import 'package:sssv1/HousingServices/business_houseModel.dart';
 // import 'package:sssv1/models/business_models.dart';
-// import 'package:sssv1/models/business_profile.dart';
 // import 'package:sssv1/providers/business_profile_provider.dart';
 // import 'package:sssv1/utils/constants.dart';
 
@@ -50,7 +50,7 @@
 
 //   // below are the helper widgets for respective business///
 
-//   Widget _buildHousingDetails(BusinessModel businessProfileData) {
+//   Widget _buildHousingDetails(BusinessHousemodel businessProfileData) {
 //     var housingDetails = businessProfileData;
 //     if (housingDetails == null) {
 //       return Text("No housing details available");
@@ -150,3 +150,351 @@
 //     );
 //   }
 // }
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:sssv1/HousingServices/business_houseModel.dart';
+// import 'package:sssv1/providers/business_profile_provider.dart';
+// import 'package:sssv1/utils/constants.dart';
+
+// class OverviewPage extends StatelessWidget {
+//   const OverviewPage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var data = Provider.of<BusinessProfileProvider>(context);
+//     var businessProfileData = data.businessProfileData;
+//     var businessHouseModelData = data.businessHouseModelData;
+
+//     if (businessProfileData == null) {
+//       return Center(child: CircularProgressIndicator());
+//     }
+
+//     // Assuming businessProfileData is now of type BusinessHousemodel
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         _buildHeadingWithUnderline("Overview", tgDarkPrimaryColor),
+//         _buildHousingDetails(businessHouseModelData!),
+//       ],
+//     );
+//   }
+
+//   Widget _buildHousingDetails(BusinessHousemodel housingDetails) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           _buildDetailRow("Advance", housingDetails.advance),
+//           _buildDetailRow("Bedrooms", housingDetails.bedrooms.toString()),
+//           _buildDetailRow(
+//               "Building Age", "${housingDetails.buildingAge} years"),
+//           _buildDetailRow("Car Parking",
+//               housingDetails.carParking ? "Available" : "Not Available"),
+//           _buildDetailRow("Furnishing Level", housingDetails.furnishingLevel),
+//           _buildDetailRow("House Facing", housingDetails.houseFacing),
+//           _buildDetailRow("House Type", housingDetails.houseType),
+//           _buildDetailRow("Location", housingDetails.location),
+//           _buildDetailRow("Preferred", housingDetails.preferred),
+//           _buildDetailRow("Price", housingDetails.price),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildDetailRow(String label, String value) {
+//     return Padding(
+//       padding: const EdgeInsets.only(top: 15),
+//       child: Row(
+//         children: [
+//           Icon(Icons.circle, size: 8, color: secondaryColor20LightTheme),
+//           SizedBox(width: 10),
+//           Expanded(
+//             child: Text(
+//               "$label: $value",
+//               style: TextStyle(
+//                 color: secondaryColor40LightTheme,
+//                 overflow: TextOverflow.ellipsis,
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+// ignore_for_file: prefer_const_constructors
+
+//   Widget _buildHeadingWithUnderline(String text, Color underlineColor) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 11, top: 7),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+//               border: Border(bottom: BorderSide(color: tgPrimaryColor)),
+//             ),
+//             child: Text(
+//               text,
+//               style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:sssv1/HousingServices/business_houseModel.dart';
+// import 'package:sssv1/providers/business_profile_provider.dart';
+// import 'package:sssv1/utils/constants.dart';
+
+// class OverviewPage extends StatelessWidget {
+//   const OverviewPage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var data = Provider.of<BusinessProfileProvider>(context);
+//     var businessProfileData = data.businessProfileData;
+//     var businessHouseModelData = data.businessHouseModelData;
+
+//     if (data.isLoading) {
+//       return Center(child: CircularProgressIndicator());
+//     }
+
+//     if (businessProfileData == null) {
+//       return Center(child: Text("No business data available"));
+//     }
+
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         _buildHeadingWithUnderline("Overview", tgDarkPrimaryColor),
+//         if (businessHouseModelData != null)
+//           _buildHousingDetails(businessHouseModelData)
+//         else
+//           Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: Text(" No Overview Details Available for this business"),
+//           ),
+//       ],
+//     );
+//   }
+
+//   Widget _buildHousingDetails(BusinessHousemodel housingDetails) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           _buildDetailRow("Advance", housingDetails.advance),
+//           _buildDetailRow("Bedrooms", housingDetails.bedrooms.toString()),
+//           _buildDetailRow(
+//               "Building Age", "${housingDetails.buildingAge} years"),
+//           _buildDetailRow("Car Parking",
+//               housingDetails.carParking ? "Available" : "Not Available"),
+//           _buildDetailRow("Furnishing Level", housingDetails.furnishingLevel),
+//           _buildDetailRow("House Facing", housingDetails.houseFacing),
+//           _buildDetailRow("House Type", housingDetails.houseType),
+//           _buildDetailRow("Location", housingDetails.location),
+//           _buildDetailRow("Preferred", housingDetails.preferred),
+//           _buildDetailRow("Price", housingDetails.price),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildDetailRow(String label, String value) {
+//     return Padding(
+//       padding: const EdgeInsets.only(top: 15),
+//       child: Row(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.only(right: 5),
+//             child: Icon(Icons.circle, size: 8, color: tgPrimaryColor),
+//           ),
+//           SizedBox(width: 10),
+//           Expanded(
+//             child: Text(
+//               "$label: $value",
+//               style: TextStyle(
+//                 color: secondaryColor40LightTheme,
+//                 overflow: TextOverflow.ellipsis,
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   Widget _buildHeadingWithUnderline(String text, Color underlineColor) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 11, top: 7),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             decoration: BoxDecoration(
+//               border: Border(bottom: BorderSide(color: tgDarkPrimaryColor)),
+//             ),
+//             child: Text(
+//               text,
+//               style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sssv1/HousingServices/business_houseModel.dart';
+import 'package:sssv1/providers/business_profile_provider.dart';
+import 'package:sssv1/utils/constants.dart';
+
+class OverviewPage extends StatelessWidget {
+  const OverviewPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var data = Provider.of<BusinessProfileProvider>(context);
+    var businessProfileData = data.businessProfileData;
+    var businessHouseModelData = data.businessHouseModelData;
+
+    if (data.isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    if (businessProfileData == null) {
+      return Center(child: Text("No business data available"));
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildHeadingWithUnderline("Overview", tgDarkPrimaryColor),
+        if (businessHouseModelData != null)
+          _buildHousingDetails(context, businessHouseModelData)
+        else
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("No Overview Details Available for this business"),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildHousingDetails(
+      BuildContext context, BusinessHousemodel housingDetails) {
+    List<Widget> detailRows = [
+      _buildDetailRow("Advance", housingDetails.advance),
+      _buildDetailRow("Bedrooms", housingDetails.bedrooms.toString()),
+      _buildDetailRow("Building Age", "${housingDetails.buildingAge} years"),
+      _buildDetailRow("Car Parking",
+          housingDetails.carParking ? "Available" : "Not Available"),
+      _buildDetailRow("Furnishing Level", housingDetails.furnishingLevel),
+    ];
+
+    List<Widget> allDetailRows = [
+      ...detailRows,
+      _buildDetailRow("House Facing", housingDetails.houseFacing),
+      _buildDetailRow("House Type", housingDetails.houseType),
+      _buildDetailRow("Location", housingDetails.location),
+      _buildDetailRow("Preferred", housingDetails.preferred),
+      _buildDetailRow("Price", housingDetails.price),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...detailRows,
+          SizedBox(height: 10),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("All Overview Details"),
+                      content: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: allDetailRows,
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            "Close",
+                            style: TextStyle(color: tgDarkPrimaryColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Text(
+                "More ...",
+                style: TextStyle(color: tgDarkPrimaryColor),
+              ))
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 15, left: 10),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Icon(Icons.circle, size: 8, color: tgPrimaryColor),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              "$label: $value",
+              style: TextStyle(
+                color: secondaryColor60LightTheme,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeadingWithUnderline(String text, Color underlineColor) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 11, top: 7),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: tgDarkPrimaryColor)),
+            ),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

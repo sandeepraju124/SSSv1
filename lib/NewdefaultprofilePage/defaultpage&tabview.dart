@@ -360,7 +360,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     child: Container(
                       color: secondaryColor5LightTheme,
                       // child: Text("commenting for now")
-                      // child:  OverviewPage(),
+                      child: OverviewPage(),
                     ),
                   ),
                 ),

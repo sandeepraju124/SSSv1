@@ -143,14 +143,20 @@
 //   }
 // }
 
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/models/service_models.dart';
 import 'package:sssv1/providers/service_provider.dart';
+import 'package:sssv1/utils/constants.dart';
 
 class BusinessStatus extends StatefulWidget {
+  const BusinessStatus({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _BusinessStatusState createState() => _BusinessStatusState();
 }
 
@@ -247,30 +253,118 @@ class _BusinessStatusState extends State<BusinessStatus> {
   }
 }
 
+// class OperatingHoursScreen extends StatelessWidget {
+//   final Map<String, Map<String, dynamic>> operatingHours;
+
+//   OperatingHoursScreen({required this.operatingHours});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: tgPrimaryColor,
+//         elevation: 8,
+//         leading: IconButton(
+//           onPressed: () {
+//             Navigator.of(context).pop();
+//           },
+//           icon: Icon(Icons.keyboard_arrow_left_rounded),
+//         ),
+//         title: Text(
+//           "Operating Hours",
+//           style: TextStyle(
+//             fontSize: 18,
+//           ),
+//         ),
+//       ),
+//       body: ListView(
+//         children: operatingHours.keys.map((day) {
+//           Map<String, dynamic> hours = operatingHours[day]!;
+//           return ListTile(
+//             title: Text(day),
+//             subtitle: Text(hours["closed"]
+//                 ? "Closed"
+//                 : hours["open24"]
+//                     ? "Open 24 hours"
+//                     : "${hours["open"]} - ${hours["close"]}"),
+//           );
+//         }).toList(),
+//       ),
+//     );
+//   }
+// }
+
+// import 'package:flutter/material.dart';
+
 class OperatingHoursScreen extends StatelessWidget {
   final Map<String, Map<String, dynamic>> operatingHours;
 
-  OperatingHoursScreen({required this.operatingHours});
+  const OperatingHoursScreen({Key? key, required this.operatingHours})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Operating Hours"),
+        backgroundColor: tgPrimaryColor,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(
+            Icons.keyboard_arrow_left_rounded,
+          ),
+        ),
+        title: const Text(
+          "Operating Hours",
+          style: TextStyle(fontSize: 17.3),
+        ),
       ),
-      body: ListView(
-        children: operatingHours.keys.map((day) {
+      body: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: operatingHours.length,
+        separatorBuilder: (context, index) => const Divider(),
+        itemBuilder: (context, index) {
+          String day = operatingHours.keys.elementAt(index);
           Map<String, dynamic> hours = operatingHours[day]!;
-          return ListTile(
-            title: Text(day),
-            subtitle: Text(hours["closed"]
-                ? "Closed"
-                : hours["open24"]
-                    ? "Open 24 hours"
-                    : "${hours["open"]} - ${hours["close"]}"),
-          );
-        }).toList(),
+          return _buildDayTile(day, hours);
+        },
       ),
     );
+  }
+
+  Widget _buildDayTile(String day, Map<String, dynamic> hours) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              day,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              _getHoursString(hours),
+              style: TextStyle(
+                fontSize: 14.5,
+                color: hours["closed"]
+                    ? const Color.fromARGB(255, 181, 23, 12)
+                    : Colors.green,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getHoursString(Map<String, dynamic> hours) {
+    if (hours["closed"]) return "Closed";
+    if (hours["open24"]) return "Open 24 hours";
+    return "${hours["open"]} - ${hours["close"]}";
   }
 }
