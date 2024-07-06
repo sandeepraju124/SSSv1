@@ -108,9 +108,10 @@ class _OurtoppickPageState extends State<OurtoppickPage> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return AllSubcategoriesPage(
-                                subcategories: allSubcategories,
-                              );
+                              // return AllSubcategoriesPage(
+                              //   subcategories: allSubcategories,
+                              // );
+                              return AllSubcategoriesPage();
                             }));
                           },
                           // ignore: prefer_const_constructors

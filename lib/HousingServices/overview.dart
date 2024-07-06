@@ -366,12 +366,16 @@ class OverviewPage extends StatelessWidget {
     var data = Provider.of<BusinessProfileProvider>(context);
     var businessProfileData = data.businessProfileData;
     var businessHouseModelData = data.businessHouseModelData;
+    // print("Business House Model Data: $businessHouseModelData");
 
     if (data.isLoading) {
       return Center(child: CircularProgressIndicator());
     }
+    if (data.error != null) {
+      return Center(child: Text("Error: ${data.error}"));
+    }
     if (businessProfileData == null) {
-      return Center(child: Text("No business data available"));
+      return Center(child: Text("No business profile data available"));
     }
 
     return Column(
@@ -392,11 +396,11 @@ class OverviewPage extends StatelessWidget {
   Widget _buildHousingDetails(
       BuildContext context, BusinessHousemodel housingDetails) {
     List<Widget> detailRows = [
-      _buildDetailRow("Advance", housingDetails.advance),
+      _buildDetailRow("Advance", housingDetails.advance.toString()),
       _buildDetailRow("Bedrooms", housingDetails.bedrooms.toString()),
       _buildDetailRow("Building Age", "${housingDetails.buildingAge} years"),
       _buildDetailRow("Car Parking",
-          housingDetails.carParking ? "Available" : "Not Available"),
+          housingDetails.carParking == true ? "Available" : "Not Available"),
       _buildDetailRow("Furnishing Level", housingDetails.furnishingLevel),
     ];
 
@@ -454,7 +458,7 @@ class OverviewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
+  Widget _buildDetailRow(String label, String? value) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, left: 10),
       child: Row(
@@ -466,7 +470,7 @@ class OverviewPage extends StatelessWidget {
           SizedBox(width: 10),
           Expanded(
             child: Text(
-              "$label: $value",
+              "$label: ${value ?? 'N/A'}",
               style: TextStyle(
                 color: secondaryColor60LightTheme,
                 overflow: TextOverflow.ellipsis,

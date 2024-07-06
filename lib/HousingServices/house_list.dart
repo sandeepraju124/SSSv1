@@ -38,7 +38,7 @@ class _PropertyCardState extends State<PropertyCard> {
                 navigatorPush(
                     context,
                     DefaultProfilePage(
-                      uid: data.houses[int].businessUid,
+                      uid: data.houses[int].businessUid ?? "",
                     ));
               },
               child: Card(
@@ -57,7 +57,7 @@ class _PropertyCardState extends State<PropertyCard> {
                             Expanded(
                               child: Image.network(
                                 // 'images/house1.png', // Replace with your image asset
-                                data.houses[int].profileImageUrl,
+                                data.houses[int].profileImageUrl ?? "",
                                 fit: BoxFit.cover,
                                 height: 150.0,
                               ),
@@ -111,7 +111,8 @@ class _PropertyCardState extends State<PropertyCard> {
                           SizedBox(height: 8.0),
                           Text(
                             // 'slt enclave, near hitech MMTS, Slt enclave',
-                            data.houses[int].location,
+                            data.houses[int].location ??
+                                'Location not available',
 
                             style: TextStyle(
                                 fontSize: 14.0, color: Colors.grey[600]),
@@ -123,7 +124,8 @@ class _PropertyCardState extends State<PropertyCard> {
                                   color: Colors.green),
                               SizedBox(width: 8.0),
                               // Text('Fully Furnished'),
-                              Text(data.houses[int].furnishingLevel),
+                              Text(data.houses[int].furnishingLevel ??
+                                  'Not specified'),
                               Spacer(),
                               Icon(Icons.aspect_ratio, color: Colors.blue),
                               SizedBox(width: 8.0),
@@ -132,7 +134,8 @@ class _PropertyCardState extends State<PropertyCard> {
                               Icon(Icons.person, color: Colors.orange),
                               SizedBox(width: 8.0),
                               // Text('Anyone'),
-                              Text(data.houses[int].preferred),
+                              Text(data.houses[int].preferred ??
+                                  'Not specified'),
                             ],
                           ),
                           SizedBox(height: 16.0),
@@ -143,7 +146,8 @@ class _PropertyCardState extends State<PropertyCard> {
                                 child: Row(children: [
                                   Text(
                                     // '₹35,000',
-                                    data.houses[int].price,
+                                    data.houses[int].price ??
+                                        'Price not available',
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
@@ -162,9 +166,6 @@ class _PropertyCardState extends State<PropertyCard> {
                               ),
                             ],
                           ),
-                          // SizedBox(height: 16.0),
-                          // Divider(),
-                          // SizedBox(height: 16.0),
                         ],
                       ),
                     ),

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final businessHousemodel = businessHousemodelFromJson(jsonString);
-
 import 'dart:convert';
 
 List<BusinessHousemodel> businessHousemodelFromJson(String str) =>
@@ -43,7 +39,7 @@ class BusinessHousemodel {
     required this.bedrooms,
     required this.buildingAge,
     required this.businessDescription,
-    required this.businessEmail,
+    this.businessEmail,
     required this.businessName,
     required this.businessUid,
     required this.carParking,
@@ -61,34 +57,34 @@ class BusinessHousemodel {
     required this.price,
     required this.profileImageUrl,
     required this.subCategory,
-    required this.userid,
+    this.userid,
   });
 
   factory BusinessHousemodel.fromJson(Map<String, dynamic> json) =>
       BusinessHousemodel(
-        address: json["address"],
-        advance: json["advance"],
-        bedrooms: json["bedrooms"],
-        buildingAge: json["building_age"],
-        businessDescription: json["business_description"],
+        address: json["address"] ?? "",
+        advance: json["advance"] ?? "",
+        bedrooms: json["bedrooms"] ?? 0,
+        buildingAge: json["building_age"] ?? 0,
+        businessDescription: json["business_description"] ?? "",
         businessEmail: json["business_email"],
-        businessName: json["business_name"],
-        businessUid: json["business_uid"],
-        carParking: json["car_parking"],
-        category: json["category"],
-        contactInformation: json["contact_information"],
-        country: json["country"],
-        dateColumn: json["date_column"],
-        furnishingLevel: json["furnishing_level"],
-        houseFacing: json["house_facing"],
-        houseType: json["house_type"],
-        latitude: json["latitude"]?.toDouble(),
-        location: json["location"],
-        longitude: json["longitude"]?.toDouble(),
-        preferred: json["preferred "],
-        price: json["price"],
-        profileImageUrl: json["profile_image_url"],
-        subCategory: json["sub_category"],
+        businessName: json["business_name"] ?? "",
+        businessUid: json["business_uid"] ?? "",
+        carParking: json["car_parking"] ?? false,
+        category: json["category"] ?? "",
+        contactInformation: json["contact_information"] ?? "",
+        country: json["country"] ?? "",
+        dateColumn: json["date_column"] ?? "",
+        furnishingLevel: json["furnishing_level"] ?? "",
+        houseFacing: json["house_facing"] ?? "",
+        houseType: json["house_type"] ?? "",
+        latitude: (json["latitude"] ?? 0).toDouble(),
+        location: json["location"] ?? "",
+        longitude: (json["longitude"] ?? 0).toDouble(),
+        preferred: json["preferred "] ?? "",
+        price: json["price"] ?? "",
+        profileImageUrl: json["profile_image_url"] ?? "",
+        subCategory: json["sub_category"] ?? "",
         userid: json["userid"],
       );
 

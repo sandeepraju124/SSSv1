@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:sssv1/models/Housedata_model.dart';
 
-
-
 class HouseProvider with ChangeNotifier {
   List<HousedataModel> _houseData = [];
   bool _isLoading = false;
@@ -12,9 +10,11 @@ class HouseProvider with ChangeNotifier {
   List<HousedataModel> get houses => _houseData;
   bool get isLoading => _isLoading;
 
-  Future<bool> fetchHouseData(Map<String, dynamic> queryParams, String latitude, String longitude) async {
+  Future<bool> fetchHouseData(Map<String, dynamic> queryParams, String latitude,
+      String longitude) async {
     // Base URL
-    final String baseUrl = 'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
+    final String baseUrl =
+        'https://supernova1137.azurewebsites.net/pg/house/house-search-latlong';
 
     // Default parameters
     final Map<String, String> defaultParams = {
@@ -23,7 +23,7 @@ class HouseProvider with ChangeNotifier {
       'distance': '5000'
     };
 
-    // Combine default and provided parameters 
+    // Combine default and provided parameters
     final Map<String, String> params = {}..addAll(defaultParams);
 
     queryParams.forEach((key, value) {
@@ -53,7 +53,7 @@ class HouseProvider with ChangeNotifier {
 
     // Construct the query string
     final String queryString = Uri(queryParameters: params).query;
-    print('Query String: $queryString');
+    // print('Query String: $queryString');
 
     // Final URL
     final String url = '$baseUrl?$queryString';
@@ -63,24 +63,24 @@ class HouseProvider with ChangeNotifier {
       notifyListeners();
 
       final response = await http.get(Uri.parse(url));
-      print(response.body);
+      // print(response.body);
 
       if (response.statusCode == 200) {
         // Parse the JSON response
         final List<dynamic> data = jsonDecode(response.body);
         _houseData = data.map((json) => HousedataModel.fromJson(json)).toList();
-        print('House Data: $data');
+        // print('House Data: $data');
         _isLoading = false;
         notifyListeners();
         return true;
       } else {
-        print('Failed to load data: ${response.statusCode}');
+        // print('Failed to load data: ${response.statusCode}');
         _isLoading = false;
         notifyListeners();
         return false;
       }
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       _isLoading = false;
       notifyListeners();
       return false;

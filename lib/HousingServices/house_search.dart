@@ -265,7 +265,7 @@ class _HouseSearchState extends State<HouseSearch> {
                       TextField(
                         onChanged: (value) {
                           placeSearch(query: value);
-                          print(value);
+                          // print(value);
                         },
                         style: TextStyle(
                             color: secondaryColor40LightTheme, fontSize: 14.5),
@@ -609,9 +609,7 @@ class _HouseSearchState extends State<HouseSearch> {
         child: InkWell(
           onTap: () {
             // print(placePredictions[0].placeId);
-            // print(_selectedCriteria2);
-            // print(_latitude);
-            // print(_longitude);
+
             if (_latitude != null && _longitude != null) {
               // fetchHouseData(_selectedCriteria2);
               var insightDataProvileVisit =
@@ -831,6 +829,3 @@ enum HosueType { Apartment, PG, PentHosue }
 enum BHKType { BHK1, BHK2, BHK3, BHK4, BHK5, BHK6 }
 
 enum RoomType { SingleRoom, DoubleSharing, TripleSharing, FourSharing }
-
-
-
