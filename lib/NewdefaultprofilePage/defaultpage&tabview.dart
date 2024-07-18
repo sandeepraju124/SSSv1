@@ -9,6 +9,7 @@ import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/Additionalinfo.dart';
 import 'package:sssv1/NewdefaultprofilePage/operating_hours_display.dart';
 import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
+import 'package:sssv1/Reviews%20Section/new_showcomments_test.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
@@ -381,7 +382,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     child: Container(
                       height: 600,
                       color: secondaryColor5LightTheme,
-                      child: NewShowRewviewPage(),
+                      // child: NewShowRewviewPage(),
+                      child: NewShowRewviewPageTest(),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sssv1/HousingServices/house_search.dart';
+import 'package:sssv1/explore_test.dart';
 
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/subcategory.dart';
@@ -36,10 +37,15 @@ class Explore extends StatelessWidget {
 
                     navigatorPush(
                         context,
-                        Subcategory(
+                        SubcategoryTest(
                           keyy: keyy, //category
                           value: "Food",
-                        ));
+                        )
+                        // Subcategory(
+                        //   keyy: keyy, //category
+                        //   value: "Food",
+                        // )
+                        );
                   },
                   child: Container(
                     margin: const EdgeInsets.all(5),
@@ -87,10 +93,15 @@ class Explore extends StatelessWidget {
                 onTap: () {
                   navigatorPush(
                       context,
+                      // SubcategoryTest(
+                      //   keyy: keyy,
+                      //   value: "Retail",
+                      // )
                       Subcategory(
                         keyy: keyy,
                         value: "Retail",
-                      ));
+                      )
+                      );
                 },
                 child: Container(
                   margin: const EdgeInsets.all(5),
