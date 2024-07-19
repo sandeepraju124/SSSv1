@@ -72,29 +72,34 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
       appBar: _currentIndex == 0
           ? AppBar(
-            // padding: EdgeInsets.only(left: 5, bottom: 5, top: 5),
+              // padding: EdgeInsets.only(left: 5, bottom: 5, top: 5),
               leading: Container(
-                margin: EdgeInsets.all(5),
+                  margin: EdgeInsets.all(5),
                   // color: Colors.indigo,
                   decoration: BoxDecoration(
-                // color: Colors.redAccent,
-                // shape: BoxShape.circle,
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('images/stevejobs.jpg'),
-                ),
-              )),
+                    // color: Colors.redAccent,
+                    // shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(10.0),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('images/stevejobs.jpg'),
+                    ),
+                  )),
 
               title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Change Address ⤵",style: TextStyle(fontSize: 15, color: Colors.white)),
-                    SizedBox(height: 2,), 
+                    Text("Change Address ⤵",
+                        style: TextStyle(fontSize: 15, color: Colors.white)),
+                    SizedBox(
+                      height: 2,
+                    ),
                     Text(
-                      data.locationName.toString()
-                      // "Shamshiguda"
-                      ,style: TextStyle(fontSize: 12, color: Colors.white))]),
+                        data.locationName.toString()
+                        // "Shamshiguda"
+                        ,
+                        style: TextStyle(fontSize: 12, color: Colors.white))
+                  ]),
               // automaticallyImplyLeading: false,
               // centerTitle: true,
               // ),

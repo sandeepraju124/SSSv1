@@ -9,7 +9,7 @@ class GoogleSignInController with ChangeNotifier {
   GoogleSignInAccount? googleAccount;
 
   Future login() async {
-    print("called login");
+    // print("called login");
     try {
       final userAccount = await _googleSignIn.signIn();
       if (userAccount == null) return;

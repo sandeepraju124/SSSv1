@@ -106,7 +106,6 @@ class MyApp extends StatelessWidget {
       // home: SearchLocationScreen(),
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
-
       // home: DefaultProfilePage(uid: ""),
       home: redirection(),
       // home: OurTopPickPage(),

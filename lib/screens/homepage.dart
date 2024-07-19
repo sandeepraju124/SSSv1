@@ -47,10 +47,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // }
 
     var userprov = Provider.of<UserProvider>(context, listen: false);
-    print("init in homepage init");
-    print(userprov.getUserData);
+    // print("init in homepage init");
+    // print(userprov.getUserData);
     if (userprov.getUserData == null) {
-      print("if called in homepage init for getUserData");
       userprov.userProvider();
     }
 
@@ -115,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     // userpro.userProv();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       extendBody: true,
       /////////////////// Appbar for homepage is in BottomNav /////////////////////////
 
@@ -130,94 +130,92 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           //         ),
           //       )
           //     :
-          Container(
-        color: Colors.white,
-        // color: Colors.teal[50],
-        child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            physics: const ScrollPhysics(),
-            children: [
-              // SearchBar(),
-              SizedBox(
-                height: 15,
-              ),
+          ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: const ScrollPhysics(),
+              children: [
+            // SearchBar(),
+            SizedBox(
+              height: 15,
+            ),
 
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                    child: Text(
-                      "Our top picks",
-                      style: TextStyle(
-                          fontFamily: "RobotoMono",
-                          fontSize: 17,
-                          color: Colors.grey),
-                    ),
-                  )),
-              OurtoppickPage(),
-              SizedBox(
-                height: 10,
-              ),
-              // Restaurant Text
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                    child: Text(
-                      "Restaurants",
-                      style: TextStyle(
-                          fontFamily: "RobotoMono",
-                          fontSize: 17,
-                          color: Colors.grey),
-                    ),
-                  )),
-              SizedBox(height: 10),
-              // Restaurant(),
-              // SizedBox(height: 10),
-              RestaurantTest(),
-              // SizedBox(height: 17),
-
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
-                    child: Text(
-                      "Explore All ",
-                      style: TextStyle(
-                          fontFamily: "RobotoMono",
-                          fontSize: 17,
-                          color: Colors.grey),
-                    ),
-                  )),
-              // Explore(),
-              Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: secondaryColor10LightTheme,
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8, 0, 0, 5),
+                  child: Text(
+                    "Our top picks",
+                    style: TextStyle(
+                        fontFamily: "RobotoMono",
+                        fontSize: 17,
+                        color: Colors.grey),
                   ),
-                  margin: EdgeInsets.all(10),
-                  child: Explore()),
-              // GestureDetector(
-              //     onTap: (() {
-              //       // Future<List<dynamic>> _getSuggestions(String query) async {
-              //       //   // final response = await http.get(Uri.parse('your_search_api_url?query=$query'));
-              //       //   final response = await http
-              //       //       .get(Uri.parse('$baseUrl/pg/search?query=$query'));
-              //       //   print(response.body);
-              //       //   if (response.statusCode == 200) {
-              //       //     return List<dynamic>.from(json.decode(response.body));
-              //       //   } else {
-              //       //     throw Exception('Failed to load suggestions');
-              //       //   }
-              //       // }
-              //       // _getSuggestions("Tea");
-              //       navigatorPush(context, BusinessSearchScreen());
-              //       // Http().overall_rating("NEX1O16051534921137");
-              //     }),
-              //     child: Text("click"))
-            ]),
-      ),
+                )),
+            OurtoppickPage(),
+            SizedBox(
+              height: 10,
+            ),
+            // Restaurant Text
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(13, 0, 0, 5),
+                  child: Text(
+                    "Restaurants",
+                    style: TextStyle(
+                        fontFamily: "RobotoMono",
+                        fontSize: 17,
+                        color: Colors.grey),
+                  ),
+                )),
+            // SizedBox(height: 10),
+            // Restaurant(),
+            SizedBox(height: 10),
+
+            RestaurantTest(),
+            SizedBox(height: 30),
+
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
+                  child: Text(
+                    "Explore All ",
+                    style: TextStyle(
+                        fontFamily: "RobotoMono",
+                        fontSize: 17,
+                        color: Colors.grey),
+                  ),
+                )),
+
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: secondaryColor10LightTheme,
+                  // color: Colors.black54,
+                ),
+                margin: EdgeInsets.all(10),
+                child: Explore()),
+            // GestureDetector(
+            //     onTap: (() {
+            //       // Future<List<dynamic>> _getSuggestions(String query) async {
+            //       //   // final response = await http.get(Uri.parse('your_search_api_url?query=$query'));
+            //       //   final response = await http
+            //       //       .get(Uri.parse('$baseUrl/pg/search?query=$query'));
+            //       //   print(response.body);
+            //       //   if (response.statusCode == 200) {
+            //       //     return List<dynamic>.from(json.decode(response.body));
+            //       //   } else {
+            //       //     throw Exception('Failed to load suggestions');
+            //       //   }
+            //       // }
+            //       // _getSuggestions("Tea");
+            //       navigatorPush(context, BusinessSearchScreen());
+            //       // Http().overall_rating("NEX1O16051534921137");
+            //     }),
+            //     child: Text("click"))
+          ]),
     );
   }
 }

@@ -123,6 +123,8 @@
 //   }
 // }
 
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -131,9 +133,10 @@ import 'package:http/http.dart' as http;
 import 'package:sssv1/Services%20(top)%20of%20homepage%20section/icons.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
-import 'package:sssv1/utils/navigator.dart';
 
 class AllSubcategoriesPage extends StatefulWidget {
+  const AllSubcategoriesPage({super.key});
+
   @override
   State<AllSubcategoriesPage> createState() => _AllSubcategoriesPageState();
 }
