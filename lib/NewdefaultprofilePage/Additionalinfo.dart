@@ -6,6 +6,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/questions.dart';
 import 'package:sssv1/NewdefaultprofilePage/operating_hours_display.dart';
+import 'package:sssv1/NewdefaultprofilePage/operating_hours_test.dart';
 import 'package:sssv1/NewdefaultprofilePage/photos.dart';
 import 'package:sssv1/Reviews%20Section/displayreviewbottomsheet.dart';
 
@@ -278,6 +279,10 @@ class AdditionalInfoPage extends StatelessWidget {
               ),
             ),
           ),
+          Divider(
+            color: Colors.grey[200],
+            thickness: 5,
+          ),
 
           /////// small description  ////////////////
 
@@ -311,18 +316,6 @@ class AdditionalInfoPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    // height: 104,
-                    // color: Colors.white,
-
-                    // child: Text(
-                    //   data.businessProfileData!.businessDescription.toString(),
-                    //   // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat ",
-                    //   style: TextStyle(
-                    //       color: secondaryColor20LightTheme,
-                    //       fontFamily: "Roboto",
-                    //       wordSpacing: 0.5,
-                    //       letterSpacing: -0.1),
-                    // ),
                     child: Text(
                       data.businessProfileData?.businessDescription
                               .toString() ??
@@ -337,6 +330,10 @@ class AdditionalInfoPage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Divider(
+            color: Colors.grey[200],
+            thickness: 5,
           ),
 
           Padding(
@@ -356,10 +353,11 @@ class AdditionalInfoPage extends StatelessWidget {
           //   height: 10,
           // ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: BusinessStatus(),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: BusinessStatus(),
+          // ),
+          BusinessStatusTest(),
         ],
       ),
     );

@@ -43,7 +43,8 @@ class _MapScreenPageState extends State<MapScreenPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400,
+      height: 300,
+      // height: 400,
       child: GoogleMap(
         markers: _markers,
         mapType: MapType.normal,

@@ -1,9 +1,5 @@
-// //
-// ignore_for_file: prefer_const_constructors
-
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
-// import 'package:sssv1/providers/business_profile_provider.dart';
 // import 'package:sssv1/providers/service_provider.dart';
 // import 'package:sssv1/utils/constants.dart';
 
@@ -15,60 +11,62 @@
 // }
 
 // class _AmenitiesGridViewState extends State<AmenitiesGridView> {
-//   void _showAllAmenitiesDialog(BuildContext context, List<String> amenities) {
-//     showDialog(
+//   void _showAllAmenitiesBottomSheet(BuildContext context, List<String> amenities) {
+//     showModalBottomSheet(
 //       context: context,
+//       shape: const RoundedRectangleBorder(
+//         borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+//       ),
 //       builder: (BuildContext context) {
-//         return AlertDialog(
-//           backgroundColor: Colors.white,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(15),
-//           ),
-//           title: const Text(
-//             'All Amenities',
-//             style: TextStyle(
-//               // fontWeight: FontWeight.bold,
-//               fontSize: 20,
-//               color: tgDarkPrimaryColor,
-//             ),
-//           ),
-//           content: SizedBox(
-//             width: double.maxFinite,
-//             child: ListView.builder(
-//               shrinkWrap: true,
-//               itemCount: amenities.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return ListTile(
-//                   leading: const Icon(
-//                     Icons.check,
-//                     color: tgPrimaryColor,
-//                     size: 20,
-//                   ),
-//                   title: Text(
-//                     amenities[index],
-//                     style: const TextStyle(
-//                       fontSize: 16,
-//                       color: Colors.black87,
-//                     ),
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-//           actions: <Widget>[
-//             TextButton(
-//               child: const Text(
-//                 'Close',
+//         return Padding(
+//           padding: const EdgeInsets.all(16.0),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               const Text(
+//                 'All Amenities',
 //                 style: TextStyle(
-//                   color: tgPrimaryColor,
+//                   fontSize: 20,
+//                   color: tgDarkPrimaryColor,
 //                   fontWeight: FontWeight.bold,
 //                 ),
 //               ),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
+//               const SizedBox(height: 10),
+//               Expanded(
+//                 child: ListView.builder(
+//                   shrinkWrap: true,
+//                   itemCount: amenities.length,
+//                   itemBuilder: (BuildContext context, int index) {
+//                     return ListTile(
+//                       leading: const Icon(
+//                         Icons.check,
+//                         color: tgPrimaryColor,
+//                         size: 20,
+//                       ),
+//                       title: Text(
+//                         amenities[index],
+//                         style: const TextStyle(
+//                           fontSize: 16,
+//                           color: Colors.black87,
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               const SizedBox(height: 10),
+//               TextButton(
+//                 onPressed: () => Navigator.of(context).pop(),
+//                 child: const Text(
+//                   'Close',
+//                   style: TextStyle(
+//                     color: tgPrimaryColor,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
 //         );
 //       },
 //     );
@@ -79,21 +77,32 @@
 //     var servidedata = Provider.of<ServicesProvider>(context);
 //     int initialAmenitiesCount = 3;
 
+//     if (servidedata.BusinessData == null ||
+//         servidedata.BusinessData!.amenities == null) {
+//       return const Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 16.0),
+//         child: Text(
+//           "No amenities available",
+//           style: TextStyle(
+//             fontSize: 16,
+//             color: Colors.black54,
+//           ),
+//         ),
+//       );
+//     }
+
 //     return Column(
 //       crossAxisAlignment: CrossAxisAlignment.start,
 //       children: [
-//         Padding(
-//           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-//           child: Container(
-//             decoration: BoxDecoration(
-//                 border: Border(bottom: BorderSide(color: tgDarkPrimaryColor))),
-//             child: Text(
-//               "Amenities",
-//               style: TextStyle(
-//                 fontSize: 19,
-//                 // fontWeight: FontWeight.bold,
-//                 // color: tgPrimaryColor,
-//               ),
+//         const Padding(
+//           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+//           child: Text(
+//             "Amenities",
+//             style: TextStyle(
+//               fontSize: 19,
+//               fontWeight: FontWeight.bold,
+//               color: tgDarkPrimaryColor,
+//               decoration: TextDecoration.underline,
 //             ),
 //           ),
 //         ),
@@ -145,183 +154,12 @@
 //           Padding(
 //             padding: const EdgeInsets.symmetric(horizontal: 16.0),
 //             child: TextButton(
-//               onPressed: () => _showAllAmenitiesDialog(
+//               onPressed: () => _showAllAmenitiesBottomSheet(
 //                   context, servidedata.BusinessData!.amenities!),
 //               child: const Text(
 //                 'More ...',
 //                 style: TextStyle(
 //                   color: tgDarkPrimaryColor,
-//                   // fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ),
-//           ),
-//       ],
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:sssv1/providers/business_profile_provider.dart';
-// import 'package:sssv1/providers/service_provider.dart';
-// import 'package:sssv1/utils/constants.dart';
-
-// class AmenitiesGridView extends StatefulWidget {
-//   const AmenitiesGridView({super.key});
-
-//   @override
-//   _AmenitiesGridViewState createState() => _AmenitiesGridViewState();
-// }
-
-// class _AmenitiesGridViewState extends State<AmenitiesGridView> {
-//   void _showAllAmenitiesDialog(BuildContext context, List<String> amenities) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           backgroundColor: Colors.white,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(15),
-//           ),
-//           title: const Text(
-//             'All Amenities',
-//             style: TextStyle(
-//               fontWeight: FontWeight.bold,
-//               color: tgPrimaryColor,
-//             ),
-//           ),
-//           content: SizedBox(
-//             width: double.maxFinite,
-//             child: ListView.builder(
-//               shrinkWrap: true,
-//               itemCount: amenities.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return ListTile(
-//                   leading: const Icon(
-//                     Icons.check_circle,
-//                     color: tgPrimaryColor,
-//                     size: 20,
-//                   ),
-//                   title: Text(
-//                     amenities[index],
-//                     style: const TextStyle(
-//                       fontSize: 16,
-//                       color: Colors.black87,
-//                     ),
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-//           actions: <Widget>[
-//             TextButton(
-//               child: const Text(
-//                 'Close',
-//                 style: TextStyle(
-//                   color: tgPrimaryColor,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var servidedata = Provider.of<ServicesProvider>(context);
-//     int initialAmenitiesCount = 6;
-
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Padding(
-//           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-//           child: Text(
-//             "Amenities",
-//             style: TextStyle(
-//               fontSize: 24,
-//               fontWeight: FontWeight.bold,
-//               color: tgPrimaryColor,
-//             ),
-//           ),
-//         ),
-//         servidedata.BusinessData!.amenities!.isNotEmpty
-//             ? Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-//                 child: GridView.builder(
-//                   shrinkWrap: true,
-//                   physics: const NeverScrollableScrollPhysics(),
-//                   itemCount: servidedata.BusinessData!.amenities!.length > initialAmenitiesCount
-//                       ? initialAmenitiesCount
-//                       : servidedata.BusinessData!.amenities!.length,
-//                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 3,
-//                     crossAxisSpacing: 10,
-//                     mainAxisSpacing: 10,
-//                   ),
-//                   itemBuilder: (BuildContext context, int index) {
-//                     return Card(
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(10),
-//                       ),
-//                       elevation: 3,
-//                       shadowColor: tgPrimaryColor.withOpacity(0.2),
-//                       child: Padding(
-//                         padding: const EdgeInsets.all(8.0),
-//                         child: Column(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: [
-//                             Icon(
-//                               Icons.check_circle,
-//                               color: tgPrimaryColor,
-//                               size: 30,
-//                             ),
-//                             SizedBox(height: 10),
-//                             Text(
-//                               servidedata.BusinessData!.amenities![index],
-//                               textAlign: TextAlign.center,
-//                               style: const TextStyle(
-//                                 fontSize: 14,
-//                                 color: Colors.black87,
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                 ),
-//               )
-//             : const Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 16.0),
-//                 child: Text(
-//                   "No amenities available",
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     color: Colors.black54,
-//                   ),
-//                 ),
-//               ),
-//         if (servidedata.BusinessData!.amenities!.length > initialAmenitiesCount)
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-//             child: Align(
-//               alignment: Alignment.centerRight,
-//               child: TextButton(
-//                 onPressed: () => _showAllAmenitiesDialog(context, servidedata.BusinessData!.amenities!),
-//                 child: const Text(
-//                   'More ...',
-//                   style: TextStyle(
-//                     color: tgPrimaryColor,
-//                     fontWeight: FontWeight.bold,
-//                   ),
 //                 ),
 //               ),
 //             ),
@@ -344,59 +182,86 @@ class AmenitiesGridView extends StatefulWidget {
 }
 
 class _AmenitiesGridViewState extends State<AmenitiesGridView> {
-  void _showAllAmenitiesDialog(BuildContext context, List<String> amenities) {
-    showDialog(
+  void _showAllAmenitiesBottomSheet(
+      BuildContext context, List<String> amenities) {
+    showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          title: const Text(
-            'All Amenities',
-            style: TextStyle(
-              fontSize: 20,
-              color: tgDarkPrimaryColor,
-            ),
-          ),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: amenities.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  leading: const Icon(
-                    Icons.check,
-                    color: tgPrimaryColor,
-                    size: 20,
-                  ),
-                  title: Text(
-                    amenities[index],
-                    style: const TextStyle(
-                      fontSize: 14.4,
-                      color: Colors.black87,
+        return DraggableScrollableSheet(
+          expand: false,
+          builder: (context, scrollController) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 50,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                'Close',
-                style: TextStyle(
-                  color: tgPrimaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
+                  const SizedBox(height: 15),
+                  Center(
+                    child: Text(
+                      'All Amenities',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: tgDarkPrimaryColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: amenities.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          leading: const Icon(
+                            Icons.check,
+                            color: tgPrimaryColor,
+                            size: 20,
+                          ),
+                          title: Text(
+                            amenities[index],
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(
+                          color: tgPrimaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            );
+          },
         );
       },
     );
@@ -424,18 +289,18 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: tgDarkPrimaryColor))),
-            child: Text(
-              "Amenities",
-              style: TextStyle(
-                fontSize: 19,
-              ),
-            ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+          child: Text(
+            "Amenities",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
           ),
+        ),
+        Container(
+          // margin: const EdgeInsets.only(top: 4),
+          height: 2,
+          width: 70,
+          color: tgPrimaryColor,
         ),
         servidedata.BusinessData!.amenities!.isNotEmpty
             ? ListView.builder(
@@ -485,7 +350,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: TextButton(
-              onPressed: () => _showAllAmenitiesDialog(
+              onPressed: () => _showAllAmenitiesBottomSheet(
                   context, servidedata.BusinessData!.amenities!),
               child: const Text(
                 'More ...',

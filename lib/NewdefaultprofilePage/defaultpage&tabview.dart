@@ -205,6 +205,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     // TabController _tabController = TabController(length: 5, vsync: this);
 
     return Scaffold(
+      // backgroundColor: Colors.grey,
       body: data.isLoading
           ? Center(
               child: CircularProgressIndicator(
@@ -257,7 +258,13 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                         )
                       ],
                     ),
+                    Divider(
+            color: Colors.grey[200],
+            thickness: 5,
+          ),
+
                   ],
+                  
                   flexibleSpace: FlexibleSpaceBar(
                     title: Padding(
                       padding: const EdgeInsets.only(right: 2),
@@ -287,6 +294,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     ),
                   ),
                 ),
+                
                 SliverToBoxAdapter(
                   child: AdditionalInfoPage(),
                 ),
@@ -387,6 +395,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     ),
                   ),
                 ),
+                // Ask community
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
