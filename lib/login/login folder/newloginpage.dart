@@ -19,28 +19,72 @@ class NewLoginPage extends StatefulWidget {
 class _NewLoginPageState extends State<NewLoginPage> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
+  bool _isLoading = false;
 
-  Future signIn() async {
+  // Future signIn() async {
+  //   try {
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: _emailcontroller.text.trim(),
+  //         password: _passwordcontroller.text.trim());
+
+  //         // fetch users data
+  //         var userpro = Provider.of<UserProvider>(context, listen: false);
+  //         await userpro.userProvider();
+  //         setState(() {
+  //         _isLoading = false;
+  //       });
+
+  //   } on FirebaseAuthException catch (e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return AlertDialog(
+  //             content: Text(e.message.toString()),
+  //           );
+  //         });
+  //   }
+  // }
+
+  Future<void> signIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailcontroller.text.trim(),
-          password: _passwordcontroller.text.trim());
+        email: _emailcontroller.text.trim(),
+        password: _passwordcontroller.text.trim(),
+      );
 
-          // fetch users data
-          var userpro = Provider.of<UserProvider>(context, listen: false);
-          await userpro.userProvider();
+      // Fetch user's data
+      var userpro = Provider.of<UserProvider>(context, listen: false);
+      await userpro.userProvider();
 
+      // Show Snackbar on successful login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User logged in'),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print(e);
       }
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text(e.message.toString()),
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -269,13 +313,17 @@ class _NewLoginPageState extends State<NewLoginPage> {
                         child: FloatingActionButton(
                           backgroundColor: tgDarkPrimaryColor,
                           onPressed: () async {
-
                             if (formkey.currentState!.validate()) {
                               await signIn();
                             }
                           },
-                          child: Icon(Icons.arrow_forward_rounded,
-                              color: Colors.black),
+                          child: _isLoading
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                ))
+                              : Icon(Icons.arrow_forward_rounded,
+                                  color: Colors.black),
                           elevation: 11,
                           // foregroundColor: Colors.redAccent,
                         ),

@@ -284,7 +284,7 @@ class AdditionalInfoPage extends StatelessWidget {
             thickness: 5,
           ),
 
-          /////// small description  ////////////////
+          ////////////////    small description  ////////////////
 
           Container(
             width: double.infinity,

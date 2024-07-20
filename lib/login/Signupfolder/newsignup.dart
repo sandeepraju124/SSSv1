@@ -28,6 +28,7 @@ class _NewSignuppageState extends State<NewSignuppage> {
   // String selectedGender = "";
   Gender? _selectedGender;
   File? _dp;
+  bool _isLoading = false;
 
   Future imagePicker(ImageSource source) async {
     ImagePicker pick = ImagePicker();
@@ -83,67 +84,150 @@ class _NewSignuppageState extends State<NewSignuppage> {
     //post data to mongodb
     //fetch data and store on provider after posting
 
+    // Future signup() async {
+    //   print('Sign up clicked');
+    //   setState(() {
+    //   _isLoading = true;
+    // });
+    //   try {
+    //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    //         email: _emailcontroller.text.trim(),
+    //         password: _passwordcontroller.text.trim());
+
+    //     final user = FirebaseAuth.instance.currentUser;
+    //     final userid = user?.uid;
+
+    //     Map<String, String> body = {
+    //       'name': _firstnamecontroller.text.trim(),
+    //       'email': _emailcontroller.text.trim(),
+    //       "username": _lastnamecontroller.text.trim(),
+    //       "street": "hyderabad",
+    //       "state": "telangana",
+    //       "zipcode": "500072",
+    //       "lat": "546",
+    //       "lng": "648",
+    //       "userid": userid.toString()
+    //     };
+    //     final request = http.MultipartRequest(
+    //         "POST",
+    //         Uri.parse(
+    //           "$baseUrl/user",
+    //         ));
+    //     if (_dp != null) {
+    //       request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
+    //     }
+    //     // ..files.add(await http.MultipartFile.fromPath('dp', _dp!.path))
+    //     request.fields.addAll(body);
+
+    //     final response = await request.send();
+    //     print(response.statusCode);
+    //     print(response);
+    //     if (response.statusCode == 200) {
+    //       final responseBody = await response.stream.bytesToString();
+    //       print(responseBody);
+
+    //       //fetch data and store on provider
+    //       userpro.userProvider();
+
+    //       print('user created successfully');
+    //       return 'user created successfully';
+    //     } else {
+    //       throw Exception('Failed to create user');
+    //     }
+    //   } on FirebaseAuthException catch (e) {
+    //     print(e);
+    //     showDialog(
+    //         context: context,
+    //         builder: (context) {
+    //           return AlertDialog(
+    //             content: Text(e.message.toString()),
+    //           );
+    //         });
+    //   } catch (e) {
+    //     print(e.toString());
+    //     throw Exception('EXception Failed to create user : $e');
+    //   }finally {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // }
+    // }
+
     Future signup() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
       print('Sign up clicked');
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _emailcontroller.text.trim(),
-            password: _passwordcontroller.text.trim());
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailcontroller.text.trim(),
+        password: _passwordcontroller.text.trim(),
+      );
 
-        final user = FirebaseAuth.instance.currentUser;
-        final userid = user?.uid;
+      final user = FirebaseAuth.instance.currentUser;
+      final userid = user?.uid;
 
-        Map<String, String> body = {
-          'name': _firstnamecontroller.text.trim(),
-          'email': _emailcontroller.text.trim(),
-          "username": _lastnamecontroller.text.trim(),
-          "street": "hyderabad",
-          "state": "telangana",
-          "zipcode": "500072",
-          "lat": "546",
-          "lng": "648",
-          "userid": userid.toString()
-        };
-        final request = http.MultipartRequest(
-            "POST",
-            Uri.parse(
-              "$baseUrl/user",
-            ));
-        if (_dp != null) {
-          request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
-        }
-        // ..files.add(await http.MultipartFile.fromPath('dp', _dp!.path))
-        request.fields.addAll(body);
-
-        final response = await request.send();
-        print(response.statusCode);
-        print(response);
-        if (response.statusCode == 200) {
-          final responseBody = await response.stream.bytesToString();
-          print(responseBody);
-
-          //fetch data and store on provider
-          userpro.userProvider();
-
-          print('user created successfully');
-          return 'user created successfully';
-        } else {
-          throw Exception('Failed to create user');
-        }
-      } on FirebaseAuthException catch (e) {
-        print(e);
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(e.message.toString()),
-              );
-            });
-      } catch (e) {
-        print(e.toString());
-        throw Exception('EXception Failed to create user : $e');
+      Map<String, String> body = {
+        'name': _firstnamecontroller.text.trim(),
+        'email': _emailcontroller.text.trim(),
+        'username': _lastnamecontroller.text.trim(),
+        'street': 'hyderabad',
+        'state': 'telangana',
+        'zipcode': '500072',
+        'lat': '546',
+        'lng': '648',
+        'userid': userid.toString(),
+      };
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/user'),
+      );
+      if (_dp != null) {
+        request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
       }
+      request.fields.addAll(body);
+
+      final response = await request.send();
+      print(response.statusCode);
+      print(response);
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        print(responseBody);
+
+        // Fetch data and store on provider
+        var userpro = Provider.of<UserProvider>(context, listen: false);
+        await userpro.userProvider();
+
+        print('User created successfully');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('User created successfully'),
+          ),
+        );
+        return 'User created successfully';
+      } else {
+        throw Exception('Failed to create user');
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Exception: Failed to create user: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
+  }
 
     return Scaffold(
       appBar: AppBar(
@@ -397,10 +481,15 @@ class _NewSignuppageState extends State<NewSignuppage> {
           width: double.infinity,
           color: tgAccentColor,
           child: Center(
-              child: Text(
-            "Register",
-            style: TextStyle(color: Colors.white, fontSize: 17),
-          )),
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ))
+                  : Text(
+                      "Register",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    )),
         ),
       ),
     );
