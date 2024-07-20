@@ -75,14 +75,43 @@ class _RestaurantTestState extends State<RestaurantTest> {
                             ClipRRect(
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(15)),
-                              child: Image.network(
-                                data.getHomeBusinessData[index]!
-                                    .profileImageUrl,
-                                height: 180,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
+                              child: (data.getHomeBusinessData[index]
+                                              ?.profileImageUrl !=
+                                          null &&
+                                      data.getHomeBusinessData[index]!
+                                          .profileImageUrl.isNotEmpty)
+                                  ? Image.network(
+                                      data.getHomeBusinessData[index]!
+                                          .profileImageUrl,
+                                      height: 180,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      'https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg',
+                                      height: 180,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
+
+                            // ClipRRect(
+                            //   borderRadius: BorderRadius.vertical(
+                            //       top: Radius.circular(15)),
+                            //   child: data.getHomeBusinessData[index]!
+                            //         .profileImageUrl != null ? Image.network(
+                            //     data.getHomeBusinessData[index]!
+                            //         .profileImageUrl,
+                            //     height: 180,
+                            //     width: double.infinity,
+                            //     fit: BoxFit.cover,
+                            //   ): Image.network(
+                            //     'https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg',
+                            //     height: 180,
+                            //     width: double.infinity,
+                            //     fit: BoxFit.cover,
+                            //   )
+                            // ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(

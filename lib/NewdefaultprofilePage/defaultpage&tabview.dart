@@ -259,12 +259,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       ],
                     ),
                     Divider(
-            color: Colors.grey[200],
-            thickness: 5,
-          ),
-
+                      color: Colors.grey[200],
+                      thickness: 5,
+                    ),
                   ],
-                  
                   flexibleSpace: FlexibleSpaceBar(
                     title: Padding(
                       padding: const EdgeInsets.only(right: 2),
@@ -272,29 +270,43 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                           ? Center(
                               child: Text(""),
                             )
-                          : Text(
-                              // "Hub Restaurant",
-                              // data.businessProfileData!.businessName.toString(),
-                              // Replace this line:
-// data.businessProfileData!.businessName.toString(),
-
-// With this line:
-                              data.businessProfileData?.businessName
-                                      .toString() ??
-                                  'Default Name',
-
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
+                          : GestureDetector(
+                            onTap: (){
+                              print(data.businessProfileData!.businessUid);
+                              showSnackBar(context,data.businessProfileData!.businessUid);
+                            },
+                            child: Text(
+                                // "Hub Restaurant",
+                                // data.businessProfileData!.businessName.toString(),
+                                // Replace this line:
+                            // data.businessProfileData!.businessName.toString(),
+                            
+                            // With this line:
+                                data.businessProfileData?.businessName
+                                        .toString() ??
+                                    'Default Name',
+                            
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 17),
+                              ),
+                          ),
                     ),
-                    background: Image.network(
-                      data.businessProfileData?.profileImageUrl ??
-                          'https://upload.wikimedia.org/wikipedia/commons/4/45/MontreGousset001.jpg',
-                      fit: BoxFit.cover,
-                    ),
+                    background:
+                        (data.businessProfileData?.profileImageUrl != null &&
+                                data.businessProfileData?.profileImageUrl
+                                    .isNotEmpty)
+                            ? Image.network(
+                                data.businessProfileData?.profileImageUrl,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                "https://via.placeholder.com/150",
+                                // defaultNetworkImage,
+                                fit: BoxFit.cover,
+                              ),
                   ),
                 ),
-                
+
                 SliverToBoxAdapter(
                   child: AdditionalInfoPage(),
                 ),
@@ -367,21 +379,20 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
-                      color: secondaryColor5LightTheme,
+                      // color: secondaryColor5LightTheme,
+                      color: Colors.white,
                       // child: Text("commenting for now")
                       child: OverviewPage(),
                     ),
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Container(
-                      // height: 400,
-                      height: 250,
-                      color: secondaryColor5LightTheme,
-                      child: AmenitiesGridView(),
-                    ),
+                  child: Container(
+                    // height: 400,
+                    // height: 250,
+                    // color: secondaryColor5LightTheme,
+                    color: Colors.white,
+                    child: AmenitiesGridView(),
                   ),
                 ),
                 SliverToBoxAdapter(

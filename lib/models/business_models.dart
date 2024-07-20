@@ -21,7 +21,7 @@ class BusinessModel {
   String country;
   double latitude;
   double longitude;
-  String profileImageUrl;
+  dynamic profileImageUrl;
   String subCategory;
   bool? isPremium;
 

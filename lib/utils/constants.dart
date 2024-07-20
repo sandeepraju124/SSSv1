@@ -138,3 +138,16 @@ void makePhoneCall(String phoneNumber) async {
 //                                   child: Text(
 //                                        more questions"),
 //                                 );
+
+
+String defaultNetworkImage = "https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg";
+
+
+void showSnackBar(BuildContext context, String message){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 2),
+    ),
+  );
+}

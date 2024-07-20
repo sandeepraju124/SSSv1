@@ -33,12 +33,12 @@ class AdditionalInfoPage extends StatelessWidget {
             // color: Colors.redAccent,
             // color: Colors.white,
 
-            decoration: BoxDecoration(
-              border: Border(
-                // top: BorderSide(color: Colors.blueGrey, width: 0.6),
-                bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
-              ),
-            ),
+            // decoration: BoxDecoration(
+            //   border: Border(
+            //     // top: BorderSide(color: Colors.blueGrey, width: 0.6),
+            //     bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
+            //   ),
+            // ),
 
             child: Padding(
               padding: const EdgeInsets.only(top: 7),
@@ -291,10 +291,10 @@ class AdditionalInfoPage extends StatelessWidget {
             // height: 170,
             // height: MediaQuery.of(context).size.height / 8,
             decoration: BoxDecoration(
-              border: Border(
-                // top: BorderSide(color: Colors.blueGrey, width: 0.6),
-                bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
-              ),
+              // border: Border(
+              //   // top: BorderSide(color: Colors.blueGrey, width: 0.6),
+              //   // bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
+              // ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

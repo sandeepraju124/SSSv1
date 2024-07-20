@@ -24,6 +24,8 @@ class ServicesProvider extends ChangeNotifier {
 
   Future<void> getMongoBusinessData(String business_uid) async {
     _isLoading = true;
+    _businessdata = null;
+     notifyListeners();
     try {
       // var uri = "https://supernova1137.azurewebsites.net/mongo/business?business_uid=HOMPLUS9PVd3F9W6NEW";
       // var uri = "https://supernova1137.azurewebsites.net/mongo/business?business_uid=HOMPLUmwIKNIYtSTNEWW";

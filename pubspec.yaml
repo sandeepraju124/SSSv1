@@ -97,7 +97,6 @@ flutter:
   assets:
     - images/
     - images/services/
-    - images/restaurant/
     - images/category/
   #   - images/a_dot_ham.jpeg
     - images/subcategoryimages/

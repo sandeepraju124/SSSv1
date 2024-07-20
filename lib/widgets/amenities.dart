@@ -274,14 +274,34 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
 
     if (servidedata.BusinessData == null ||
         servidedata.BusinessData!.amenities == null) {
-      return const Padding(
+      return Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(
-          "No amenities available",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black54,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+            "Amenities",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
           ),
+        Container(
+          // margin: const EdgeInsets.only(top: 4),
+          height: 2,
+          width: 70,
+          color: tgPrimaryColor,
+        ),
+        Text(
+            "No amenities available for this business",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+          ),
+          // Divider(
+          //   color: Colors.grey[200],
+          //   thickness: 5,
+          // ),
+          ],
+           
         ),
       );
     }

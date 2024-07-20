@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sssv1/models/service_models.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/navigator.dart';
 
 class BusinessStatusTest extends StatefulWidget {
   const BusinessStatusTest({super.key});
@@ -39,71 +40,94 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
     var servicesData = Provider.of<ServicesProvider>(context);
     if (servicesData.BusinessData == null ||
         servicesData.BusinessData!.operatingHours == null) {
-      return Center(child: CircularProgressIndicator());
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("no data available"),
+      );
     }
     final data = servicesData.BusinessData!.operatingHours!.toMap();
     bool isOpen = isBusinessOpen(data);
 
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(height: 10),
+        GestureDetector(
+          onTap: () {
+            navigatorPush(context, OperatingHoursScreen(operatingHours: data),);
+          },
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            // margin: const EdgeInsets.symmetric(horizontal: 10), 
+            decoration: BoxDecoration(
+              // boxShadow: ,
+              borderRadius: BorderRadius.circular(15.0),
               color: isOpen ? Colors.green[50] : Colors.red[50],
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      isOpen ? Icons.check_circle_outline : Icons.highlight_off,
-                      color: isOpen ? Colors.green : Colors.red,
-                      size: 30,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      isOpen ? "We are Open!" : "Sorry, we are Closed",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: isOpen ? Colors.green : Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                // primary: tgPrimaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        OperatingHoursScreen(operatingHours: data),
+            // width: MediaQuery.of(context).size.width * 0.9,
+            
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(15.0),
+            // ),
+            // color: isOpen ? Colors.green[50] : Colors.red[50],
+            // elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(),
+                  Icon(
+                    isOpen ? Icons.check_circle_outline : Icons.highlight_off,
+                    color: isOpen ? Colors.green : Colors.red,
+                    size: 30,
                   ),
-                );
-              },
-              child: Text(
-                "View All Operating Hours",
-                style: TextStyle(fontSize: 16),
+                  SizedBox(width: 10),
+                  Text(
+                    isOpen ? "We are Open!" : "Sorry, we are Closed",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: isOpen ? Colors.green : Colors.red,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: isOpen ? Colors.green : Colors.red,
+                    size: 13,
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
-      );
+        SizedBox(height: 20),
+        // ElevatedButton(
+        //   style: ElevatedButton.styleFrom(
+        //     // primary: tgPrimaryColor,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(10),
+        //     ),
+        //     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        //   ),
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) =>
+        //             OperatingHoursScreen(operatingHours: data),
+        //       ),
+        //     );
+        //   },
+        //   child: Text(
+        //     "View All Operating Hours",
+        //     style: TextStyle(fontSize: 16),
+        //   ),
+        // ),
+      ],
+    );
   }
 }
 
