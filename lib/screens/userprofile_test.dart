@@ -8,6 +8,7 @@ import 'package:sssv1/screens/EditProfile.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
+import 'package:sssv1/widgets/custormer_support.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -46,7 +47,9 @@ class ProfilePage extends StatelessWidget {
                   CircleAvatar(
                     radius: 40,
                     // backgroundImage: AssetImage('images/defaulltdp.png'),
-                    backgroundImage: NetworkImage(data.getUserData!.profile_image_url ?? defaultNetworkImage),
+                    backgroundImage: NetworkImage(
+                        data.getUserData?.profile_image_url ??
+                            defaultNetworkImage),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
@@ -99,7 +102,8 @@ class ProfilePage extends StatelessWidget {
                     title: Text('Refer'),
                     trailing: ElevatedButton(
                       onPressed: () {
-                        showSnackBar(context, "feature is currently in progress");
+                        showSnackBar(
+                            context, "feature is currently in progress");
                       },
                       child: Text('Invite'),
                     ),
@@ -111,6 +115,14 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Divider(),
                   ListTile(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomerSupportPopup();
+                        },
+                      );
+                    },
                     leading: Icon(Icons.support_agent),
                     title: Text('Customer support 24x7'),
                   ),

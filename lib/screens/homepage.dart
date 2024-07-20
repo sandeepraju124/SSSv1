@@ -45,13 +45,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     //   // print("null");
     //   liveLoc.getCurrentLocation();
     // }
-
-    var userprov = Provider.of<UserProvider>(context, listen: false);
-    // print("init in homepage init");
-    // print(userprov.getUserData);
-    if (userprov.getUserData == null) {
-      userprov.userProvider();
-    }
+// ----------------------
+    // var userprov = Provider.of<UserProvider>(context, listen: false);
+    // if (userprov.getUserData == null) {
+    //   userprov.userProvider();
+    // }
+  // ----------------------
 
     // loadData();
 
