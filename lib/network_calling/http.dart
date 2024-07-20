@@ -492,6 +492,7 @@ class Http {
     // await Future.delayed(const Duration(seconds: 2));
 
     final userid = user?.uid;
+    print("userid $userid");
     // print("userid $userid");
 
     final apiUrl = Uri.parse('$baseUrl/user/$userid');

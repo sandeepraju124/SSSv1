@@ -40,8 +40,8 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
     var servicesData = Provider.of<ServicesProvider>(context);
     if (servicesData.BusinessData == null ||
         servicesData.BusinessData!.operatingHours == null) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Text("no data available"),
       );
     }
@@ -52,7 +52,7 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
             navigatorPush(context, OperatingHoursScreen(operatingHours: data),);

@@ -172,19 +172,20 @@ class _NewSignuppageState extends State<NewSignuppage> {
         'name': _firstnamecontroller.text.trim(),
         'email': _emailcontroller.text.trim(),
         'username': _lastnamecontroller.text.trim(),
-        'street': 'hyderabad',
-        'state': 'telangana',
-        'zipcode': '500072',
-        'lat': '546',
-        'lng': '648',
+        // 'street': 'hyderabad',
+        // 'state': 'telangana',
+        // 'zipcode': '500072',
+        // 'lat': '546',
+        // 'lng': '648',
         'userid': userid.toString(),
+        'phone':_mobilenumbercontroller.text.trim(),
       };
       final request = http.MultipartRequest(
         'POST',
         Uri.parse('$baseUrl/user'),
       );
       if (_dp != null) {
-        request.files.add(await http.MultipartFile.fromPath('dp', _dp!.path));
+        request.files.add(await http.MultipartFile.fromPath('profile_image_url', _dp!.path));
       }
       request.fields.addAll(body);
 

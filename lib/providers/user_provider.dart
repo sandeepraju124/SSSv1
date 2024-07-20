@@ -15,13 +15,16 @@ class UserProvider with ChangeNotifier {
     print( "userModel");
     // Map datalist = await GetData().fetchUsersData();
     _data = userModel;
+
     // print("userProvider data $_data");
     notifyListeners();
     }catch (e){
       print("catch in userprovider");
-      // throw Exception(e);
+      throw Exception(e);
 
     }
     
   }
+
+  
 }

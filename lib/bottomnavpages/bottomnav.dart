@@ -9,6 +9,7 @@ import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/homepage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/utils/constants.dart';
 
 class BottomNavPage extends StatefulWidget {
@@ -30,7 +31,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
     MyHomePage(),
     SearchBarPage(),
     UserActivityScreen(),
-    NewUserProfilePage(),
+    // NewUserProfilePage(),
+    ProfilePage(),
   ];
 
   final primaryColor = Colors.black;
