@@ -169,6 +169,8 @@
 //   }
 // }
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
@@ -280,28 +282,27 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-            "Amenities",
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-        Container(
-          // margin: const EdgeInsets.only(top: 4),
-          height: 2,
-          width: 70,
-          color: tgPrimaryColor,
-        ),
-        Text(
-            "No amenities available for this business",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
+              "Amenities",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
             ),
-          ),
-          // Divider(
-          //   color: Colors.grey[200],
-          //   thickness: 5,
-          // ),
+            Container(
+              // margin: const EdgeInsets.only(top: 4),
+              height: 2,
+              width: 70,
+              color: tgPrimaryColor,
+            ),
+            Text(
+              "No amenities available for this business",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+              ),
+            ),
+            // Divider(
+            //   color: Colors.grey[200],
+            //   thickness: 5,
+            // ),
           ],
-           
         ),
       );
     }
