@@ -71,6 +71,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
         final data = jsonDecode(response.body);
         String dist = data['routes'][0]["legs"][0]["distance"]["text"];
         String dura = data['routes'][0]["legs"][0]["duration"]["text"];
+        print("distance $dist, duration $dura");
+        print("distance  duration");
         return {"distance": dist, "duration": dura};
       } else {
         return {"distance": "-", "duration": "-"};
