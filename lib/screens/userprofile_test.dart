@@ -21,6 +21,7 @@ class ProfilePage extends StatelessWidget {
     print("data.getUserData!.dp");
     return Scaffold(
       appBar: AppBar(
+        // backgroundColor: Colors.white60,
         title: Text('Profile'),
         // leading: IconButton(
         //   icon: Icon(Icons.arrow_back),
@@ -45,20 +46,26 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 children: [
                   CircleAvatar(
-                    radius: 40,
-                    // backgroundImage: AssetImage('images/defaulltdp.png'),
-                    backgroundImage: NetworkImage(
-                        data.getUserData?.profile_image_url ??
-                            defaultNetworkImage),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 12,
-                        child: Icon(
-                          Icons.star,
-                          size: 16,
-                          color: Colors.red,
+                    radius:
+                        44, // Adjust the radius to include the border thickness
+                    backgroundColor: tgPrimaryColor,
+                    child: CircleAvatar(
+                      radius: 42, // Adjusted for the gap
+                      backgroundColor: Colors.white, // Gap color
+                      // backgroundImage: AssetImage('images/defaulltdp.png'),
+                      backgroundImage: NetworkImage(
+                          data.getUserData?.profile_image_url ??
+                              defaultNetworkImage),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 12,
+                          child: Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Colors.teal,
+                          ),
                         ),
                       ),
                     ),
@@ -67,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                   Text(
                     // 'Sai Ram Akula',
                     data.getUserData!.username ?? "No Name",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 4),
                   Text(
@@ -89,7 +96,10 @@ class ProfilePage extends StatelessWidget {
                   onPressed: () {
                     navigatorPush(context, EditProfile());
                   },
-                  child: Text('Edit profile'),
+                  child: Text(
+                    'Edit profile',
+                    style: TextStyle(color: tgPrimaryColor),
+                  ),
                 ),
               ),
             ),
@@ -98,20 +108,32 @@ class ProfilePage extends StatelessWidget {
               child: ListView(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.group_add),
-                    title: Text('Refer'),
+                    leading: Icon(
+                      Icons.group_add,
+                      size: 20,
+                    ),
+                    title: Text(
+                      'Refer',
+                      style: TextStyle(fontSize: 16),
+                    ),
                     trailing: ElevatedButton(
                       onPressed: () {
                         showSnackBar(
                             context, "feature is currently in progress");
                       },
-                      child: Text('Invite'),
+                      child: Text(
+                        'Invite',
+                        style: TextStyle(color: tgPrimaryColor),
+                      ),
                     ),
                   ),
                   Divider(),
                   ListTile(
                     leading: Icon(Icons.shopping_bag),
-                    title: Text('Your orders'),
+                    title: Text(
+                      'Your orders',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Divider(),
                   ListTile(
@@ -124,17 +146,26 @@ class ProfilePage extends StatelessWidget {
                       );
                     },
                     leading: Icon(Icons.support_agent),
-                    title: Text('Customer support 24x7'),
+                    title: Text(
+                      'Customer support 24x7',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Divider(),
                   ListTile(
                     leading: Icon(Icons.person),
-                    title: Text('Account details'),
+                    title: Text(
+                      'Account details',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Divider(),
                   ListTile(
                     leading: Icon(Icons.account_balance),
-                    title: Text('Banks & Mandates'),
+                    title: Text(
+                      'Banks & Mandates',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Divider(),
                   ListTile(
@@ -142,7 +173,10 @@ class ProfilePage extends StatelessWidget {
                       navigatorPush(context, TermsAndConditions());
                     },
                     leading: Icon(Icons.receipt),
-                    title: Text('Terms and conditions'),
+                    title: Text(
+                      'Terms and conditions',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   Divider(),
                   ListTile(
@@ -187,7 +221,10 @@ class ProfilePage extends StatelessWidget {
                       );
                     },
                     leading: Icon(Icons.logout),
-                    title: Text('Log out'),
+                    title: Text(
+                      'Log out',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ],
               ),

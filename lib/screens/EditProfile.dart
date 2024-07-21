@@ -308,8 +308,6 @@ import "package:sssv1/utils/success_lottiejson.dart";
 //   }
 // }
 
-
-
 // class EditProfile extends StatefulWidget {
 //   const EditProfile({super.key});
 
@@ -333,7 +331,7 @@ import "package:sssv1/utils/success_lottiejson.dart";
 //   @override
 //   Widget build(BuildContext context) {
 //     var data = Provider.of<UserProvider>(context);
-    
+
 //     Future<void> updateData() async {
 //       final user = FirebaseAuth.instance.currentUser;
 //       final userid = user?.uid;
@@ -584,12 +582,327 @@ import "package:sssv1/utils/success_lottiejson.dart";
 //   }
 // }
 
-
-
 // -----------------------------------------------------------------
 
+// class EditProfile extends StatefulWidget {
+//   const EditProfile({Key? key}) : super(key: key);
 
+//   @override
+//   State<EditProfile> createState() => _EditProfileState();
+// }
 
+// class _EditProfileState extends State<EditProfile> {
+//   bool editing = false;
+//   File? _changedDp;
+//   Map<String, String> updatedData = {};
+
+//   Future<void> imagePicker(ImageSource source) async {
+//     final ImagePicker pick = ImagePicker();
+//     final pickedFile = await pick.pickImage(source: source);
+//     if (pickedFile != null) {
+//       setState(() {
+//         _changedDp = File(pickedFile.path);
+//       });
+//     }
+//   }
+
+//   // Future<void> updateData() async {
+//   //     final user = FirebaseAuth.instance.currentUser;
+//   //     final userid = user?.uid;
+//   //     // final Uri url = Uri.parse("$baseUrl/user/$userid");
+//   //     final Uri url = Uri.parse("$baseUrl/user");
+
+//   //     try {
+//   //       final request = http.MultipartRequest('PUT', url);
+//   //       // request.headers['Content-Type'] = 'application/json';
+//   //       if (_changedDp != null) {
+//   //         request.files
+//   //             .add(await http.MultipartFile.fromPath('dp', _changedDp!.path));
+//   //       }
+//   //       request.fields.addAll(updatedData);
+//   //       // send the request
+//   //       var response = await request.send();
+
+//   //       if (response.statusCode == 200) {
+//   //         print('User updated successfully');
+//   //         Navigator.push(
+//   //           context,
+//   //           MaterialPageRoute(builder: (context) => lottie()),
+//   //         );
+
+//   //         // Pop back to the previous screen after a delay (optional)
+//   //         Future.delayed(Duration(seconds: 2), () {
+//   //           Navigator.pop(context);
+//   //           setState(() {
+//   //             editing = false;
+//   //           });
+//   //         });
+//   //         // await data.userProvider();
+//   //       } else if (response.statusCode == 404) {
+//   //         print('User not found');
+//   //       } else {
+//   //         print('Failed to update user. Status code: ${response.statusCode}');
+//   //       }
+//   //     } catch (e) {
+//   //       print("Exception Occurred $e");
+//   //     }
+//   //   }
+
+//   Future<bool> updateData() async {
+//     final user = FirebaseAuth.instance.currentUser;
+//     final userid = user?.uid;
+//     final Uri url = Uri.parse("$baseUrl/user");
+
+//     if (userid == null) {
+//       print('User ID is null');
+//       return false;
+//     }
+//     try {
+//       final request = http.MultipartRequest(
+//           'PATCH', url); // Use PATCH if that's what your backend expects
+
+//       // Add the user ID to the request body
+//       request.fields['userid'] = userid;
+//       if (_changedDp != null) {
+//         request.files.add(await http.MultipartFile.fromPath(
+//             'profile_image_url', _changedDp!.path));
+//       }
+
+//       request.fields.addAll(updatedData);
+
+//       var response = await request.send();
+
+//       if (response.statusCode == 200) {
+//         print('User updated successfully');
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => lottie()),
+//         );
+
+//         Future.delayed(Duration(seconds: 2), () {
+//           Navigator.pop(context);
+//           setState(() {
+//             editing = false;
+//           });
+//         });
+//         return true;
+//       } else if (response.statusCode == 404) {
+//         print('User not found');
+//         return false;
+//       } else {
+//         print('Failed to update user. Status code: ${response.statusCode}');
+//         return false;
+//       }
+//     } catch (e) {
+//       print("Exception Occurred $e");
+//       return false;
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var data = Provider.of<UserProvider>(context);
+
+//     // ... (keep the updateData function as is)
+
+//     return Theme(
+//       data: ThemeData(
+//         primaryColor: Colors.blue,
+//         inputDecorationTheme: InputDecorationTheme(
+//           border: OutlineInputBorder(),
+//           focusedBorder: OutlineInputBorder(
+//             borderSide: BorderSide(color: Colors.blue, width: 2.0),
+//           ),
+//         ),
+//       ),
+//       child: Scaffold(
+//         appBar: AppBar(
+//             elevation: 0,
+//             leading: IconButton(
+//               icon:
+//                   Icon(Icons.keyboard_arrow_left_rounded, color: Colors.black),
+//               onPressed: () => Navigator.of(context).pop(),
+//             ),
+//             title: Text(
+//               "Edit Profile",
+//               style: TextStyle(
+//                   color: Colors.black,
+//                   fontWeight: FontWeight.w600,
+//                   fontSize: 17),
+//             ),
+//             centerTitle: true,
+//             backgroundColor: tgPrimaryColor),
+//         body: SafeArea(
+//           child: LayoutBuilder(
+//             builder: (context, constraints) {
+//               return SingleChildScrollView(
+//                 padding: EdgeInsets.all(16.0),
+//                 child: ConstrainedBox(
+//                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Column(
+//                         children: [
+//                           _buildProfilePicture(data),
+//                           SizedBox(height: 24),
+//                           _buildEditButton(),
+//                           SizedBox(height: 24),
+//                           _buildInputFields(data),
+//                         ],
+//                       ),
+//                       _buildUpdateButton(),
+//                     ],
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildProfilePicture(UserProvider data) {
+//     return Container(
+//       height: 130,
+//       width: 130,
+//       decoration: BoxDecoration(
+//         shape: BoxShape.circle,
+//         boxShadow: [
+//           BoxShadow(blurRadius: 5, color: Colors.grey.shade400, spreadRadius: 5)
+//         ],
+//       ),
+//       child: GestureDetector(
+//         onTap: () => imagePicker(ImageSource.gallery),
+//         child: CircleAvatar(
+//           //   backgroundImage: data.getUserData!.profile_image_url != null
+//           // ? NetworkImage(data.getUserData!.profile_image_url)
+//           // : NetworkImage(defaultNetworkImage),
+//           backgroundImage: _changedDp != null
+//               ? FileImage(_changedDp!) as ImageProvider<Object>?
+//               : (data.getUserData!.profile_image_url != null
+//                   ? NetworkImage(data.getUserData!.profile_image_url)
+//                       as ImageProvider<Object>?
+//                   : NetworkImage(defaultNetworkImage)
+//                       as ImageProvider<Object>?),
+//           child: Align(
+//             alignment: Alignment.bottomRight,
+//             child: Container(
+//               padding: EdgeInsets.all(4),
+//               decoration: BoxDecoration(
+//                 color: Colors.teal,
+//                 shape: BoxShape.circle,
+//               ),
+//               child: Icon(Icons.camera_alt, color: Colors.white, size: 24),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildEditButton() {
+//     return ElevatedButton.icon(
+//       onPressed: () {
+//         setState(() {
+//           editing = !editing;
+//         });
+//       },
+//       icon: Icon(
+//         editing ? Icons.close : Icons.edit,
+//         color: Colors.black87,
+//       ),
+//       label: Text(
+//         editing ? "Cancel" : "Edit Profile",
+//         style: TextStyle(color: Colors.black),
+//       ),
+//       style: ElevatedButton.styleFrom(
+//         backgroundColor: editing ? tgLightPrimaryColor : tgDarkPrimaryColor,
+//         minimumSize: Size(double.infinity, 50),
+//       ),
+//     );
+//   }
+
+//   Widget _buildInputFields(UserProvider data) {
+//     return Column(
+//       children: [
+//         _buildTextField(
+//           controller: TextEditingController(text: data.getUserData!.name),
+//           label: "Name",
+//           icon: Icons.person,
+//           onChanged: (value) => updatedData['name'] = value,
+//         ),
+//         SizedBox(height: 16),
+//         _buildTextField(
+//           controller: TextEditingController(text: data.getUserData!.username),
+//           label: "Username",
+//           icon: Icons.alternate_email,
+//           onChanged: (value) => updatedData['username'] = value,
+//         ),
+//         SizedBox(height: 16),
+//         _buildTextField(
+//           controller: TextEditingController(text: data.getUserData!.email),
+//           label: "Phone",
+//           icon: Icons.phone,
+//           keyboardType: TextInputType.phone,
+//           onChanged: (value) => updatedData['phone'] = value,
+//         ),
+//         SizedBox(height: 16),
+//         _buildTextField(
+//           controller: TextEditingController(text: data.getUserData!.email),
+//           label: "Email",
+//           icon: Icons.email,
+//           enabled: false,
+//         ),
+//       ],
+//     );
+//   }
+
+//   Widget _buildTextField({
+//     required TextEditingController controller,
+//     required String label,
+//     required IconData icon,
+//     bool enabled = true,
+//     TextInputType? keyboardType,
+//     Function(String)? onChanged,
+//   }) {
+//     return TextField(
+//       controller: controller,
+//       enabled: editing && enabled,
+//       keyboardType: keyboardType,
+//       onChanged: onChanged,
+//       decoration: InputDecoration(
+//         labelText: label,
+//         prefixIcon: Icon(icon),
+//         border: OutlineInputBorder(),
+//       ),
+//     );
+//   }
+
+//   Widget _buildUpdateButton() {
+//     return ElevatedButton.icon(
+//       onPressed: () {
+//         print("pressed");
+//         updateData().then((onValue) {
+//           print(onValue);
+//           var data = Provider.of<UserProvider>(context, listen: false);
+//           data.userProvider();
+//         });
+//       },
+//       // onPressed: editing ? updateData : null,
+//       icon: Icon(Icons.save),
+//       label: Text(
+//         "UPDATE",
+//         style: TextStyle(color: Colors.white),
+//       ),
+//       style: ElevatedButton.styleFrom(
+//         backgroundColor: Colors.teal,
+//         minimumSize: Size(double.infinity, 50),
+//       ),
+//     );
+//   }
+// }
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
 
@@ -602,6 +915,49 @@ class _EditProfileState extends State<EditProfile> {
   File? _changedDp;
   Map<String, String> updatedData = {};
 
+  late TextEditingController nameController;
+  late TextEditingController usernameController;
+  late TextEditingController phoneController;
+  late TextEditingController emailController;
+
+  late String initialName;
+  late String initialUsername;
+  late String initialPhone;
+
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode usernameFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    var data = Provider.of<UserProvider>(context, listen: false);
+
+    nameController = TextEditingController(text: data.getUserData!.name);
+    usernameController =
+        TextEditingController(text: data.getUserData!.username);
+    phoneController = TextEditingController(text: data.getUserData!.email);
+    emailController = TextEditingController(text: data.getUserData!.email);
+
+    initialName = data.getUserData!.name;
+    initialUsername = data.getUserData!.username;
+    initialPhone = data.getUserData!.email!;
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    usernameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    nameFocusNode.dispose();
+    usernameFocusNode.dispose();
+    phoneFocusNode.dispose();
+    emailFocusNode.dispose();
+    super.dispose();
+  }
+
   Future<void> imagePicker(ImageSource source) async {
     final ImagePicker pick = ImagePicker();
     final pickedFile = await pick.pickImage(source: source);
@@ -612,104 +968,67 @@ class _EditProfileState extends State<EditProfile> {
     }
   }
 
-  // Future<void> updateData() async {
-  //     final user = FirebaseAuth.instance.currentUser;
-  //     final userid = user?.uid;
-  //     // final Uri url = Uri.parse("$baseUrl/user/$userid");
-  //     final Uri url = Uri.parse("$baseUrl/user");
-
-  //     try {
-  //       final request = http.MultipartRequest('PUT', url);
-  //       // request.headers['Content-Type'] = 'application/json';
-  //       if (_changedDp != null) {
-  //         request.files
-  //             .add(await http.MultipartFile.fromPath('dp', _changedDp!.path));
-  //       }
-  //       request.fields.addAll(updatedData);
-  //       // send the request
-  //       var response = await request.send();
-
-  //       if (response.statusCode == 200) {
-  //         print('User updated successfully');
-  //         Navigator.push(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => lottie()),
-  //         );
-
-  //         // Pop back to the previous screen after a delay (optional)
-  //         Future.delayed(Duration(seconds: 2), () {
-  //           Navigator.pop(context);
-  //           setState(() {
-  //             editing = false;
-  //           });
-  //         });
-  //         // await data.userProvider();
-  //       } else if (response.statusCode == 404) {
-  //         print('User not found');
-  //       } else {
-  //         print('Failed to update user. Status code: ${response.statusCode}');
-  //       }
-  //     } catch (e) {
-  //       print("Exception Occurred $e");
-  //     }
-  //   }
-
   Future<bool> updateData() async {
-  final user = FirebaseAuth.instance.currentUser;
-  final userid = user?.uid;
-  final Uri url = Uri.parse("$baseUrl/user");
+    final user = FirebaseAuth.instance.currentUser;
+    final userid = user?.uid;
+    final Uri url = Uri.parse("$baseUrl/user");
 
-  if (userid == null) {
-    print('User ID is null');
-    return false;
-  }
-  try {
-    final request = http.MultipartRequest('PATCH', url); // Use PATCH if that's what your backend expects
-
-    // Add the user ID to the request body
-    request.fields['userid'] = userid;
-    if (_changedDp != null) {
-      request.files.add(await http.MultipartFile.fromPath('profile_image_url', _changedDp!.path));
+    if (userid == null) {
+      print('User ID is null');
+      return false;
     }
+    try {
+      final request = http.MultipartRequest(
+          'PATCH', url); // Use PATCH if that's what your backend expects
 
-    request.fields.addAll(updatedData);
+      // Add the user ID to the request body
+      request.fields['userid'] = userid;
+      if (_changedDp != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+            'profile_image_url', _changedDp!.path));
+      }
 
-    var response = await request.send();
+      request.fields.addAll(updatedData);
 
-    if (response.statusCode == 200) {
-      print('User updated successfully');
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => lottie()),
-      );
+      var response = await request.send();
 
-      Future.delayed(Duration(seconds: 2), () {
-        Navigator.pop(context);
-        setState(() {
-          editing = false;
+      if (response.statusCode == 200) {
+        print('User updated successfully');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => lottie()),
+        );
+
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pop(context);
+          setState(() {
+            editing = false;
+          });
         });
-      });
-      return true;
-    } else if (response.statusCode == 404) {
-      print('User not found');
-      return false;
-    } else {
-      print('Failed to update user. Status code: ${response.statusCode}');
+        return true;
+      } else if (response.statusCode == 404) {
+        print('User not found');
+        return false;
+      } else {
+        print('Failed to update user. Status code: ${response.statusCode}');
+        return false;
+      }
+    } catch (e) {
+      print("Exception Occurred $e");
       return false;
     }
-  } catch (e) {
-    print("Exception Occurred $e");
-    return false;
   }
-}
 
-
+  void resetFields() {
+    nameController.text = initialName;
+    usernameController.text = initialUsername;
+    phoneController.text = initialPhone;
+    updatedData.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<UserProvider>(context);
-    
-    // ... (keep the updateData function as is)
 
     return Theme(
       data: ThemeData(
@@ -717,7 +1036,7 @@ class _EditProfileState extends State<EditProfile> {
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 2.0),
+            borderSide: BorderSide(color: Colors.green, width: 2.0),
           ),
         ),
       ),
@@ -725,15 +1044,16 @@ class _EditProfileState extends State<EditProfile> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.blue),
+            icon: Icon(Icons.keyboard_arrow_left_rounded, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: Text(
             "Edit Profile",
-            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 17),
           ),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: tgPrimaryColor,
         ),
         body: SafeArea(
           child: LayoutBuilder(
@@ -751,7 +1071,7 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(height: 24),
                           _buildEditButton(),
                           SizedBox(height: 24),
-                          _buildInputFields(data),
+                          _buildInputFields(),
                         ],
                       ),
                       _buildUpdateButton(),
@@ -768,29 +1088,30 @@ class _EditProfileState extends State<EditProfile> {
 
   Widget _buildProfilePicture(UserProvider data) {
     return Container(
-      height: 200,
-      width: 200,
+      height: 130,
+      width: 130,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        boxShadow: [BoxShadow(blurRadius: 5, color: Colors.grey.shade400, spreadRadius: 5)],
+        boxShadow: [
+          BoxShadow(blurRadius: 5, color: Colors.grey.shade400, spreadRadius: 5)
+        ],
       ),
       child: GestureDetector(
         onTap: () => imagePicker(ImageSource.gallery),
-        child:  CircleAvatar(
-        //   backgroundImage: data.getUserData!.profile_image_url != null 
-        // ? NetworkImage(data.getUserData!.profile_image_url)
-        // : NetworkImage(defaultNetworkImage),
-         backgroundImage: _changedDp != null
-            ? FileImage(_changedDp!) as ImageProvider<Object>?
-            : (data.getUserData!.profile_image_url != null
-                ? NetworkImage(data.getUserData!.profile_image_url) as ImageProvider<Object>?
-                : NetworkImage(defaultNetworkImage) as ImageProvider<Object>?),
+        child: CircleAvatar(
+          backgroundImage: _changedDp != null
+              ? FileImage(_changedDp!) as ImageProvider<Object>?
+              : (data.getUserData!.profile_image_url != null
+                  ? NetworkImage(data.getUserData!.profile_image_url)
+                      as ImageProvider<Object>?
+                  : NetworkImage(defaultNetworkImage)
+                      as ImageProvider<Object>?),
           child: Align(
             alignment: Alignment.bottomRight,
             child: Container(
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.teal,
                 shape: BoxShape.circle,
               ),
               child: Icon(Icons.camera_alt, color: Colors.white, size: 24),
@@ -805,47 +1126,60 @@ class _EditProfileState extends State<EditProfile> {
     return ElevatedButton.icon(
       onPressed: () {
         setState(() {
+          if (editing) {
+            resetFields();
+          }
           editing = !editing;
         });
       },
-      icon: Icon(editing ? Icons.close : Icons.edit),
-      label: Text(editing ? "Cancel" : "Edit Profile"),
+      icon: Icon(
+        editing ? Icons.close : Icons.edit,
+        color: Colors.black87,
+      ),
+      label: Text(
+        editing ? "Cancel" : "Edit Profile",
+        style: TextStyle(color: Colors.black),
+      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: editing ? Colors.red : Colors.blue,
+        backgroundColor: editing ? tgLightPrimaryColor : tgDarkPrimaryColor,
         minimumSize: Size(double.infinity, 50),
       ),
     );
   }
 
-  Widget _buildInputFields(UserProvider data) {
+  Widget _buildInputFields() {
     return Column(
       children: [
         _buildTextField(
-          controller: TextEditingController(text: data.getUserData!.name),
+          controller: nameController,
           label: "Name",
           icon: Icons.person,
+          focusNode: nameFocusNode,
           onChanged: (value) => updatedData['name'] = value,
         ),
         SizedBox(height: 16),
         _buildTextField(
-          controller: TextEditingController(text: data.getUserData!.username),
+          controller: usernameController,
           label: "Username",
           icon: Icons.alternate_email,
+          focusNode: usernameFocusNode,
           onChanged: (value) => updatedData['username'] = value,
         ),
         SizedBox(height: 16),
         _buildTextField(
-          controller: TextEditingController(text: data.getUserData!.email),
+          controller: phoneController,
           label: "Phone",
           icon: Icons.phone,
           keyboardType: TextInputType.phone,
+          focusNode: phoneFocusNode,
           onChanged: (value) => updatedData['phone'] = value,
         ),
         SizedBox(height: 16),
         _buildTextField(
-          controller: TextEditingController(text: data.getUserData!.email),
+          controller: emailController,
           label: "Email",
           icon: Icons.email,
+          focusNode: emailFocusNode,
           enabled: false,
         ),
       ],
@@ -856,12 +1190,14 @@ class _EditProfileState extends State<EditProfile> {
     required TextEditingController controller,
     required String label,
     required IconData icon,
+    required FocusNode focusNode,
     bool enabled = true,
     TextInputType? keyboardType,
     Function(String)? onChanged,
   }) {
     return TextField(
       controller: controller,
+      focusNode: focusNode,
       enabled: editing && enabled,
       keyboardType: keyboardType,
       onChanged: onChanged,
@@ -869,25 +1205,35 @@ class _EditProfileState extends State<EditProfile> {
         labelText: label,
         prefixIcon: Icon(icon),
         border: OutlineInputBorder(),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: focusNode.hasFocus ? tgPrimaryColor : tgPrimaryColor,
+              width: 2.0),
+        ),
       ),
     );
   }
 
   Widget _buildUpdateButton() {
     return ElevatedButton.icon(
-      onPressed:(){
+      onPressed: () {
         print("pressed");
-        updateData().then((onValue){
+        updateData().then((onValue) {
           print(onValue);
           var data = Provider.of<UserProvider>(context, listen: false);
           data.userProvider();
         });
       },
-      // onPressed: editing ? updateData : null,
-      icon: Icon(Icons.save),
-      label: Text("UPDATE", style: TextStyle(color: Colors.white),),
+      icon: Icon(
+        Icons.save,
+        color: Colors.black,
+      ),
+      label: Text(
+        "UPDATE",
+        style: TextStyle(color: Colors.white),
+      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.teal,
+        backgroundColor: Color.fromARGB(255, 5, 106, 96),
         minimumSize: Size(double.infinity, 50),
       ),
     );

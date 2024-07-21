@@ -37,6 +37,7 @@ class SubCategoryList extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SubCategoryListState createState() => _SubCategoryListState();
 }
 
@@ -94,6 +95,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
   Future<void> fetchNearbyBusinesses(
       double userLat, double userLong, String key, String value) async {
+    // ignore: prefer_const_declarations
     final String apiUrl =
         'https://supernova1137.azurewebsites.net/pg/business/latlong';
 
@@ -214,9 +216,9 @@ class _SubCategoryListState extends State<SubCategoryList> {
                     child: ListView.builder(
                       itemCount: displayData!.length,
                       itemBuilder: (BuildContext context, int index) {
-                        print(displayData[index].businessUid);
-                        print(displayData[index].latitude.toString());
-                        print(displayData[index].longitude.toString());
+                        // print(displayData[index].businessUid);
+                        // print(displayData[index].latitude.toString());
+                        // print(displayData[index].longitude.toString());
 
                         return FutureBuilder<Map<String, String>>(
                           future: fetchDistance(
@@ -270,8 +272,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 flex: 70,
                 child: GestureDetector(
                   onTap: () {
-                    print(displayData[index].businessUid);
-                    print("business uid from subcategory list");
+                    // print(displayData[index].businessUid);
+                    // print("business uid from subcategory list");
                     navigatorPush(
                         context,
                         DefaultProfilePage(
@@ -371,7 +373,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 flex: 30,
                 child: GestureDetector(
                   onTap: () {
-                    print("click");
+                    // print("click");
                     print(displayData[index].contactInformation);
                     makePhoneCall(displayData[index].contactInformation);
                   },

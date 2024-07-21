@@ -198,6 +198,198 @@ class _OurtoppickPageState extends State<OurtoppickPage> {
   }
 }
 
+
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shimmer/shimmer.dart';
+// import 'package:sssv1/Services%20(top)%20of%20homepage%20section/icons.dart';
+// import 'package:sssv1/Services%20(top)%20of%20homepage%20section/showallsubcat.dart';
+// import 'package:sssv1/models/newbusinees_categories.dart';
+// import 'package:sssv1/models/subcatrgorylist_model.dart';
+// import 'package:sssv1/providers/BusinessCategoriesProvider.dart';
+// import 'package:sssv1/screens/SubCategoryList.dart';
+// import 'package:sssv1/utils/constants.dart';
+
+// class OurtoppickPage extends StatefulWidget {
+//   const OurtoppickPage({super.key});
+
+//   @override
+//   State<OurtoppickPage> createState() => _OurtoppickPageState();
+// }
+
+// class _OurtoppickPageState extends State<OurtoppickPage> {
+//   late BusinessCategoriesProvider businessServicesProvider;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     businessServicesProvider =
+//         Provider.of<BusinessCategoriesProvider>(context, listen: false);
+//     businessServicesProvider.fetchAllCategories();
+//   }
+
+//   List<BeautySpa> _getPriorityOneSubcategories(
+//       BusinessCategories categoryModel) {
+//     final priorityOneSubcategories = <BeautySpa>[];
+//     priorityOneSubcategories.addAll(categoryModel.beautySpas
+//         .where((subcat) => subcat.priority == 1)
+//         .toList());
+//     priorityOneSubcategories.addAll(categoryModel.education
+//         .where((subcat) => subcat.priority == 1)
+//         .toList());
+//     priorityOneSubcategories.addAll(
+//         categoryModel.food.where((subcat) => subcat.priority == 1).toList());
+//     priorityOneSubcategories.addAll(categoryModel.homeServices
+//         .where((subcat) => subcat.priority == 1)
+//         .toList());
+//     priorityOneSubcategories.addAll(categoryModel.nightlife
+//         .where((subcat) => subcat.priority == 1)
+//         .toList());
+//     priorityOneSubcategories.addAll(
+//         categoryModel.retail.where((subcat) => subcat.priority == 1).toList());
+//     priorityOneSubcategories.addAll(categoryModel.shopping
+//         .where((subcat) => subcat.priority == 1)
+//         .toList());
+//     return priorityOneSubcategories;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<BusinessCategoriesProvider>(
+//       builder: (ctx, businessServicesProvider, _) {
+//         if (businessServicesProvider.isLoading) {
+//           return Shimmer.fromColors(
+//             baseColor: Colors.grey[300]!,
+//             highlightColor: Colors.grey[100]!,
+//             child: Container(
+//               width: MediaQuery.of(context).size.width,
+//               height: MediaQuery.of(context).size.height,
+//               color: Colors.white,
+//             ),
+//           );
+//         } else if (businessServicesProvider.categories.isEmpty) {
+//           return const Center(child: Text("No categories available"));
+//         } else {
+//           final categoryModel = businessServicesProvider.categories[0];
+//           final priorityOneSubcategories =
+//               _getPriorityOneSubcategories(categoryModel);
+
+//           return SingleChildScrollView(
+//             child: Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: Container(
+//                 child: Column(
+//                   children: [
+//                     GridView.builder(
+//                       shrinkWrap: true,
+//                       physics: const NeverScrollableScrollPhysics(),
+//                       gridDelegate:
+//                           const SliverGridDelegateWithFixedCrossAxisCount(
+//                         crossAxisCount: 4,
+//                         crossAxisSpacing: 8.0,
+//                         mainAxisSpacing: 13.0,
+//                       ),
+//                       itemCount: priorityOneSubcategories.length > 7
+//                           ? 8
+//                           : priorityOneSubcategories.length,
+//                       itemBuilder: (ctx, index) {
+//                         if (index == 7 && priorityOneSubcategories.length > 7) {
+//                           return GridTile(
+//                             child: GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(context,
+//                                     MaterialPageRoute(builder: (context) {
+//                                   return const AllSubcategoriesPage();
+//                                 }));
+//                               },
+//                               // ignore: prefer_const_constructors
+//                               child: Padding(
+//                                 padding: const EdgeInsets.only(top: 27),
+//                                 child: const Center(
+//                                   child: Column(
+//                                     children: [
+//                                       Text(
+//                                         'View All',
+//                                         style: TextStyle(
+//                                           fontSize: 12,
+//                                         ),
+//                                       ),
+//                                       Icon(
+//                                         Icons.arrow_right,
+//                                         size: 20,
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           );
+//                         } else {
+//                           final subcategory = priorityOneSubcategories[index];
+//                           IconData subcategoryIcon =
+//                               getIconForSubcategory(subcategory.subcategory);
+                
+//                           return GridTile(
+//                             child: Padding(
+//                               padding: const EdgeInsets.all(8.0),
+//                               child: GestureDetector(
+//                                 onTap: () {
+//                                   Navigator.push(context,
+//                                       MaterialPageRoute(builder: (context) {
+//                                     return SubCategoryList(
+//                                       keyy: "sub_category",
+//                                       value: subcategory.subcategory,
+//                                     );
+//                                   }));
+//                                 },
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.center,
+//                                   children: [
+//                                     Material(
+//                                       elevation: 1.2,
+//                                       shape: const CircleBorder(),
+//                                       child: CircleAvatar(
+//                                         radius: 20,
+//                                         backgroundColor: Colors.white,
+//                                         child: Icon(
+//                                           subcategoryIcon,
+//                                           size: 24.0,
+//                                           color: Colors.teal.shade900,
+//                                         ),
+//                                       ),
+//                                     ),
+//                                     const SizedBox(height: 5),
+//                                     Expanded(
+//                                       child: Text(
+//                                         subcategory.subcategory,
+//                                         textAlign: TextAlign.center,
+//                                         style: const TextStyle(
+//                                           fontWeight: FontWeight.w300,
+//                                           fontSize: 11.5,
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ),
+//                           );
+//                         }
+//                       },
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
+
+
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'package:shimmer/shimmer.dart';

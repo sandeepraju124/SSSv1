@@ -252,33 +252,52 @@ class _AllSubcategoriesPageState extends State<AllSubcategoriesPage> {
                         );
                       }));
                     },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
+                    // child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Container(
+                    //       height: 40,
+                    //       width: 40,
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.white,
+                    //         shape: BoxShape.circle,
+                    //       ),
+                    //       child: Icon(
+                    //         getIconForSubcategory(subcategory.subcategory),
+                    //         size: 26,
+                    //         color: Colors.teal.shade900,
+                    //       ),
+                    //     ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 22),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Material(
+                            elevation: 0.8,
+                            shape: const CircleBorder(),
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.white,
+                              child: Icon(
+                                getIconForSubcategory(subcategory.subcategory),
+                                size: 24.0,
+                                color: Colors.teal.shade900,
+                              ),
+                            ),
                           ),
-                          child: Icon(
-                            getIconForSubcategory(subcategory.subcategory),
-                            size: 26,
-                            color: Colors.teal.shade900,
+                          SizedBox(height: 8),
+                          Text(
+                            subcategory.subcategory,
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400),
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          subcategory.subcategory,
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

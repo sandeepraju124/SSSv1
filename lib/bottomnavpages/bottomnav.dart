@@ -244,6 +244,155 @@ import 'package:sssv1/utils/constants.dart';
 //   }
 // }
 
+// class BottomNavPage extends StatefulWidget {
+//   const BottomNavPage({Key? key}) : super(key: key);
+
+//   @override
+//   State<BottomNavPage> createState() => _BottomNavPageState();
+// }
+
+// class _BottomNavPageState extends State<BottomNavPage> {
+//   int _currentIndex = 0;
+
+//   final List<Widget> _pages = [
+//     MyHomePage(),
+//     SearchBarPage(),
+//     UserActivityScreen(),
+//     ProfilePage(),
+//   ];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+//     if (liveLoc.latitude == null) {
+//       liveLoc.getCurrentLocation();
+//     }
+
+//     var userprov = Provider.of<UserProvider>(context, listen: false);
+//     if (userprov.getUserData == null) {
+//       userprov.userProvider();
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var data = Provider.of<LiveUserLocation>(context);
+//     // var data2 = Provider.of<UserProvider>(context);
+//     return Scaffold(
+//       appBar: _currentIndex == 0 ? _buildAppBar(data) : null,
+//       body: _pages[_currentIndex],
+//       bottomNavigationBar: _buildBottomNavigationBar(),
+//     );
+//   }
+
+// // NetworkImage(data.getUserData!.profile_image_url ?? defaultNetworkImage)
+//   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
+//     var userdata = Provider.of<UserProvider>(context);
+//     return AppBar(
+//       leading: Container(
+//         margin: EdgeInsets.all(8),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(10.0),
+//           image: DecorationImage(
+//               fit: BoxFit.cover,
+//               image: NetworkImage(userdata.getUserData?.profile_image_url ??
+//                   defaultNetworkImage)
+//               // AssetImage('images/stevejobs.jpg'),
+//               ),
+//         ),
+//       ),
+//       title: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             "Change Address ⤵",
+//             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+//           ),
+//           SizedBox(height: 2),
+//           Text(
+//             data.locationName ?? "Loading...",
+//             style: TextStyle(fontSize: 12),
+//           ),
+//         ],
+//       ),
+//       // backgroundColor: Theme.of(context).primaryColor,
+//       backgroundColor: tgDarkPrimaryColor,
+//       elevation: 0,
+//     );
+//   }
+
+//   Widget _buildBottomNavigationBar() {
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.1),
+//             blurRadius: 8,
+//             offset: Offset(0, -2),
+//           ),
+//         ],
+//       ),
+//       child: SafeArea(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             children: [
+//               _buildNavBarItem(0, LineAwesomeIcons.home, "Home"),
+//               _buildNavBarItem(1, LineAwesomeIcons.search, "Search"),
+//               _buildNavBarItem(2, LineAwesomeIcons.accusoft, "Activity"),
+//               _buildNavBarItem(3, LineAwesomeIcons.user, "Profile"),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildNavBarItem(int index, IconData icon, String label) {
+//     final isSelected = _currentIndex == index;
+//     return InkWell(
+//       onTap: () => setState(() => _currentIndex = index),
+//       child: Container(
+//         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+//         decoration: BoxDecoration(
+//           color: isSelected
+//               ? Theme.of(context).primaryColor.withOpacity(0.1)
+//               : Colors.transparent,
+//           borderRadius: BorderRadius.circular(20),
+//         ),
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//             Icon(
+//               icon,
+//               // color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+//               color: isSelected ? tgDarkPrimaryColor : Colors.grey,
+//               size: 24,
+//             ),
+//             SizedBox(height: 4),
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 color:
+//                     // isSelected ? Theme.of(context).primaryColor : Colors.grey,
+//                     isSelected ? tgDarkPrimaryColor : Colors.grey,
+//                 fontSize: 12,
+//                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({Key? key}) : super(key: key);
@@ -279,14 +428,13 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<LiveUserLocation>(context);
-    // var data2 = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: _currentIndex == 0 ? _buildAppBar(data) : null,
       body: _pages[_currentIndex],
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
-// NetworkImage(data.getUserData!.profile_image_url ?? defaultNetworkImage)
+
   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
     var userdata = Provider.of<UserProvider>(context);
     return AppBar(
@@ -296,28 +444,45 @@ class _BottomNavPageState extends State<BottomNavPage> {
           borderRadius: BorderRadius.circular(10.0),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: 
-            NetworkImage(userdata.getUserData?.profile_image_url ?? defaultNetworkImage)
-            // AssetImage('images/stevejobs.jpg'),
+            image: NetworkImage(
+                userdata.getUserData?.profile_image_url ?? defaultNetworkImage),
           ),
         ),
       ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Change Address ⤵",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 2),
-          Text(
-            data.locationName ?? "Loading...",
-            style: TextStyle(fontSize: 12),
-          ),
-        ],
+      title: GestureDetector(
+        onTap: () {
+          data.getCurrentLocation();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Refreshing location...')),
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Current Address",
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: tgPrimaryText),
+            ),
+            SizedBox(height: 2),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    data.locationName ?? "Loading...",
+                    style: TextStyle(fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Icon(Icons.refresh, size: 16),
+              ],
+            ),
+          ],
+        ),
       ),
-      // backgroundColor: Theme.of(context).primaryColor,
-      backgroundColor: Colors.teal,
+      backgroundColor: tgDarkPrimaryColor,
       elevation: 0,
     );
   }
@@ -358,7 +523,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).primaryColor.withOpacity(0.1) : Colors.transparent,
+          color: isSelected
+              ? Theme.of(context).primaryColor.withOpacity(0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -366,14 +533,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
           children: [
             Icon(
               icon,
-              color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+              color: isSelected ? tgDarkPrimaryColor : Colors.grey,
               size: 24,
             ),
             SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+                color: isSelected ? tgDarkPrimaryColor : Colors.grey,
                 fontSize: 12,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
