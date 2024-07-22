@@ -383,7 +383,6 @@ import 'package:provider/provider.dart';
 //   }
 // }
 
-
 // --------------------------//
 
 class SearchBarPage extends StatefulWidget {
@@ -393,7 +392,8 @@ class SearchBarPage extends StatefulWidget {
   State<SearchBarPage> createState() => _SearchBarPageState();
 }
 
-class _SearchBarPageState extends State<SearchBarPage> with SingleTickerProviderStateMixin {
+class _SearchBarPageState extends State<SearchBarPage>
+    with SingleTickerProviderStateMixin {
   List<dynamic> data = [];
   bool isLoading = false;
   Timer? _debounce;
@@ -428,7 +428,8 @@ class _SearchBarPageState extends State<SearchBarPage> with SingleTickerProvider
       isLoading = true;
       data = [];
     });
-    final response = await http.get(Uri.parse('$baseUrl/pg/fulltext_search?query=$query&count=10'));
+    final response = await http
+        .get(Uri.parse('$baseUrl/pg/fulltext_search?query=$query&count=10'));
     if (response.statusCode == 200) {
       setState(() {
         data = json.decode(response.body);
@@ -486,18 +487,22 @@ class _SearchBarPageState extends State<SearchBarPage> with SingleTickerProvider
                 ? SizeTransition(
                     sizeFactor: _animation,
                     axis: Axis.horizontal,
-                    child: TextField(
-                      controller: _searchController,
-                      onChanged: _onSearchTextChanged,
-                      decoration: InputDecoration(
-                        fillColor: Colors.grey[200],
-                        filled: true,
-                        hintText: 'Search...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
+                    child: SizedBox(
+                      height: 49,
+                      width: 350,
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: _onSearchTextChanged,
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey[200],
+                          filled: true,
+                          hintText: 'Search...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
+                          prefixIcon: Icon(Icons.search, color: Colors.grey),
                         ),
-                        prefixIcon: Icon(Icons.search, color: Colors.grey),
                       ),
                     ),
                   )
@@ -505,19 +510,19 @@ class _SearchBarPageState extends State<SearchBarPage> with SingleTickerProvider
                     'Search',
                     style: TextStyle(
                       // color: tgDarkPrimaryColor,
-                      color: Colors.white,
+                      color: Colors.black,
                       // fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   );
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(isSearchExpanded ? Icons.close : Icons.search, 
-            color: Colors.white
-            // color: tgDarkPrimaryColor
-            ),
+            icon: Icon(isSearchExpanded ? Icons.close : Icons.search,
+                color: Colors.black54
+                // color: tgDarkPrimaryColor
+                ),
             onPressed: () {
               setState(() {
                 isSearchExpanded = !isSearchExpanded;
@@ -597,7 +602,8 @@ class BusinessListItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 child: Image.network(
-                  businessData["profile_image_url"] ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Noto_Emoji_v2.034_1f3e0.svg/800px-Noto_Emoji_v2.034_1f3e0.svg.png",
+                  businessData["profile_image_url"] ??
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Noto_Emoji_v2.034_1f3e0.svg/800px-Noto_Emoji_v2.034_1f3e0.svg.png",
                   height: 150,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -611,10 +617,10 @@ class BusinessListItem extends StatelessWidget {
                     Text(
                       businessData['business_name'],
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: tgDarkPrimaryColor,
-                      ),
+                          fontSize: 17.6,
+                          fontWeight: FontWeight.w700,
+                          // color: tgDarkPrimaryColor,
+                          color: Colors.black87),
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -622,7 +628,7 @@ class BusinessListItem extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12.7,
                         color: Colors.grey[600],
                       ),
                     ),
@@ -633,7 +639,7 @@ class BusinessListItem extends StatelessWidget {
                           rating: businessData['average_rating'].toDouble(),
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: Colors.amber.shade700,
                           ),
                           itemCount: 5,
                           itemSize: 18.0,
@@ -737,36 +743,35 @@ class EmptySearchState extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.search_off,
-            size: 80,
-            color: Colors.grey[400],
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No results found',
-            // 'Pizza....',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Try a different search term',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
-          ),
+          // Icon(
+          //   Icons.search_off,
+          //   size: 80,
+          //   color: Colors.grey[400],
+          // ),
+          // SizedBox(height: 16),
+          // Text(
+          //   'No results found',
+          //   // 'Pizza....',
+          //   style: TextStyle(
+          //     fontSize: 18,
+          //     fontWeight: FontWeight.bold,
+          //     color: Colors.grey[700],
+          //   ),
+          // ),
+          // SizedBox(height: 8),
+          // Text(
+          //   'Try a different search term',
+          //   style: TextStyle(
+          //     fontSize: 14,
+          //     color: Colors.grey[600],
+          //   ),
+          // ),
           // if (!isLoading && data.isEmpty)
-            Align(
-              alignment: Alignment.center,
-              child: Lottie.asset("images/Search.json", height: 127),
-            ),
+          Align(
+            alignment: Alignment.center,
+            child: Lottie.asset("images/Search.json", height: 127),
+          ),
         ],
-        
       ),
     );
   }

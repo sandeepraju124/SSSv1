@@ -124,8 +124,10 @@ class Http {
     }
   }
 
-  Future<List<BusinessModel>> getBusinessData(
-      {required String key, required String value}) async {
+  Future<List<BusinessModel>> getBusinessData({
+    required String key,
+    required String value,
+  }) async {
     final String apiUrl =
         'https://supernova1137.azurewebsites.net/pg/business/where?$key=$value';
     // print('Calling API: $apiUrl');

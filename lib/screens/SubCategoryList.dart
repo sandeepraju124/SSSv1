@@ -54,8 +54,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
       userLatitude = livedata.latitude!;
       userLongitude = livedata.longitude!;
-      print("userlat $userLatitude");
-      print("userlong $userLongitude");
+      // print("userlat $userLatitude");
+      // print("userlong $userLongitude");
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
       data.subCategoryListProvider(widget.keyy, widget.value);
     }

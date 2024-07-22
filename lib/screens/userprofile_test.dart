@@ -16,9 +16,9 @@ class ProfilePage extends StatelessWidget {
     var data = Provider.of<UserProvider>(context);
     final provider =
         Provider.of<GoogleSignInController>(context, listen: false);
-    print("data.getUserData!.username");
-    // print(data.getUserData!.username);
-    print("data.getUserData!.dp");
+    // print("data.getUserData!.username");
+    // // print(data.getUserData!.username);
+    // print("data.getUserData!.dp");
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.white60,
