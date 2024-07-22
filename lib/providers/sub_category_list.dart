@@ -26,6 +26,8 @@ class SubcategoryListProvider with ChangeNotifier {
       _businessRatingNearby;
 
   Future<void> subCategoryListProvider(key, value) async {
+    _subCategoryListNearby.clear();
+    _businessRatingNearby.clear();
     _isLoading = true;
     List<BusinessModel> datalist =
         await Http().getBusinessData(key: key, value: value);
@@ -49,8 +51,10 @@ class SubcategoryListProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchNearbyBusinesses(
-      double userLat, double userLong, String key, String value) async {
+  Future<void> fetchNearbyBusinesses(double userLat, double userLong, String key, String value) async {
+    _subCategoryListNearby.clear();
+    _businessRatingNearby.clear();
+    
     // ignore: prefer_const_declarations
     final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
     print("fetchNearbyBusinesses");
