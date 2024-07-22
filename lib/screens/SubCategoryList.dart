@@ -54,8 +54,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
       userLatitude = livedata.latitude!;
       userLongitude = livedata.longitude!;
-      // print("userlat $userLatitude");
-      // print("userlong $userLongitude");
+      print("userlat $userLatitude");
+      print("userlong $userLongitude");
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
       data.subCategoryListProvider(widget.keyy, widget.value);
     }
@@ -102,6 +102,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
         'https://supernova1137.azurewebsites.net/pg/business/latlong';
 
     final double distance = 20000; // Define your desired distance
+    print("$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value");
+    print("fetchNearbyBusinesses");
 
     final Uri uri = Uri.parse(
         '$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
@@ -146,6 +148,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
     final displayData = widget.isHouseSearch
         ? widget.houseSearchResults
         : data.subcategoryListData;
+        // print(displayData![3].latitude);
+        // print(displayData[3].longitude);
+        // print(displayData[3].businessName);
+        // print("displayData");
 
     return Scaffold(
       appBar: AppBar(
