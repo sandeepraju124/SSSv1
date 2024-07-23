@@ -57,8 +57,7 @@ class SubcategoryListProvider with ChangeNotifier {
     _businessRatingNearby.clear();
 
     // ignore: prefer_const_declarations
-    final String apiUrl =
-        'https://supernova1137.azurewebsites.net/pg/business/latlong';
+    final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
     // print("fetchNearbyBusinesses");
 
     final double distance = 20000; // Define your desired distance
