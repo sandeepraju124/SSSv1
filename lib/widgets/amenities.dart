@@ -172,6 +172,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/service_provider.dart';
 import 'package:sssv1/utils/constants.dart';
@@ -281,9 +282,10 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 10),
             Text(
               "Amenities",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
             ),
             Container(
               // margin: const EdgeInsets.only(top: 4),
@@ -291,11 +293,19 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
               width: 70,
               color: tgPrimaryColor,
             ),
-            Text(
-              "No amenities available for this business",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
+            Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 30),
+                  Lottie.asset("images/OverviewEmpty.json", height: 150),
+                  Text(
+                    "No amenities available for this business",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
               ),
             ),
             // Divider(
@@ -311,16 +321,16 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+          padding: EdgeInsets.symmetric(vertical: 9.0, horizontal: 16.0),
           child: Text(
             "Amenities",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
           ),
         ),
         Container(
-          // margin: const EdgeInsets.only(top: 4),
-          height: 2,
-          width: 70,
+          margin: const EdgeInsets.symmetric(horizontal: 18.0),
+          height: 1.3,
+          width: 90,
           color: tgPrimaryColor,
         ),
         servidedata.BusinessData!.amenities!.isNotEmpty
@@ -347,7 +357,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
                           child: Text(
                             servidedata.BusinessData!.amenities![index],
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               color: Colors.black87,
                             ),
                           ),

@@ -291,29 +291,29 @@ class AdditionalInfoPage extends StatelessWidget {
             // height: 170,
             // height: MediaQuery.of(context).size.height / 8,
             decoration: BoxDecoration(
-              // border: Border(
-              //   // top: BorderSide(color: Colors.blueGrey, width: 0.6),
-              //   // bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
-              // ),
-            ),
+                // border: Border(
+                //   // top: BorderSide(color: Colors.blueGrey, width: 0.6),
+                //   // bottom: BorderSide(color: Colors.blueGrey, width: 0.6),
+                // ),
+                ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 11, top: 12),
+                  padding: const EdgeInsets.only(left: 14, top: 12),
                   child: Text(
                     'Know About them',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 10, top: 1),
+                    margin: EdgeInsets.only(left: 14, top: 1),
                     height: 1.7, // Adjust the height of the line as needed
                     width: 110, // Adjust the width of the line as needed
                     color: tgPrimaryColor // Set the color of the line
                     ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10, top: 7),
                   child: SizedBox(
                     width: double.infinity,
                     child: Text(
@@ -337,14 +337,14 @@ class AdditionalInfoPage extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(left: 11, top: 12),
+            padding: const EdgeInsets.only(left: 17, top: 12),
             child: Text(
               'Business Status',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
           Container(
-              margin: EdgeInsets.only(left: 10, top: 1),
+              margin: EdgeInsets.only(left: 17, top: 1),
               height: 1.7, // Adjust the height of the line as needed
               width: 110, // Adjust the width of the line as needed
               color: tgPrimaryColor // Set the color of the line

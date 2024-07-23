@@ -221,7 +221,7 @@ class _BusinessStatusState extends State<BusinessStatus> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  isOpen ? "We are Open!" : "Sorry, we are Closed",
+                  isOpen ? "We are Open!" : "Sorry, we are Closed today",
                   style: TextStyle(
                     // fontSize: 24,
                     fontWeight: FontWeight.bold,

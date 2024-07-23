@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/models/service_models.dart';
 import 'package:sssv1/providers/service_provider.dart';
@@ -40,9 +41,22 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
     var servicesData = Provider.of<ServicesProvider>(context);
     if (servicesData.BusinessData == null ||
         servicesData.BusinessData!.operatingHours == null) {
-      return const Padding(
+      return Padding(
         padding: EdgeInsets.all(8.0),
-        child: Text("no data available"),
+        child: Center(
+          child: Column(
+            children: [
+              Lottie.asset("images/OverviewEmpty.json", height: 150),
+              Text(
+                "no data available",
+                style: TextStyle(fontSize: 12),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
+          ),
+        ),
       );
     }
     final data = servicesData.BusinessData!.operatingHours!.toMap();
@@ -55,18 +69,21 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () {
-            navigatorPush(context, OperatingHoursScreen(operatingHours: data),);
+            navigatorPush(
+              context,
+              OperatingHoursScreen(operatingHours: data),
+            );
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.6,
-            // margin: const EdgeInsets.symmetric(horizontal: 10), 
+            // margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               // boxShadow: ,
               borderRadius: BorderRadius.circular(15.0),
               color: isOpen ? Colors.green[50] : Colors.red[50],
             ),
             // width: MediaQuery.of(context).size.width * 0.9,
-            
+
             // shape: RoundedRectangleBorder(
             //   borderRadius: BorderRadius.circular(15.0),
             // ),
@@ -81,13 +98,13 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
                   Icon(
                     isOpen ? Icons.check_circle_outline : Icons.highlight_off,
                     color: isOpen ? Colors.green : Colors.red,
-                    size: 30,
+                    size: 22,
                   ),
                   SizedBox(width: 10),
                   Text(
                     isOpen ? "We are Open!" : "Sorry, we are Closed",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: isOpen ? Colors.green : Colors.red,
                     ),

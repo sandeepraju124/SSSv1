@@ -51,33 +51,37 @@ class SubcategoryListProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchNearbyBusinesses(double userLat, double userLong, String key, String value) async {
+  Future<void> fetchNearbyBusinesses(
+      double userLat, double userLong, String key, String value) async {
     _subCategoryListNearby.clear();
     _businessRatingNearby.clear();
-    
+
     // ignore: prefer_const_declarations
-    final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
-    print("fetchNearbyBusinesses");
+    final String apiUrl =
+        'https://supernova1137.azurewebsites.net/pg/business/latlong';
+    // print("fetchNearbyBusinesses");
 
     final double distance = 20000; // Define your desired distance
-    print("$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value");
+    // print("$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value");
 
-    final Uri uri = Uri.parse('$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
+    final Uri uri = Uri.parse(
+        '$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
 
     try {
-      print("inside try");
+      // print("inside try");
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        print(data);
+        // print(data);
 
         final List<BusinessModel> businessList =
             data.map((item) => BusinessModel.fromJson(item)).toList();
         _subCategoryListNearby = businessList;
-        print(businessList);
+        // print(businessList);
 
         for (var business in businessList) {
-          Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
+          Map<String, dynamic> rating =
+              await Http().overall_rating(business.businessUid);
           _businessRatingNearby[business.businessUid] = rating;
         }
 
@@ -92,9 +96,9 @@ class SubcategoryListProvider with ChangeNotifier {
         // });
       } else if (response.statusCode == 404) {
         // Handle error
-        print('No businesses found within the specified distance');
+        // print('No businesses found within the specified distance');
       } else {
-        print('Failed to fetch nearby businesses: ${response.statusCode}');
+        // print('Failed to fetch nearby businesses: ${response.statusCode}');
       }
     } catch (e) {
       print('Error fetching nearby businesses: $e');

@@ -103,7 +103,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 46),
             Expanded(
               child: ListView(
                 children: [
@@ -127,14 +127,14 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.shopping_bag),
-                    title: Text(
-                      'Your orders',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
+                  // Divider(),
+                  // ListTile(
+                  //   leading: Icon(Icons.shopping_bag),
+                  //   title: Text(
+                  //     'Your orders',
+                  //     style: TextStyle(fontSize: 16),
+                  //   ),
+                  // ),
                   Divider(),
                   ListTile(
                     onTap: () {
@@ -151,22 +151,22 @@ class ProfilePage extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text(
-                      'Account details',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.account_balance),
-                    title: Text(
-                      'Banks & Mandates',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
+                  // Divider(),
+                  // ListTile(
+                  //   leading: Icon(Icons.person),
+                  //   title: Text(
+                  //     'Account details',
+                  //     style: TextStyle(fontSize: 16),
+                  //   ),
+                  // ),
+                  // Divider(),
+                  // ListTile(
+                  //   leading: Icon(Icons.account_balance),
+                  //   title: Text(
+                  //     'Banks & Mandates',
+                  //     style: TextStyle(fontSize: 16),
+                  //   ),
+                  // ),
                   Divider(),
                   ListTile(
                     onTap: () {

@@ -1,7 +1,9 @@
-// ignore: duplicate_ignore
-// ignore: duplicate_ignore
-// ignore: duplicate_ignore
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// // ignore: duplicate_ignore
+// // ignore: duplicate_ignore
+// // ignore: duplicate_ignore
+// // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:core';
 
@@ -28,13 +30,6 @@ class NewShowRewviewPage extends StatefulWidget {
 }
 
 class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Provider.of<CommentSectionProvider>(context, listen: false)
-  //       .commentSectionProvider("PIZFOO4357128905678");
-  // }
-
   final bool _showAllReviews = false;
 
   Widget stars(int rating) {
@@ -54,7 +49,6 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                   child: Icon(
                     Icons.star,
                     color: Colors.white,
-                    // color: Colors.amber[700],
                     size: 12,
                   ),
                 ),
@@ -73,279 +67,268 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
-    // var data2 = Provider.of<UserProvider>(context);
 
     return Material(
-      child: Column(children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 7),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(width: 10),
-                  Text(
-                    "Reviews",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                      width:
-                          10), // Add some space between the text and the rating bar
-                  Expanded(
-                    child: Row(
-                      children: [
-                        // Text(
-                        //   "(",
-                        //   style: TextStyle(
-                        //       fontSize: 16, fontWeight: FontWeight.w400),
-                        // ),
-                        RatingBar.builder(
-                          initialRating:
-                              Provider.of<CommentSectionProvider>(context)
-                                  .averageRating,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 0.1),
-                          itemSize: 11,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber[700],
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "(",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          Provider.of<CommentSectionProvider>(context)
-                              .averageRating
-                              .toStringAsFixed(1),
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          ")",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                      ],
+        color: Colors.white70,
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 7),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    SizedBox(width: 10),
+                    Text(
+                      "Reviews",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 320),
-                height: 3,
-                width: 70,
-                decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: tgPrimaryColor))),
-              )
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              elevation: 6,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              builder: (BuildContext context) {
-                return Builder(
-                  builder: (context) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom,
-                      ),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
+                    SizedBox(
+                        width:
+                            10), // Add some space between the text and the rating bar
+                    Expanded(
+                      child: Row(
+                        children: [
+                          RatingBar.builder(
+                            initialRating: data.averageRating ?? 0,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 0.1),
+                            itemSize: 11,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber[700],
                             ),
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
                           ),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: secondaryColor20LightTheme,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
+                          SizedBox(width: 5),
+                          Text(
+                            "(",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            data.averageRating?.toStringAsFixed(1) ?? "0.0",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            ")",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 320),
+                  height: 3,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      border:
+                          Border(bottom: BorderSide(color: tgPrimaryColor))),
+                )
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                elevation: 6,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (BuildContext context) {
+                  return Builder(
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor20LightTheme,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Share Your Experience",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Share Your Experience",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DisplayReviewBottomSheet(
+                                    businessUid: data1
+                                            .businessProfileData?.businessUid ??
+                                        "",
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: DisplayReviewBottomSheet(
-                                  businessUid:
-                                      data1.businessProfileData!.businessUid,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          },
-          child: Column(
-            children: [
-              RetangularBorderBox("Share your insights and help others!")
-            ],
-          ),
-        ),
-        data.isLoading
-            ? Padding(
-                padding: const EdgeInsets.only(top: 200),
-                child: Center(
-                    child: CircularProgressIndicator(color: tgPrimaryColor)),
-              )
-            : data.getCommentsData?.reviews.isEmpty == true
-                ? Center(
-                    child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 30),
-                        Lottie.asset("images/reviews.json", height: 210),
-                        Text(
-                          "Your opinion matters.\nPlease consider being the first to share your review",
-                          style: TextStyle(
-                              color: secondaryColor20LightTheme,
-                              fontSize: 10.8),
-                        ),
-                      ],
-                    ),
-                  ))
-                : ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    // itemCount: data.getCommentsData!.reviews.length,
-                    itemCount: _showAllReviews
-                        ? data.getCommentsData!.reviews.length
-                        : (data.getCommentsData!.reviews.length > 2
-                            ? 2
-                            : data.getCommentsData!.reviews.length),
-                    itemBuilder: (BuildContext context, int int) {
-                      var review = data.getCommentsData!.reviews[int];
-
-                      // String stars(rating) {
-                      //   return List<String>.generate(rating, (index) => '⭐')
-                      //       .join();
-                      // }
-
-                      return Container(
-                        margin: EdgeInsets.all(8.0),
-                        padding: EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: ListTile(
-                          title: Padding(
-                            padding: const EdgeInsets.only(top: 2, bottom: 8),
-                            child: Text(
-                              review.comment,
-                              style: TextStyle(
-                                  fontFamily: "Roboto",
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                  wordSpacing: 0.5,
-                                  letterSpacing: -0.1,
-                                  color: secondaryColor60LightTheme),
-                            ),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  // Text(
-                                  //   "Rating: ",
-                                  //   style: TextStyle(fontSize: 12.0),
-                                  // ),
-                                  stars(review.rating),
-                                ],
-                              ), // This will display the row of stars
-
-                              Text(
-                                "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ],
                           ),
                         ),
                       );
-                    }),
-        SizedBox(height: 50),
-        if (data.getCommentsData?.reviews != null &&
-            data.getCommentsData!.reviews.length > 2 &&
-            !_showAllReviews)
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return showallreviewspage();
-              }));
+                    },
+                  );
+                },
+              );
             },
-            child: Container(
-              height: 36,
-              width: 340,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  border: Border.all(width: 0.6),
-                  color: tgPrimaryColor),
-              child: SizedBox(
-                width: 340,
+            child: Column(
+              children: [
+                RetangularBorderBox("Share your insights and help others!")
+              ],
+            ),
+          ),
+          data.isLoading
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 200),
+                  child: Center(
+                      child: CircularProgressIndicator(color: tgPrimaryColor)),
+                )
+              : data.getCommentsData?.reviews.isEmpty == true
+                  ? Center(
+                      child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 30),
+                          Lottie.asset("images/reviews.json", height: 210),
+                          Text(
+                            "Your opinion matters.\nPlease consider being the first to share your review",
+                            style: TextStyle(
+                                color: secondaryColor20LightTheme,
+                                fontSize: 10.8),
+                          ),
+                        ],
+                      ),
+                    ))
+                  : ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: data.getCommentsData?.reviews.length ?? 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (data.getCommentsData == null ||
+                            data.getCommentsData!.reviews.isEmpty) {
+                          return SizedBox
+                              .shrink(); // Return an empty widget if there's no data
+                        }
+
+                        if (!_showAllReviews && index >= 2) {
+                          return SizedBox
+                              .shrink(); // Hide reviews beyond the first two if not showing all
+                        }
+
+                        var review = data.getCommentsData!.reviews[index];
+
+                        return Container(
+                          margin: EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.only(top: 2, bottom: 8),
+                              child: Text(
+                                review.comment,
+                                style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                    wordSpacing: 0.5,
+                                    letterSpacing: -0.1,
+                                    color: secondaryColor60LightTheme),
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    stars(review.rating),
+                                  ],
+                                ),
+                                Text(
+                                  "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+          SizedBox(height: 50),
+          if (data.getCommentsData?.reviews != null &&
+              data.getCommentsData!.reviews.length > 2 &&
+              !_showAllReviews)
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return showallreviewspage();
+                }));
+              },
+              child: Container(
                 height: 36,
-                child: Center(
-                  child: Text(
-                    _showAllReviews
-                        ? "All reviews are shown"
-                        : "Show ${data.getCommentsData!.reviews.length - 2} more reviews",
-                    style: TextStyle(color: secondaryColor80LightTheme),
+                width: 340,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(width: 0.6),
+                    color: tgPrimaryColor),
+                child: SizedBox(
+                  width: 340,
+                  height: 36,
+                  child: Center(
+                    child: Text(
+                      _showAllReviews
+                          ? "All reviews are shown"
+                          : "Show ${data.getCommentsData!.reviews.length - 2} more reviews",
+                      style: TextStyle(color: secondaryColor80LightTheme),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-      ]),
-    );
+        ]));
   }
 }

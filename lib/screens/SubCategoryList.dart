@@ -54,11 +54,12 @@ class _SubCategoryListState extends State<SubCategoryList> {
       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
       userLatitude = livedata.latitude!;
       userLongitude = livedata.longitude!;
-      print("userlat $userLatitude");
-      print("userlong $userLongitude");
+      // print("userlat $userLatitude");
+      // print("userlong $userLongitude");
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
       // data.subCategoryListProvider(widget.keyy, widget.value);
-      data.fetchNearbyBusinesses(userLatitude, userLongitude, widget.keyy, widget.value);
+      data.fetchNearbyBusinesses(
+          userLatitude, userLongitude, widget.keyy, widget.value);
     }
   }
 
@@ -84,7 +85,6 @@ class _SubCategoryListState extends State<SubCategoryList> {
     }
   }
 
-
   Future<void> fetchNearbyBusinesses(
       double userLat, double userLong, String key, String value) async {
     // ignore: prefer_const_declarations
@@ -92,14 +92,16 @@ class _SubCategoryListState extends State<SubCategoryList> {
         'https://supernova1137.azurewebsites.net/pg/business/latlong';
 
     final double distance = 20000; // Define your desired distance
-    print("$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value");
-    print("fetchNearbyBusinesses");
+    print(
+        "$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value");
+    // print("fetchNearbyBusinesses");
 
-    final Uri uri = Uri.parse('$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
+    final Uri uri = Uri.parse(
+        '$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
 
     try {
       final response = await http.get(uri);
-      if (response.statusCode == 200) { 
+      if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
 
         final List<BusinessModel> businessList =
@@ -113,7 +115,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
         });
       } else if (response.statusCode == 404) {
         // Handle error
-        print('No businesses found within the specified distance');
+        // print('No businesses found within the specified distance');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('No businesses found within the specified distance'),
@@ -138,42 +140,45 @@ class _SubCategoryListState extends State<SubCategoryList> {
         ? widget.houseSearchResults
         // : data.subcategoryListData;
         : data.subcategoryListDataNearby;
-        // print(displayData![3].latitude);
-        // print(displayData[3].longitude);
-        // print(displayData[3].businessName);
-        // print("displayData");
+    // print(displayData![3].latitude);
+    // print(displayData[3].longitude);
+    // print(displayData[3].businessName);
+    // print("displayData");
 
     return Scaffold(
-      appBar: 
-      AppBar(
-    leading: IconButton(
-      onPressed: () => Navigator.of(context).pop(),
-      icon: Icon(LineAwesomeIcons.angle_left, size: 24),
-    ),
-    title: Text(
-      widget.value,
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    ),
-    backgroundColor: tgAccentColor,
-    elevation: 0,
-    actions: [
-      if (!widget.isHouseSearch)
-        IconButton(
-          icon: Icon(Icons.filter_list, size: 24),
-          onPressed: () => _showFilterDialog(context),
+      appBar: AppBar(
+        toolbarHeight: 60,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(LineAwesomeIcons.angle_left, size: 18),
         ),
-      if (!widget.isHouseSearch)
-        IconButton(
-          icon: Icon(Icons.location_on, size: 24),
-          onPressed: () async {
-            await data.subCategoryListProvider(widget.keyy, widget.value);
-            setState(() {
-              _showNearbyBusinesses = true;
-            });
-          },
+        title: Text(
+          widget.value,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
-    ],
-  ),
+        backgroundColor: tgAccentColor,
+        elevation: 0,
+        actions: [
+          if (!widget.isHouseSearch)
+            IconButton(
+              icon: Icon(Icons.filter_list, size: 20),
+              onPressed: () => _showFilterDialog(context),
+            ),
+          if (!widget.isHouseSearch)
+            IconButton(
+              icon: Icon(
+                Icons.location_on,
+                size: 20,
+              ),
+              onPressed: () async {
+                await data.subCategoryListProvider(widget.keyy, widget.value);
+                setState(() {
+                  _showNearbyBusinesses = true;
+                });
+              },
+            ),
+        ],
+      ),
       // AppBar(
       //   leading: IconButton(
       //     onPressed: () {
@@ -218,7 +223,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
       //       ),
       //   ],
       // ),
-      body: data.isLoading && !widget.isHouseSearch
+      body: data.isLoading && !widget.isHouseSearch && !_showNearbyBusinesses
           ? Center(
               child: CircularProgressIndicator(
                 color: tgDarkPrimaryColor,
@@ -283,7 +288,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
   Column ListSubCategory(BuildContext context, List<BusinessModel> displayData,
       int index, String? distance, SubcategoryListProvider data) {
-    final businessRating = data.businessRatingNearby[displayData[index].businessUid];
+    final businessRating =
+        data.businessRatingNearby[displayData[index].businessUid];
     // final businessRating = data.businessRating[displayData[index].businessUid];
     final rating = businessRating?['rating']?.toString() ?? '0';
     // final reviewsCount = businessRating?['reviewsCount']?.toString() ?? '0';
@@ -474,85 +480,80 @@ class _SubCategoryListState extends State<SubCategoryList> {
   }
 
   Widget _buildStatusBar() {
-  var data = Provider.of<SubcategoryListProvider>(context);
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-    color: Colors.grey[200],
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          widget.isHouseSearch
-              ? "Handpicked results"
-              : _showNearbyBusinesses
-                  ? "Nearby businesses"
-                  : "All businesses",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[700],
+    var data = Provider.of<SubcategoryListProvider>(context);
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      color: Colors.grey[200],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.isHouseSearch
+                ? "Handpicked results"
+                : _showNearbyBusinesses
+                    ? "Nearby businesses"
+                    : "All businesses",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[700],
+            ),
           ),
-        ),
-        Text(
-          "${data.businessRatingNearby.length} results",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[700],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-
-void _showFilterDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Filter Options"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildFilterOption("Rating", Icons.star),
-            _buildFilterOption("Distance", Icons.location_on),
-            _buildFilterOption("Price", Icons.attach_money),
-          ],
-        ),
-        actions: [
-          TextButton(
-            child: Text("Cancel"),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          ElevatedButton(
-            child: Text("Apply"),
-            onPressed: () {
-              // Apply filters
-              Navigator.of(context).pop();
-            },
+          Text(
+            "${data.businessRatingNearby.length} results",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[700],
+            ),
           ),
         ],
-      );
-    },
-  );
-}
+      ),
+    );
+  }
 
-Widget _buildFilterOption(String title, IconData icon) {
-  return ListTile(
-    leading: Icon(icon),
-    title: Text(title),
-    trailing: Icon(Icons.chevron_right),
-    onTap: () {
-      // Show specific filter options
-    },
-  );
-}
+  void _showFilterDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Filter Options"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildFilterOption("Rating", Icons.star),
+              _buildFilterOption("Distance", Icons.location_on),
+              _buildFilterOption("Price", Icons.attach_money),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text("Apply"),
+              onPressed: () {
+                // Apply filters
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-
-
-
+  Widget _buildFilterOption(String title, IconData icon) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: Icon(Icons.chevron_right),
+      onTap: () {
+        // Show specific filter options
+      },
+    );
+  }
 }
 
 

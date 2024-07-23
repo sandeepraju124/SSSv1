@@ -353,10 +353,12 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/HousingServices/business_houseModel.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/success_lottiejson.dart';
 
 class OverviewPage extends StatelessWidget {
   const OverviewPage({Key? key}) : super(key: key);
@@ -387,7 +389,15 @@ class OverviewPage extends StatelessWidget {
         else
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("No Overview Details Available for this business"),
+            child: Center(
+              child: Column(
+                children: [
+                  Lottie.asset("images/OverviewEmpty.json", height: 150),
+                  Text("No Overview Details Available for this business",
+                      style: TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
           ),
       ],
     );
@@ -494,7 +504,7 @@ class OverviewPage extends StatelessWidget {
             ),
             child: Text(
               text,
-              style: TextStyle(fontSize: 23, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
             ),
           ),
         ],
