@@ -129,16 +129,16 @@ class _NewLoginPageState extends State<NewLoginPage> {
                 children: [
                   SizedBox(height: 40),
                   Text(
-                    "Here to Get",
+                    "Welcome Back",
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 29,
                         // color:
                         //  Color(0xFF363f93)
                         color: tgDarkPrimaryColor),
                   ),
                   Text(
-                    "Welcomed !",
-                    style: TextStyle(fontSize: 30, color: tgDarkPrimaryColor
+                    "Sign In to Continue",
+                    style: TextStyle(fontSize: 27, color: tgDarkPrimaryColor
 
                         // color: Color(0xFF363f93)
                         ),
