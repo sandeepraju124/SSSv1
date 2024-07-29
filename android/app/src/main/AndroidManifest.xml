@@ -11,7 +11,7 @@
     
 
    <application
-        android:label="sssv1"
+        android:label="NearMe"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">

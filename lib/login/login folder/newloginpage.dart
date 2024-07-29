@@ -129,7 +129,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                 children: [
                   SizedBox(height: 40),
                   Text(
-                    "Here to Get",
+                    "Welcome Back",
                     style: TextStyle(
                         fontSize: 30,
                         // color:
@@ -137,7 +137,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                         color: tgDarkPrimaryColor),
                   ),
                   Text(
-                    "Welcomed !",
+                    "Let's Get Started!",
                     style: TextStyle(fontSize: 30, color: tgDarkPrimaryColor
 
                         // color: Color(0xFF363f93)

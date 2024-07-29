@@ -67,6 +67,7 @@ dependencies:
   collection: ^1.18.0
   carousel_slider: ^4.2.1
   flutter_staggered_animations: ^1.0.0
+  flutter_launcher_icons: ^0.13.1
 
   
   
@@ -74,6 +75,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+flutter_icons:
+  image_path: "images/nearme_logo.png"
+  android: true
+  ios: true
  
 
   # The "flutter_lints" package below contains a set of recommended lints to
