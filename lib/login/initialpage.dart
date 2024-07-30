@@ -215,13 +215,13 @@ class _InitialPageState extends State<InitialPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    'Welcome to our Application',
+                    'Welcome, Empower Your Business with Customer Voices',
                     style: TextStyle(
 
                         // color: Colors.deepPurple.shade900,
                         // Color tgDarkPrimaryColor: Color(#00796B),
                         color: tgDarkPrimaryColor,
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -229,11 +229,11 @@ class _InitialPageState extends State<InitialPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    'Create your Account',
+                    'Turn Reviews into Your Competitive Advantage',
                     style: TextStyle(
                         color: tgSecondaryText,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
                 SizedBox(height: 70),

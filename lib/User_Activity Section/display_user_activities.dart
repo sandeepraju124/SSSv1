@@ -812,7 +812,6 @@ import 'package:sssv1/User_Activity Section/user_activity_model.dart'
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -834,7 +833,8 @@ class UserActivityScreen extends StatefulWidget {
   _UserActivityScreenState createState() => _UserActivityScreenState();
 }
 
-class _UserActivityScreenState extends State<UserActivityScreen> with SingleTickerProviderStateMixin {
+class _UserActivityScreenState extends State<UserActivityScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -842,7 +842,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     final String? userid = FirebaseAuth.instance.currentUser?.uid;
-    Provider.of<UserActivityProvider>(context, listen: false).userActivityProvider(userid);
+    Provider.of<UserActivityProvider>(context, listen: false)
+        .userActivityProvider(userid);
   }
 
   @override
@@ -853,7 +854,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
 
   Future<void> _handleRefresh() async {
     final String? userid = FirebaseAuth.instance.currentUser?.uid;
-    await Provider.of<UserActivityProvider>(context, listen: false).userActivityProvider(userid);
+    await Provider.of<UserActivityProvider>(context, listen: false)
+        .userActivityProvider(userid);
   }
 
   @override
@@ -862,16 +864,19 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
       body: Consumer<UserActivityProvider>(
         builder: (context, data, child) {
           if (data.isLoading) {
-            return Center(child: CircularProgressIndicator(color: tgDarkPrimaryColor));
+            return Center(
+                child: CircularProgressIndicator(color: tgDarkPrimaryColor));
           }
 
           return NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
                   expandedHeight: 200.0,
                   floating: false,
                   pinned: true,
+                  backgroundColor: tgDarkPrimaryColor,
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Text("Your Activity",
@@ -892,8 +897,15 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
                       labelColor: tgDarkPrimaryColor,
                       unselectedLabelColor: Colors.grey,
                       tabs: [
-                        Tab(icon: Icon(Icons.rate_review), text: "Reviews"),
-                        Tab(icon: Icon(Icons.question_answer), text: "Questions"),
+                        Tab(
+                            icon: Icon(
+                              Icons.rate_review_outlined,
+                              size: 18.8,
+                            ),
+                            text: "Reviews"),
+                        Tab(
+                            icon: Icon(Icons.question_answer),
+                            text: "Questions"),
                         Tab(icon: Icon(Icons.chat), text: "Answers"),
                       ],
                     ),
@@ -905,9 +917,12 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
             body: TabBarView(
               controller: _tabController,
               children: [
-                _buildActivityList(data.getUserActivityData?.comments ?? [], _buildReviewItem),
-                _buildActivityList(data.getUserActivityData?.questions ?? [], _buildQuestionItem),
-                _buildActivityList(data.getUserActivityData?.answers ?? [], _buildAnswerItem),
+                _buildActivityList(
+                    data.getUserActivityData?.comments ?? [], _buildReviewItem),
+                _buildActivityList(data.getUserActivityData?.questions ?? [],
+                    _buildQuestionItem),
+                _buildActivityList(
+                    data.getUserActivityData?.answers ?? [], _buildAnswerItem),
               ],
             ),
           );
@@ -916,7 +931,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
     );
   }
 
-  Widget _buildActivityList(List items, Widget Function(BuildContext, dynamic) itemBuilder) {
+  Widget _buildActivityList(
+      List items, Widget Function(BuildContext, dynamic) itemBuilder) {
     return RefreshIndicator(
       color: tgPrimaryColor,
       onRefresh: _handleRefresh,
@@ -924,7 +940,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
           ? _buildEmptyState()
           : ListView.builder(
               itemCount: items.length,
-              itemBuilder: (context, index) => itemBuilder(context, items[index]),
+              itemBuilder: (context, index) =>
+                  itemBuilder(context, items[index]),
             ),
     );
   }
@@ -936,7 +953,8 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
         children: [
           Icon(Icons.folder_open, size: 64, color: Colors.grey),
           SizedBox(height: 16),
-          Text('No activity yet', style: TextStyle(color: Colors.grey, fontSize: 16)),
+          Text('No activity yet',
+              style: TextStyle(color: Colors.grey, fontSize: 16)),
         ],
       ),
     );
@@ -948,16 +966,19 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: tgDarkPrimaryColor,
-          child: Text(comment.businessName[0], style: TextStyle(color: Colors.white)),
+          child: Text(comment.businessName[0],
+              style: TextStyle(color: Colors.white)),
         ),
-        title: Text(comment.businessName, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(comment.businessName,
+            style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 4),
             _buildStarRating(comment.rating),
             Text(comment.comment, maxLines: 2, overflow: TextOverflow.ellipsis),
-            Text(_formatDateTime(comment.createdAt), style: TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(_formatDateTime(comment.createdAt),
+                style: TextStyle(fontSize: 12, color: Colors.grey)),
           ],
         ),
         onTap: () => _navigateToBusinessProfile(context, comment.businessUid),
@@ -970,12 +991,14 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         leading: Icon(Icons.question_mark, color: tgDarkPrimaryColor),
-        title: Text(question.question, style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(question.question,
+            style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Asked to: ${question.businessName}"),
-            Text(_formatDateTime(question.qdetails.createdAt), style: TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(_formatDateTime(question.qdetails.createdAt),
+                style: TextStyle(fontSize: 12, color: Colors.grey)),
           ],
         ),
         onTap: () => _navigateToBusinessProfile(context, question.businessUid),
@@ -988,12 +1011,14 @@ class _UserActivityScreenState extends State<UserActivityScreen> with SingleTick
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         leading: Icon(Icons.question_answer, color: tgDarkPrimaryColor),
-        title: Text(answer.answer, maxLines: 2, overflow: TextOverflow.ellipsis),
+        title:
+            Text(answer.answer, maxLines: 2, overflow: TextOverflow.ellipsis),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("For: ${answer.businessName}"),
-            Text(_formatDateTime(answer.adetails.createdAt), style: TextStyle(fontSize: 12, color: Colors.grey)),
+            Text(_formatDateTime(answer.adetails.createdAt),
+                style: TextStyle(fontSize: 12, color: Colors.grey)),
           ],
         ),
         onTap: () => _navigateToBusinessProfile(context, answer.businessUid),
@@ -1040,7 +1065,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.white,
       child: _tabBar,

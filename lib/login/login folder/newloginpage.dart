@@ -131,7 +131,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
                   Text(
                     "Welcome Back",
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 29,
                         // color:
                         //  Color(0xFF363f93)
                         color: tgDarkPrimaryColor),

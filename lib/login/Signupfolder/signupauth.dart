@@ -22,7 +22,7 @@ class Signupauth extends StatelessWidget {
             return BottomNavPage();
           } else {
             // return SignUpPage();
-            return NewSignuppage();
+            return NewSignupPage();
           }
         },
       ),
