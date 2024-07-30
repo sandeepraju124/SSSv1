@@ -500,11 +500,15 @@
 
 // enum Gender { male, female, preferNotToSay }
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:sssv1/login/login%20folder/newloginpage.dart';
+import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:http/http.dart' as http;
 
 class NewSignupPage extends StatefulWidget {
   const NewSignupPage({Key? key}) : super(key: key);
@@ -546,10 +550,89 @@ class _NewSignupPageState extends State<NewSignupPage> {
     }
   }
 
-  void _submitForm() {
+  Future signup() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      print('Sign up clicked');
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      final user = FirebaseAuth.instance.currentUser;
+      final userid = user?.uid;
+
+      Map<String, String> body = {
+        'name': _nameController.text.trim(),
+        'email': _emailController.text.trim(),
+        'username': _usernameController.text.trim(),
+        // 'street': 'hyderabad',
+        // 'state': 'telangana',
+        // 'zipcode': '500072',
+        // 'lat': '546',
+        // 'lng': '648',
+        'userid': userid.toString(),
+        'phone': _phoneController.text.trim(),
+      };
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$baseUrl/user'),
+      );
+      if (_profileImage != null) {
+        request.files.add(await http.MultipartFile.fromPath(
+            'profile_image_url', _profileImage!.path));
+      }
+      request.fields.addAll(body);
+
+      final response = await request.send();
+      print(response.statusCode);
+      print(response);
+      if (response.statusCode == 200) {
+        final responseBody = await response.stream.bytesToString();
+        print(responseBody);
+
+        // Fetch data and store on provider
+        var userpro = Provider.of<UserProvider>(context, listen: false);
+        await userpro.userProvider();
+
+        print('User created successfully');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('User created successfully'),
+          ),
+        );
+        return 'User created successfully';
+      } else {
+        throw Exception('Failed to create user');
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Exception: Failed to create user: $e');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       // Implement your signup logic here
       // print('Form submitted');
+      await signup();
     }
   }
 
@@ -805,26 +888,29 @@ class _NewSignupPageState extends State<NewSignupPage> {
   }
 
   Widget _buildSubmitButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _isLoading ? null : _submitForm,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1A3365),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: _isLoading ? null : _submitForm,
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: _isLoading ? null : _submitForm,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF1A3365),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
+          child: _isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text(
+                  'Create Account',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
         ),
-        child: _isLoading
-            ? const CircularProgressIndicator(color: Colors.white)
-            : const Text(
-                'Create Account',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
       ),
     );
   }
