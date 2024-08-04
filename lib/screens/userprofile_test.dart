@@ -30,11 +30,15 @@ class ProfilePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
-            onPressed: () {},
+            onPressed: () {
+              showSnackBar(context, "feature is currently in progress");
+            },
           ),
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              showSnackBar(context, "feature is currently in progress");
+            },
           ),
         ],
       ),
@@ -73,7 +77,7 @@ class ProfilePage extends StatelessWidget {
                   SizedBox(height: 8),
                   Text(
                     // 'Sai Ram Akula',
-                    data.getUserData!.username ?? "No Name",
+                    data.getUserData?.username ?? "No Name",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 4),
@@ -89,9 +93,9 @@ class ProfilePage extends StatelessWidget {
               elevation: 4,
               child: ListTile(
                 // title: Text('₹173.12'),
-                title: Text(data.getUserData!.name ?? "Loading..."),
+                title: Text(data.getUserData?.name ?? "Loading..."),
                 // subtitle: Text('Stocks, F&O balance'),
-                subtitle: Text(data.getUserData!.email ?? "No Email"),
+                subtitle: Text(data.getUserData?.email ?? "No Email"),
                 trailing: ElevatedButton(
                   onPressed: () {
                     navigatorPush(context, EditProfile());
@@ -207,6 +211,10 @@ class ProfilePage extends StatelessWidget {
                                 child: MaterialButton(
                                   onPressed: () async {
                                     await provider.logOut();
+                                    var userprov = Provider.of<UserProvider>(
+                                        context,
+                                        listen: false);
+                                    userprov.clearUserData();
                                     Navigator.of(context).pop();
                                   },
                                   child: Text(

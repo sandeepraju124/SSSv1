@@ -8,23 +8,26 @@ class UserProvider with ChangeNotifier {
   UserModels? get getUserData => _data;
 
   Future<void> userProvider() async {
-    // List<UserModel> datalist = await GetData().getUserData(id);
-    try{
-      UserModels userModel = await Http().fetchUserData();
-    print( userModel);
-    print( "userModel");
-    // Map datalist = await GetData().fetchUsersData();
-    _data = userModel;
-
-    // print("userProvider data $_data");
+    _data = null;
     notifyListeners();
-    }catch (e){
+    // List<UserModel> datalist = await GetData().getUserData(id);
+    try {
+      UserModels userModel = await Http().fetchUserData();
+      print(userModel);
+      print("userModel");
+      // Map datalist = await GetData().fetchUsersData();
+      _data = userModel;
+
+      // print("userProvider data $_data");
+      notifyListeners();
+    } catch (e) {
       print("catch in userprovider");
       throw Exception(e);
-
     }
-    
   }
 
-  
+  Future<void> clearUserData() async {
+    _data = null;
+    notifyListeners();
+  }
 }

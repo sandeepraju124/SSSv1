@@ -812,20 +812,6 @@ import 'package:sssv1/User_Activity Section/user_activity_model.dart'
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
-import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
-import 'package:sssv1/utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
-import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
-import 'package:sssv1/utils/constants.dart';
-
 class UserActivityScreen extends StatefulWidget {
   const UserActivityScreen({Key? key}) : super(key: key);
 
@@ -896,17 +882,29 @@ class _UserActivityScreenState extends State<UserActivityScreen>
                       controller: _tabController,
                       labelColor: tgDarkPrimaryColor,
                       unselectedLabelColor: Colors.grey,
+                      indicatorColor: tgDarkPrimaryColor,
                       tabs: [
                         Tab(
-                            icon: Icon(
-                              Icons.rate_review_outlined,
-                              size: 18.8,
-                            ),
-                            text: "Reviews"),
+                          icon: Icon(
+                            Icons.star_rounded,
+                            size: 18.8,
+                          ),
+                          text: "Reviews",
+                        ),
                         Tab(
-                            icon: Icon(Icons.question_answer),
-                            text: "Questions"),
-                        Tab(icon: Icon(Icons.chat), text: "Answers"),
+                          icon: Icon(
+                            Icons.help_outlined,
+                            size: 20,
+                          ),
+                          text: "Questions",
+                        ),
+                        Tab(
+                          icon: Icon(
+                            Icons.forum_rounded,
+                            size: 20,
+                          ),
+                          text: "Answers",
+                        ),
                       ],
                     ),
                   ),
@@ -916,6 +914,7 @@ class _UserActivityScreenState extends State<UserActivityScreen>
             },
             body: TabBarView(
               controller: _tabController,
+              // color: tgDarkPrimaryColor,
               children: [
                 _buildActivityList(
                     data.getUserActivityData?.comments ?? [], _buildReviewItem),
@@ -951,77 +950,228 @@ class _UserActivityScreenState extends State<UserActivityScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.folder_open, size: 64, color: Colors.grey),
-          SizedBox(height: 16),
-          Text('No activity yet',
-              style: TextStyle(color: Colors.grey, fontSize: 16)),
+          Lottie.asset("images/Activity.json", height: 180),
+          Text(
+            "There are currently no activities to display",
+            style: TextStyle(fontSize: 13, color: secondaryColor40LightTheme),
+          )
         ],
       ),
     );
   }
 
   Widget _buildReviewItem(BuildContext context, dynamic comment) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: tgDarkPrimaryColor,
-          child: Text(comment.businessName[0],
-              style: TextStyle(color: Colors.white)),
-        ),
-        title: Text(comment.businessName,
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 4),
-            _buildStarRating(comment.rating),
-            Text(comment.comment, maxLines: 2, overflow: TextOverflow.ellipsis),
-            Text(_formatDateTime(comment.createdAt),
-                style: TextStyle(fontSize: 12, color: Colors.grey)),
+    String capitalizeEachWord(String text) {
+      if (text.isEmpty) return text;
+      return text.split(' ').map((word) {
+        if (word.isEmpty) return word;
+        return word[0].toUpperCase() + word.substring(1).toLowerCase();
+      }).join(' ');
+    }
+
+    return GestureDetector(
+      onTap: () => _navigateToBusinessProfile(context, comment.businessUid),
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
           ],
         ),
-        onTap: () => _navigateToBusinessProfile(context, comment.businessUid),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              contentPadding: EdgeInsets.only(bottom: 10),
+              leading: CircleAvatar(
+                radius: 22,
+                backgroundColor: tgDarkPrimaryColor,
+                child: Text(
+                  comment.businessName[0],
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              title: Text(
+                capitalizeEachWord(comment.businessName),
+                style: TextStyle(
+                  fontSize: 14.3,
+                  fontWeight: FontWeight.w600,
+                  color: secondaryColor60LightTheme,
+                  fontFamily: "poppins",
+                  leadingDistribution: TextLeadingDistribution.even,
+                ),
+              ),
+              subtitle: Row(
+                children: [
+                  _buildStarRating(comment.rating),
+                  SizedBox(width: 8),
+                  Text(
+                    "${comment.rating.toStringAsFixed(1)}",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: secondaryColor20LightTheme),
+                  ),
+                ],
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: secondaryColor40LightTheme,
+                size: 12,
+              ),
+            ),
+            Text(
+              comment.comment,
+              style: TextStyle(
+                color: secondaryColor40LightTheme,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "Reviewed on ${_formatDateTime(comment.createdAt)}",
+              style: TextStyle(
+                color: secondaryColor20LightTheme,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildQuestionItem(BuildContext context, dynamic question) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        leading: Icon(Icons.question_mark, color: tgDarkPrimaryColor),
-        title: Text(question.question,
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Asked to: ${question.businessName}"),
-            Text(_formatDateTime(question.qdetails.createdAt),
-                style: TextStyle(fontSize: 12, color: Colors.grey)),
+    return GestureDetector(
+      onTap: () => _navigateToBusinessProfile(context, question.businessUid),
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
           ],
         ),
-        onTap: () => _navigateToBusinessProfile(context, question.businessUid),
+        child: ListTile(
+          title: Text(
+            "Q: ${question.question}",
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500,
+              wordSpacing: 0.5,
+              letterSpacing: -0.1,
+              color: secondaryColor60LightTheme,
+            ),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 7),
+            child: Text(
+              "Question posed to '${question.businessName}' \non ${_formatDateTime(question.qdetails.createdAt)}",
+              style: TextStyle(
+                color: secondaryColor20LightTheme,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildAnswerItem(BuildContext context, dynamic answer) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        leading: Icon(Icons.question_answer, color: tgDarkPrimaryColor),
-        title:
-            Text(answer.answer, maxLines: 2, overflow: TextOverflow.ellipsis),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("For: ${answer.businessName}"),
-            Text(_formatDateTime(answer.adetails.createdAt),
-                style: TextStyle(fontSize: 12, color: Colors.grey)),
+    var data = Provider.of<UserActivityProvider>(context);
+
+    final Question? relatedQuestion = data.getUserActivityData?.questions
+        .firstWhereOrNull((question) => question.answers
+            .any((a) => a.adetails.answerid == answer.adetails.answerid));
+
+    return GestureDetector(
+      onTap: () => _navigateToBusinessProfile(
+          context, relatedQuestion?.businessUid ?? ""),
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
           ],
         ),
-        onTap: () => _navigateToBusinessProfile(context, answer.businessUid),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Q: ${relatedQuestion?.question ?? 'Related question not found'}",
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+                wordSpacing: 0.5,
+                letterSpacing: -0.1,
+                color: secondaryColor60LightTheme,
+              ),
+            ),
+            SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    color: secondaryColor40LightTheme,
+                    fontSize: 12,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "Your response was: '",
+                      style: TextStyle(fontSize: 11, fontFamily: 'RobotoMono'),
+                    ),
+                    TextSpan(
+                      text: answer.answer,
+                      style: TextStyle(
+                        color: secondaryColor60LightTheme,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12.4,
+                      ),
+                    ),
+                    TextSpan(
+                      text:
+                          "'\n\nProvided for: '${answer.businessName}'\n on: ${_formatDateTime(answer.adetails.createdAt)}",
+                      style: TextStyle(
+                        fontSize: 10.2,
+                        // fontFamily: 'RobotoMono',
+                        fontWeight: FontWeight.w700,
+                        color: secondaryColor40LightTheme,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1032,8 +1182,8 @@ class _UserActivityScreenState extends State<UserActivityScreen>
         5,
         (index) => Icon(
           index < rating ? Icons.star : Icons.star_border,
-          size: 16,
-          color: Colors.amber,
+          size: 18,
+          color: Colors.amber[700],
         ),
       ),
     );
