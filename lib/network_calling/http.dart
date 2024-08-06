@@ -494,7 +494,7 @@ class Http {
     // await Future.delayed(const Duration(seconds: 2));
 
     final userid = user?.uid;
-    print("userid $userid");
+    // print("userid $userid");
     // print("userid $userid");
 
     final apiUrl = Uri.parse('$baseUrl/user/$userid');
@@ -503,11 +503,11 @@ class Http {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      print("responseBody $responseBody");
+      // print("responseBody $responseBody");
       var userdata = UserModels.fromJson(responseBody);
       return userdata;
     } else {
-      print('Failed to fetch data: ${response.statusCode}');
+      // print('Failed to fetch data: ${response.statusCode}');
       // print('Response body: ${response.body}');
       throw Exception('Failed to fetch data: ${response.statusCode}');
     }

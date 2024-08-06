@@ -23,6 +23,7 @@ class showallreviewspage extends StatefulWidget {
 }
 
 class _showallreviewspageState extends State<showallreviewspage> {
+  //// stars ////
   Widget stars(int rating) {
     return Row(
       mainAxisSize: MainAxisSize.min,

@@ -390,10 +390,6 @@ import 'package:sssv1/utils/constants.dart';
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({Key? key}) : super(key: key);
 
@@ -411,16 +407,35 @@ class _BottomNavPageState extends State<BottomNavPage> {
     ProfilePage(),
   ];
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+  //   if (liveLoc.latitude == null) {
+  //     liveLoc.getCurrentLocation();
+  //   }
+
+  //   var userprov = Provider.of<UserProvider>(context, listen: false);
+  //   if (userprov.getUserData == null) {
+  //     userprov.userProvider();
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeData();
+    });
+  }
+
+  void _initializeData() {
     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
     if (liveLoc.latitude == null) {
       liveLoc.getCurrentLocation();
     }
 
     var userprov = Provider.of<UserProvider>(context, listen: false);
-    if (userprov.getUserData == null) {
+    if (userprov.getUserData == null && !userprov.isLoading) {
       userprov.userProvider();
     }
   }

@@ -846,6 +846,33 @@ class _UserActivityScreenState extends State<UserActivityScreen>
 
   @override
   Widget build(BuildContext context) {
+    ////// For customize stars////
+
+    Widget stars(int rating) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(
+            rating,
+            (index) => Padding(
+                  padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                  child: Container(
+                    width: 17,
+                    height: 17,
+                    decoration: BoxDecoration(
+                        color: tgDarkPrimaryColor,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: Colors.black, width: 0.3)),
+                    child: Icon(
+                      Icons.star,
+                      color: Colors.white,
+                      // color: Colors.amber[700],
+                      size: 12,
+                    ),
+                  ),
+                )),
+      );
+    }
+
     return Scaffold(
       body: Consumer<UserActivityProvider>(
         builder: (context, data, child) {
@@ -972,8 +999,8 @@ class _UserActivityScreenState extends State<UserActivityScreen>
     return GestureDetector(
       onTap: () => _navigateToBusinessProfile(context, comment.businessUid),
       child: Container(
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.all(7.2),
+        padding: EdgeInsets.all(7.2),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
@@ -992,12 +1019,12 @@ class _UserActivityScreenState extends State<UserActivityScreen>
             ListTile(
               contentPadding: EdgeInsets.only(bottom: 10),
               leading: CircleAvatar(
-                radius: 22,
+                radius: 20,
                 backgroundColor: tgDarkPrimaryColor,
                 child: Text(
                   comment.businessName[0],
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 17,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -1019,7 +1046,7 @@ class _UserActivityScreenState extends State<UserActivityScreen>
                   Text(
                     "${comment.rating.toStringAsFixed(1)}",
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 12.3,
                         fontWeight: FontWeight.w600,
                         color: secondaryColor20LightTheme),
                   ),
@@ -1181,8 +1208,8 @@ class _UserActivityScreenState extends State<UserActivityScreen>
       children: List.generate(
         5,
         (index) => Icon(
-          index < rating ? Icons.star : Icons.star_border,
-          size: 18,
+          index < rating ? Icons.star_rounded : Icons.star_border_rounded,
+          size: 19,
           color: Colors.amber[700],
         ),
       ),
