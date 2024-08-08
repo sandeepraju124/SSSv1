@@ -1,5 +1,7 @@
 // // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_new, unused_element, depend_on_referenced_packages
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,7 +21,7 @@ import 'package:sssv1/utils/constants.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // import '../widgets/review_rating.dart';
@@ -709,6 +711,15 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
   @override
   void initState() {
     super.initState();
+    // String? userId = await getUserId();
+
+    // if (userId != null) {
+    //   // sendProfileVisit(userId, 200);
+    //   sendProfileVisit(userId, widget.uid);
+    // } else {
+    //   print('User is not signed in.');
+    // }
+    sendProfileVisit(widget.uid);
     _tabController = TabController(length: 5, vsync: this);
     _scrollController = ScrollController();
 
@@ -749,6 +760,39 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
         }
       }
     });
+  }
+
+  Future<void> sendProfileVisit( String businessId) async {
+    String? userId = await getUserId();
+    final String url = 'https://supernova1137.azurewebsites.net/provile_visit';
+
+    // Constructing the request body
+    Map<String, dynamic> requestBody = {
+      'user_id': userId,
+      'business_id': businessId,
+    };
+
+    try {
+      // Sending the POST request
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',  // Set the content type to JSON
+        },
+        body: jsonEncode(requestBody),  // Encode the request body as JSON
+      );
+
+      if (response.statusCode == 201) {
+        // Successfully sent the request
+        print('Profile visit recorded successfully.');
+      } else {
+        // Handle other status codes here
+        print('Failed to record profile visit or user already visited profile: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Error occurred: $e');
+    }
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 const Color tgDarkPrimaryColor = Color(0xFF00796B);
 const Color tgLightPrimaryColor = Color(0xFFB2DFDB);
@@ -150,4 +151,18 @@ void showSnackBar(BuildContext context, String message){
       duration: Duration(seconds: 2),
     ),
   );
+}
+
+Future<String?> getUserId() async {
+  // Get the current user
+  User? user = FirebaseAuth.instance.currentUser;
+
+  // Return the userId (UID) if the user is signed in
+  if (user != null) {
+    return user.uid;
+  } else {
+    // User is not signed in
+    print('No user is currently signed in.');
+    return null;
+  }
 }
