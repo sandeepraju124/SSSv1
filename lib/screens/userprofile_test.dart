@@ -118,7 +118,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     title: Text(
                       'Refer',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 15),
                     ),
                     trailing: ElevatedButton(
                       onPressed: () {
@@ -152,7 +152,7 @@ class ProfilePage extends StatelessWidget {
                     leading: Icon(Icons.support_agent),
                     title: Text(
                       'Customer support 24x7',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                   // Divider(),
@@ -179,7 +179,7 @@ class ProfilePage extends StatelessWidget {
                     leading: Icon(Icons.receipt),
                     title: Text(
                       'Terms and conditions',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                   Divider(),
@@ -231,7 +231,7 @@ class ProfilePage extends StatelessWidget {
                     leading: Icon(Icons.logout),
                     title: Text(
                       'Log out',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 ],

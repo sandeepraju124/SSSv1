@@ -556,7 +556,7 @@ class _NewSignupPageState extends State<NewSignupPage> {
     });
 
     try {
-      print('Sign up clicked');
+      // print('Sign up clicked');
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),

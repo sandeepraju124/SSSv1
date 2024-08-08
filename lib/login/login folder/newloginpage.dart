@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
@@ -319,8 +319,13 @@ class _NewLoginPageState extends State<NewLoginPage> {
                           },
                           child: _isLoading
                               ? Center(
+                                  child: SizedBox(
+                                  width: 24.0, // Adjust the width as needed
+                                  height: 24.0,
                                   child: CircularProgressIndicator(
-                                  backgroundColor: Colors.white,
+                                    // backgroundColor: Colors.white,
+                                    color: Colors.white,
+                                  ),
                                 ))
                               : Icon(Icons.arrow_forward_rounded,
                                   color: Colors.black),

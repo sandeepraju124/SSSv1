@@ -886,6 +886,7 @@ class _UserActivityScreenState extends State<UserActivityScreen>
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   expandedHeight: 200.0,
                   floating: false,
                   pinned: true,
@@ -1020,7 +1021,8 @@ class _UserActivityScreenState extends State<UserActivityScreen>
               contentPadding: EdgeInsets.only(bottom: 10),
               leading: CircleAvatar(
                 radius: 20,
-                backgroundColor: tgDarkPrimaryColor,
+                // backgroundColor: tgDarkPrimaryColor,
+                backgroundColor: Colors.blueGrey.shade300,
                 child: Text(
                   comment.businessName[0],
                   style: TextStyle(
@@ -1204,15 +1206,37 @@ class _UserActivityScreenState extends State<UserActivityScreen>
   }
 
   Widget _buildStarRating(int rating) {
+    // return Row(
+    //   children: List.generate(
+    //     5,
+    //     (index) => Icon(
+    //       index < rating ? Icons.star_rounded : Icons.star_border_rounded,
+    //       size: 19,
+    //       color: Colors.amber[700],
+    //     ),
+    //   ),
+    // );
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: List.generate(
-        5,
-        (index) => Icon(
-          index < rating ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 19,
-          color: Colors.amber[700],
-        ),
-      ),
+          rating,
+          (index) => Padding(
+                padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                child: Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      color: tgDarkPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: Colors.black, width: 0.3)),
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.white,
+                    // color: Colors.amber[700],
+                    size: 12,
+                  ),
+                ),
+              )),
     );
   }
 
