@@ -6,6 +6,7 @@ import 'package:sssv1/login/google_signinPages/google_login_controller.dart';
 import 'package:sssv1/providers/user_provider.dart';
 import 'package:sssv1/screens/EditProfile.dart';
 import 'package:sssv1/screens/terms_and_conditions.dart';
+import 'package:sssv1/test.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/custormer_support.dart';
@@ -31,7 +32,8 @@ class ProfilePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.notifications),
             onPressed: () {
-              showSnackBar(context, "feature is currently in progress");
+              // showSnackBar(context, "feature is currently in progress");
+              navigatorPush(context, TestTest());
             },
           ),
           IconButton(
