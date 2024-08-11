@@ -15,6 +15,7 @@ import 'package:sssv1/Reviews%20Section/postcomment.dart';
 import 'package:sssv1/Services%20(top)%20of%20homepage%20section/ourtoppick.dart';
 import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
+import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/restaurent_center.dart';
 import 'package:sssv1/providers/Housedata_Provider.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
@@ -83,6 +84,8 @@ void main() async {
     ),
     ChangeNotifierProvider<LiveUserLocation>(
       create: (_) => LiveUserLocation(),
+    ),ChangeNotifierProvider<BusinessCategoriesProviderNew>(
+      create: (_) => BusinessCategoriesProviderNew(),
     ),
     ChangeNotifierProvider<UserActivityProvider>(
         create: (_) => UserActivityProvider()),
@@ -110,8 +113,8 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       // home: DefaultProfilePage(uid: ""),
-      home: redirection(), //this is default
-      // home:TestTest()
+      // home: redirection(), //this is default
+      home:CategoryScreen()
       // home:test2()
       // home: ProfilePage(),
       // home: DefaultProfilePageTest(uid: 'FIOPLKJJNVVFD45790',),

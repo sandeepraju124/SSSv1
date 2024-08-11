@@ -146,6 +146,7 @@ class _OurtoppickPageState extends State<OurtoppickPage> {
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                             onTap: () {
+                              print(subcategory.subcategory,);
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
                                 return SubCategoryList(

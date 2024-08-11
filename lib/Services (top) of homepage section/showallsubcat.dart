@@ -190,6 +190,9 @@ import 'package:sssv1/Services%20(top)%20of%20homepage%20section/icons.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/utils/constants.dart';
 
+
+// currently we are not using this page it has been modified to AllSubcategoriesPageNew()
+
 class AllSubcategoriesPage extends StatefulWidget {
   const AllSubcategoriesPage({super.key});
 
@@ -197,8 +200,7 @@ class AllSubcategoriesPage extends StatefulWidget {
   State<AllSubcategoriesPage> createState() => _AllSubcategoriesPageState();
 }
 
-class _AllSubcategoriesPageState extends State<AllSubcategoriesPage>
-    with SingleTickerProviderStateMixin {
+class _AllSubcategoriesPageState extends State<AllSubcategoriesPage> with SingleTickerProviderStateMixin {
   Map<String, List<Subcategory>> _categories = {};
   late AnimationController _controller;
 

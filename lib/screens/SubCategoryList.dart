@@ -52,8 +52,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
     super.initState();
     if (!widget.isHouseSearch) {
       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
-      userLatitude = livedata.latitude!;
-      userLongitude = livedata.longitude!;
+      // userLatitude = livedata.latitude!;
+      // userLongitude = livedata.longitude!;
+      userLatitude = 17.4875;
+      userLongitude = 78.399734;
       // print("userlat $userLatitude");
       // print("userlong $userLongitude");
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
@@ -132,8 +134,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
   @override
   Widget build(BuildContext context) {
     var livedata = Provider.of<LiveUserLocation>(context);
-    userLatitude = livedata.latitude!;
-    userLongitude = livedata.longitude!;
+    // userLatitude = livedata.latitude!;
+    // userLongitude = livedata.longitude!;
+    userLatitude = 17.4875;
+    userLongitude = 78.399734;
     var data = Provider.of<SubcategoryListProvider>(context);
 
     final displayData = widget.isHouseSearch

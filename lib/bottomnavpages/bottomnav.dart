@@ -12,6 +12,10 @@ import 'package:sssv1/screens/homepage.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/utils/constants.dart';
+import 'package:sssv1/utils/navigator.dart';
+
+import '../homepage_new.dart';
+import '../test.dart';
 
 // class BottomNavPage extends StatefulWidget {
 //   const BottomNavPage({super.key});
@@ -391,7 +395,9 @@ import 'package:sssv1/utils/constants.dart';
 // }
 
 class BottomNavPage extends StatefulWidget {
-  const BottomNavPage({Key? key}) : super(key: key);
+  // const BottomNavPage({Key? key}) : super(key: key);
+  final int initialIndex;
+  BottomNavPage({this.initialIndex = 0});
 
   @override
   State<BottomNavPage> createState() => _BottomNavPageState();
@@ -401,7 +407,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    MyHomePage(),
+    // MyHomePage(),
+    HomePageNew(),
     SearchBarPage(),
     UserActivityScreen(),
     ProfilePage(),
@@ -423,6 +430,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.initialIndex;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeData();
     });
@@ -453,14 +461,20 @@ class _BottomNavPageState extends State<BottomNavPage> {
   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
     var userdata = Provider.of<UserProvider>(context);
     return AppBar(
-      leading: Container(
-        margin: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-                userdata.getUserData?.profile_image_url ?? defaultNetworkImage),
+
+      leading: GestureDetector(
+        onTap: (){
+          navigatorPush(context, MyHomePage());
+        },
+        child: Container(
+          margin: EdgeInsets.all(11),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                  userdata.getUserData?.profile_image_url ?? defaultNetworkImage),
+            ),
           ),
         ),
       ),
@@ -477,7 +491,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
             Text(
               "Current Address",
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 10,
                   fontWeight: FontWeight.w600,
                   color: tgPrimaryText),
             ),
@@ -497,8 +511,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
           ],
         ),
       ),
-      backgroundColor: tgDarkPrimaryColor,
-      elevation: 0,
+      // backgroundColor: tgDarkPrimaryColor,
+      backgroundColor:Colors.grey[200],
+      elevation: 50,
     );
   }
 
