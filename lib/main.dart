@@ -34,7 +34,7 @@ import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/test.dart';
-import 'package:sssv1/test2.dart';
+import 'package:sssv1/widgets/Categories.dart';
 
 import 'package:sssv1/widgets/amenities.dart';
 import 'package:sssv1/widgets/category_grid.dart';
@@ -113,8 +113,8 @@ class MyApp extends StatelessWidget {
       // home:CommentSection(index: 1),
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       // home: DefaultProfilePage(uid: ""),
-      // home: redirection(), //this is default
-      home:CategoryScreen()
+      home: redirection(), //this is default
+      // home:CategoryScreen()
       // home:test2()
       // home: ProfilePage(),
       // home: DefaultProfilePageTest(uid: 'FIOPLKJJNVVFD45790',),

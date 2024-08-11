@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/screens/homepage.dart';
+import 'package:sssv1/widgets/Categories.dart';
+import 'package:sssv1/utils/navigator.dart';
+import 'package:sssv1/viewall_cat_new.dart';
 
 import 'bottomnavpages/bottomnav.dart';
 
-class HomePageNew extends StatelessWidget {
+class HomePageNew extends StatefulWidget {
+  @override
+  State<HomePageNew> createState() => _HomePageNewState();
+
+}
+
+
+
+class _HomePageNewState extends State<HomePageNew> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +61,10 @@ class HomePageNew extends StatelessWidget {
                       // style: Theme.of(context).textTheme.headline6
                     ),
                     SizedBox(height: 10),
-                    CategoryList(),
+                    // CategoryList(),
+                    // SizedBox(height: 20),
+                    // CategoryList2(),
+                    CategoryScreen(),
                     SizedBox(height: 20),
                     Text(
                       'Featured',
@@ -174,44 +196,163 @@ Widget _buildImageWithText(
   );
 }
 
-class CategoryList extends StatelessWidget {
-  final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.restaurant, 'name': 'Restaurants'},
-    {'icon': Icons.local_bar, 'name': 'Bars'},
-    {'icon': Icons.coffee, 'name': 'Cafes'},
-    {'icon': Icons.shopping_cart, 'name': 'Shopping'},
-    {'icon': Icons.hotel, 'name': 'Hotels'},
-    {'icon': Icons.more_horiz, 'name': 'More'},
-  ];
+// class CategoryList extends StatelessWidget {
+//   final List<Map<String, dynamic>> categories = [
+//     {'icon': Icons.restaurant, 'name': 'Restaurants'},
+//     {'icon': Icons.local_bar, 'name': 'Bars'},
+//     {'icon': Icons.coffee, 'name': 'Cafes'},
+//     {'icon': Icons.shopping_cart, 'name': 'Shopping'},
+//     {'icon': Icons.hotel, 'name': 'Hotels'},
+//     {'icon': Icons.more_horiz, 'name': 'More'},
+//   ];
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 100,
+//       child: ListView.builder(
+//         scrollDirection: Axis.horizontal,
+//         itemCount: categories.length,
+//         itemBuilder: (context, index) {
+//           return Padding(
+//             padding: const EdgeInsets.only(right: 16.0),
+//             child: Column(
+//               children: [
+//                 CircleAvatar(
+//                   radius: 30,
+//                   backgroundColor: Colors.teal.shade100,
+//                   child: Icon(categories[index]['icon'],
+//                       size: 30, color: Colors.teal),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Text(categories[index]['name']),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.teal.shade100,
-                  child: Icon(categories[index]['icon'],
-                      size: 30, color: Colors.teal),
-                ),
-                SizedBox(height: 8),
-                Text(categories[index]['name']),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+// class CategoryList2 extends StatelessWidget {
+//   const CategoryList2({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<BusinessCategoriesProviderNew>(
+//       builder: (context, data, child) {
+//         if (data.isLoading) {
+//           return Center(child: CircularProgressIndicator());
+//         } else if (data.priority1Categories.isEmpty) {
+//           return Center(child: Text('No priority 1 categories found.'));
+//         } else {
+//           return SingleChildScrollView(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.all(16.0),
+//                   child: Text('Top Categories',
+//                     // style: Theme.of(context).textTheme.headline6
+//                   ),
+//                 ),
+//                 CategoryList(),
+//                 Padding(
+//                   padding: const EdgeInsets.all(16.0),
+//                   child: Text('All Categories',
+//                     // style: Theme.of(context).textTheme.headline6
+//                   ),
+//                 ),
+//                 GridView.builder(
+//                   shrinkWrap: true,
+//                   physics: NeverScrollableScrollPhysics(),
+//                   padding: EdgeInsets.all(16),
+//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                     crossAxisCount: 3,
+//                     childAspectRatio: 1,
+//                     crossAxisSpacing: 16,
+//                     mainAxisSpacing: 16,
+//                   ),
+//                   itemCount: data.priority1Categories.length + 1,
+//                   itemBuilder: (context, index) {
+//                     if (index == data.priority1Categories.length) {
+//                       return buildViewAllIcon(context);
+//                     } else {
+//                       final category = data.priority1Categories.keys.elementAt(index);
+//                       final subcategory = data.priority1Categories[category]![0]['subcategory'];
+//                       return buildCategoryIcon(subcategory);
+//                     }
+//                   },
+//                 ),
+//               ],
+//             ),
+//           );
+//         }
+//       },
+//     );
+//   }
+//   Widget buildCategoryIcon(String subcategory) {
+//     IconData icon = getCategoryIcon(subcategory);
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         CircleAvatar(
+//           radius: 30,
+//           backgroundColor: Colors.teal.shade100,
+//           child: Icon(icon, size: 30, color: Colors.teal),
+//         ),
+//         SizedBox(height: 8),
+//         Text(subcategory, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
+//       ],
+//     );
+//   }
+//
+//   Widget buildViewAllIcon(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         // Navigator.push(context, MaterialPageRoute(builder: (context) => AllCategoriesScreen()));
+//         navigatorPush(context, AllSubcategoriesPageNew());
+//       },
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           CircleAvatar(
+//             radius: 30,
+//             backgroundColor: Colors.teal.shade100,
+//             child: Icon(Icons.view_list, size: 30, color: Colors.teal),
+//           ),
+//           SizedBox(height: 8),
+//           Text('View All', textAlign: TextAlign.center),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   IconData getCategoryIcon(String subcategory) {
+//     switch (subcategory.toLowerCase()) {
+//       case 'barbers':
+//         return Icons.content_cut;
+//       case 'restaurant':
+//         return Icons.restaurant;
+//       case 'fast food':
+//         return Icons.fastfood;
+//       case 'electricians':
+//         return Icons.electrical_services;
+//       case 'bars':
+//         return Icons.local_bar;
+//       case 'bookstore':
+//         return Icons.book;
+//       case 'clothing':
+//         return Icons.shopping_bag;
+//       case 'malls':
+//         return Icons.store_mall_directory;
+//       default:
+//         return Icons.category;
+//     }
+//   }
+// }
+
 
 
 class FeaturedList extends StatelessWidget {
