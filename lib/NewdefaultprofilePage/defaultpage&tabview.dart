@@ -11,7 +11,6 @@ import 'package:sssv1/HousingServices/overview.dart';
 import 'package:sssv1/NewdefaultprofilePage/Additionalinfo.dart';
 import 'package:sssv1/NewdefaultprofilePage/operating_hours_display.dart';
 import 'package:sssv1/Reviews%20Section/new_showcomments.dart';
-import 'package:sssv1/Reviews%20Section/new_showcomments_test.dart';
 import 'package:sssv1/providers/askcommunity_provider.dart';
 import 'package:sssv1/providers/business_profile_provider.dart';
 import 'package:sssv1/providers/comments_provider.dart';
@@ -23,6 +22,9 @@ import 'package:sssv1/widgets/amenities.dart';
 import 'package:autoscale_tabbarview/autoscale_tabbarview.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import '../Reviews Section/show_fewcomments.dart';
+import '../providers/comments_provider_new.dart';
 
 // import '../widgets/review_rating.dart';
 
@@ -711,6 +713,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
   @override
   void initState() {
     super.initState();
+    print(widget.uid);
     // String? userId = await getUserId();
 
     // if (userId != null) {
@@ -730,12 +733,20 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
       var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false)
           .fetchAskCommunityData(widget.uid);
 
-      var datacomments =
-          Provider.of<CommentSectionProvider>(context, listen: false)
-              .commentSectionProvider(widget.uid);
+      // var datacomments =
+      //     Provider.of<CommentSectionProvider>(context, listen: false)
+      //         .commentSectionProvider(widget.uid);
+      // var datacomments =
+      // Provider.of<CommentSectionProviderNew>(context, listen: false)
+      //     .getComments(widget.uid);
+
+      var datacomments = Provider.of<CommentSectionProviderNew>(context, listen: false)
+          .getComments("FOORESmqqwlT1J3v");
 
       var servicesData = Provider.of<ServicesProvider>(context, listen: false)
           .getMongoBusinessData(widget.uid);
+
+
     });
 
     _tabController.addListener(() {
@@ -959,7 +970,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                       height: 600,
-                      child: NewShowRewviewPage(),
+                      // child: NewShowReviewPageTest(),
+                      // child: NewShowRewviewPage(),
+                      child: FewReviews(),
                     ),
                   ),
                 ),

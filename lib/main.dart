@@ -16,6 +16,8 @@ import 'package:sssv1/Services%20(top)%20of%20homepage%20section/ourtoppick.dart
 import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
+import 'package:sssv1/providers/comments_provider_new.dart';
+import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/restaurent_center.dart';
 import 'package:sssv1/providers/Housedata_Provider.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
@@ -34,6 +36,7 @@ import 'package:sssv1/screens/NewUserProfile.dart';
 import 'package:sssv1/screens/SubCategoryList.dart';
 import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/test.dart';
+import 'package:sssv1/test2.dart';
 import 'package:sssv1/widgets/Categories.dart';
 
 import 'package:sssv1/widgets/amenities.dart';
@@ -42,6 +45,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 
 import 'package:sssv1/widgets/subcategory.dart';
 
+import 'Reviews Section/showall_reviews_test.dart';
 import 'login/google_signinPages/google_login_controller.dart';
 import 'login/redirection.dart';
 
@@ -67,6 +71,9 @@ void main() async {
     ChangeNotifierProvider<CommentSectionProvider>(
       create: (_) => CommentSectionProvider(),
     ),
+    ChangeNotifierProvider<CommentSectionProviderNew>(
+      create: (_) => CommentSectionProviderNew(),
+    ),
     // ChangeNotifierProvider<AllBusinessListProvider>(
     //   create: (_) => AllBusinessListProvider(),
     // ),
@@ -81,6 +88,9 @@ void main() async {
     ),
     ChangeNotifierProvider<ServicesProvider>(
       create: (_) => ServicesProvider(),
+    ),
+    ChangeNotifierProvider<NearbyCommentProvider>(
+      create: (_) => NearbyCommentProvider(),
     ),
     ChangeNotifierProvider<LiveUserLocation>(
       create: (_) => LiveUserLocation(),
@@ -114,7 +124,7 @@ class MyApp extends StatelessWidget {
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       // home: DefaultProfilePage(uid: ""),
       home: redirection(), //this is default
-      // home:CategoryScreen()
+      // home:ShowallComments()
       // home:test2()
       // home: ProfilePage(),
       // home: DefaultProfilePageTest(uid: 'FIOPLKJJNVVFD45790',),

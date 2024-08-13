@@ -22,6 +22,8 @@ import "package:intl/intl.dart";
 
 import "package:lottie/lottie.dart";
 
+import '../providers/comments_provider_new.dart';
+
 class NewShowRewviewPage extends StatefulWidget {
   const NewShowRewviewPage({super.key});
 
@@ -66,6 +68,7 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<CommentSectionProvider>(context);
+    var datanew = Provider.of<CommentSectionProviderNew>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
 
     return Material(
@@ -211,13 +214,15 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
               ],
             ),
           ),
-          data.isLoading
+          datanew.isLoading
+          // data.isLoading
               ? Padding(
                   padding: const EdgeInsets.only(top: 200),
                   child: Center(
                       child: CircularProgressIndicator(color: tgPrimaryColor)),
                 )
-              : data.getCommentsData?.reviews.isEmpty == true
+              // : data.getCommentsData?.reviews.isEmpty == true
+              : datanew.comments.isEmpty
                   ? Center(
                       child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -234,23 +239,26 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                         ],
                       ),
                     ))
-                  : ListView.builder(
+                  :
+          ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: data.getCommentsData?.reviews.length ?? 0,
+                      // itemCount: data.getCommentsData?.reviews.length ?? 0,
+                      itemCount:  datanew.comments.length > 2 ? 2 : datanew.comments.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (data.getCommentsData == null ||
-                            data.getCommentsData!.reviews.isEmpty) {
-                          return SizedBox
-                              .shrink(); // Return an empty widget if there's no data
-                        }
+                        // if (data.getCommentsData == null ||
+                        //     data.getCommentsData!.reviews.isEmpty) {
+                        //   return SizedBox
+                        //       .shrink(); // Return an empty widget if there's no data
+                        // }
 
-                        if (!_showAllReviews && index >= 2) {
-                          return SizedBox
-                              .shrink(); // Hide reviews beyond the first two if not showing all
-                        }
+                        // if (!_showAllReviews && index >= 2) {
+                        //   return SizedBox
+                        //       .shrink(); // Hide reviews beyond the first two if not showing all
+                        // }
 
-                        var review = data.getCommentsData!.reviews[index];
+                        // var review = data.getCommentsData!.reviews[index];
+                        var review = datanew.comments[index];
 
                         return Container(
                           margin: EdgeInsets.all(8.0),
@@ -290,7 +298,8 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                                   ],
                                 ),
                                 Text(
-                                  "Posted by: ${review.username}\nDate: ${formatDateTime(review.createdAt)}",
+                                  // "Posted by: ${review.userName}\nDate: ${formatDateTime(review.createdAt)}",
+                                  "Posted by: ${review.userName}",
                                   style: TextStyle(fontSize: 12.0),
                                 ),
                               ],
@@ -298,6 +307,8 @@ class _NewShowRewviewPageState extends State<NewShowRewviewPage> {
                           ),
                         );
                       }),
+
+
           SizedBox(height: 50),
           if (data.getCommentsData?.reviews != null &&
               data.getCommentsData!.reviews.length > 2 &&

@@ -15,6 +15,9 @@ import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 
 import '../homepage_new.dart';
+import '../nearby_comments.dart';
+import '../providers/comments_provider_new.dart';
+import '../providers/nearby_comments_provider.dart';
 import '../test.dart';
 
 // class BottomNavPage extends StatefulWidget {
@@ -427,6 +430,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   //     userprov.userProvider();
   //   }
   // }
+
   @override
   void initState() {
     super.initState();
@@ -434,19 +438,59 @@ class _BottomNavPageState extends State<BottomNavPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeData();
     });
+
+
   }
 
-  void _initializeData() {
+  // void _initializeData() {
+  //   var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+  //   if (liveLoc.latitude == null) {
+  //     liveLoc.getCurrentLocation().then((onValue){
+  //       if (onValue){
+  //         var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
+  //         if (nearbycomments.comments.isEmpty && !nearbycomments.isLoading) {
+  //           nearbycomments.fetchComments(liveLoc.latitude!, liveLoc.longitude!, 10000);
+  //         }
+  //
+  //       }
+  //
+  //     });
+  //   }
+  //
+  //   var userprov = Provider.of<UserProvider>(context, listen: false);
+  //   if (userprov.getUserData == null && !userprov.isLoading) {
+  //     userprov.userProvider();
+  //   }
+  //
+  //   // var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
+  //   // if (nearbycomments.comments.isEmpty && !nearbycomments.isLoading) {
+  //   //   nearbycomments.fetchComments(liveLoc.latitude!, liveLoc.longitude!, 10000);
+  //   // }
+  // }
+
+  void _initializeData() async {
+    // Capture the provider instances at the start
     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
+    var userprov = Provider.of<UserProvider>(context, listen: false);
+    var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
+
+    // Fetch the user's location
     if (liveLoc.latitude == null) {
-      liveLoc.getCurrentLocation();
+      bool locationFetched = await liveLoc.getCurrentLocation();
+      if (locationFetched && mounted) {
+        // Fetch comments only if location is successfully fetched
+        if (nearbycomments.comments.isEmpty && !nearbycomments.isLoading) {
+          await nearbycomments.fetchComments(liveLoc.latitude!, liveLoc.longitude!, 10000);
+        }
+      }
     }
 
-    var userprov = Provider.of<UserProvider>(context, listen: false);
+    // Fetch user data if not already loaded
     if (userprov.getUserData == null && !userprov.isLoading) {
       userprov.userProvider();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -461,6 +505,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
     var userdata = Provider.of<UserProvider>(context);
     return AppBar(
+      actions: [
+        // Icons.abc_outlined
+        GestureDetector(
+          onTap: (){
+            navigatorPush(context, AllReviewsScreen());
+          },
+            child: Icon(Icons.add_alarm_rounded, size: 16)),
+      ],
 
       leading: GestureDetector(
         onTap: (){

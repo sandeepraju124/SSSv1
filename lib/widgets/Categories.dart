@@ -367,7 +367,7 @@ class CategoryList extends StatelessWidget {
                           child: Icon(getCategoryIcon(subcategory), size: 30, color: Colors.teal),
                         ),
                         SizedBox(height: 8),
-                        Text(subcategory, textAlign: TextAlign.center),
+                        Text(subcategory, textAlign: TextAlign.center, style: TextStyle(fontSize: 11),),
                       ],
                     ),
                   ),

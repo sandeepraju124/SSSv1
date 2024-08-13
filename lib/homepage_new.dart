@@ -1,20 +1,23 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
-import 'package:sssv1/screens/homepage.dart';
+import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/widgets/Categories.dart';
 import 'package:sssv1/utils/navigator.dart';
-import 'package:sssv1/viewall_cat_new.dart';
-
 import 'bottomnavpages/bottomnav.dart';
+import 'nearby_comments.dart';
+// import 'package:carousel_slider/carousel_controller.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
+
 
 class HomePageNew extends StatefulWidget {
   @override
   State<HomePageNew> createState() => _HomePageNewState();
 
 }
-
-
 
 class _HomePageNewState extends State<HomePageNew> {
   void initState() {
@@ -25,6 +28,13 @@ class _HomePageNewState extends State<HomePageNew> {
   }
   @override
   Widget build(BuildContext context) {
+    final List<String> imgList = [
+      'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
+      'https://via.placeholder.com/800x400',
+      'https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=612x612&w=0&k=20&c=stdWozouV2XsrHk2xXD3C31nT90BG7ydZvcpAn1Fx7I=',
+      // 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg',
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -37,11 +47,31 @@ class _HomePageNewState extends State<HomePageNew> {
                   'Discover',
                   style: TextStyle(color: Colors.white),
                 ),
-                background: Image.network(
-                  'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
-                  fit: BoxFit.cover,
+                background:
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 200.0,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    viewportFraction: 1.0,
+                    onPageChanged: (index, reason) {
+                      // Handle page change if needed
+                    },
+                  ),
+                  items: imgList.map((item) => Container(
+                    child: Image.network(
+                      item,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  )).toList(),
                 ),
               ),
+              //   Image.network(
+              //     'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               actions: [
                 IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
                 IconButton(icon: Icon(Icons.person), onPressed: () {}),
@@ -102,7 +132,9 @@ class _HomePageNewState extends State<HomePageNew> {
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          navigatorPush(context, AllReviewsScreen());
+        },
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
@@ -399,6 +431,119 @@ class FeaturedList extends StatelessWidget {
   }
 }
 
+// Widget SlidingCoverImages() {
+//   // var data = Provider.of<ServicesProvider>(context);
+//   // var images = data.BusinessData?.images;
+//   List images =[
+//     'https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg',
+//     'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2stcGYtcG9tLTEyNDIuanBn.jpg'
+//   ];
+//
+//   if (images == null || images.isEmpty) {
+//     return Center(
+//       // child: Text('No images available'),
+//       child: Image.network(
+//         height: 100,
+//         "https://upload.wikimedia.org/wikipedia/commons/b/b9/No_Cover.jpg",fit: BoxFit.cover,),
+//     );
+//   }
+//   return CarouselSlider.builder(
+//
+//     // itemCount: data.BusinessData!.images!.length,
+//     itemCount: 2,
+//     itemBuilder: (BuildContext context, int index, int realIndex) {
+//       return Image.network(
+//         // data.BusinessData!.images![index],
+//         images[index],
+//         fit: BoxFit.cover,
+//         width: double.infinity,
+//       );
+//     },
+//     options: CarouselOptions(
+//       padEnds: false,
+//       enlargeFactor: 0.2,
+//       // reverse: true,
+//       // pageSnapping: false,
+//
+//
+//       // animateToClosest: false,
+//       // disableCenter: true,
+//       // autoPlayCurve: Curves.bounceIn,
+//       // disableCenter: true,
+//       // animateToClosest: false,
+//       // pauseAutoPlayOnTouch: false,
+//       // pauseAutoPlayOnManualNavigate: ,
+//       enableInfiniteScroll: false,
+//       height: 150,
+//       autoPlay: true,
+//       aspectRatio: 2.0,
+//       enlargeCenterPage: true,
+//     ),
+//   );
+// }
+
+
+class SlidingCoverImages extends StatefulWidget {
+  @override
+  _SlidingCoverImagesState createState() => _SlidingCoverImagesState();
+}
+
+class _SlidingCoverImagesState extends State<SlidingCoverImages> {
+  bool _autoPlay = true; // Control the autoplay
+
+  List<String> images = [
+    'https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg',
+    'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2stcGYtcG9tLTEyNDIuanBn.jpg',
+  ];
+
+  void stopAutoScroll() {
+    print("tapped");
+    setState(() {
+      _autoPlay = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (images == null|| images.isEmpty) {
+      return Center(
+        child: Image.network(
+          height: 100,
+          "https://upload.wikimedia.org/wikipedia/commons/b/b9/No_Cover.jpg",
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
+    return GestureDetector(
+
+      onTap: stopAutoScroll, // Stop auto-scroll when tapping on the slider
+
+      child: CarouselSlider.builder(
+        itemCount: images.length,
+        itemBuilder: (BuildContext context, int index, int realIndex) {
+          return Image.network(
+            images[index],
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width, // Full screen width
+          );
+        },
+        options: CarouselOptions(
+          viewportFraction: 1,
+          padEnds: false,
+          enlargeFactor: 0.2,
+          enableInfiniteScroll: false,
+          height: 150,
+          autoPlay: _autoPlay, // Control autoPlay with the variable
+          aspectRatio: 2.0,
+          enlargeCenterPage: true,
+        ),
+      ),
+    );
+  }
+}
+
+
 class CategoryListExplore extends StatelessWidget {
   // String imagee = 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   final List<Map<String, dynamic>> categories = [
@@ -517,10 +662,11 @@ class PopularList extends StatelessWidget {
 class RecentReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<NearbyCommentProvider>(context);
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: data.comments.length,
       itemBuilder: (context, index) {
         return Card(
           elevation: 2,
@@ -533,30 +679,62 @@ class RecentReviews extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          NetworkImage('https://via.placeholder.com/30'),
+                      backgroundImage: data.comments[index].profileImageUrl == null?
+                          NetworkImage('https://via.placeholder.com/30'):
+                          NetworkImage(data.comments[index].profileImageUrl),
                     ),
                     SizedBox(width: 8),
-                    Text('User ${index + 1}'),
+                    // Text('User ${index + 1}'),
+                    Text(data.comments[index].userName),
                     Spacer(),
                     Text('2d ago'),
                   ],
                 ),
                 SizedBox(height: 8),
+
                 Text(
-                    'Great place! The food was amazing and the service was excellent.'),
+                    data.comments[index].comment,
+                //     'Great place! The food was amazing and the service was excellent.'
+                ),
                 SizedBox(height: 8),
+                // Row(
+                //   children: [
+                //     Icon(Icons.star, size: 16, color: Colors.amber),
+                //     Icon(Icons.star, size: 16, color: Colors.amber),
+                //     Icon(Icons.star, size: 16, color: Colors.amber),
+                //     Icon(Icons.star, size: 16, color: Colors.amber),
+                //     Icon(Icons.star_half, size: 16, color: Colors.amber),
+                //     SizedBox(width: 8),
+                //     Text('Restaurant Name'),
+                //   ],
+                // ),
                 Row(
                   children: [
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    Icon(Icons.star_half, size: 16, color: Colors.amber),
+                    RatingBarIndicator(
+                      rating: double.parse(data.comments[index].rating.toString()),
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 11,
+                      direction: Axis.horizontal,
+                    ),
                     SizedBox(width: 8),
                     Text('Restaurant Name'),
                   ],
                 ),
+
+                // RatingBarIndicator(
+                //   rating: double.parse(data.comments[index].rating.toString()),
+                //   itemBuilder: (context, index) => Icon(
+                //     Icons.star,
+                //     color: Colors.amber,
+                //   ),
+                //   itemCount: 5,
+                //   itemSize: 11,
+                //   direction: Axis.horizontal,
+                // ),
               ],
             ),
           ),
