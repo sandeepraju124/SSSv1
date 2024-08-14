@@ -4,8 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Reviews%20Section/full_reviewspage.dart';
+import 'package:sssv1/Reviews%20Section/showall_reviews_test.dart';
 import 'package:sssv1/providers/comments_provider.dart';
 import 'package:sssv1/utils/constants.dart';
+
+import '../providers/business_profile_provider.dart';
+import '../providers/comments_provider_new.dart';
 
 class DisplayReviewBottomSheet extends StatefulWidget {
   final String businessUid;
@@ -57,7 +61,10 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<CommentSectionProvider>(context);
+    // var data = Provider.of<CommentSectionProvider>(context);
+    var datanew = Provider.of<CommentSectionProviderNew>(context);
+    var data1 = Provider.of<BusinessProfileProvider>(context);
+    String businessid = data1.businessProfileData!.businessUid;
     final user = FirebaseAuth.instance.currentUser;
     _isReviewValid =
         _selectedSuggestions.any((suggestion) => _isSelected.contains(true)) ||
@@ -189,87 +196,168 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                   ),
                 ),
               SizedBox(height: 16),
+              // ElevatedButton(
+              //   onPressed: _isReviewValid
+              //       ? () {
+              //           // Debug print statement
+              //           List<String> selectedReviews = _selectedSuggestions
+              //               .asMap()
+              //               .entries
+              //               .where((entry) => _isSelected[entry.key])
+              //               .map((entry) => entry.value)
+              //               .toList();
+              //           print(selectedReviews);
+              //           print("selectedReviews");
+              //           String otherReview = _reviewController.text.trim();
+              //
+              //           // Check if the user-written review is not empty and not already in selected suggestions
+              //           if (otherReview.isNotEmpty &&
+              //               !selectedReviews.contains(otherReview) &&
+              //               !_selectedSuggestions.contains(otherReview)) {
+              //             selectedReviews.add(otherReview);
+              //           }
+              //           // String combinedComment = selectedReviews.join(' ') + " " + otherReview;
+              //           String combinedComment = selectedReviews.join(' ');
+              //           print(combinedComment);
+              //
+              //           // Check if at least one review is selected or user-written review is provided
+              //           if (combinedComment.trim().isNotEmpty) {
+              //             // Disable the button after it's pressed to prevent multiple submissions
+              //             setState(() {
+              //               _isReviewValid = false;
+              //               // Debug print statement
+              //             });
+              //             datanew.postCommentProvider(context: context, rating: rating, businessUid: businessid, userId: userid, comment: combinedComment)
+              //                 .then((success) {
+              //               if (success) {
+              //                 // Debug print statement
+              //                 _reviewController.clear();
+              //                 Navigator.pop(context);
+              //                 // Navigator.push(
+              //                 //   context,
+              //                 //   MaterialPageRoute(builder: (context) {
+              //                 //     // return showallreviewspage();
+              //                 //     return ShowallComments();
+              //                 //   }),
+              //                 // );
+              //               } else {
+              //                 // Debug print statement
+              //               }
+              //               // Re-enable the button after the submission is complete
+              //               setState(() {
+              //                 _isReviewValid = true;
+              //                 // Debug print statement
+              //               });
+              //             });
+              //           } else {
+              //             // Inform the user that they need to provide a review
+              //             ScaffoldMessenger.of(context).showSnackBar(
+              //               SnackBar(
+              //                 content: Text("Please provide a review"),
+              //                 behavior: SnackBarBehavior.floating,
+              //               ),
+              //             );
+              //           }
+              //         }
+              //       : null,
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor:
+              //         _isReviewValid ? tgDarkPrimaryColor : tgLightPrimaryColor,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(8),
+              //     ),
+              //   ),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(12.0),
+              //     child: Text(
+              //       'Submit Review',
+              //       style: TextStyle(fontSize: 13, color: Colors.black),
+              //     ),
+              //   ),
+              // ),
               ElevatedButton(
                 onPressed: _isReviewValid
                     ? () {
-                        // Debug print statement
-                        List<String> selectedReviews = _selectedSuggestions
-                            .asMap()
-                            .entries
-                            .where((entry) => _isSelected[entry.key])
-                            .map((entry) => entry.value)
-                            .toList();
-                        String otherReview = _reviewController.text.trim();
+                  // Get the selected reviews
+                  List<String> selectedReviews = _selectedSuggestions
+                      .asMap()
+                      .entries
+                      .where((entry) => _isSelected[entry.key])
+                      .map((entry) => entry.value)
+                      .toList();
 
-                        // Check if the user-written review is not empty and not already in selected suggestions
-                        if (otherReview.isNotEmpty &&
-                            !selectedReviews.contains(otherReview) &&
-                            !_selectedSuggestions.contains(otherReview)) {
-                          selectedReviews.add(otherReview);
-                        }
+                  String otherReview = _reviewController.text.trim();
 
-                        // Check if at least one review is selected or user-written review is provided
-                        if (selectedReviews.isNotEmpty) {
-                          // Disable the button after it's pressed to prevent multiple submissions
-                          setState(() {
-                            _isReviewValid = false;
-                            // Debug print statement
-                          });
+                  // Check if the user-written review is not empty and not already in selected suggestions
+                  if (otherReview.isNotEmpty &&
+                      !selectedReviews.contains(otherReview) &&
+                      !_selectedSuggestions.contains(otherReview)) {
+                    selectedReviews.add(otherReview);
+                  }
 
-                          // Now you can use selectedReviews list for submission
-                          data.postCommentProvider(
-                            context: context,
-                            rating: rating,
-                            business_uid: data.getCommentsData!.businessUid,
-                            user_id: userid,
-                            selectedSuggestions: selectedReviews,
-                            userReviews: [], // No need to pass user-written review here
-                          ).then((success) {
-                            if (success) {
-                              // Debug print statement
-                              _reviewController.clear();
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return showallreviewspage();
-                                }),
-                              );
-                            } else {
-                              // Debug print statement
-                            }
-                            // Re-enable the button after the submission is complete
-                            setState(() {
-                              _isReviewValid = true;
-                              // Debug print statement
-                            });
-                          });
-                        } else {
-                          // Inform the user that they need to provide a review
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Please provide a review"),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        }
+                  String combinedComment = selectedReviews.join(' ');
+
+                  // Check if at least one review is selected or user-written review is provided
+                  if (combinedComment.trim().isNotEmpty) {
+                    // Disable the button after it's pressed to prevent multiple submissions
+                    setState(() {
+                      _isReviewValid = false;
+                    });
+
+                    // Post the comment
+                    datanew.postCommentProvider(
+                        context: context,
+                        rating: rating,
+                        businessUid: businessid,
+                        userId: userid,
+                        comment: combinedComment)
+                        .then((success) {
+                      if (success) {
+                        _reviewController.clear();
+                        Navigator.pop(context);
+                      } else {
+                        // Handle failure
                       }
+
+                      // Re-enable the button after the submission is complete
+                      setState(() {
+                        _isReviewValid = true;
+                      });
+                    });
+                  } else {
+                    // Inform the user that they need to provide a review
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Please provide a review"),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
+                }
                     : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      _isReviewValid ? tgDarkPrimaryColor : tgLightPrimaryColor,
+                  backgroundColor: _isReviewValid ? tgDarkPrimaryColor : tgLightPrimaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'Submit Review',
-                    style: TextStyle(fontSize: 13, color: Colors.black),
+                  child: Consumer<CommentSectionProviderNew>(
+                    builder: (context, provider, child) {
+                      return provider.isLoading
+                          ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                          : Text(
+                        'Submit Review',
+                        style: TextStyle(fontSize: 13, color: Colors.black),
+                      );
+                    },
                   ),
                 ),
               ),
+
             ],
           ),
         ),

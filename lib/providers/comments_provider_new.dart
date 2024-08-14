@@ -99,10 +99,12 @@ class CommentSectionProviderNew extends ChangeNotifier {
     required int rating,
     required String businessUid,
     required String userId,
-    required List<String> selectedSuggestions,
-    required List<String> comment,
+    // required List<String> selectedSuggestions,
+    // required List<String> comment,
+    required String comment,
   }) async {
     try {
+      print("Posting comment...");
       _isLoading = true;
 
       // Get the user's current position
@@ -116,13 +118,15 @@ class CommentSectionProviderNew extends ChangeNotifier {
         'business_id': businessUid,
         'user_id': userId,
         // 'selected_suggestions': selectedSuggestions.join(' + '),
-        'comment': comment.join(' + '),
-        'latitude': latitude,
-        'longitude': longitude,
+        // 'comment': comment.join(' + '),
+        'comment': comment,
+        'lat': latitude,
+        'long': longitude,
         // 'created_at': DateTime.now().toIso8601String(), // Include created_at
       };
+      print(body);
 
-      final url = Uri.parse("$baseUrl/comments");
+      final url = Uri.parse("$baseUrl/comments/where");
       final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
       final response = await http.post(url, headers: headers, body: body);
