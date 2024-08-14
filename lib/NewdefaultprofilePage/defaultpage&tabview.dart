@@ -741,8 +741,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
       //     .getComments(widget.uid);
 
       var datacomments = Provider.of<CommentSectionProviderNew>(context, listen: false)
-          .getComments("FOORESmqqwlT1J3v");
-
+          // .getComments("FOORESmqqwlT1J3v");
+          .getComments(widget.uid);
       var servicesData = Provider.of<ServicesProvider>(context, listen: false)
           .getMongoBusinessData(widget.uid);
 
