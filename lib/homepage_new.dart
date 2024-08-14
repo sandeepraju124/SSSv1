@@ -7,6 +7,7 @@ import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/widgets/Categories.dart';
 import 'package:sssv1/utils/navigator.dart';
+import 'package:sssv1/widgets/search_bar.dart';
 import 'bottomnavpages/bottomnav.dart';
 import 'nearby_comments.dart';
 // import 'package:carousel_slider/carousel_controller.dart';
@@ -84,7 +85,8 @@ class _HomePageNewState extends State<HomePageNew> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // SearchBar(),
-                    SearchBar2(),
+                    // SearchBar2(),
+                    SearchBar3(),
                     SizedBox(height: 20),
                     Text(
                       'Categories',

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/login/google_signinPages/google_login_controller.dart';
@@ -39,7 +40,9 @@ class ProfilePage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              showSnackBar(context, "feature is currently in progress");
+              final Currentuser = FirebaseAuth.instance.currentUser?.uid;
+              showSnackBar(context, "feature is currently in progress $Currentuser");
+              print(Currentuser);
             },
           ),
         ],
