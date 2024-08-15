@@ -20,7 +20,7 @@ class BusinessCategoriesProviderNew with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body)[0] as Map<String, dynamic>;
-        print(data);
+        // print(data);
         _priority1Categories = _filterPriority1Categories(data);
 
         var decodedResponse = json.decode(response.body);
@@ -44,7 +44,7 @@ class BusinessCategoriesProviderNew with ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
-      print(_priority1Categories);
+      // print(_priority1Categories);
       // print(_allCategories);
     }
   }

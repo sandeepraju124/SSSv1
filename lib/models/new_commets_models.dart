@@ -10,6 +10,7 @@ String nearbyCommentsToJson(List<NearbyComments> data) => json.encode(List<dynam
 
 class NearbyComments {
   String businessId;
+  dynamic businessName;
   String comment;
   int commentId;
   String createdAt;
@@ -23,6 +24,7 @@ class NearbyComments {
 
   NearbyComments({
     required this.businessId,
+    required this.businessName,
     required this.comment,
     required this.commentId,
     required this.createdAt,
@@ -37,6 +39,7 @@ class NearbyComments {
 
   factory NearbyComments.fromJson(Map<String, dynamic> json) => NearbyComments(
     businessId: json["business_id"],
+    businessName: json["business_name"],
     comment: json["comment"],
     commentId: json["comment_id"],
     createdAt: json["created_at"],
@@ -51,6 +54,7 @@ class NearbyComments {
 
   Map<String, dynamic> toJson() => {
     "business_id": businessId,
+    "business_name": businessName,
     "comment": comment,
     "comment_id": commentId,
     "created_at": createdAt,

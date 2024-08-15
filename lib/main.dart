@@ -18,6 +18,7 @@ import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/providers/comments_provider_new.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
+import 'package:sssv1/providers/user_review_provider.dart';
 import 'package:sssv1/restaurent_center.dart';
 import 'package:sssv1/providers/Housedata_Provider.dart';
 import 'package:sssv1/providers/allbusinesses.dart';
@@ -91,6 +92,9 @@ void main() async {
     ),
     ChangeNotifierProvider<NearbyCommentProvider>(
       create: (_) => NearbyCommentProvider(),
+    ),
+    ChangeNotifierProvider<UserCommentsProvider>(
+      create: (_) => UserCommentsProvider(),
     ),
     ChangeNotifierProvider<LiveUserLocation>(
       create: (_) => LiveUserLocation(),

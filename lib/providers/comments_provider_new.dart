@@ -2,9 +2,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sssv1/models/commentsection_models.dart';
 import 'package:sssv1/network_calling/http.dart';
 import "package:http/http.dart" as http;
+import 'package:sssv1/providers/user_review_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -75,7 +77,7 @@ class CommentSectionProviderNew extends ChangeNotifier {
         final List<dynamic> responseData = json.decode(response.body);
         print(response.body);
         _comments = responseData.map((data) => NearbyComments.fromJson(data)).toList();
-        print(_comments);
+        // print(_comments);
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _comments = [];
@@ -92,6 +94,7 @@ class CommentSectionProviderNew extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 
   // Post a new comment
   Future<bool> postCommentProvider({
@@ -140,6 +143,7 @@ class CommentSectionProviderNew extends ChangeNotifier {
         );
 
         await getComments(businessUid);
+        Provider.of<UserCommentsProvider>(context, listen: false).getUserComments(userId);
         return true;
       } else {
         print("Failed to post comment. Status code: ${response.statusCode}");
@@ -262,5 +266,45 @@ class CommentSectionProviderNew extends ChangeNotifier {
       notifyListeners();
     }
   }
+  
+  
+  // this is user comments provider 
+
+  // List<NearbyComments> _userComments = [];
+  // // bool _isLoading = false;
+  //
+  // List<NearbyComments> get userComments => _userComments;
+  // // bool get isLoading => _isLoading;
+  //
+  // // Get comments
+  // Future<void> getUserComments(String UserId) async {
+  //   String url = "$baseUrl/comments/where?user_id=$UserId";
+  //
+  //   try {
+  //     _isLoading = true;
+  //     notifyListeners();
+  //
+  //     final response = await http.get(Uri.parse(url));
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> responseData = json.decode(response.body);
+  //       print(response.body);
+  //       _userComments = responseData.map((data) => NearbyComments.fromJson(data)).toList();
+  //       print(_userComments);
+  //     }else if (response.statusCode == 404) {
+  //       // If the status code is 400, return an empty list
+  //       _userComments = [];
+  //       print('No comments found: status code 400');
+  //     }
+  //     else {
+  //       throw Exception('Failed to load comments');
+  //     }
+  //   } catch (error) {
+  //     print(error);
+  //     rethrow;
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
 }
 

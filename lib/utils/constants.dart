@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 const Color tgDarkPrimaryColor = Color(0xFF00796B);
 const Color tgLightPrimaryColor = Color(0xFFB2DFDB);
@@ -164,5 +165,27 @@ Future<String?> getUserId() async {
     // User is not signed in
     print('No user is currently signed in.');
     return null;
+  }
+}
+
+
+
+
+String formatCreatedAt(String createdAt) {
+  DateTime now = DateTime.now();
+  DateTime dateTime = DateFormat('EEE, dd MMM yyyy HH:mm:ss \'GMT\'').parseUtc(createdAt).toLocal();
+
+  Duration difference = now.difference(dateTime);
+
+  if (difference.inMinutes < 1) {
+    return 'just now';
+  } else if (difference.inMinutes < 60) {
+    return '${difference.inMinutes} min ago';
+  } else if (difference.inHours < 24) {
+    return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
+  } else if (difference.inDays < 7) {
+    return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
+  } else {
+    return DateFormat('MMM d, yyyy').format(dateTime);
   }
 }
