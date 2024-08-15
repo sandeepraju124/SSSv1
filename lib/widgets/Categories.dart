@@ -7,6 +7,7 @@ import 'package:sssv1/providers/BusinessCategoriesProvider.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 
 import 'package:sssv1/screens/SubCategoryList.dart';
+import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/viewall_cat_new.dart';
 
@@ -228,7 +229,7 @@ class CategoryScreen extends StatelessWidget {
       return Consumer<BusinessCategoriesProviderNew>(
         builder: (context, data, child) {
           if (data.isLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator( color: tgDarkPrimaryColor,));
           } else if (data.priority1Categories.isEmpty) {
             return Center(child: Text('No priority 1 categories found.'));
           } else {
@@ -285,7 +286,7 @@ class CategoryScreen extends StatelessWidget {
         CircleAvatar(
           radius: 30,
           backgroundColor: Colors.teal.shade100,
-          child: Icon(icon, size: 30, color: Colors.teal),
+          child: Icon(icon, size: 27, color: Colors.teal),
         ),
         SizedBox(height: 8),
         Text(subcategory, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),

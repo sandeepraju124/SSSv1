@@ -543,7 +543,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
             Text(
               "Current Address",
               style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: tgPrimaryText),
             ),
@@ -563,8 +563,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
           ],
         ),
       ),
-      // backgroundColor: tgDarkPrimaryColor,
-      backgroundColor:Colors.grey[200],
+      backgroundColor: tgDarkPrimaryColor,
+      // backgroundColor:Colors.grey[200],
       elevation: 50,
     );
   }

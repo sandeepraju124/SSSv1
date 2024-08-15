@@ -272,18 +272,18 @@ class _showallreviewspageState extends State<showallreviewspage> {
                                                               .viewInsets
                                                               .bottom,
                                                     ),
-                                                    child: UpdatecommentPage(
-                                                      businessUid: data1
-                                                          .businessProfileData!
-                                                          .businessUid,
-                                                      reviewId: review.reviewId
-                                                          .toString(),
-                                                      userId: review.userId,
-                                                      currentReview:
-                                                          review.comment,
-                                                      currentRating:
-                                                          review.rating,
-                                                    ),
+                                                    // child: UpdatecommentPage(
+                                                    //   businessUid: data1
+                                                    //       .businessProfileData!
+                                                    //       .businessUid,
+                                                    //   reviewId: review.reviewId
+                                                    //       .toString(),
+                                                    //   userId: review.userId,
+                                                    //   currentReview:
+                                                    //       review.comment,
+                                                    //   currentRating:
+                                                    //       review.rating,
+                                                    // ),
                                                   );
                                                 },
                                               );

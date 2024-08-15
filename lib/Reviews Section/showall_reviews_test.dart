@@ -172,11 +172,14 @@
 // }
 
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/Reviews%20Section/updatereviewbottomsheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../providers/business_profile_provider.dart';
@@ -205,9 +208,18 @@ class _ShowallCommentsState extends State<ShowallComments> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reviews', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: tgPrimaryColor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.keyboard_arrow_left_rounded),
+          onPressed: () {
+            Navigator.pop(context);
+            
+          },
+        ),
+        title: Text('Reviews', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 19)),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
       ),
       body: RefreshIndicator(
@@ -260,7 +272,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                         child: Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                          children: [
+                                          children: const [
                                             Text(
                                               "Share Your Experience",
                                               style: TextStyle(
@@ -289,7 +301,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                     );
                   },
                   child: Container(
-                    height: 38,
+                    height: 34,
                     width: 350,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3),
@@ -298,7 +310,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 100),
                       child: Row(
-                        children: [
+                        children: const [
                           Text("Write your Review"),
                           SizedBox(width: 100),
                           Icon(
@@ -323,16 +335,16 @@ class _ShowallCommentsState extends State<ShowallComments> {
                       print(data.comments[index].commentId.toString());
                       final Currentuser = FirebaseAuth.instance.currentUser?.uid;
                       final Commentuser = data.comments[index].userId;
-                      print(Currentuser);
-                      print(Commentuser);
+                      // print(Currentuser);
+                      // print(Commentuser);
                       // String? userid;
 
                       ////// below edit & delete options only being dispalyed if authorized Userid matches ///////
 
                       if (Currentuser != null &&
                           Currentuser == Commentuser) {
-                        print(Currentuser);
-                        print(Commentuser);
+                        // print(Currentuser);
+                        // print(Commentuser);
                         showModalBottomSheet(
                           backgroundColor: tgLightPrimaryColor,
                           context: context,
@@ -366,7 +378,8 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                                 .viewInsets
                                                 .bottom,
                                           ),
-                                          child: Text("$Currentuser and $Commentuser")
+                                          child: 
+                                          // Text("$Currentuser and $Commentuser")
                                           // UpdatecommentPage(
                                           //   businessUid: data1
                                           //       .businessProfileData!
@@ -379,7 +392,15 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                           //   currentRating:
                                           //   review.rating,
                                           // ),
+
+                                          UpdatecommentPage( businessUid: data1.businessProfileData!.businessUid,
+                      commentId: data.comments[index].commentId.toString(),
+                      userId: data.comments[index].userId,
+                      currentReview: data.comments[index].comment,
+                      currentRating: data.comments[index].rating,
+                      ),
                                         );
+                                        
                                       },
                                     );
                                   },
@@ -431,17 +452,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                               ),
                                               onPressed: () {
                                                 data.deleteCommentProvider(context: context, commentId: data.comments[index].commentId.toString(), business_uid: data1.businessProfileData!.businessUid)
-                                                // .deleteCommentProvider(
-                                                //     context:
-                                                //     context,
-                                                //     business_uid: data1
-                                                //         .businessProfileData!
-                                                //         .businessUid,
-                                                //     review_id: review
-                                                //         .reviewId
-                                                //         .toString(),
-                                                //     user_id: review
-                                                //         .userId)
+                                              
                                                     .then(
                                                         (success) => {
                                                       if (success)
@@ -533,16 +544,16 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: Colors.teal,
+                                    color: tgDarkPrimaryColor,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.star, size: 16, color: Colors.white),
+                                      Icon(Icons.star, size: 14.3, color: Colors.white),
                                       SizedBox(width: 4),
                                       Text(
                                         comment.rating.toString(),
-                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                                       ),
                                     ],
                                   ),
@@ -556,7 +567,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                             ),
                             SizedBox(height: 12),
                             Row(
-                              children: [
+                              children: const [
                                 Icon(Icons.restaurant, size: 16, color: Colors.grey),
                                 SizedBox(width: 4),
                                 Text(

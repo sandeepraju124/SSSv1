@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
@@ -41,17 +43,23 @@ class _HomePageNewState extends State<HomePageNew> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               floating: true,
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  'Discover',
-                  style: TextStyle(color: Colors.white),
+                
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    'Discover',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
                 background:
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 200.0,
+                    
                     autoPlay: true,
                     enlargeCenterPage: true,
                     viewportFraction: 1.0,
@@ -68,15 +76,7 @@ class _HomePageNewState extends State<HomePageNew> {
                   )).toList(),
                 ),
               ),
-              //   Image.network(
-              //     'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
-              actions: [
-                IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-                IconButton(icon: Icon(Icons.person), onPressed: () {}),
-              ],
+            
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -144,48 +144,48 @@ class _HomePageNewState extends State<HomePageNew> {
   }
 }
 
-class SearchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: 'Search for restaurants, bars...',
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: Icon(Icons.mic),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-    );
-  }
-}
+// class SearchBar extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextField(
+//       decoration: InputDecoration(
+//         hintText: 'Search for restaurants, bars...',
+//         prefixIcon: Icon(Icons.search,),
+//         // suffixIcon: Icon(Icons.mic),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(30),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-class SearchBar2 extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavPage(initialIndex: 1)),
-        );
+// class SearchBar2 extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context){
+//     return GestureDetector(
+//       onTap: () {
+//         Navigator.push(
+//           context,
+//           MaterialPageRoute(builder: (context) => BottomNavPage(initialIndex: 1)),
+//         );
 
-      },
-      child: AbsorbPointer( // Prevents the TextField from being editable
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search for restaurants, bars...',
-            prefixIcon: Icon(Icons.search),
-            suffixIcon: Icon(Icons.mic),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//       },
+//       child: AbsorbPointer( // Prevents the TextField from being editable
+//         child: TextField(
+//           decoration: InputDecoration(
+//             hintText: 'Search for restaurants, bars...',
+//             prefixIcon: Icon(Icons.search),
+//             // suffixIcon: Icon(Icons.mic),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(30),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 Widget _buildImageWithText(
     String imageUrl, String mainText, String buttonText) {

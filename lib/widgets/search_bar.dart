@@ -133,8 +133,9 @@ class SearchBar3 extends StatefulWidget {
 }
 
 class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
   late Animation<double> _animation;
+  late AnimationController _controller;
+  int _currentIndex = 0;
   // final List<String> _hintTexts = [
   //   'Search bar',
   //   'Search food',
@@ -153,8 +154,14 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
     'Find the best coffee shops in town...',
   ];
 
-  int _currentIndex = 0;
   Timer? _timer;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -185,13 +192,6 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -207,7 +207,7 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
               decoration: InputDecoration(
                 hintText: '', // Keep this empty
                 prefixIcon: Icon(Icons.search),
-                suffixIcon: Icon(Icons.mic),
+                // suffixIcon: Icon(Icons.mic),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -237,7 +237,7 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
                                   _hintTexts[_currentIndex],
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 16,
+                                    fontSize: 14.5,
                                   ),
                                 ),
                               ),
@@ -252,7 +252,7 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
                                   _hintTexts[(_currentIndex + 1) % _hintTexts.length],
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 16,
+                                    fontSize: 14.5,
                                   ),
                                 ),
                               ),
