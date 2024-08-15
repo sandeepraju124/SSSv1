@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_super_parameters, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/User_Activity%20Section/display_user_activities.dart';
@@ -18,6 +19,7 @@ import '../homepage_new.dart';
 import '../nearby_comments.dart';
 import '../providers/comments_provider_new.dart';
 import '../providers/nearby_comments_provider.dart';
+import '../providers/user_review_provider.dart';
 import '../test.dart';
 
 // class BottomNavPage extends StatefulWidget {
@@ -470,9 +472,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
   void _initializeData() async {
     // Capture the provider instances at the start
+    final user = await FirebaseAuth.instance.currentUser!;
+    print("User id: ${user.uid}");
     var liveLoc = Provider.of<LiveUserLocation>(context, listen: false);
     var userprov = Provider.of<UserProvider>(context, listen: false);
     var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
+    var userComments = Provider.of<UserCommentsProvider>(context, listen: false);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -489,6 +494,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
     if (userprov.getUserData == null && !userprov.isLoading) {
       userprov.userProvider();
     }
+
+    // if (userComments.comments == null && !userComments.isLoading) {
+    //   print("Fetching user comments");
+    //   userComments.getUserComments(userprov.getUserData!.id);
+    // }
+    // userComments.getUserComments("Ygk9TDqaLTdqa1IaMvHH3zEX2M93");
+    userComments.getUserComments(user.uid);
+
+
   }
 
 
