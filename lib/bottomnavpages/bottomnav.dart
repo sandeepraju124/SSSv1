@@ -15,9 +15,11 @@ import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 
+import '../favorite_test.dart';
 import '../homepage_new.dart';
 import '../nearby_comments.dart';
 import '../providers/comments_provider_new.dart';
+import '../providers/favourite_provider.dart';
 import '../providers/nearby_comments_provider.dart';
 import '../providers/user_review_provider.dart';
 import '../test.dart';
@@ -478,6 +480,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     var userprov = Provider.of<UserProvider>(context, listen: false);
     var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
     var userComments = Provider.of<UserCommentsProvider>(context, listen: false);
+    var userFavourites = Provider.of<FavouriteProvider>(context, listen: false);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -501,6 +504,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     // }
     // userComments.getUserComments("Ygk9TDqaLTdqa1IaMvHH3zEX2M93");
     userComments.getUserComments(user.uid);
+    userFavourites.getFavourites(user.uid);
 
 
   }
@@ -516,26 +520,112 @@ class _BottomNavPageState extends State<BottomNavPage> {
     );
   }
 
+  // PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
+  //   var userdata = Provider.of<UserProvider>(context);
+  //   return AppBar(
+  //     actions: [
+  //
+  //       // Icons.abc_outlined
+  //       GestureDetector(
+  //         onTap: (){
+  //           navigatorPush(context, AllReviewsScreen());
+  //         },
+  //           child: Icon(Icons.add_alarm_rounded, size: 16)),
+  //     ],
+  //
+  //     leading: GestureDetector(
+  //       onTap: (){
+  //         navigatorPush(context, MyHomePage());
+  //       },
+  //       child: Container(
+  //         margin: EdgeInsets.all(11),
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           image: DecorationImage(
+  //             fit: BoxFit.cover,
+  //             image: NetworkImage(
+  //                 userdata.getUserData?.profile_image_url ?? defaultNetworkImage),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //     title: GestureDetector(
+  //       onTap: () {
+  //         data.getCurrentLocation();
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(content: Text('Refreshing location...')),
+  //         );
+  //       },
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Text(
+  //             "Current Address",
+  //             style: TextStyle(
+  //                 fontSize: 10,
+  //                 fontWeight: FontWeight.w600,
+  //                 color: tgPrimaryText),
+  //           ),
+  //           SizedBox(height: 2),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: Text(
+  //                   data.locationName ?? "Loading...",
+  //                   style: TextStyle(fontSize: 12),
+  //                   overflow: TextOverflow.ellipsis,
+  //                 ),
+  //               ),
+  //               Icon(Icons.refresh, size: 16),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //     // backgroundColor: tgDarkPrimaryColor,
+  //     backgroundColor:Colors.grey[200],
+  //     elevation: 50,
+  //   );
+  // }
   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
     var userdata = Provider.of<UserProvider>(context);
     return AppBar(
       actions: [
-        // Icons.abc_outlined
-        GestureDetector(
-          onTap: (){
+        IconButton(
+          icon: Icon(Icons.favorite_border, color: Colors.grey),
+          onPressed: () {
+            navigatorPush(context, FavoritesPage());
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.star, color: Colors.amber),
+          onPressed: () {
             navigatorPush(context, AllReviewsScreen());
           },
-            child: Icon(Icons.add_alarm_rounded, size: 16)),
+        ),
+        IconButton(
+          icon: Icon(Icons.refresh, color: Colors.grey),
+          onPressed: () {
+            // navigatorPush(context, AllReviewsScreen());
+            data.getCurrentLocation();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Refreshing location...'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
+        ),
       ],
-
       leading: GestureDetector(
-        onTap: (){
+        onTap: () {
           navigatorPush(context, MyHomePage());
         },
         child: Container(
-          margin: EdgeInsets.all(11),
+          margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white, width: 2),
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
@@ -548,7 +638,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
         onTap: () {
           data.getCurrentLocation();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Refreshing location...')),
+            SnackBar(
+              content: Text('Refreshing location...'),
+              behavior: SnackBarBehavior.floating,
+            ),
           );
         },
         child: Column(
@@ -557,9 +650,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
             Text(
               "Current Address",
               style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: tgPrimaryText),
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[700],
+              ),
             ),
             SizedBox(height: 2),
             Row(
@@ -567,19 +661,23 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 Expanded(
                   child: Text(
                     data.locationName ?? "Loading...",
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Icon(Icons.refresh, size: 16),
+                // Icon(Icons.refresh, size: 18, color: Colors.blue),
               ],
             ),
           ],
         ),
       ),
-      // backgroundColor: tgDarkPrimaryColor,
-      backgroundColor:Colors.grey[200],
-      elevation: 50,
+      backgroundColor: Colors.white,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(15),
+        ),
+      ),
     );
   }
 

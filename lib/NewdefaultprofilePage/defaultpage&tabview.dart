@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Askcommunity%20Section/Askthecommunity.dart';
 import 'package:sssv1/HousingServices/overview.dart';
@@ -821,86 +822,306 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
           : CustomScrollView(
               controller: _scrollController,
               slivers: <Widget>[
+                // SliverAppBar(
+                //   backgroundColor: tgPrimaryColor,
+                //   expandedHeight: 200.0,
+                //   floating: true,
+                //   pinned: true,
+                //   leading: IconButton(
+                //       onPressed: () {
+                //         Navigator.of(context).pop();
+                //       },
+                //       icon: Icon(
+                //         LineAwesomeIcons.angle_left,
+                //         // color: tgPrimaryText,
+                //         color: tgPrimaryText,
+                //         size: 19,
+                //       )),
+                //   actions: [
+                //     Row(
+                //       children: [
+                //         RatingBar.builder(
+                //           initialRating:
+                //               Provider.of<CommentSectionProvider>(context)
+                //                   .averageRating,
+                //           minRating: 1,
+                //           direction: Axis.horizontal,
+                //           allowHalfRating: true,
+                //           itemCount: 5,
+                //           itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                //           itemSize: 12,
+                //           itemBuilder: (context, _) => Icon(
+                //             Icons.star,
+                //             color: Colors.amber[700],
+                //             size: 20,
+                //           ),
+                //           onRatingUpdate: (rating) {},
+                //         ),
+                //         SizedBox(width: 2),
+                //         Text(
+                //           Provider.of<CommentSectionProvider>(context)
+                //               .averageRating
+                //               .toStringAsFixed(1),
+                //           style: TextStyle(color: Colors.white, fontSize: 14),
+                //         ),
+                //         Icon(
+                //           Icons.thumb_up_rounded,
+                //           color: Colors.amber[700],
+                //           size: 20,
+                //         ),
+                //       ],
+                //     ),
+                //     Divider(
+                //       color: Colors.grey[200],
+                //       thickness: 5,
+                //     ),
+                //   ],
+                //   // flexibleSpace: FlexibleSpaceBar(
+                //   //   title: Padding(
+                //   //     padding: const EdgeInsets.only(right: 2),
+                //   //     child: data.isLoading
+                //   //         ? Center(child: Text(""))
+                //   //         : GestureDetector(
+                //   //             onTap: () {
+                //   //               print(data.businessProfileData!.businessUid);
+                //   //               showSnackBar(context,
+                //   //                   data.businessProfileData!.businessUid);
+                //   //             },
+                //   //             child: Text(
+                //   //               data.businessProfileData?.businessName
+                //   //                       ?.toString() ??
+                //   //                   'Default Name',
+                //   //               style: TextStyle(
+                //   //                   color: Colors.white, fontSize: 17),
+                //   //             ),
+                //   //           ),
+                //   //   ),
+                //   //   background:
+                //   //       (data.businessProfileData?.profileImageUrl != null &&
+                //   //               data.businessProfileData?.profileImageUrl
+                //   //                   .isNotEmpty)
+                //   //           ? Image.network(
+                //   //               data.businessProfileData?.profileImageUrl,
+                //   //               fit: BoxFit.cover,
+                //   //             )
+                //   //           : Image.network(
+                //   //               "https://via.placeholder.com/150",
+                //   //               fit: BoxFit.cover,
+                //   //             ),
+                //   // ),
+                //   flexibleSpace: FlexibleSpaceBar(
+                //     title: Padding(
+                //       padding: const EdgeInsets.only(right: 2),
+                //       child: data.isLoading
+                //           ? Center(child: Text(""))
+                //           : GestureDetector(
+                //         onTap: () {
+                //           print(data.businessProfileData!.businessUid);
+                //           showSnackBar(context,
+                //               data.businessProfileData!.businessUid);
+                //         },
+                //         child: Text(
+                //           data.businessProfileData?.businessName
+                //               ?.toString() ??
+                //               'Default Name',
+                //           style: TextStyle(
+                //             color: Colors.white,
+                //             fontSize: 17,
+                //             fontWeight: FontWeight.bold, // Added for better visibility
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     background: Stack(
+                //       fit: StackFit.expand,
+                //       children: [
+                //         (data.businessProfileData?.profileImageUrl != null &&
+                //             data.businessProfileData?.profileImageUrl
+                //                 .isNotEmpty)
+                //             ? Image.network(
+                //           data.businessProfileData?.profileImageUrl,
+                //           fit: BoxFit.cover,
+                //         )
+                //             : Image.network(
+                //           "https://via.placeholder.com/150",
+                //           fit: BoxFit.cover,
+                //         ),
+                //         Positioned(
+                //           left: 0,
+                //           right: 0,
+                //           bottom: 0,
+                //           child: Container(
+                //             height: 60, // Adjust this value to control the height of the overlay
+                //             decoration: BoxDecoration(
+                //               gradient: LinearGradient(
+                //                 begin: Alignment.bottomCenter,
+                //                 end: Alignment.topCenter,
+                //                 colors: [
+                //                   Colors.black.withOpacity(0.7),
+                //                   Colors.transparent,
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SliverAppBar(
                   backgroundColor: tgPrimaryColor,
                   expandedHeight: 200.0,
                   floating: true,
                   pinned: true,
                   leading: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: Icon(
-                        LineAwesomeIcons.angle_left,
-                        color: tgPrimaryText,
-                        size: 19,
-                      )),
-                  actions: [
-                    Row(
-                      children: [
-                        RatingBar.builder(
-                          initialRating:
-                              Provider.of<CommentSectionProvider>(context)
-                                  .averageRating,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                          itemSize: 12,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber[700],
-                            size: 20,
-                          ),
-                          onRatingUpdate: (rating) {},
-                        ),
-                        SizedBox(width: 2),
-                        Text(
-                          Provider.of<CommentSectionProvider>(context)
-                              .averageRating
-                              .toStringAsFixed(1),
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        )
-                      ],
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      LineAwesomeIcons.angle_left,
+                      color: tgPrimaryText,
+                      size: 24,
                     ),
-                    Divider(
-                      color: Colors.grey[200],
-                      thickness: 5,
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: Row(
+                        children: [
+                          RatingBar.builder(
+                            initialRating: Provider.of<CommentSectionProvider>(context).averageRating,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                            itemSize: 16,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber[700],
+                            ),
+                            onRatingUpdate: (rating) {},
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            Provider.of<CommentSectionProvider>(context).averageRating.toStringAsFixed(1),
+                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 12),
+                          LikeButton(
+                            size: 24,
+                            circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Color(0xff33b5e5),
+                              dotSecondaryColor: Color(0xff0099cc),
+                            ),
+                            likeBuilder: (bool isLiked) {
+                              print(isLiked);
+                              return Icon(
+                                Icons.favorite,
+                                // color: isLiked ? Colors.amber[700] : Colors.white,
+                                color: isLiked ? Colors.teal : Colors.white,
+                                size: 34,
+                              );
+                            },
+                            // likeCount: 0, // You can set this dynamically if you're tracking likes
+                            // countBuilder: (int? count, bool isLiked, String text) {
+                            //   return Text(
+                            //     text,
+                            //     style: TextStyle(color: Colors.white, fontSize: 14),
+                            //   );
+                            // },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                   flexibleSpace: FlexibleSpaceBar(
                     title: Padding(
-                      padding: const EdgeInsets.only(right: 2),
+                      padding: const EdgeInsets.only(right: 16),
                       child: data.isLoading
-                          ? Center(child: Text(""))
+                          ? Center(child: CircularProgressIndicator(color: Colors.white))
                           : GestureDetector(
-                              onTap: () {
-                                print(data.businessProfileData!.businessUid);
-                                showSnackBar(context,
-                                    data.businessProfileData!.businessUid);
-                              },
-                              child: Text(
-                                data.businessProfileData?.businessName
-                                        ?.toString() ??
-                                    'Default Name',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 17),
+                        onTap: () {
+                          print(data.businessProfileData!.businessUid);
+                          showSnackBar(context, data.businessProfileData!.businessUid);
+                        },
+                        child: Text(
+                          data.businessProfileData?.businessName?.toString() ?? 'Default Name',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            // fontWeight: FontWeight.bold,
+                            // fontStyle: FontStyle.italic,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 3.0,
+                                color: Colors.black.withOpacity(0.5),
+                                offset: Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    background: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        (data.businessProfileData?.profileImageUrl != null &&
+                            data.businessProfileData?.profileImageUrl.isNotEmpty)
+                            ? Image.network(
+                          data.businessProfileData?.profileImageUrl,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.network(
+                          "https://via.placeholder.com/150",
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned.fill(
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.3),
+                                  Colors.black.withOpacity(0.7),
+                                ],
                               ),
                             ),
+                          ),
+                        ),
+                        // Positioned(
+                        //   height: 10,
+                        //   bottom: 40,
+                        //   right: 20,
+                        //   // left: 0,
+                        //   child: LikeButton(
+                        //     size: 24,
+                        //     circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                        //     bubblesColor: BubblesColor(
+                        //       dotPrimaryColor: Color(0xff33b5e5),
+                        //       dotSecondaryColor: Color(0xff0099cc),
+                        //     ),
+                        //     likeBuilder: (bool isLiked) {
+                        //       return Icon(
+                        //         Icons.favorite,
+                        //         // color: isLiked ? Colors.amber[700] : Colors.white,
+                        //         color: isLiked ? Colors.teal : Colors.white,
+                        //         size: 34,
+                        //       );
+                        //     },
+                        //     // likeCount: 0, // You can set this dynamically if you're tracking likes
+                        //     // countBuilder: (int? count, bool isLiked, String text) {
+                        //     //   return Text(
+                        //     //     text,
+                        //     //     style: TextStyle(color: Colors.white, fontSize: 14),
+                        //     //   );
+                        //     // },
+                        //   ),
+                        // ),
+                      ],
                     ),
-                    background:
-                        (data.businessProfileData?.profileImageUrl != null &&
-                                data.businessProfileData?.profileImageUrl
-                                    .isNotEmpty)
-                            ? Image.network(
-                                data.businessProfileData?.profileImageUrl,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                "https://via.placeholder.com/150",
-                                fit: BoxFit.cover,
-                              ),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -1019,3 +1240,5 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 }
+
+

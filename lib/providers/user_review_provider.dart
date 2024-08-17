@@ -27,9 +27,9 @@ class UserCommentsProvider extends ChangeNotifier {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        print(response.body);
+        // print(response.body);
         _userComments = responseData.map((data) => NearbyComments.fromJson(data)).toList();
-        print(_userComments);
+        // print(_userComments);
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _userComments = [];

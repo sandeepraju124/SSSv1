@@ -9,6 +9,7 @@ import 'package:sssv1/widgets/Categories.dart';
 import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/search_bar.dart';
 import 'bottomnavpages/bottomnav.dart';
+import 'favorite_test.dart';
 import 'nearby_comments.dart';
 // import 'package:carousel_slider/carousel_controller.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
@@ -131,13 +132,26 @@ class _HomePageNewState extends State<HomePageNew> {
           ],
         ),
       ),
-
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.favorite, color: Colors.white),
+        label: Text('Favorites', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.teal,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         onPressed: () {
-          navigatorPush(context, AllReviewsScreen());
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FavoritesPage()),
+          );
         },
       ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     navigatorPush(context, AllReviewsScreen());
+      //   },
+      // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );

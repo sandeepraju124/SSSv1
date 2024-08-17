@@ -17,6 +17,7 @@ import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/providers/comments_provider_new.dart';
+import 'package:sssv1/providers/favourite_provider.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/providers/user_review_provider.dart';
 import 'package:sssv1/restaurent_center.dart';
@@ -47,6 +48,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/subcategory.dart';
 
 import 'Reviews Section/showall_reviews_test.dart';
+import 'favorite_test.dart';
 import 'login/google_signinPages/google_login_controller.dart';
 import 'login/redirection.dart';
 
@@ -93,6 +95,9 @@ void main() async {
     ChangeNotifierProvider<NearbyCommentProvider>(
       create: (_) => NearbyCommentProvider(),
     ),
+    ChangeNotifierProvider<FavouriteProvider>(
+      create: (_) => FavouriteProvider(),
+    ),
     ChangeNotifierProvider<UserCommentsProvider>(
       create: (_) => UserCommentsProvider(),
     ),
@@ -128,7 +133,7 @@ class MyApp extends StatelessWidget {
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       // home: DefaultProfilePage(uid: ""),
       home: redirection(), //this is default
-      // home:ShowallComments()
+      // home:FavoritesPage()
       // home:test2()
       // home: ProfilePage(),
       // home: DefaultProfilePageTest(uid: 'FIOPLKJJNVVFD45790',),
