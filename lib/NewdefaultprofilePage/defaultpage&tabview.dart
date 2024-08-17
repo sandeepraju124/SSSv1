@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 // ignore: unused_import
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:like_button/like_button.dart';
@@ -27,7 +28,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../Reviews Section/show_fewcomments.dart';
+import '../models/favourite_models.dart';
 import '../providers/comments_provider_new.dart';
+import '../providers/favourite_provider.dart';
 
 // import '../widgets/review_rating.dart';
 
@@ -743,13 +746,12 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
       // Provider.of<CommentSectionProviderNew>(context, listen: false)
       //     .getComments(widget.uid);
 
-      var datacomments = Provider.of<CommentSectionProviderNew>(context, listen: false)
-          // .getComments("FOORESmqqwlT1J3v");
-          .getComments(widget.uid);
+      var datacomments =
+          Provider.of<CommentSectionProviderNew>(context, listen: false)
+              // .getComments("FOORESmqqwlT1J3v");
+              .getComments(widget.uid);
       var servicesData = Provider.of<ServicesProvider>(context, listen: false)
           .getMongoBusinessData(widget.uid);
-
-
     });
 
     _tabController.addListener(() {
@@ -776,7 +778,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     });
   }
 
-  Future<void> sendProfileVisit( String businessId) async {
+  Future<void> sendProfileVisit(String businessId) async {
     String? userId = await getUserId();
     final String url = 'https://supernova1137.azurewebsites.net/provile_visit';
 
@@ -791,9 +793,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Content-Type': 'application/json',  // Set the content type to JSON
+          'Content-Type': 'application/json', // Set the content type to JSON
         },
-        body: jsonEncode(requestBody),  // Encode the request body as JSON
+        body: jsonEncode(requestBody), // Encode the request body as JSON
       );
 
       if (response.statusCode == 201) {
@@ -801,7 +803,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
         print('Profile visit recorded successfully.');
       } else {
         // Handle other status codes here
-        print('Failed to record profile visit or user already visited profile: ${response.statusCode}');
+        print(
+            'Failed to record profile visit or user already visited profile: ${response.statusCode}');
       }
     } catch (e) {
       // Handle exceptions
@@ -813,6 +816,29 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
   Widget build(BuildContext context) {
     var data = Provider.of<BusinessProfileProvider>(context);
     var servicesData = Provider.of<ServicesProvider>(context);
+    var fav = Provider.of<FavouriteProvider>(context);
+    String BuinessId = data.businessProfileData?.businessUid ?? '';
+    // bool isLiked = fav.favourite.any((favourite) =>
+    //     favourite.businessId == data.businessProfileData?.businessUid);
+
+    FavouriteModels? matchedFavourite;
+    try {
+      matchedFavourite = fav.favourite.firstWhere(
+        (favourite) =>
+            favourite.businessId == data.businessProfileData?.businessUid,
+      );
+    } catch (e) {
+      matchedFavourite = null; // Handle the case when no match is found
+    }
+
+    bool isLiked = matchedFavourite != null;
+    int? favouriteId =
+        matchedFavourite?.favouriteId; // Get the favourite_id if it exists
+
+    print(isLiked);
+    print(data.businessProfileData?.businessUid);
+    print(fav.favourite.length);
+    print(fav.favourite);
 
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -991,7 +1017,9 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       child: Row(
                         children: [
                           RatingBar.builder(
-                            initialRating: Provider.of<CommentSectionProvider>(context).averageRating,
+                            initialRating:
+                                Provider.of<CommentSectionProvider>(context)
+                                    .averageRating,
                             minRating: 1,
                             direction: Axis.horizontal,
                             allowHalfRating: true,
@@ -1006,34 +1034,85 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                           ),
                           SizedBox(width: 4),
                           Text(
-                            Provider.of<CommentSectionProvider>(context).averageRating.toStringAsFixed(1),
-                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                            Provider.of<CommentSectionProvider>(context)
+                                .averageRating
+                                .toStringAsFixed(1),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 12),
+                          // LikeButton(
+                          //   size: 24,
+                          //   isLiked: isLiked,
+                          //   // Set the initial state based on the existence of businessId
+                          //   circleColor: CircleColor(
+                          //       start: Color(0xff00ddff),
+                          //       end: Color(0xff0099cc)),
+                          //   bubblesColor: BubblesColor(
+                          //     dotPrimaryColor: Color(0xff33b5e5),
+                          //     dotSecondaryColor: Color(0xff0099cc),
+                          //   ),
+                          //   likeBuilder: (bool isLiked) {
+                          //     return Icon(
+                          //       Icons.favorite,
+                          //       color: isLiked ? Colors.teal : Colors.white,
+                          //       size: 34,
+                          //     );
+                          //   },
+                          //   onTap: (bool isLiked) async {
+                          //     if (!isLiked) {
+                          //       print(
+                          //           "add to favourite"); // Print this when the user likes the item
+                          //     } else {
+                          //       // data.deletedFavourite(businessId); // Remove from favorites if unliked
+                          //       print("remove from favourite");
+                          //       fav.deleteFavourite(favouriteId);
+                          //     }
+                          //     return !isLiked; // Toggle the like state
+                          //   },
+                          // )
+
                           LikeButton(
                             size: 24,
-                            circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                            isLiked: isLiked,
+                            // Set the initial state based on the existence of businessId
+                            circleColor: CircleColor(
+                                start: Color(0xff00ddff),
+                                end: Color(0xff0099cc)),
                             bubblesColor: BubblesColor(
                               dotPrimaryColor: Color(0xff33b5e5),
                               dotSecondaryColor: Color(0xff0099cc),
                             ),
                             likeBuilder: (bool isLiked) {
-                              print(isLiked);
                               return Icon(
                                 Icons.favorite,
-                                // color: isLiked ? Colors.amber[700] : Colors.white,
                                 color: isLiked ? Colors.teal : Colors.white,
                                 size: 34,
                               );
                             },
-                            // likeCount: 0, // You can set this dynamically if you're tracking likes
-                            // countBuilder: (int? count, bool isLiked, String text) {
-                            //   return Text(
-                            //     text,
-                            //     style: TextStyle(color: Colors.white, fontSize: 14),
-                            //   );
-                            // },
-                          ),
+                            onTap: (bool isLiked) async {
+                              if (!isLiked) {
+                                print(
+                                    "add to favourite"); // Print this when the user likes the item
+                                fav.addFavourite(context, BuinessId);
+                                // Here you can implement logic to add the item to favourites
+                              } else {
+                                if (favouriteId != null) {
+                                  print("remove from favourite");
+                                  bool isckeck = await fav.deleteFavourite(favouriteId);
+                                  if (isckeck) {
+                                    print("deleted");
+                                    showSnackBar(context, "Removed from favourites");
+                                  } else {
+                                    print("not deleted");
+                                  }
+                                }
+                              }
+                              return !isLiked; // Toggle the like state
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -1042,43 +1121,49 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     title: Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: data.isLoading
-                          ? Center(child: CircularProgressIndicator(color: Colors.white))
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.white))
                           : GestureDetector(
-                        onTap: () {
-                          print(data.businessProfileData!.businessUid);
-                          showSnackBar(context, data.businessProfileData!.businessUid);
-                        },
-                        child: Text(
-                          data.businessProfileData?.businessName?.toString() ?? 'Default Name',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            // fontWeight: FontWeight.bold,
-                            // fontStyle: FontStyle.italic,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 3.0,
-                                color: Colors.black.withOpacity(0.5),
-                                offset: Offset(1.0, 1.0),
+                              onTap: () {
+                                print(data.businessProfileData!.businessUid);
+                                showSnackBar(context,
+                                    data.businessProfileData!.businessUid);
+                              },
+                              child: Text(
+                                data.businessProfileData?.businessName
+                                        ?.toString() ??
+                                    'Default Name',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  // fontWeight: FontWeight.bold,
+                                  // fontStyle: FontStyle.italic,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 3.0,
+                                      color: Colors.black.withOpacity(0.5),
+                                      offset: Offset(1.0, 1.0),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
                     ),
                     background: Stack(
                       fit: StackFit.expand,
                       children: [
                         (data.businessProfileData?.profileImageUrl != null &&
-                            data.businessProfileData?.profileImageUrl.isNotEmpty)
+                                data.businessProfileData?.profileImageUrl
+                                    .isNotEmpty)
                             ? Image.network(
-                          data.businessProfileData?.profileImageUrl,
-                          fit: BoxFit.cover,
-                        )
+                                data.businessProfileData?.profileImageUrl,
+                                fit: BoxFit.cover,
+                              )
                             : Image.network(
-                          "https://via.placeholder.com/150",
-                          fit: BoxFit.cover,
-                        ),
+                                "https://via.placeholder.com/150",
+                                fit: BoxFit.cover,
+                              ),
                         Positioned.fill(
                           child: DecoratedBox(
                             decoration: BoxDecoration(
@@ -1242,5 +1327,3 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 }
-
-

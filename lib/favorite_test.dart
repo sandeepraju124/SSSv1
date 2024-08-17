@@ -300,6 +300,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var data = Provider.of<FavouriteProvider>(context);
 
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -324,7 +325,7 @@ class FavoritesPage extends StatelessWidget {
               child: SlideAnimation(
                 verticalOffset: 50.0,
                 child: FadeInAnimation(
-                  child: _buildFavoriteItem(data.favourite[index]),
+                  child: _buildFavoriteItem(data.favourite[index], context, data.favourite[index].favouriteId),
                 ),
               ),
             );
@@ -341,7 +342,7 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFavoriteItem(FavouriteModels favorite) {
+  Widget _buildFavoriteItem(FavouriteModels favorite, BuildContext context, int favouriteId) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -354,7 +355,7 @@ class FavoritesPage extends StatelessWidget {
           padding: EdgeInsets.all(12),
           child: Row(
             children: [
-              _buildCoolImage(favorite.businessProfileImageUrl),
+              _buildCoolImage(favorite.businessProfileImageUrl ?? 'assets/food.jpg'),
               SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -392,16 +393,37 @@ class FavoritesPage extends StatelessWidget {
                   ],
                 ),
               ),
-              _buildLikeButton(),
+              _buildLikeButton(context, favouriteId),
             ],
           ),
         ),
       ),
     );
   }
-  Widget _buildLikeButton() {
+  // Widget _buildLikeButton() {
+  //   return LikeButton(
+  //     size: 30,
+  //     circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+  //     bubblesColor: BubblesColor(
+  //       dotPrimaryColor: Color(0xff33b5e5),
+  //       dotSecondaryColor: Color(0xff0099cc),
+  //     ),
+  //     likeBuilder: (bool isLiked) {
+  //       return Icon(
+  //         Icons.favorite,
+  //         // color: isLiked ? Colors.red[400] : Colors.grey[400],
+  //         color: isLiked ? Colors.teal : Colors.grey[400],
+  //         size: 30,
+  //       );
+  //     },
+  //   );
+  // }
+
+  Widget _buildLikeButton(BuildContext context, int favouriteId) {
+    var data = Provider.of<FavouriteProvider>(context);
     return LikeButton(
       size: 30,
+      isLiked: true, // Set the default state to liked
       circleColor: CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
       bubblesColor: BubblesColor(
         dotPrimaryColor: Color(0xff33b5e5),
@@ -410,13 +432,20 @@ class FavoritesPage extends StatelessWidget {
       likeBuilder: (bool isLiked) {
         return Icon(
           Icons.favorite,
-          // color: isLiked ? Colors.red[400] : Colors.grey[400],
           color: isLiked ? Colors.teal : Colors.grey[400],
           size: 30,
         );
       },
+      onTap: (bool isLiked) async {
+        if (isLiked) {
+          print("clicked unliked"); // Print this when the user unlikes
+          data.deleteFavourite(favouriteId);
+        }
+        return !isLiked; // Toggle the like state
+      },
     );
   }
+
 
   Widget _buildCoolImage(String imagePath) {
     return Container(
@@ -435,7 +464,13 @@ class FavoritesPage extends StatelessWidget {
         ],
       ),
       child: ClipOval(
-        child: Image.asset(
+        // child: Image.asset(
+        //   imagePath,
+        //   width: 40,
+        //   height: 40,
+        //   fit: BoxFit.cover,
+        // ),
+        child: Image.network(
           imagePath,
           width: 40,
           height: 40,

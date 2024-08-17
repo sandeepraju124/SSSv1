@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/models/commentsection_models.dart';
@@ -22,10 +23,12 @@ class FavouriteProvider extends ChangeNotifier {
   List<FavouriteModels> get favourite => _favourite;
   bool get isLoading => _isLoading;
 
+
   // Get comments
   Future<void> getFavourites(String user_id) async {
-    String url = "$baseUrl/favourite/where?user_id=EgwA2GOIGGXAwZqv1YLFbHFdWer1";
-    // String url = "$baseUrl/favourite/where?user_id=$user_id";
+    // String url = "$baseUrl/favourite/where?user_id=EgwA2GOIGGXAwZqv1YLFbHFdWer1";
+    String url = "$baseUrl/favourite/where?user_id=$user_id";
+
 
     try {
       _isLoading = true;
@@ -54,34 +57,81 @@ class FavouriteProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> addFavourite(String userId, String businessId) async {
-    final String url = '$baseUrl/favourite/where?user_id=EgwA2GOIGGXAwZqv1YLFbHFdWer1'; // Replace with your API URL
+  // Future<void> addFavourite(String businessId) async {
+  //   final user = await FirebaseAuth.instance.currentUser!;
+  //   final String url = '$baseUrl/favourite/where'; // Replace with your API URL
+  //   print('User ID: ${user.uid}');
+  //   print('Business ID: $businessId');
+  //
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(url),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: jsonEncode({
+  //         'user_id': user.uid,
+  //         'business_id': businessId,
+  //       }),
+  //     );
+  //
+  //     if (response.statusCode == 201) {
+  //       print('Business added to favorites successfully');
+  //
+  //     } else {
+  //       print('Failed to add favorite: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print('Error occurred: $e');
+  //   }
+  // }
 
+  Future<bool> addFavourite(BuildContext context, String businessId) async {
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'user_id': userId,
-          'business_id': businessId,
-        }),
-      );
+      _isLoading = true;
+      final user = await FirebaseAuth.instance.currentUser!;
 
+
+      final body = {
+        'user_id': user.uid,
+        'business_id': businessId,
+      };
+
+      print(body);
+
+      final url = Uri.parse("$baseUrl/favourite/where");
+      final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+      final response = await http.post(url, headers: headers, body: body);
+      print(response.body);
       if (response.statusCode == 201) {
-        print('Business added to favorites successfully');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Your review was posted successfully"),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+
+        // Fetch updated comments and display new one on top
+        await getFavourites(user.uid);
+
+        return true;
       } else {
-        print('Failed to add favorite: ${response.body}');
+        return false;
       }
     } catch (e) {
-      print('Error occurred: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
 
-  Future<void> deleteFavourite(String favouriteId) async {
-    final String url = 'http://yourapiurl.com/favourite'; // Replace with your API URL
+  Future<bool> deleteFavourite(int favouriteId) async {
+    // final String url = '$baseUrl/favourite/where?user_id=EgwA2GOIGGXAwZqv1YLFbHFdWer1'; // Replace with your API URL
+    final String url = '$baseUrl/favourite/where?favourite_id=$favouriteId'; // Replace with your API URL
+    final user = await FirebaseAuth.instance.currentUser!;
 
     try {
       final response = await http.delete(
@@ -96,11 +146,16 @@ class FavouriteProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         print('Favourite removed successfully');
+        getFavourites(user.uid);
+        return true;
+
       } else {
         print('Failed to remove favourite: ${response.body}');
+        return false;
       }
     } catch (e) {
       print('Error occurred: $e');
+      return false;
     }
   }
 }
