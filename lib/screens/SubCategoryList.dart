@@ -135,10 +135,10 @@ class _SubCategoryListState extends State<SubCategoryList> {
   @override
   Widget build(BuildContext context) {
     var livedata = Provider.of<LiveUserLocation>(context);
-    // userLatitude = livedata.latitude!;
-    // userLongitude = livedata.longitude!;
-    userLatitude = 17.4875;
-    userLongitude = 78.399734;
+    userLatitude = livedata.latitude!;
+    userLongitude = livedata.longitude!;
+    // userLatitude = 17.4875;
+    // userLongitude = 78.399734;
     var data = Provider.of<SubcategoryListProvider>(context);
 
     final displayData = widget.isHouseSearch
@@ -185,7 +185,8 @@ class _SubCategoryListState extends State<SubCategoryList> {
         ],
       ),
     
-      body: data.isLoading && !widget.isHouseSearch && !_showNearbyBusinesses
+      body: data.isLoading
+      // body: data.isLoading && !widget.isHouseSearch && !_showNearbyBusinesses
           ? _buildShimmerEffect()
           : Material(
               child: Column(
