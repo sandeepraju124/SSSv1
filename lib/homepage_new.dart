@@ -19,6 +19,7 @@ import 'package:sssv1/utils/navigator.dart';
 import 'package:sssv1/widgets/Categories.dart';
 import 'package:sssv1/widgets/search_bar.dart';
 import 'bottomnavpages/bottomnav.dart';
+import 'explore_new.dart';
 import 'favorite_test.dart';
 import 'nearby_comments.dart';
 // import 'package:carousel_slider/carousel_controller.dart';
@@ -119,8 +120,11 @@ class _HomePageNewState extends State<HomePageNew> {
                     SizedBox(height: 10),
                     SizedBox(
                       height: 400, // Adjust this height as needed
-                      child: Explore(),
+                      // child: Explore(),
+                      child: ExploreNew()
+                      // child: ,
                     ),
+
                     SizedBox(height: 100),
                     Text(
                       'Recent Reviews',
