@@ -650,10 +650,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
             Text(
               "Current Address",
               style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey[700],
-              ),
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: tgPrimaryText),
             ),
             SizedBox(height: 2),
             Row(

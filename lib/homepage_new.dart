@@ -1,12 +1,22 @@
+
+
+
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:sssv1/HousingServices/house_search.dart';
+import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
+import 'package:sssv1/explore_test.dart';
+import 'package:sssv1/nearby_comments.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
+import 'package:sssv1/providers/home_restaurent_provider.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
-import 'package:sssv1/widgets/Categories.dart';
+import 'package:sssv1/test.dart';
+import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
+import 'package:sssv1/widgets/Categories.dart';
 import 'package:sssv1/widgets/search_bar.dart';
 import 'bottomnavpages/bottomnav.dart';
 import 'favorite_test.dart';
@@ -14,27 +24,30 @@ import 'nearby_comments.dart';
 // import 'package:carousel_slider/carousel_controller.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomePageNew extends StatefulWidget {
   @override
   State<HomePageNew> createState() => _HomePageNewState();
-
 }
 
 class _HomePageNewState extends State<HomePageNew> {
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
+      Provider.of<HomeRestaurantListProvider>(context, listen: false).getHomeBusinessProvider(key: "sub_category", value: "Restaurant");
+      // Provider.of<NearbyCommentProvider>(context, listen: false).fetchComments(double latitude, double longitude, int "distance");
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final List<String> imgList = [
       'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
       'https://via.placeholder.com/800x400',
       'https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=612x612&w=0&k=20&c=stdWozouV2XsrHk2xXD3C31nT90BG7ydZvcpAn1Fx7I=',
-      // 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg',
     ];
 
     return Scaffold(
@@ -42,23 +55,23 @@ class _HomePageNewState extends State<HomePageNew> {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               floating: true,
               expandedHeight: 200.0,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  'Discover',
-                  style: TextStyle(color: Colors.white),
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    'Discover',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
-                background:
-                CarouselSlider(
+                background: CarouselSlider(
                   options: CarouselOptions(
                     height: 200.0,
                     autoPlay: true,
                     enlargeCenterPage: true,
                     viewportFraction: 1.0,
-                    onPageChanged: (index, reason) {
-                      // Handle page change if needed
-                    },
                   ),
                   items: imgList.map((item) => Container(
                     child: Image.network(
@@ -69,15 +82,6 @@ class _HomePageNewState extends State<HomePageNew> {
                   )).toList(),
                 ),
               ),
-              //   Image.network(
-              //     'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
-              actions: [
-                IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-                IconButton(icon: Icon(Icons.person), onPressed: () {}),
-              ],
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -85,46 +89,45 @@ class _HomePageNewState extends State<HomePageNew> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // SearchBar(),
-                    // SearchBar2(),
                     SearchBar3(),
                     SizedBox(height: 20),
                     Text(
                       'Categories',
-                      // style: Theme.of(context).textTheme.headline6
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
-                    // CategoryList(),
-                    // SizedBox(height: 20),
-                    // CategoryList2(),
                     CategoryScreen(),
                     SizedBox(height: 20),
                     Text(
                       'Featured',
-                      // style: Theme.of(context).textTheme.headline6
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
                     FeaturedList(),
                     SizedBox(height: 20),
                     Text(
                       'Popular Near You',
-                      // style: Theme.of(context).textTheme.headline6
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
                     PopularList(),
                     SizedBox(height: 20),
                     Text(
+                      'Explore All',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      height: 400, // Adjust this height as needed
+                      child: Explore(),
+                    ),
+                    SizedBox(height: 100),
+                    Text(
                       'Recent Reviews',
-                      // style: Theme.of(context).textTheme.headline6
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
                     RecentReviews(),
-
-                    Text('Explore All',
-                        // style: Theme.of(context).textTheme.headline6
-                    ),
-                    SizedBox(height: 10),
-                    CategoryListExplore(),
                   ],
                 ),
               ),
@@ -158,484 +161,242 @@ class _HomePageNewState extends State<HomePageNew> {
   }
 }
 
-class SearchBar extends StatelessWidget {
+class FeaturedList extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: 'Search for restaurants, bars...',
-        prefixIcon: Icon(Icons.search),
-        suffixIcon: Icon(Icons.mic),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-      ),
-    );
-  }
+  _FeaturedListState createState() => _FeaturedListState();
 }
 
-class SearchBar2 extends StatelessWidget{
+class _FeaturedListState extends State<FeaturedList> {
   @override
-  Widget build(BuildContext context){
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => BottomNavPage(initialIndex: 1)),
-        );
-
-      },
-      child: AbsorbPointer( // Prevents the TextField from being editable
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search for restaurants, bars...',
-            prefixIcon: Icon(Icons.search),
-            suffixIcon: Icon(Icons.mic),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-Widget _buildImageWithText(
-    String imageUrl, String mainText, String buttonText) {
-  return Stack(
-    children: [
-      Image.network(
-        imageUrl,
-        height: 300,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
-      Positioned(
-        left: 20,
-        bottom: 40,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              mainText,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.search, color: Colors.white),
-              label: Text(buttonText),
-              style: ElevatedButton.styleFrom(
-                // primary: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
-}
-
-// class CategoryList extends StatelessWidget {
-//   final List<Map<String, dynamic>> categories = [
-//     {'icon': Icons.restaurant, 'name': 'Restaurants'},
-//     {'icon': Icons.local_bar, 'name': 'Bars'},
-//     {'icon': Icons.coffee, 'name': 'Cafes'},
-//     {'icon': Icons.shopping_cart, 'name': 'Shopping'},
-//     {'icon': Icons.hotel, 'name': 'Hotels'},
-//     {'icon': Icons.more_horiz, 'name': 'More'},
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 100,
-//       child: ListView.builder(
-//         scrollDirection: Axis.horizontal,
-//         itemCount: categories.length,
-//         itemBuilder: (context, index) {
-//           return Padding(
-//             padding: const EdgeInsets.only(right: 16.0),
-//             child: Column(
-//               children: [
-//                 CircleAvatar(
-//                   radius: 30,
-//                   backgroundColor: Colors.teal.shade100,
-//                   child: Icon(categories[index]['icon'],
-//                       size: 30, color: Colors.teal),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Text(categories[index]['name']),
-//               ],
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-
-// class CategoryList2 extends StatelessWidget {
-//   const CategoryList2({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<BusinessCategoriesProviderNew>(
-//       builder: (context, data, child) {
-//         if (data.isLoading) {
-//           return Center(child: CircularProgressIndicator());
-//         } else if (data.priority1Categories.isEmpty) {
-//           return Center(child: Text('No priority 1 categories found.'));
-//         } else {
-//           return SingleChildScrollView(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.all(16.0),
-//                   child: Text('Top Categories',
-//                     // style: Theme.of(context).textTheme.headline6
-//                   ),
-//                 ),
-//                 CategoryList(),
-//                 Padding(
-//                   padding: const EdgeInsets.all(16.0),
-//                   child: Text('All Categories',
-//                     // style: Theme.of(context).textTheme.headline6
-//                   ),
-//                 ),
-//                 GridView.builder(
-//                   shrinkWrap: true,
-//                   physics: NeverScrollableScrollPhysics(),
-//                   padding: EdgeInsets.all(16),
-//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 3,
-//                     childAspectRatio: 1,
-//                     crossAxisSpacing: 16,
-//                     mainAxisSpacing: 16,
-//                   ),
-//                   itemCount: data.priority1Categories.length + 1,
-//                   itemBuilder: (context, index) {
-//                     if (index == data.priority1Categories.length) {
-//                       return buildViewAllIcon(context);
-//                     } else {
-//                       final category = data.priority1Categories.keys.elementAt(index);
-//                       final subcategory = data.priority1Categories[category]![0]['subcategory'];
-//                       return buildCategoryIcon(subcategory);
-//                     }
-//                   },
-//                 ),
-//               ],
-//             ),
-//           );
-//         }
-//       },
-//     );
-//   }
-//   Widget buildCategoryIcon(String subcategory) {
-//     IconData icon = getCategoryIcon(subcategory);
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         CircleAvatar(
-//           radius: 30,
-//           backgroundColor: Colors.teal.shade100,
-//           child: Icon(icon, size: 30, color: Colors.teal),
-//         ),
-//         SizedBox(height: 8),
-//         Text(subcategory, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
-//       ],
-//     );
-//   }
-//
-//   Widget buildViewAllIcon(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         // Navigator.push(context, MaterialPageRoute(builder: (context) => AllCategoriesScreen()));
-//         navigatorPush(context, AllSubcategoriesPageNew());
-//       },
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           CircleAvatar(
-//             radius: 30,
-//             backgroundColor: Colors.teal.shade100,
-//             child: Icon(Icons.view_list, size: 30, color: Colors.teal),
-//           ),
-//           SizedBox(height: 8),
-//           Text('View All', textAlign: TextAlign.center),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   IconData getCategoryIcon(String subcategory) {
-//     switch (subcategory.toLowerCase()) {
-//       case 'barbers':
-//         return Icons.content_cut;
-//       case 'restaurant':
-//         return Icons.restaurant;
-//       case 'fast food':
-//         return Icons.fastfood;
-//       case 'electricians':
-//         return Icons.electrical_services;
-//       case 'bars':
-//         return Icons.local_bar;
-//       case 'bookstore':
-//         return Icons.book;
-//       case 'clothing':
-//         return Icons.shopping_bag;
-//       case 'malls':
-//         return Icons.store_mall_directory;
-//       default:
-//         return Icons.category;
-//     }
-//   }
-// }
-
-
-
-class FeaturedList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Container(
-            width: 150,
-            margin: EdgeInsets.only(right: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    // 'https://via.placeholder.com/150x100',
-                    'https://media.istockphoto.com/id/1081422898/photo/pan-fried-duck.jpg?s=612x612&w=0&k=20&c=kzlrX7KJivvufQx9mLd-gMiMHR6lC2cgX009k9XO6VA=',
-                    height: 100,
-                    width: 150,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text('Featured Place ${index + 1}',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                Text('Category • \$\$'),
-                Row(
-                  children: [
-                    Icon(Icons.star, size: 16, color: Colors.amber),
-                    Text('4.${5 - index} (${100 + index * 10})'),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-// Widget SlidingCoverImages() {
-//   // var data = Provider.of<ServicesProvider>(context);
-//   // var images = data.BusinessData?.images;
-//   List images =[
-//     'https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg',
-//     'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2stcGYtcG9tLTEyNDIuanBn.jpg'
-//   ];
-//
-//   if (images == null || images.isEmpty) {
-//     return Center(
-//       // child: Text('No images available'),
-//       child: Image.network(
-//         height: 100,
-//         "https://upload.wikimedia.org/wikipedia/commons/b/b9/No_Cover.jpg",fit: BoxFit.cover,),
-//     );
-//   }
-//   return CarouselSlider.builder(
-//
-//     // itemCount: data.BusinessData!.images!.length,
-//     itemCount: 2,
-//     itemBuilder: (BuildContext context, int index, int realIndex) {
-//       return Image.network(
-//         // data.BusinessData!.images![index],
-//         images[index],
-//         fit: BoxFit.cover,
-//         width: double.infinity,
-//       );
-//     },
-//     options: CarouselOptions(
-//       padEnds: false,
-//       enlargeFactor: 0.2,
-//       // reverse: true,
-//       // pageSnapping: false,
-//
-//
-//       // animateToClosest: false,
-//       // disableCenter: true,
-//       // autoPlayCurve: Curves.bounceIn,
-//       // disableCenter: true,
-//       // animateToClosest: false,
-//       // pauseAutoPlayOnTouch: false,
-//       // pauseAutoPlayOnManualNavigate: ,
-//       enableInfiniteScroll: false,
-//       height: 150,
-//       autoPlay: true,
-//       aspectRatio: 2.0,
-//       enlargeCenterPage: true,
-//     ),
-//   );
-// }
-
-
-class SlidingCoverImages extends StatefulWidget {
-  @override
-  _SlidingCoverImagesState createState() => _SlidingCoverImagesState();
-}
-
-class _SlidingCoverImagesState extends State<SlidingCoverImages> {
-  bool _autoPlay = true; // Control the autoplay
-
-  List<String> images = [
-    'https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg',
-    'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2stcGYtcG9tLTEyNDIuanBn.jpg',
-  ];
-
-  void stopAutoScroll() {
-    print("tapped");
-    setState(() {
-      _autoPlay = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (images == null|| images.isEmpty) {
-      return Center(
-        child: Image.network(
-          height: 100,
-          "https://upload.wikimedia.org/wikipedia/commons/b/b9/No_Cover.jpg",
-          fit: BoxFit.cover,
-        ),
-      );
+  void initState() {
+    super.initState();
+    var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
+    if (data.getHomeBusinessData.isEmpty) {
+      data.getHomeBusinessProvider(key: "sub_category", value: "Restaurant");
     }
+  }
 
-    return GestureDetector(
+  @override
+  Widget build(BuildContext context) {
+    var data = Provider.of<HomeRestaurantListProvider>(context);
+    return data.isLoading
+        ? Center(
+            child: CircularProgressIndicator(color: tgPrimaryColor),
+          )
+        : SizedBox(
+            height: 200,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: data.getHomeBusinessData.length,
+              itemBuilder: (context, index) {
+                final business = data.getHomeBusinessData[index]!;
+                final overallRating = data.businessRating[business.businessUid]?['rating'] ?? 0.0;
 
-      onTap: stopAutoScroll, // Stop auto-scroll when tapping on the slider
-
-      child: CarouselSlider.builder(
-        itemCount: images.length,
-        itemBuilder: (BuildContext context, int index, int realIndex) {
-          return Image.network(
-            images[index],
-            fit: BoxFit.cover,
-            width: MediaQuery.of(context).size.width, // Full screen width
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DefaultProfilePage(
+                        uid: business.businessUid,
+                      ),
+                    ));
+                  },
+                  child: Container(
+                    width: 150,
+                    margin: EdgeInsets.only(right: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: (business.profileImageUrl != null && business.profileImageUrl.isNotEmpty)
+                              ? Image.network(
+                                  business.profileImageUrl,
+                                  height: 100,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  'https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg',
+                                  height: 100,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          business.businessName,
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          business.businessDescription,
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.star, size: 16, color: Colors.amber[700]),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4.0, top: 2),
+                              child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           );
-        },
-        options: CarouselOptions(
-          viewportFraction: 1,
-          padEnds: false,
-          enlargeFactor: 0.2,
-          enableInfiniteScroll: false,
-          height: 150,
-          autoPlay: _autoPlay, // Control autoPlay with the variable
-          aspectRatio: 2.0,
-          enlargeCenterPage: true,
-        ),
-      ),
-    );
   }
 }
 
 
-class CategoryListExplore extends StatelessWidget {
-  // String imagee = 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+class Explore extends StatelessWidget {
+  Explore({Key? key}) : super(key: key);
+  final String keyy = "category";
+
   final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.restaurant, 'name': 'Food & Restaurants', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.theater_comedy, 'name': 'Arts & Entertainment', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.house, 'name': 'Real Estate & Housing', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.spa, 'name': 'Beauty & Spas', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.car_repair, 'name': 'Automotive', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.nightlife, 'name': 'Night Life', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.shopping_bag, 'name': 'Shopping', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.local_hospital, 'name': 'Health & Medical', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.hotel, 'name': 'Hotels & Travel', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.school, 'name': 'Education', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
-    {'icon': Icons.pets, 'name': 'Pets', 'image': 'https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'},
+    {
+      "name": "Food & Restaurants",
+      "image": "images/foodexplore.jpg",
+      "onTap": (BuildContext context) => navigatorPush(
+          context, ModernCategoryView(keyy: "category", value: "Food"))
+    },
+    {
+      "name": "Arts & Entertainment",
+      "image": "images/category/Entertainment.jpg",
+      "onTap": (BuildContext context) =>
+          navigatorPush(context, ModernCategoryView(keyy: "category", value: "Retail"))
+    },
+    {
+      "name": "Real Estate & Housing",
+      "image": "images/category/Affordable-Housing-Project.jpg",
+      "onTap": (BuildContext context) =>
+          navigatorPush(context, const HouseSearch())
+    },
+    {
+      "name": "Beauty & Spa's",
+      "image": "images/category/beauty-8388873_1280.jpg",
+      "onTap": null
+    },
+    {
+      "name": "Automotive",
+      "image": "images/category/carrepair1.jpg",
+      "onTap": null
+    },
+    {
+      "name": "Night Life",
+      "image": "images/category/nightlife-in-havelock-island.jpg",
+      "onTap": null
+    },
+    {
+      "name": "Shopping",
+      "image": "images/category/shopping.jpg",
+      "onTap": null
+    },
+    {
+      "name": "Health & Medical",
+      "image": "images/category/medical.jpg",
+      "onTap": null
+    },
+    {
+      "name": "Hotels & Travel",
+      "image": "images/category/hotel.jpeg",
+      "onTap": null
+    },
+    {
+      "name": "Education",
+      "image": "images/category/education.avif",
+      "onTap": null
+    },
+    {"name": "Pets", "image": "images/category/pets.jpg", "onTap": null},
+    // {"name": "Professional Services", "image": "images/category/Professional_Services.jpg", "onTap": null},
   ];
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 1,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  categories[index]['image'],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: StaggeredGridView.countBuilder(
+        crossAxisCount: 4,
+        itemCount: categories.length,
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return InkWell(
+            onTap: category["onTap"] != null ? () => category["onTap"](context) : null,
+            child: Container(
+              
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: DecorationImage(
+                  image: AssetImage(category["image"]),
                   fit: BoxFit.cover,
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      categories[index]['name'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
+              child: Stack(
+                children: [
+                  // Dark gradient overlay
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.7),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  // Text widget
+                  Center(
+                    child: Text(
+                      category["name"],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13.8,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 10.0,
+                            color: Colors.black,
+                            offset: Offset(5.0, 5.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
-      },
+            ),
+          );
+        },
+        staggeredTileBuilder: (int index) {
+          // Adjust the size of each tile to match the pattern in the image
+          if (index == 0) {
+            return StaggeredTile.count(2, 2);
+          } else if (index == 1) {
+            return StaggeredTile.count(2, 1);
+          } else if (index == 2) {
+            return StaggeredTile.count(1, 2);
+          } else if (index == 3) {
+            return StaggeredTile.count(2, 1);
+          } else {
+            return StaggeredTile.count(1, 1);
+          }
+        },
+        mainAxisSpacing: 8.0,
+        crossAxisSpacing: 8.0,
+      ),
     );
   }
 }
+
+
 
 class PopularList extends StatelessWidget {
   @override
@@ -675,6 +436,7 @@ class PopularList extends StatelessWidget {
   }
 }
 
+
 class RecentReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -713,17 +475,7 @@ class RecentReviews extends StatelessWidget {
                 //     'Great place! The food was amazing and the service was excellent.'
                 ),
                 SizedBox(height: 8),
-                // Row(
-                //   children: [
-                //     Icon(Icons.star, size: 16, color: Colors.amber),
-                //     Icon(Icons.star, size: 16, color: Colors.amber),
-                //     Icon(Icons.star, size: 16, color: Colors.amber),
-                //     Icon(Icons.star, size: 16, color: Colors.amber),
-                //     Icon(Icons.star_half, size: 16, color: Colors.amber),
-                //     SizedBox(width: 8),
-                //     Text('Restaurant Name'),
-                //   ],
-                // ),
+               
                 Row(
                   children: [
                     RatingBarIndicator(
@@ -741,16 +493,7 @@ class RecentReviews extends StatelessWidget {
                   ],
                 ),
 
-                // RatingBarIndicator(
-                //   rating: double.parse(data.comments[index].rating.toString()),
-                //   itemBuilder: (context, index) => Icon(
-                //     Icons.star,
-                //     color: Colors.amber,
-                //   ),
-                //   itemCount: 5,
-                //   itemSize: 11,
-                //   direction: Axis.horizontal,
-                // ),
+              
               ],
             ),
           ),

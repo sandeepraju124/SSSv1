@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 
@@ -48,7 +50,7 @@ class TestTest extends StatelessWidget {
                     FeaturedList(),
                     SizedBox(height: 20),
                     Text('Popular Near You',
-                        // style: Theme.of(context).textTheme.headline6
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 4)
                     ),
                     SizedBox(height: 10),
                     PopularList(),

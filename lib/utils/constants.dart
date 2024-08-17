@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -102,14 +104,18 @@ Widget RetangularBorderBox(TextMsg) {
   return Padding(
     padding: const EdgeInsets.only(top: 15),
     child: Container(
-      height: 30,
+      height: 25,
       width: double.infinity,
       decoration: BoxDecoration(
         border: Border.all(color: secondaryColor20LightTheme),
       ),
       alignment: Alignment.center,
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-      child: Text(TextMsg),
+      child: Text(TextMsg,
+          style: TextStyle(
+            // color: secondaryColor20LightTheme,
+            fontSize: 12.4,
+          )),
     ),
   );
 }

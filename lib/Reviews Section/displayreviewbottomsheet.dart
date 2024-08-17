@@ -152,9 +152,9 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
               ),
               // Other option
               CheckboxListTile(
-                fillColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
+                fillColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.selected)) {
                       return tgDarkPrimaryColor;
                     }
                     return null; // Default color when not selected
@@ -315,6 +315,14 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                       if (success) {
                         _reviewController.clear();
                         Navigator.pop(context);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Your review posted Successfully"),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
+
                       } else {
                         // Handle failure
                       }
@@ -341,20 +349,21 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Consumer<CommentSectionProviderNew>(
-                    builder: (context, provider, child) {
-                      return provider.isLoading
-                          ? CircularProgressIndicator(
-                        color: Colors.white,
-                      )
-                          : Text(
-                        'Submit Review',
-                        style: TextStyle(fontSize: 13, color: Colors.black),
-                      );
-                    },
-                  ),
+                child: Consumer<CommentSectionProviderNew>(
+                  builder: (context, provider, child) {
+                    return provider.isLoading
+                        ? SizedBox(
+                          height: 20,
+                          width :20,
+                          child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                        )
+                        : Text(
+                      'Submit Review',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                    );
+                  },
                 ),
               ),
 

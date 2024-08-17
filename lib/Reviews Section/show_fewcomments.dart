@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -157,7 +159,7 @@ class FewReviews extends StatelessWidget {
             },
             child: Column(
               children: [
-                RetangularBorderBox("Share your insights and help others!")
+                RetangularBorderBox("Share your insights and help others!",)
               ],
             ),
           ),
@@ -251,22 +253,25 @@ class FewReviews extends StatelessWidget {
                   return ShowallComments();
                 }));
               },
-              child: Container(
-                height: 36,
-                width: 340,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    border: Border.all(width: 0.6),
-                    color: tgPrimaryColor),
-                child: SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Container(
+                  height: 27.5,
                   width: 340,
-                  height: 36,
-                  child: Center(
-                    child: Text(
-                      _showAllReviews
-                          ? "All reviews are shown"
-                          : "Show ${data.comments.length - 2} more reviews",
-                      style: TextStyle(color: secondaryColor80LightTheme),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      border: Border.all(width: 0.6),
+                      color: tgPrimaryColor),
+                  child: SizedBox(
+                    width: 340,
+                    height: 10,
+                    child: Center(
+                      child: Text(
+                        _showAllReviews
+                            ? "All reviews are shown"
+                            : "Show ${data.comments.length - 2} more reviews",
+                        style: TextStyle(color: secondaryColor80LightTheme),
+                      ),
                     ),
                   ),
                 ),
