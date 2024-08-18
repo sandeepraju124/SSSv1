@@ -1006,7 +1006,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                       Navigator.of(context).pop();
                     },
                     icon: Icon(
-                      LineAwesomeIcons.angle_left,
+                      Icons.keyboard_arrow_left_rounded,
                       color: tgPrimaryText,
                       size: 24,
                     ),
@@ -1039,10 +1039,10 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                                 .toStringAsFixed(1),
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 13.7,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(width: 12),
+                          // SizedBox(width: 12),
                           // LikeButton(
                           //   size: 24,
                           //   isLiked: isLiked,
@@ -1074,44 +1074,47 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                           //   },
                           // )
 
-                          LikeButton(
-                            size: 24,
-                            isLiked: isLiked,
-                            // Set the initial state based on the existence of businessId
-                            circleColor: CircleColor(
-                                start: Color(0xff00ddff),
-                                end: Color(0xff0099cc)),
-                            bubblesColor: BubblesColor(
-                              dotPrimaryColor: Color(0xff33b5e5),
-                              dotSecondaryColor: Color(0xff0099cc),
-                            ),
-                            likeBuilder: (bool isLiked) {
-                              return Icon(
-                                Icons.favorite,
-                                color: isLiked ? Colors.teal : Colors.white,
-                                size: 34,
-                              );
-                            },
-                            onTap: (bool isLiked) async {
-                              if (!isLiked) {
-                                print(
-                                    "add to favourite"); // Print this when the user likes the item
-                                fav.addFavourite(context, BuinessId);
-                                // Here you can implement logic to add the item to favourites
-                              } else {
-                                if (favouriteId != null) {
-                                  print("remove from favourite");
-                                  bool isckeck = await fav.deleteFavourite(favouriteId);
-                                  if (isckeck) {
-                                    print("deleted");
-                                    showSnackBar(context, "Removed from favourites");
-                                  } else {
-                                    print("not deleted");
+                          Padding(
+                            padding: const EdgeInsets.only( left: 4),
+                            child: LikeButton(
+                             
+                              isLiked: isLiked,
+                              // Set the initial state based on the existence of businessId
+                              circleColor: CircleColor(
+                                  start: Color(0xff00ddff),
+                                  end: Color(0xff0099cc)),
+                              bubblesColor: BubblesColor(
+                                dotPrimaryColor: Color(0xff33b5e5),
+                                dotSecondaryColor: Color(0xff0099cc),
+                              ),
+                              likeBuilder: (bool isLiked) {
+                                return Icon(
+                                  Icons.favorite,
+                                  color: isLiked ?  Colors.pink[300] : Colors.white,
+                                  size: 20,
+                                );
+                              },
+                              onTap: (bool isLiked) async {
+                                if (!isLiked) {
+                                  print(
+                                      "add to favourite"); // Print this when the user likes the item
+                                  fav.addFavourite(context, BuinessId);
+                                  // Here you can implement logic to add the item to favourites
+                                } else {
+                                  if (favouriteId != null) {
+                                    print("remove from favourite");
+                                    bool isckeck = await fav.deleteFavourite(favouriteId);
+                                    if (isckeck) {
+                                      print("deleted");
+                                      showSnackBar(context, "Removed from favourites");
+                                    } else {
+                                      print("not deleted");
+                                    }
                                   }
                                 }
-                              }
-                              return !isLiked; // Toggle the like state
-                            },
+                                return !isLiked; // Toggle the like state
+                              },
+                            ),
                           )
                         ],
                       ),
@@ -1136,7 +1139,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                                     'Default Name',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   // fontWeight: FontWeight.bold,
                                   // fontStyle: FontStyle.italic,
                                   shadows: [

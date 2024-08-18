@@ -1,12 +1,15 @@
 //
 //
 // //
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/providers/favourite_provider.dart';
+import 'package:sssv1/utils/constants.dart';
 
 import 'models/favourite_models.dart';
 
@@ -304,8 +307,13 @@ class FavoritesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text('My Favorites', style: TextStyle(color: Colors.black87)),
+        automaticallyImplyLeading: false,
+        title: Text('My Favorites', style: TextStyle(color: Colors.black87, fontSize: 18.6)),
         backgroundColor: Colors.white,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.keyboard_arrow_left_rounded)),
+        
         elevation: 0,
         actions: [
           IconButton(
@@ -314,22 +322,46 @@ class FavoritesPage extends StatelessWidget {
           ),
         ],
       ),
-      body: AnimationLimiter(
-        child: ListView.builder(
-          // itemCount: data.favouriteModels.length,
-          itemCount: data.favourite.length,
-          itemBuilder: (BuildContext context, int index) {
-            return AnimationConfiguration.staggeredList(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              child: SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(
-                  child: _buildFavoriteItem(data.favourite[index], context, data.favourite[index].favouriteId),
-                ),
+      body: data.favourite.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.favorite_border,
+                    size: 40,
+                    // color: Colors.grey[400],
+                    color: tgLightPrimaryColor,
+                  ),
+                  SizedBox(height: 3),
+                  Text(
+                    'No favorites yet',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  ),
+                ],
               ),
-            );
-          },
+            )
+          :
+       AnimationLimiter(
+        child: Padding(
+          
+          padding: const EdgeInsets.only(top: 20.0),
+          child: ListView.builder(
+            // itemCount: data.favouriteModels.length,
+            itemCount: data.favourite.length,
+            itemBuilder: (BuildContext context, int index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: _buildFavoriteItem(data.favourite[index], context, data.favourite[index].favouriteId),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -337,7 +369,7 @@ class FavoritesPage extends StatelessWidget {
           // TODO: Implement add new favorite functionality
         },
         child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
+        backgroundColor: tgDarkPrimaryColor,
       ),
     );
   }

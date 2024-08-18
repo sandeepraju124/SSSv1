@@ -316,7 +316,11 @@ class _DisplayReviewBottomSheetState extends State<DisplayReviewBottomSheet> {
                         _reviewController.clear();
                         Navigator.pop(context);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
+                       
+                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return ShowallComments();
+                        }));
+                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text("Your review posted Successfully"),
                             behavior: SnackBarBehavior.floating,

@@ -497,14 +497,14 @@ class _SubCategoryListState extends State<SubCategoryList> {
           highlightColor: Colors.grey[100]!,
           child: Row(
             children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+              // Container(
+              //   width: 80,
+              //   height: 80,
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(12),
+              //   ),
+              // ),
               SizedBox(width: 10),
               Expanded(
                 child: Column(

@@ -590,21 +590,22 @@ class _BottomNavPageState extends State<BottomNavPage> {
   PreferredSizeWidget _buildAppBar(LiveUserLocation data) {
     var userdata = Provider.of<UserProvider>(context);
     return AppBar(
+      
       actions: [
         IconButton(
-          icon: Icon(Icons.favorite_border, color: Colors.grey),
+          icon: Icon(Icons.favorite_border, color: Colors.grey, size: 20,),
           onPressed: () {
             navigatorPush(context, FavoritesPage());
           },
         ),
         IconButton(
-          icon: Icon(Icons.star, color: Colors.amber),
+          icon: Icon(Icons.star, color: Colors.amber[700]),
           onPressed: () {
             navigatorPush(context, AllReviewsScreen());
           },
         ),
         IconButton(
-          icon: Icon(Icons.refresh, color: Colors.grey),
+          icon: Icon(Icons.refresh, color: Colors.grey, size: 19.6,),
           onPressed: () {
             // navigatorPush(context, AllReviewsScreen());
             data.getCurrentLocation();
@@ -622,7 +623,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
           navigatorPush(context, MyHomePage());
         },
         child: Container(
-          margin: EdgeInsets.all(8),
+          margin: EdgeInsets.all(7),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white, width: 2),
@@ -651,8 +652,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
               "Current Address",
               style: TextStyle(
                   fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: tgPrimaryText),
+                  fontWeight: FontWeight.w800,
+                  color:Colors.black54),
             ),
             SizedBox(height: 2),
             Row(
@@ -660,7 +661,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 Expanded(
                   child: Text(
                     data.locationName ?? "Loading...",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -670,7 +671,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
           ],
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor:tgDarkPrimaryColor,
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(

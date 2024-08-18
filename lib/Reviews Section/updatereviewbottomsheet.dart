@@ -615,13 +615,22 @@ class _UpdatecommentPageState extends State<UpdatecommentPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  'Save Changes',
-                  style: TextStyle(fontSize: 13, color: Colors.black),
+              child: Consumer<CommentSectionProviderNew>(
+                  builder: (context, provider, child) {
+                    return provider.isLoading
+                        ? SizedBox(
+                          height: 20,
+                          width :20,
+                          child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                        )
+                        : Text(
+                      'Save Changes',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                    );
+                  },
                 ),
-              ),
             ),
           ],
         ),

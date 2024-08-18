@@ -177,12 +177,11 @@ class CommentSectionProviderNew extends ChangeNotifier {
 
       final response = await http.delete(url, headers: headers);
       if (response.statusCode == 200) {
+         if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Review deleted successfully"),
-            behavior: SnackBarBehavior.floating,
-          ),
+          SnackBar(content: Text("Comment deleted successfully")),
         );
+      }
         await getComments(business_uid);
 
         return true;

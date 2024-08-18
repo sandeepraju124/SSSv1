@@ -223,7 +223,8 @@ class FewReviews extends StatelessWidget {
                             direction: Axis.horizontal,
                           ),
                           SizedBox(width: 8),
-                          Text('Restaurant Name'),
+                          // Text('Restaurant Name'),
+                          Text(data.comments[index].businessName),
                         ],
                       ),
 
