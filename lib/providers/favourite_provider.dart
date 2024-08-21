@@ -37,9 +37,9 @@ class FavouriteProvider extends ChangeNotifier {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        print(response.body);
+        print("Favourite List: $responseData");
         _favourite = responseData.map((data) => FavouriteModels.fromJson(data)).toList();
-        // print(_comments);
+        // print("Favourite List: $_favourite");
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _favourite = [];
@@ -56,6 +56,23 @@ class FavouriteProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // Check if a business is in the favourites list
+  bool isFavourite(String businessId) {
+    return _favourite.any((fav) => fav.businessId == businessId);
+  }
+
+  // Get the favourite ID for a specific business if it exists
+  int? getFavouriteId(String businessId) {
+    for (var fav in _favourite) {
+      if (fav.businessId == businessId) {
+        return fav.favouriteId;
+      }
+    }
+    return null; // If not found, return null
+  }
+
+
 
   // Future<void> addFavourite(String businessId) async {
   //   final user = await FirebaseAuth.instance.currentUser!;

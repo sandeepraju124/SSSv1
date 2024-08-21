@@ -5,6 +5,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sssv1/HousingServices/house_search.dart';
@@ -12,6 +13,8 @@ import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/explore_test.dart';
 import 'package:sssv1/nearby_comments.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
+import 'package:sssv1/providers/favourite_provider.dart';
+import 'package:sssv1/providers/home_popularnear_provider.dart';
 import 'package:sssv1/providers/home_restaurent_provider.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/test.dart';
@@ -39,7 +42,7 @@ class _HomePageNewState extends State<HomePageNew> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
-      Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(34.05224, -118.24322, 5000);
+      // Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(34.05224, -118.24322, 5000);
       // Provider.of<NearbyCommentProvider>(context, listen: false).fetchComments(double latitude, double longitude, int "distance");
     });
   }
@@ -176,10 +179,10 @@ class _FeaturedListState extends State<FeaturedList> {
   void initState() {
     super.initState();
     var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
-    if (data.FeaturedList.isEmpty) {
-      // data.fetchFeatured(key: "sub_category", value: "Restaurant");
-      data.fetchFeatured(34.05224, -118.24322, 5000);
-    }
+    // if (data.FeaturedList.isEmpty) {
+    //   // data.fetchFeatured(key: "sub_category", value: "Restaurant");
+    //   data.fetchFeatured(34.05224, -118.24322, 5000);
+    // }
   }
 
   @override
@@ -462,44 +465,197 @@ class Explore extends StatelessWidget {
 
 
 
-class PopularList extends StatelessWidget {
+// class PopularList extends StatefulWidget {
+//   @override
+//   State<PopularList> createState() => _PopularListState();
+// }
+//
+// class _PopularListState extends State<PopularList> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var data = Provider.of<HomePopularListProvider>(context);
+//     var fav = Provider.of<FavouriteProvider>(context);
+//
+//     return ListView.builder(
+//       shrinkWrap: true,
+//       physics: NeverScrollableScrollPhysics(),
+//       // itemCount: 3,
+//       itemCount: data.PopularList.length,
+//       itemBuilder: (context, index) {
+//         final business = data.PopularList[index];
+//         final isLiked = fav.isFavourite(business.businessUid); // Check if the business is already favorited
+//         final favouriteId = fav.getFavouriteId(business.businessUid);
+//         print("favouriteId: $favouriteId");
+//         print("isLiked: $isLiked");
+//         return Card(
+//           elevation: 2,
+//           margin: EdgeInsets.only(bottom: 16),
+//           child: ListTile(
+//             leading: ClipRRect(
+//               borderRadius: BorderRadius.circular(8),
+//               child: Image.network(
+//                 'https://via.placeholder.com/50',
+//                 width: 50,
+//                 height: 50,
+//                 fit: BoxFit.cover,
+//               ),
+//             ),
+//             // title: Text('Popular Place ${index + 1}'),
+//             title: Text(data.PopularList[index].businessName),
+//             subtitle: Row(
+//               children: [
+//                 Icon(Icons.star, size: 16, color: Colors.amber),
+//                 // Text('4.${5 - index} • '),
+//                 // Text('${data.PopularList[index].avgRating} • '),
+//                 Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
+//                 Text('Category • '),
+//                 Text('\$\$'),
+//               ],
+//             ),
+//             // trailing: Icon(Icons.favorite_border),
+//             trailing: SizedBox(
+//               child: LikeButton(
+//
+//               isLiked: isLiked,
+//               // Set the initial state based on the existence of businessId
+//               circleColor: CircleColor(
+//                   start: Color(0xff00ddff),
+//                   end: Color(0xff0099cc)),
+//               bubblesColor: BubblesColor(
+//                 dotPrimaryColor: Color(0xff33b5e5),
+//                 dotSecondaryColor: Color(0xff0099cc),
+//               ),
+//               likeBuilder: (bool isLiked) {
+//                 return Icon(
+//                   Icons.favorite,
+//                   color: isLiked ?  Colors.pink[300] : Colors.white,
+//                   size: 20,
+//                 );
+//               },
+//               onTap: (bool isLiked) async {
+//                 if (!isLiked) {
+//                   print(
+//                       "add to favourite"); // Print this when the user likes the item
+//                   fav.addFavourite(context, business.businessUid);
+//                   // Here you can implement logic to add the item to favourites
+//                 } else {
+//                   if (favouriteId != null) {
+//                     print("remove from favourite");
+//                     bool isckeck = await fav.deleteFavourite(favouriteId);
+//                     if (isckeck) {
+//                       print("deleted");
+//                       showSnackBar(context, "Removed from favourites");
+//                     } else {
+//                       print("not deleted");
+//                     }
+//                   }
+//                 }
+//                 return !isLiked; // Toggle the like state
+//               },
+//                         ),
+//             )
+//
+//           ),
+//           );
+//         // );
+//       },
+//     );
+//   }
+// }
+class PopularList extends StatefulWidget {
+  @override
+  State<PopularList> createState() => _PopularListState();
+}
+
+class _PopularListState extends State<PopularList> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 2,
-          margin: EdgeInsets.only(bottom: 16),
-          child: ListTile(
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://via.placeholder.com/50',
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
+    var data = Provider.of<HomePopularListProvider>(context);
+    var fav = Provider.of<FavouriteProvider>(context);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: data.PopularList.length,
+          itemBuilder: (context, index) {
+            final business = data.PopularList[index];
+            final isLiked = fav.isFavourite(business.businessUid);
+            final favouriteId = fav.getFavouriteId(business.businessUid);
+            print("favouriteId: $favouriteId");
+            print("isLiked: $isLiked");
+            return Card(
+              elevation: 2,
+              margin: EdgeInsets.only(bottom: 16),
+              child: ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://via.placeholder.com/50',
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                title: Text(data.PopularList[index].businessName),
+                subtitle: Row(
+                  children: [
+                    Icon(Icons.star, size: 16, color: Colors.amber),
+                    Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
+                    Text('Category • '),
+                    Text('\$\$'),
+                  ],
+                ),
+                trailing: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: LikeButton(
+                    isLiked: isLiked,
+                    circleColor: CircleColor(
+                        start: Color(0xff00ddff),
+                        end: Color(0xff0099cc)),
+                    bubblesColor: BubblesColor(
+                      dotPrimaryColor: Color(0xff33b5e5),
+                      dotSecondaryColor: Color(0xff0099cc),
+                    ),
+                    likeBuilder: (bool isLiked) {
+                      return Icon(
+                        Icons.favorite,
+                        color: isLiked ? Colors.pink[300] : Colors.white,
+                        size: 20,
+                      );
+                    },
+                    onTap: (bool isLiked) async {
+                      if (!isLiked) {
+                        print("add to favourite");
+                        fav.addFavourite(context, business.businessUid);
+                      } else {
+                        if (favouriteId! >= 0) {
+                          print("remove from favourite");
+                          bool isCheck = await fav.deleteFavourite(favouriteId);
+                          if (isCheck) {
+                            print("deleted");
+                            showSnackBar(context, "Removed from favourites");
+                          } else {
+                            print("not deleted");
+                          }
+                        } else {
+                          print("favouriteId not found, unable to remove from favourite");
+                        }
+                      }
+                      return !isLiked;
+                    },
+                  ),
+                ),
               ),
-            ),
-            title: Text('Popular Place ${index + 1}'),
-            subtitle: Row(
-              children: [
-                Icon(Icons.star, size: 16, color: Colors.amber),
-                Text('4.${5 - index} • '),
-                Text('Category • '),
-                Text('\$\$'),
-              ],
-            ),
-            trailing: Icon(Icons.favorite_border),
-          ),
+            );
+          },
         );
       },
     );
-  }
-}
-
+  }}
 
 class RecentReviews extends StatelessWidget {
   @override

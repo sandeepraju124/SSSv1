@@ -18,6 +18,7 @@ import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
 import 'package:sssv1/providers/comments_provider_new.dart';
 import 'package:sssv1/providers/favourite_provider.dart';
+import 'package:sssv1/providers/home_popularnear_provider.dart';
 import 'package:sssv1/providers/nearby_comments_provider.dart';
 import 'package:sssv1/providers/user_review_provider.dart';
 import 'package:sssv1/restaurent_center.dart';
@@ -103,7 +104,11 @@ void main() async {
     ),
     ChangeNotifierProvider<LiveUserLocation>(
       create: (_) => LiveUserLocation(),
-    ),ChangeNotifierProvider<BusinessCategoriesProviderNew>(
+    ),
+    ChangeNotifierProvider<HomePopularListProvider>(
+      create: (_) => HomePopularListProvider(),
+    ),
+    ChangeNotifierProvider<BusinessCategoriesProviderNew>(
       create: (_) => BusinessCategoriesProviderNew(),
     ),
     ChangeNotifierProvider<UserActivityProvider>(

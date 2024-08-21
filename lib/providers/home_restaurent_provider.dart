@@ -65,12 +65,14 @@ class HomeRestaurantListProvider with ChangeNotifier {
   Future<void> fetchFeatured(double latitude, double longitude, int distance) async {
     // final url = 'https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=$latitude&longitude=$longitude&distance=$distance';
     // String url = "https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=17.4875&longitude=78.399734&distance=5000";
-    String url = "https://supernova1137.azurewebsites.net/pg/business/latlong?latitude=17.4875&longitude=78.399734&distance=20000.0&key=is_premium&value=True";
+    // String url = "https://supernova1137.azurewebsites.net/pg/business/latlong?latitude=17.4875&longitude=78.399734&distance=20000.0&key=is_premium&value=True";
+    // String url = "https://supernova1137.azurewebsites.net/pg/business/latlong?latitude=17.4875&longitude=78.399734&distance=20000.0&key=is_premium&value=True&length=5&sortby=avg_rating";
+    String url = "https://supernova1137.azurewebsites.net/pg/business/latlong?latitude=$latitude&longitude=$longitude&distance=20000.0&key=is_premium&value=True&length=5&sortby=avg_rating";
 
     try {
       _isLoading = true;
       notifyListeners();
-      print("ccc");
+      // print("ccc");
 
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {

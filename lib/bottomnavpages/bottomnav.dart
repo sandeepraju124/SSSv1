@@ -20,6 +20,8 @@ import '../homepage_new.dart';
 import '../nearby_comments.dart';
 import '../providers/comments_provider_new.dart';
 import '../providers/favourite_provider.dart';
+import '../providers/home_popularnear_provider.dart';
+import '../providers/home_restaurent_provider.dart';
 import '../providers/nearby_comments_provider.dart';
 import '../providers/user_review_provider.dart';
 import '../test.dart';
@@ -481,6 +483,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
     var nearbycomments = Provider.of<NearbyCommentProvider>(context, listen: false);
     var userComments = Provider.of<UserCommentsProvider>(context, listen: false);
     var userFavourites = Provider.of<FavouriteProvider>(context, listen: false);
+    var userFeatured = Provider.of<HomeRestaurantListProvider>(context, listen: false);
+    var userPopular = Provider.of<HomePopularListProvider>(context, listen: false);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -490,7 +494,17 @@ class _BottomNavPageState extends State<BottomNavPage> {
         if (nearbycomments.comments.isEmpty && !nearbycomments.isLoading) {
           await nearbycomments.fetchComments(liveLoc.latitude!, liveLoc.longitude!, 10000);
         }
+        // if
+        // Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(liveLoc.latitude!, liveLoc.longitude!,5000);
+        if (userFeatured.FeaturedList.isEmpty && !userFeatured.isLoading) {
+          await userFeatured.fetchFeatured(liveLoc.latitude!, liveLoc.longitude!,5000);
+        }
+        if (userPopular.PopularList.isEmpty && !userFeatured.isLoading) {
+          await userPopular.fetchPopular(liveLoc.latitude!, liveLoc.longitude!,5000);
+        }
+
       }
+
     }
 
     // Fetch user data if not already loaded
