@@ -144,8 +144,8 @@ class _HomePageNewState extends State<HomePageNew> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.favorite, color: Colors.white),
-        label: Text('Favorites', style: TextStyle(color: Colors.white)),
+        icon: Icon(Icons.favorite, color: Colors.white, size: 18,),
+        label: Text('Favorites', style: TextStyle(color: Colors.white,)),
         backgroundColor: Colors.teal,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -235,7 +235,7 @@ class _FeaturedListState extends State<FeaturedList> {
                         SizedBox(height: 8),
                         Text(
                           business.businessName,
-                          style: TextStyle(fontWeight: FontWeight.w700),
+                          style: TextStyle(fontWeight: FontWeight.w600),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
@@ -246,7 +246,7 @@ class _FeaturedListState extends State<FeaturedList> {
                         ),
                         Row(
                           children: [
-                            Icon(Icons.star, size: 16, color: Colors.amber[700]),
+                            Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
                             Padding(
                               padding: const EdgeInsets.only(left: 4.0, top: 2),
                               // child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),

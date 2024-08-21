@@ -8,6 +8,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/models/business_models.dart';
@@ -24,11 +25,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class SubCategoryList extends StatefulWidget {
-  final String keyy;
-  final String value;
-  final List<BusinessModel>? houseSearchResults;
-  final bool isHouseSearch;
-
   SubCategoryList({
     Key? key,
     required this.keyy,
@@ -36,6 +32,11 @@ class SubCategoryList extends StatefulWidget {
     this.houseSearchResults,
     this.isHouseSearch = false,
   }) : super(key: key);
+
+  final List<BusinessModel>? houseSearchResults;
+  final bool isHouseSearch;
+  final String keyy;
+  final String value;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -130,119 +131,6 @@ class _SubCategoryListState extends State<SubCategoryList> {
     } catch (e) {
       print('Error fetching nearby businesses: $e');
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var livedata = Provider.of<LiveUserLocation>(context);
-    userLatitude = livedata.latitude!;
-    userLongitude = livedata.longitude!;
-    // userLatitude = 17.4875;
-    // userLongitude = 78.399734;
-    var data = Provider.of<SubcategoryListProvider>(context);
-
-    final displayData = widget.isHouseSearch
-        ? widget.houseSearchResults
-        // : data.subcategoryListData;
-        : data.subcategoryListDataNearby;
-    // print(displayData![3].latitude);
-    // print(displayData[3].longitude);
-    // print(displayData[3].businessName);
-    // print("displayData");
-
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(LineAwesomeIcons.angle_left, size: 18),
-        ),
-        title: Text(
-          widget.value,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        ),
-        backgroundColor: tgAccentColor,
-        elevation: 0,
-        actions: [
-          if (!widget.isHouseSearch)
-            IconButton(
-              icon: Icon(Icons.filter_list, size: 20),
-              onPressed: () => _showFilterDialog(context),
-            ),
-          if (!widget.isHouseSearch)
-            IconButton(
-              icon: Icon(
-                Icons.location_on,
-                size: 20,
-              ),
-              onPressed: () async {
-                await data.subCategoryListProvider(widget.keyy, widget.value);
-                setState(() {
-                  _showNearbyBusinesses = true;
-                });
-              },
-            ),
-        ],
-      ),
-    
-      body: data.isLoading
-      // body: data.isLoading && !widget.isHouseSearch && !_showNearbyBusinesses
-          ? _buildShimmerEffect()
-          : Material(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.isHouseSearch
-                          ? "Handpicked results based on your criteria"
-                          : _showNearbyBusinesses
-                              ? ' " All available businesses "'
-                              : ' " Near your current location "',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: displayData!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        // print(displayData[index].businessUid);
-                        // print(displayData[index].latitude.toString());
-                        // print(displayData[index].longitude.toString());
-
-                        return FutureBuilder<Map<String, String>>(
-                          future: fetchDistance(
-                              displayData[index].latitude.toString(),
-                              displayData[index].longitude.toString(),
-                              userLatitude.toString(),
-                              userLongitude.toString()),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return ListSubCategory(
-                                  context, displayData, index, '...', data);
-                            }
-                            if (snapshot.hasError) {
-                              return ListSubCategory(
-                                  context, displayData, index, '...', data);
-                            } else {
-                              final distance =
-                                  snapshot.data?['distance'] ?? '...';
-                              return ListSubCategory(
-                                  context, displayData, index, distance, data);
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-    );
   }
 
   Column ListSubCategory(BuildContext context, List<BusinessModel> displayData,
@@ -563,6 +451,127 @@ class _SubCategoryListState extends State<SubCategoryList> {
       onTap: () {
         // Show specific filter options
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var livedata = Provider.of<LiveUserLocation>(context);
+    userLatitude = livedata.latitude!;
+    userLongitude = livedata.longitude!;
+    // userLatitude = 17.4875;
+    // userLongitude = 78.399734;
+    var data = Provider.of<SubcategoryListProvider>(context);
+
+    final displayData = widget.isHouseSearch
+        ? widget.houseSearchResults
+        // : data.subcategoryListData;
+        : data.subcategoryListDataNearby;
+    // print(displayData![3].latitude);
+    // print(displayData[3].longitude);
+    // print(displayData[3].businessName);
+    // print("displayData");
+
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(LineAwesomeIcons.angle_left, size: 18),
+        ),
+        title: Text(
+          widget.value,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+        ),
+        backgroundColor: tgAccentColor,
+        elevation: 0,
+        actions: [
+          if (!widget.isHouseSearch)
+            IconButton(
+              icon: Icon(Icons.filter_list, size: 20),
+              onPressed: () => _showFilterDialog(context),
+            ),
+          if (!widget.isHouseSearch)
+            IconButton(
+              icon: Icon(
+                Icons.location_on,
+                size: 20,
+              ),
+              onPressed: () async {
+                await data.subCategoryListProvider(widget.keyy, widget.value);
+                setState(() {
+                  _showNearbyBusinesses = true;
+                });
+              },
+            ),
+        ],
+      ),
+    
+      body: data.isLoading
+      // body: data.isLoading && !widget.isHouseSearch && !_showNearbyBusinesses
+          ? _buildShimmerEffect()
+          : Material(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.isHouseSearch
+                          ? "Handpicked results based on your criteria"
+                          : _showNearbyBusinesses
+                              ? ' " All available businesses "'
+                              : ' " Near your current location "',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child:displayData!.isEmpty ? Padding(
+                      padding: const EdgeInsets.only(top: 260),
+                      child: Center(child: Column(
+                        children: [
+                          Lottie.asset('images/Animation.json', height: 160),
+                          Text("No businesses available in this category yet."),
+                        ],
+                      ),),
+                    ) :  
+
+
+                     ListView.builder(
+                      itemCount: displayData!.length,
+                      itemBuilder: (BuildContext context, int index) {
+
+                        return FutureBuilder<Map<String, String>>(
+                          future: fetchDistance(
+                              displayData[index].latitude.toString(),
+                              displayData[index].longitude.toString(),
+                              userLatitude.toString(),
+                              userLongitude.toString()),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return ListSubCategory(
+                                  context, displayData, index, '...', data);
+                            }
+                            if (snapshot.hasError) {
+                              return ListSubCategory(
+                                  context, displayData, index, '...', data);
+                            } else {
+                              final distance =
+                                  snapshot.data?['distance'] ?? '...';
+                              return ListSubCategory(
+                                  context, displayData, index, distance, data);
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }

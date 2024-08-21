@@ -46,7 +46,7 @@ class _BusinessStatusTestState extends State<BusinessStatusTest> {
         child: Center(
           child: Column(
             children: [
-              Lottie.asset("images/OverviewEmpty.json", height: 150),
+              Lottie.asset("images/EmptyState.json", height: 100),
               Text(
                 "no data available",
                 style: TextStyle(fontSize: 12),

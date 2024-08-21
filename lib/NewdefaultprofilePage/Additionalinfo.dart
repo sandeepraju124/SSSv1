@@ -267,7 +267,7 @@ class AdditionalInfoPage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(top: 3),
                                 child: Text(
-                                  "Photo",
+                                  "Photos",
                                   style: TextStyle(fontSize: 12),
                                 ),
                               )

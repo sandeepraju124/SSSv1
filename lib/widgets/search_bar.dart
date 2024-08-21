@@ -224,7 +224,7 @@ class _SearchBar3State extends State<SearchBar3> with SingleTickerProviderStateM
                   builder: (context, child) {
                     return ClipRect(
                       child: Container(
-                        height: 20,
+                        height: 18,
                         child: Stack(
                           children: [
                             Positioned(

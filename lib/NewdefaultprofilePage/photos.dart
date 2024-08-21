@@ -181,10 +181,10 @@ class _AddPhotosState extends State<AddPhotos> {
                       if (!hasImages)
                         Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.only(top: 340),
                             child: Text(
                               'No images to display',
-                              style: TextStyle(fontSize: 18, color: Colors.grey),
+                              style: TextStyle(fontSize: 15, color: Colors.grey),
                             ),
                           ),
                         ),
