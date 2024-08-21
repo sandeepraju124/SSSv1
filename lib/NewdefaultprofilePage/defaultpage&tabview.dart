@@ -152,22 +152,25 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
    
     // var fav = Provider.of<FavouriteProvider>(context);
     String businessId = data.businessProfileData?.businessUid ?? '';
-    bool isLiked = fav.favourite.any((favourite) =>
-        favourite.businessId == data.businessProfileData?.businessUid);
-    int? favouriteId =
-        fav.favourite.firstWhere((favourite) =>
-                favourite.businessId == data.businessProfileData?.businessUid,
-                orElse: () => FavouriteModels(
-                  favouriteId: 0,
-                  businessId: '',
-                  businessName: '',
-                  businessProfileImageUrl: '',
-                  createdAt: '',
-                  subCategory: '',
-                  userId: '',
-                  userName: '',
-                ))
-            .favouriteId;
+    // bool isLiked = fav.favourite.any((favourite) =>
+    //     favourite.businessId == data.businessProfileData?.businessUid);
+    // int? favouriteId =
+    //     fav.favourite.firstWhere((favourite) =>
+    //             favourite.businessId == data.businessProfileData?.businessUid,
+    //             orElse: () => FavouriteModels(
+    //               favouriteId: 0,
+    //               businessId: '',
+    //               businessName: '',
+    //               businessProfileImageUrl: '',
+    //               createdAt: '',
+    //               subCategory: '',
+    //               userId: '',
+    //               userName: '',
+    //             ))
+    //         .favouriteId;
+    // final business = data.PopularList[index];
+    final isLiked = fav.isFavourite(businessId);
+    final favouriteId = fav.getFavouriteId(businessId);
 
     return Scaffold(
       body: _isLoading
