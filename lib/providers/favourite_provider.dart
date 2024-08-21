@@ -103,11 +103,11 @@ class FavouriteProvider extends ChangeNotifier {
       final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
       final response = await http.post(url, headers: headers, body: body);
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Your review was posted successfully"),
+          const SnackBar(
+            content: Text("Favourite added successfully"),
             behavior: SnackBarBehavior.floating,
           ),
         );

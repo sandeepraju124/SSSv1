@@ -297,7 +297,7 @@ class _AmenitiesGridViewState extends State<AmenitiesGridView> {
               child: Column(
                 children: [
                   SizedBox(height: 30),
-                  Lottie.asset("images/OverviewEmpty.json", height: 150),
+                  Lottie.asset("images/EmptyState.json", height: 100),
                   Text(
                     "No amenities available for this business",
                     style: TextStyle(

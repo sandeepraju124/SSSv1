@@ -172,7 +172,7 @@
 // }
 
 
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -204,9 +204,10 @@ class _ShowallCommentsState extends State<ShowallComments> {
   Widget build(BuildContext context) {
     final data = Provider.of<CommentSectionProviderNew>(context);
     var data1 = Provider.of<BusinessProfileProvider>(context);
-    final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+    final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
     return Scaffold(
+       key: _scaffoldMessengerKey,
       appBar: AppBar(
         backgroundColor: tgPrimaryColor,
         automaticallyImplyLeading: false,
@@ -457,7 +458,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                                         (success) => {
                                                       if (success)
                                                         {
-                                                          scaffoldMessengerKey.currentState?.showSnackBar(
+                                                          _scaffoldMessengerKey.currentState?.showSnackBar(
                                                             SnackBar(
                                                               content: Text('Review deleted successfully'),
                                                               behavior: SnackBarBehavior.floating,
@@ -502,7 +503,7 @@ class _ShowallCommentsState extends State<ShowallComments> {
                       }
                     },
                     child: Card(
-                      elevation: 0,
+                      elevation: 1.3,
                       margin: EdgeInsets.only(bottom: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

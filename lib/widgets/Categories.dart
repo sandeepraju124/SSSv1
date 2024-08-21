@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -286,7 +288,7 @@ class CategoryScreen extends StatelessWidget {
         CircleAvatar(
           radius: 30,
           backgroundColor: Colors.teal.shade100,
-          child: Icon(icon, size: 27, color: Colors.teal),
+          child: Icon(icon, size: 26, color: Colors.teal),
         ),
         SizedBox(height: 8),
         Text(subcategory, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
