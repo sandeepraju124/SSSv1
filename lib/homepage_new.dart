@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sssv1/HousingServices/house_search.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
 import 'package:sssv1/explore_test.dart';
@@ -38,7 +39,7 @@ class _HomePageNewState extends State<HomePageNew> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
-      Provider.of<HomeRestaurantListProvider>(context, listen: false).getHomeBusinessProvider(key: "sub_category", value: "Restaurant");
+      Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(34.05224, -118.24322, 5000);
       // Provider.of<NearbyCommentProvider>(context, listen: false).fetchComments(double latitude, double longitude, int "distance");
     });
   }
@@ -175,8 +176,9 @@ class _FeaturedListState extends State<FeaturedList> {
   void initState() {
     super.initState();
     var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
-    if (data.getHomeBusinessData.isEmpty) {
-      data.getHomeBusinessProvider(key: "sub_category", value: "Restaurant");
+    if (data.FeaturedList.isEmpty) {
+      // data.fetchFeatured(key: "sub_category", value: "Restaurant");
+      data.fetchFeatured(34.05224, -118.24322, 5000);
     }
   }
 
@@ -184,17 +186,18 @@ class _FeaturedListState extends State<FeaturedList> {
   Widget build(BuildContext context) {
     var data = Provider.of<HomeRestaurantListProvider>(context);
     return data.isLoading
-        ? Center(
-            child: CircularProgressIndicator(color: tgPrimaryColor),
-          )
+        ? FeaturedListShimmerEffect()
+    // Center(
+    //         child: CircularProgressIndicator(color: tgPrimaryColor),
+    //       )
         : SizedBox(
             height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: data.getHomeBusinessData.length,
+              itemCount: data.FeaturedList.length,
               itemBuilder: (context, index) {
-                final business = data.getHomeBusinessData[index]!;
-                final overallRating = data.businessRating[business.businessUid]?['rating'] ?? 0.0;
+                final business = data.FeaturedList[index];
+                // final overallRating = data.businessRating[business.businessUid]?['rating'] ?? 0.0;
 
                 return GestureDetector(
                   onTap: () {
@@ -233,7 +236,8 @@ class _FeaturedListState extends State<FeaturedList> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          business.businessDescription,
+                          "Category • ${business.category}",
+                          // business.businessDescription,
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -242,7 +246,10 @@ class _FeaturedListState extends State<FeaturedList> {
                             Icon(Icons.star, size: 16, color: Colors.amber[700]),
                             Padding(
                               padding: const EdgeInsets.only(left: 4.0, top: 2),
-                              child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),
+                              // child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),
+                              // child: Text('10'),
+                              // child: Text(data.FeaturedList[index].avgRating),
+                              child: Text("${double.parse(data.FeaturedList[index].avgRating).toStringAsFixed(1)} . (${data.FeaturedList[index].totalReviews})"),
                             ),
                           ],
                         ),
@@ -256,6 +263,59 @@ class _FeaturedListState extends State<FeaturedList> {
   }
 }
 
+class FeaturedListShimmerEffect extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5, // Show 5 shimmer items while loading
+        itemBuilder: (context, index) {
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              width: 150,
+              margin: EdgeInsets.only(right: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      height: 100,
+                      width: 150,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    width: 100,
+                    height: 16,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 4),
+                  Container(
+                    width: 130,
+                    height: 12,
+                    color: Colors.white,
+                  ),
+                  SizedBox(height: 4),
+                  Container(
+                    width: 80,
+                    height: 12,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
 
 class Explore extends StatelessWidget {
   Explore({Key? key}) : super(key: key);

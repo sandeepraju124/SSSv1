@@ -13,6 +13,8 @@ import 'package:sssv1/providers/user_review_provider.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'business_profile_provider.dart';
+
 class CommentSectionProviderNew extends ChangeNotifier {
   final TextEditingController _reviewController = TextEditingController();
   List<NearbyComments> _comments = [];
@@ -33,7 +35,7 @@ class CommentSectionProviderNew extends ChangeNotifier {
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
         _comments = responseData.map((data) => NearbyComments.fromJson(data)).toList();
-        // print(_comments);
+        print(_comments);
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _comments = [];
@@ -72,10 +74,12 @@ class CommentSectionProviderNew extends ChangeNotifier {
         'long': position.longitude.toString(),
       };
 
+      print(body);
       final url = Uri.parse("$baseUrl/comments/where");
       final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
       final response = await http.post(url, headers: headers, body: body);
+      print(response.body);
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -87,6 +91,7 @@ class CommentSectionProviderNew extends ChangeNotifier {
         // Fetch updated comments and display new one on top
         await getComments(businessUid);
         Provider.of<UserCommentsProvider>(context, listen: false).getUserComments(userId);
+        Provider.of<BusinessProfileProvider>(context, listen: false).businessProfileProvider(businessUid);
         return true;
       } else {
         return false;

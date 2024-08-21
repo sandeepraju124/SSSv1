@@ -38,21 +38,21 @@ class Http {
   }
 
   // used this to show subcatogories
-  List<Subcategory> Category_data = [];
-  Future<Subcategory> fetchSubcategoryData(String uri) async {
-    var url = Uri.parse(uri);
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var decodedResponse = json.decode(response.body);
-      // print("responsebody ${response.body}");
-      // print("decodedResponse $decodedResponse");
-      var subcategory = Subcategory.fromJson(decodedResponse);
-      // print("Category_data $subcategory");
-      return subcategory;
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
+  // List<Subcategory> Category_data = [];
+  // Future<Subcategory> fetchSubcategoryData(String uri) async {
+  //   var url = Uri.parse(uri);
+  //   var response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     var decodedResponse = json.decode(response.body);
+  //     // print("responsebody ${response.body}");
+  //     // print("decodedResponse $decodedResponse");
+  //     var subcategory = Subcategory.fromJson(decodedResponse);
+  //     // print("Category_data $subcategory");
+  //     return subcategory;
+  //   } else {
+  //     throw Exception('Failed to fetch data');
+  //   }
+  // }
 
 // recreating of above api
   // Future<List<BusinessModel>> getBusinessData(

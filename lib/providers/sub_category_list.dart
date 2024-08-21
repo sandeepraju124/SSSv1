@@ -151,7 +151,7 @@ class SubcategoryListProvider with ChangeNotifier {
       final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
       final double distance = 20000; // Define your desired distance
       final Uri uri = Uri.parse('$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
-
+      print(uri);
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);

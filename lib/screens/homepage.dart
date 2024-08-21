@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             // Restaurant(),
             SizedBox(height: 10),
 
-            RestaurantTest(),
+            // RestaurantTest(),
             SizedBox(height: 30),
 
             Align(

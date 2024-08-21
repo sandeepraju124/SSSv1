@@ -734,7 +734,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var data = Provider.of<BusinessProfileProvider>(context, listen: false);
-      data.businessProfileProvider(widget.keyy, widget.uid);
+      // data.businessProfileProvider(widget.keyy, widget.uid);
+      data.businessProfileProvider(widget.uid);
 
       var dataAsk = Provider.of<AskCommunityProvider>(context, listen: false)
           .fetchAskCommunityData(widget.uid);
@@ -1266,7 +1267,8 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                       color: Colors.white70,
-                      child: OverviewPage(),
+                      // child: OverviewPage(),
+                      child: Text("overview"),
                     ),
                   ),
                 ),

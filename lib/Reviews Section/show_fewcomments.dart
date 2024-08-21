@@ -17,7 +17,7 @@ class FewReviews extends StatelessWidget {
   Widget build(BuildContext context) {
     // final data = Provider.of<NearbyCommentProvider>(context);
     final data = Provider.of<CommentSectionProviderNew>(context);
-    var data1 = Provider.of<BusinessProfileProvider>(context);
+    var businessdata = Provider.of<BusinessProfileProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -61,24 +61,26 @@ class FewReviews extends StatelessWidget {
                     //   },
                     // ),
                     SizedBox(width: 5),
-                    Text(
-                      "(",
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      "4.5",
-                      // data.averageRating?.toStringAsFixed(1) ?? "0.0",
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Text(
-                      ")",
-                      style: TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
+    //                 Text(
+    //                   "(",
+    //                   style: TextStyle(
+    //                       fontSize: 16, fontWeight: FontWeight.w400),
+    // ),
+    Text(
+    // "4.5",
+    // businessdata.businessProfileData!.avgRating ?? "0.0",
+     "${double.parse(businessdata.businessProfileData!.avgRating).toStringAsFixed(1)} . (${businessdata.businessProfileData!.totalReviews})",
+    // data.averageRating?.toStringAsFixed(1) ?? "0.0",
+    style: TextStyle(
+    color: Colors.black87,
+    fontSize: 13,
+    fontWeight: FontWeight.w400),
+    ),
+                    // Text(
+                    //   ")",
+                    //   style: TextStyle(
+                    //       fontSize: 16, fontWeight: FontWeight.w400),
+                    // ),
                   ],
                 ),
               ),
@@ -143,7 +145,7 @@ class FewReviews extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: DisplayReviewBottomSheet(
-                                    businessUid: data1.businessProfileData?.businessUid ??
+                                    businessUid: businessdata.businessProfileData?.businessUid ??
                                         "",
                                   ),
                                 ),

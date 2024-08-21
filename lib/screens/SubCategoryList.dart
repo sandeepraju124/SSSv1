@@ -250,9 +250,12 @@ class _SubCategoryListState extends State<SubCategoryList> {
     final businessRating =
         data.businessRatingNearby[displayData[index].businessUid];
     // final businessRating = data.businessRating[displayData[index].businessUid];
-    final rating = businessRating?['rating']?.toString() ?? '0';
+    // final rating = businessRating?['rating']?.toString() ?? '0';
     // final reviewsCount = businessRating?['reviewsCount']?.toString() ?? '0';
-    final reviewsCount = businessRating?['reviewsCount']?.toString() ?? '0';
+    // final reviewsCount = businessRating?['reviewsCount']?.toString() ?? '0';
+    String rating = double.parse(displayData[index].avgRating).toStringAsFixed(1);
+    String reviewsCount = displayData[index].totalReviews.toString();
+
 
     return Column(
       children: [
@@ -396,7 +399,12 @@ class _SubCategoryListState extends State<SubCategoryList> {
                         padding: EdgeInsets.all(10.0),
                         child: Align(
                             alignment: Alignment.bottomLeft,
-                            child: Text(reviewsCount,
+                            child: Text(
+    // displayData[index].avgRating.toString(),
+    reviewsCount,
+                                // reviewsCount,
+                              // "99",
+                              //   data.businessRatingNearby[displayData[index].businessUid]?['reviewsCount']?.toString() ?? '0',
                                 style: TextStyle(
                                     fontSize: 11, color: Colors.grey))),
                       ),
