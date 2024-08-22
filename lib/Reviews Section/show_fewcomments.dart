@@ -13,6 +13,30 @@ import 'displayreviewbottomsheet.dart';
 class FewReviews extends StatelessWidget {
   final bool _showAllReviews = false;
 
+    Widget stars(int rating) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(
+          rating,
+          (index) => Padding(
+                padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+                child: Container(
+                  width: 17,
+                  height: 17,
+                  decoration: BoxDecoration(
+                      color: tgDarkPrimaryColor,
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: Colors.black, width: 0.3)),
+                  child: Icon(
+                    Icons.star,
+                    color: Colors.white,
+                    size: 12,
+                  ),
+                ),
+              )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // final data = Provider.of<NearbyCommentProvider>(context);
@@ -87,7 +111,7 @@ class FewReviews extends StatelessWidget {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(right: 320),
+            margin: EdgeInsets.only(left: 13),
             height: 3,
             width: 70,
             decoration: BoxDecoration(
@@ -173,7 +197,8 @@ class FewReviews extends StatelessWidget {
             itemCount: data.comments.length > 2 ? 2 : data.comments.length,
             itemBuilder: (context, index) {
               return Card(
-                elevation: 2,
+                elevation: 1.3,
+                color: Colors.white,
                 margin: EdgeInsets.only(bottom: 16),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -183,21 +208,27 @@ class FewReviews extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundImage: data.comments[index].profileImageUrl == null?
-                            NetworkImage('https://via.placeholder.com/30'):
-                            NetworkImage(data.comments[index].profileImageUrl),
-                          ),
-                          SizedBox(width: 8),
+  backgroundImage: data.comments[index].profileImageUrl != null && data.comments[index].profileImageUrl.isNotEmpty
+      ? NetworkImage(data.comments[index].profileImageUrl)
+      : NetworkImage('https://via.placeholder.com/30'),
+),
+SizedBox(width: 8),
+
                           // Text('User ${index + 1}'),
                           Text(data.comments[index].userName),
                           Spacer(),
-                          Text('2d ago'),
+                          Text(formatCreatedAt(data.comments[index].createdAt), style: TextStyle(color: Colors.grey, fontSize: 12),),
                         ],
                       ),
                       SizedBox(height: 8),
 
                       Text(
                         data.comments[index].comment,
+                        style: TextStyle(
+                          fontSize: 12.9 ,
+                          fontWeight: FontWeight.w400,
+                          color:secondaryColor60LightTheme
+                        ),
                         //     'Great place! The food was amazing and the service was excellent.'
                       ),
                       SizedBox(height: 8),
@@ -214,19 +245,20 @@ class FewReviews extends StatelessWidget {
                       // ),
                       Row(
                         children: [
-                          RatingBarIndicator(
-                            rating: double.parse(data.comments[index].rating.toString()),
-                            itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            itemCount: 5,
-                            itemSize: 11,
-                            direction: Axis.horizontal,
-                          ),
-                          SizedBox(width: 8),
+                          // RatingBarIndicator(
+                          //   rating: double.parse(data.comments[index].rating.toString()),
+                          //   itemBuilder: (context, index) => Icon(
+                          //     Icons.star,
+                          //     color: Colors.amber,
+                          //   ),
+                          //   itemCount: 5,
+                          //   itemSize: 11,
+                          //   direction: Axis.horizontal,
+                          // ),
+                          stars(data.comments[index].rating),
+                          SizedBox(width: 205),
                           // Text('Restaurant Name'),
-                          Text(data.comments[index].businessName),
+                          Text(data.comments[index].businessName, style: TextStyle(fontSize: 10, color: Colors.grey),),
                         ],
                       ),
 

@@ -309,7 +309,7 @@ class FavoritesPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('My Favorites', style: TextStyle(color: Colors.black87, fontSize: 18.6)),
-        backgroundColor: Colors.white,
+        backgroundColor: tgPrimaryColor,
         leading: IconButton(onPressed: (){
           Navigator.pop(context);
         }, icon: Icon(Icons.keyboard_arrow_left_rounded)),
@@ -478,37 +478,38 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 
-
-  Widget _buildCoolImage(String imagePath) {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ClipOval(
-        // child: Image.asset(
-        //   imagePath,
-        //   width: 40,
-        //   height: 40,
-        //   fit: BoxFit.cover,
-        // ),
-        child: Image.network(
-          imagePath,
-          width: 40,
-          height: 40,
-          fit: BoxFit.cover,
+Widget _buildCoolImage(String imagePath) {
+  return Container(
+    width: 60,
+    height: 60,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 1,
+          blurRadius: 4,
+          offset: Offset(0, 2),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+    child: ClipOval(
+      child: imagePath.startsWith('http') || imagePath.startsWith('https')
+          ? Image.network(
+              imagePath,
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+            )
+          : Image.asset(
+              imagePath,
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+            ),
+    ),
+  );
+}
+
 }

@@ -384,6 +384,9 @@ class Explore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: StaggeredGridView.countBuilder(
@@ -574,6 +577,9 @@ class _PopularListState extends State<PopularList> {
     var data = Provider.of<HomePopularListProvider>(context);
     var fav = Provider.of<FavouriteProvider>(context);
 
+    
+  
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return ListView.builder(
@@ -584,28 +590,42 @@ class _PopularListState extends State<PopularList> {
             final business = data.PopularList[index];
             final isLiked = fav.isFavourite(business.businessUid);
             final favouriteId = fav.getFavouriteId(business.businessUid);
-            print("favouriteId: $favouriteId");
-            print("isLiked: $isLiked");
+            
             return Card(
               elevation: 2,
               margin: EdgeInsets.only(bottom: 16),
               child: ListTile(
                 leading: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://via.placeholder.com/50',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
+                 child: data.PopularList[index].profileImageUrl != null &&
+              (data.PopularList[index].profileImageUrl.startsWith('http') || 
+               data.PopularList[index].profileImageUrl.startsWith('https'))
+          ? Image.network(
+              data.PopularList[index].profileImageUrl!,
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            )
+          : Image.asset(
+              data.PopularList[index].profileImageUrl ?? 'images/foodexplore.jpg',
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
                 ),
-                title: Text(data.PopularList[index].businessName),
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(data.PopularList[index].businessName, style: TextStyle(fontSize: 14.5),),
+                ),
+                
                 subtitle: Row(
                   children: [
-                    Icon(Icons.star, size: 16, color: Colors.amber),
+                    Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
+                
+                    SizedBox(width: 4),
                     Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
-                    Text('Category • '),
-                    Text('\$\$'),
+                    Text('Category • ', style: TextStyle(fontSize: 13, color: Colors.grey),),
+                    Text(data.PopularList[index].category, style: TextStyle(fontSize: 13, color: Colors.grey),),
                   ],
                 ),
                 trailing: SizedBox(
@@ -629,14 +649,14 @@ class _PopularListState extends State<PopularList> {
                     },
                     onTap: (bool isLiked) async {
                       if (!isLiked) {
-                        print("add to favourite");
+                        // print("add to favourite");
                         fav.addFavourite(context, business.businessUid);
                       } else {
                         if (favouriteId! >= 0) {
-                          print("remove from favourite");
+                          // print("remove from favourite");
                           bool isCheck = await fav.deleteFavourite(favouriteId);
                           if (isCheck) {
-                            print("deleted");
+                            // print("deleted");
                             showSnackBar(context, "Removed from favourites");
                           } else {
                             print("not deleted");
