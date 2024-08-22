@@ -29,13 +29,13 @@ class HomePopularListProvider with ChangeNotifier {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        print(response.body);
+        // print(response.body);
         _popularList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
-        print("popularList $_popularList");
+        // print("popularList $_popularList");
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _popularList = [];
-        print('No comments found: status code 400');
+        // print('No comments found: status code 400');
       }
       else {
         throw Exception('Failed to load comments');

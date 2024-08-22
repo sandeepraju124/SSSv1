@@ -227,6 +227,7 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Container(
                       height: 600,
+                      color: Colors.white70,
                       child: FewReviews(),
                     ),
                   ),

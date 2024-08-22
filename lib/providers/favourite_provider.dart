@@ -37,7 +37,7 @@ class FavouriteProvider extends ChangeNotifier {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        print("Favourite List: $responseData");
+        // print("Favourite List: $responseData");
         _favourite = responseData.map((data) => FavouriteModels.fromJson(data)).toList();
         // print("Favourite List: $_favourite");
       }else if (response.statusCode == 404) {

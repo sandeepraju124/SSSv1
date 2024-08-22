@@ -77,9 +77,9 @@ class HomeRestaurantListProvider with ChangeNotifier {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final List<dynamic> responseData = json.decode(response.body);
-        print(response.body);
+        // print(response.body);
         _featuredList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
-        print(_featuredList);
+        // print(_featuredList);
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
         _featuredList = [];

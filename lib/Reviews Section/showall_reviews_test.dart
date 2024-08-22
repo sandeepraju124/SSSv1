@@ -536,7 +536,8 @@ class _ShowallCommentsState extends State<ShowallComments> {
                                       ),
                                       SizedBox(height: 4),
                                       Text(
-                                        timeago.format(DateTime.now().subtract(Duration(days: 2))),
+                                        formatCreatedAt(data.comments[index].createdAt
+                                        ),
                                         style: TextStyle(color: Colors.grey, fontSize: 12),
                                       ),
                                     ],
@@ -568,12 +569,12 @@ class _ShowallCommentsState extends State<ShowallComments> {
                             ),
                             SizedBox(height: 12),
                             Row(
-                              children: const [
-                                Icon(Icons.restaurant, size: 16, color: Colors.grey),
-                                SizedBox(width: 4),
+                              children: [
+                                const Icon(Icons.restaurant, size: 16, color: Colors.grey),
+                                const SizedBox(width: 4),
                                 Text(
-                                  'Restaurant Name',
-                                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                                  data1.businessProfileData!.businessName,
+                                  style: const TextStyle(color: Colors.grey, fontSize: 12),
                                 ),
                               ],
                             ),
