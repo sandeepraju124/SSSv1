@@ -41,7 +41,7 @@ class _HomePageNewState extends State<HomePageNew> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
+      // Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
       // Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(34.05224, -118.24322, 5000);
       // Provider.of<NearbyCommentProvider>(context, listen: false).fetchComments(double latitude, double longitude, int "distance");
     });
@@ -108,6 +108,7 @@ class _HomePageNewState extends State<HomePageNew> {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
+                    // Provider.of<HomeRestaurantListProvider>(context, listen: false).FeaturedList.isNotEmpty ? FeaturedListDummy() :
                     FeaturedList(),
                     SizedBox(height: 20),
                     Text(
@@ -122,12 +123,13 @@ class _HomePageNewState extends State<HomePageNew> {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 10),
-                    SizedBox(
-                      height: 400, // Adjust this height as needed
-                      // child: Explore(),
-                      child: ExploreNew()
-                      // child: ,
-                    ),
+                    ExploreNew(),
+                    // SizedBox(
+                    //   height: 400, // Adjust this height as needed
+                    //   // child: Explore(),
+                    //   child: ExploreNew()
+                    //   // child: ,
+                    // ),
 
                     SizedBox(height: 100),
                     Text(
@@ -175,24 +177,21 @@ class FeaturedList extends StatefulWidget {
 }
 
 class _FeaturedListState extends State<FeaturedList> {
-  @override
-  void initState() {
-    super.initState();
-    var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
-    // if (data.FeaturedList.isEmpty) {
-    //   // data.fetchFeatured(key: "sub_category", value: "Restaurant");
-    //   data.fetchFeatured(34.05224, -118.24322, 5000);
-    // }
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   var data = Provider.of<HomeRestaurantListProvider>(context, listen: false);
+  //   // if (data.FeaturedList.isEmpty) {
+  //   //   // data.fetchFeatured(key: "sub_category", value: "Restaurant");
+  //   //   data.fetchFeatured(34.05224, -118.24322, 5000);
+  //   // }
+  // }
 
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<HomeRestaurantListProvider>(context);
     return data.isLoading
         ? FeaturedListShimmerEffect()
-    // Center(
-    //         child: CircularProgressIndicator(color: tgPrimaryColor),
-    //       )
         : SizedBox(
             height: 200,
             child: ListView.builder(
@@ -592,19 +591,32 @@ class _PopularListState extends State<PopularList> {
               child: ListTile(
                 leading: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'https://via.placeholder.com/50',
-                    width: 50,
+                  child: (business.profileImageUrl != null && business.profileImageUrl.isNotEmpty)
+                      ? Image.network(
+                    business.profileImageUrl,
                     height: 50,
+                    width: 50,
+                    fit: BoxFit.cover,
+                  )
+                      : Image.network(
+                    'https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg',
+                    height: 50,
+                    width: 50,
                     fit: BoxFit.cover,
                   ),
+                  // Image.network(
+                  //   'https://via.placeholder.com/50',
+                  //   width: 50,
+                  //   height: 50,
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
-                title: Text(data.PopularList[index].businessName),
+                title: Text(data.PopularList[index].businessName,),
                 subtitle: Row(
                   children: [
                     Icon(Icons.star, size: 16, color: Colors.amber),
-                    Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
-                    Text('Category • '),
+                    Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  ", style: TextStyle(color: Colors.grey)),
+                    Text('Category • ',style: TextStyle(color: Colors.grey),),
                     Text('\$\$'),
                   ],
                 ),

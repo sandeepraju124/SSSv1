@@ -63,7 +63,7 @@ class ExploreNew extends StatelessWidget {
       "image": "images/category/education.avif",
       "onTap": null
     },
-    {"name": "Pets", "image": "images/category/pets.jpg", "onTap": null},
+    // {"name": "Pets", "image": "images/category/pets.jpg", "onTap": null},
     // {"name": "Professional Services", "image": "images/category/Professional_Services.jpg", "onTap": null},
   ];
 
@@ -72,6 +72,8 @@ class ExploreNew extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: StaggeredGridView.countBuilder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 4,
         itemCount: categories.length,
         itemBuilder: (context, index) {

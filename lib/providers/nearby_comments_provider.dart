@@ -14,7 +14,8 @@ class NearbyCommentProvider with ChangeNotifier {
 
   Future<void> fetchComments(double latitude, double longitude, int distance) async {
     // final url = 'https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=$latitude&longitude=$longitude&distance=$distance';
-    String url = "https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=34.05224&longitude=-118.24322&distance=5000";
+    // String url = "https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=34.05224&longitude=-118.24322&distance=5000";
+    String url = "https://supernova1137.azurewebsites.net/pg/comments/latlong?latitude=$latitude&longitude=$longitude&distance=$distance";
 
     try {
       _isLoading = true;

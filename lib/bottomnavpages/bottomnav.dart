@@ -18,6 +18,7 @@ import 'package:sssv1/utils/navigator.dart';
 import '../favorite_test.dart';
 import '../homepage_new.dart';
 import '../nearby_comments.dart';
+import '../providers/BusinessCategoriesProviderNew.dart';
 import '../providers/comments_provider_new.dart';
 import '../providers/favourite_provider.dart';
 import '../providers/home_popularnear_provider.dart';
@@ -69,8 +70,6 @@ class _BottomNavPageState extends State<BottomNavPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeData();
     });
-
-
   }
 
 
@@ -85,6 +84,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     var userFavourites = Provider.of<FavouriteProvider>(context, listen: false);
     var userFeatured = Provider.of<HomeRestaurantListProvider>(context, listen: false);
     var userPopular = Provider.of<HomePopularListProvider>(context, listen: false);
+    var categories = Provider.of<BusinessCategoriesProviderNew>(context, listen: false);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -102,6 +102,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
         if (userPopular.PopularList.isEmpty && !userFeatured.isLoading) {
           await userPopular.fetchPopular(liveLoc.latitude!, liveLoc.longitude!,5000);
         }
+        if (categories.allCategories.isEmpty && !categories.isLoading) {
+          await categories.fetchCategoriesData();}
 
       }
 
