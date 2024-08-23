@@ -32,10 +32,17 @@ class HomePopularListProvider with ChangeNotifier {
         // print(response.body);
         _popularList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
         // print("popularList $_popularList");
+        print('Popular Restaurant found: status code 200');
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
-        _popularList = [];
-        // print('No comments found: status code 400');
+        // _popularList = [];
+        // insted of empty list, we can show dummy data
+        String dummyData = 'https://supernova1137.azurewebsites.net/pg/business/where?category=Food&length=5&sortby=avg_rating';
+        final response = await http.get(Uri.parse(dummyData));
+        final List<dynamic> responseData = json.decode(response.body);
+        _popularList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
+        print('No Popular Restaurant found: status code 400 showing dummy data');
+
       }
       else {
         throw Exception('Failed to load comments');

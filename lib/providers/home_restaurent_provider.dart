@@ -79,11 +79,20 @@ class HomeRestaurantListProvider with ChangeNotifier {
         final List<dynamic> responseData = json.decode(response.body);
         // print(response.body);
         _featuredList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
+        if (_featuredList.isEmpty) {
+          print('No Featured Business found: status code 200');
+        }
         // print(_featuredList);
       }else if (response.statusCode == 404) {
         // If the status code is 400, return an empty list
-        _featuredList = [];
-        print('No comments found: status code 400');
+        // _featuredList = [];
+        // insted of empty list, we can show dummy data
+        // String dummyData = 'https://supernova1137.azurewebsites.net/pg/business/where?is_premium=True';
+        String dummyData = 'https://supernova1137.azurewebsites.net/pg/business/where?is_premium=True&length=5&sortby=avg_rating';
+        final response = await http.get(Uri.parse(dummyData));
+        final List<dynamic> responseData = json.decode(response.body);
+        _featuredList = responseData.map((data) => BusinessModel.fromJson(data)).toList();
+        print('No Featured Business found: status code 400 showing dummy data');
       }
       else {
         throw Exception('Failed to load comments');

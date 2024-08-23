@@ -15,28 +15,13 @@ import 'package:sssv1/viewall_cat_new.dart';
 
 import '../Services (top) of homepage section/showallsubcat.dart';
 //
-// class CategoryScreen extends StatefulWidget {
-//   @override
-//   State<CategoryScreen> createState() => _CategoryScreenState();
-// }
-//
-// class _CategoryScreenState extends State<CategoryScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     WidgetsBinding.instance.addPostFrameCallback((_) {
-//       Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
-//     });
-//   }
-//
+// class CategoryScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Categories')),
-//       body: Consumer<BusinessCategoriesProviderNew>(
+//       return Consumer<BusinessCategoriesProviderNew>(
 //         builder: (context, data, child) {
 //           if (data.isLoading) {
-//             return Center(child: CircularProgressIndicator());
+//             return Center(child: CircularProgressIndicator( color: tgDarkPrimaryColor,));
 //           } else if (data.priority1Categories.isEmpty) {
 //             return Center(child: Text('No priority 1 categories found.'));
 //           } else {
@@ -44,47 +29,45 @@ import '../Services (top) of homepage section/showallsubcat.dart';
 //               child: Column(
 //                 crossAxisAlignment: CrossAxisAlignment.start,
 //                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.all(16.0),
-//                     child: Text('Top Categories',
-//                         // style: Theme.of(context).textTheme.headline6
-//                     ),
-//                   ),
+//                   // Padding(
+//                   //   padding: const EdgeInsets.all(16.0),
+//                   //   child: Text('Top Categories',
+//                   //       // style: Theme.of(context).textTheme.headline6
+//                   //   ),
+//                   // ),
 //                   CategoryList(),
-//                   Padding(
-//                     padding: const EdgeInsets.all(16.0),
-//                     child: Text('All Categories',
-//                         // style: Theme.of(context).textTheme.headline6
-//                     ),
-//                   ),
-//                   GridView.builder(
-//                     shrinkWrap: true,
-//                     physics: NeverScrollableScrollPhysics(),
-//                     padding: EdgeInsets.all(16),
-//                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 3,
-//                       childAspectRatio: 1,
-//                       crossAxisSpacing: 16,
-//                       mainAxisSpacing: 16,
-//                     ),
-//                     itemCount: data.priority1Categories.length + 1,
-//                     itemBuilder: (context, index) {
-//                       if (index == data.priority1Categories.length) {
-//                         return buildViewAllIcon(context);
-//                       } else {
-//                         final category = data.priority1Categories.keys.elementAt(index);
-//                         final subcategory = data.priority1Categories[category]![0]['subcategory'];
-//                         return buildCategoryIcon(subcategory);
-//                       }
-//                     },
-//                   ),
+//                   // Padding(
+//                   //   padding: const EdgeInsets.all(16.0),
+//                   //   child: Text('All Categories',
+//                   //       // style: Theme.of(context).textTheme.headline6
+//                   //   ),
+//                   // ),
+//                   // GridView.builder(
+//                   //   shrinkWrap: true,
+//                   //   physics: NeverScrollableScrollPhysics(),
+//                   //   padding: EdgeInsets.all(16),
+//                   //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                   //     crossAxisCount: 3,
+//                   //     childAspectRatio: 1,
+//                   //     crossAxisSpacing: 16,
+//                   //     mainAxisSpacing: 16,
+//                   //   ),
+//                   //   itemCount: data.priority1Categories.length + 1,
+//                   //   itemBuilder: (context, index) {
+//                   //     if (index == data.priority1Categories.length) {
+//                   //       return buildViewAllIcon(context);
+//                   //     } else {
+//                   //       final category = data.priority1Categories.keys.elementAt(index);
+//                   //       final subcategory = data.priority1Categories[category]![0]['subcategory'];
+//                   //       return buildCategoryIcon(subcategory);
+//                   //     }
+//                   //   },
+//                   // ),
 //                 ],
 //               ),
 //             );
 //           }
-//         },
-//       ),
-//     );
+//           });
 //   }
 //
 //   Widget buildCategoryIcon(String subcategory) {
@@ -95,7 +78,7 @@ import '../Services (top) of homepage section/showallsubcat.dart';
 //         CircleAvatar(
 //           radius: 30,
 //           backgroundColor: Colors.teal.shade100,
-//           child: Icon(icon, size: 30, color: Colors.teal),
+//           child: Icon(icon, size: 23, color: Colors.teal),
 //         ),
 //         SizedBox(height: 8),
 //         Text(subcategory, textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
@@ -124,7 +107,6 @@ import '../Services (top) of homepage section/showallsubcat.dart';
 //     );
 //   }
 // }
-//
 //
 // class CategoryList extends StatelessWidget {
 //   @override
@@ -178,7 +160,7 @@ import '../Services (top) of homepage section/showallsubcat.dart';
 //                           child: Icon(getCategoryIcon(subcategory), size: 30, color: Colors.teal),
 //                         ),
 //                         SizedBox(height: 8),
-//                         Text(subcategory, textAlign: TextAlign.center),
+//                         Text(subcategory, textAlign: TextAlign.center, style: TextStyle(fontSize: 11),),
 //                       ],
 //                     ),
 //                   ),
@@ -214,70 +196,33 @@ import '../Services (top) of homepage section/showallsubcat.dart';
 //       return Icons.category;
 //   }
 // }
-//
-// class AllCategoriesScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('All Categories')),
-//       body: Center(child: Text('All Categories List')),
-//     );
-//   }
-// }
+// //
+
+
+
+import 'package:shimmer/shimmer.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      return Consumer<BusinessCategoriesProviderNew>(
-        builder: (context, data, child) {
-          if (data.isLoading) {
-            return Center(child: CircularProgressIndicator( color: tgDarkPrimaryColor,));
-          } else if (data.priority1Categories.isEmpty) {
-            return Center(child: Text('No priority 1 categories found.'));
-          } else {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.all(16.0),
-                  //   child: Text('Top Categories',
-                  //       // style: Theme.of(context).textTheme.headline6
-                  //   ),
-                  // ),
-                  CategoryList(),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(16.0),
-                  //   child: Text('All Categories',
-                  //       // style: Theme.of(context).textTheme.headline6
-                  //   ),
-                  // ),
-                  // GridView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   padding: EdgeInsets.all(16),
-                  //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //     crossAxisCount: 3,
-                  //     childAspectRatio: 1,
-                  //     crossAxisSpacing: 16,
-                  //     mainAxisSpacing: 16,
-                  //   ),
-                  //   itemCount: data.priority1Categories.length + 1,
-                  //   itemBuilder: (context, index) {
-                  //     if (index == data.priority1Categories.length) {
-                  //       return buildViewAllIcon(context);
-                  //     } else {
-                  //       final category = data.priority1Categories.keys.elementAt(index);
-                  //       final subcategory = data.priority1Categories[category]![0]['subcategory'];
-                  //       return buildCategoryIcon(subcategory);
-                  //     }
-                  //   },
-                  // ),
-                ],
-              ),
-            );
-          }
-          });
+    return Consumer<BusinessCategoriesProviderNew>(
+      builder: (context, data, child) {
+        if (data.isLoading) {
+          return ShimmerLoader();
+        } else if (data.priority1Categories.isEmpty) {
+          return ShimmerLoader();
+        } else {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CategoryList(),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
   Widget buildCategoryIcon(String subcategory) {
@@ -299,7 +244,6 @@ class CategoryScreen extends StatelessWidget {
   Widget buildViewAllIcon(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => AllCategoriesScreen()));
         navigatorPush(context, AllSubcategoriesPageNew());
       },
       child: Column(
@@ -313,6 +257,42 @@ class CategoryScreen extends StatelessWidget {
           SizedBox(height: 8),
           Text('View All', textAlign: TextAlign.center),
         ],
+      ),
+    );
+  }
+}
+
+class ShimmerLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5, // Number of shimmer items to show
+        itemBuilder: (context, index) {
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    width: 60,
+                    height: 10,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -358,7 +338,6 @@ class CategoryList extends StatelessWidget {
                   onTap: (){
                     print(subcategory);
                     navigatorPush(context, SubCategoryList(keyy: "sub_category",value: subcategory,));
-
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -404,15 +383,5 @@ IconData getCategoryIcon(String subcategory) {
       return Icons.store_mall_directory;
     default:
       return Icons.category;
-  }
-}
-
-class AllCategoriesScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('All Categories')),
-      body: Center(child: Text('All Categories List')),
-    );
   }
 }
