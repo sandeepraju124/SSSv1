@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // ignore: unused_import
@@ -29,9 +30,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../Reviews Section/show_fewcomments.dart';
+import '../chat/chatlist.dart';
+import '../favorite_test.dart';
 import '../models/favourite_models.dart';
+import '../providers/chat_provider.dart';
 import '../providers/comments_provider_new.dart';
 import '../providers/favourite_provider.dart';
+import '../utils/navigator.dart';
 
 
 class DefaultProfilePage extends StatefulWidget {
@@ -146,9 +151,14 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     var data = Provider.of<BusinessProfileProvider>(context);
     var servicesData = Provider.of<ServicesProvider>(context);
     final fav = Provider.of<FavouriteProvider>(context, listen: false);
+    var chat = Provider.of<ChatProvider>(context);
+    String chatId = chat.getConversationId(user!.uid, widget.uid);
+    print(widget.uid);
+    print(chatId);
    
     // var fav = Provider.of<FavouriteProvider>(context);
     String businessId = data.businessProfileData?.businessUid ?? '';
@@ -172,7 +182,20 @@ class _DefaultProfilePageState extends State<DefaultProfilePage>
     final isLiked = fav.isFavourite(businessId);
     final favouriteId = fav.getFavouriteId(businessId);
 
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.chat_bubble_outline, color: Colors.white, size: 18,),
+        label: Text('Chat', style: TextStyle(color: Colors.white,)),
+        backgroundColor: Colors.teal,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        onPressed: () async{
+          String? userId = await getUserId();
+          navigatorPush(context, ChatScreen(userId: userId!,businessId: widget.uid, conversationId: chatId,));
+        },
+      ),
+
       body: _isLoading
           ? _buildShimmerLoading()
           : CustomScrollView(
