@@ -160,6 +160,8 @@ void showSnackBar(BuildContext context, String message){
   );
 }
 
+
+// String? userId = await getUserId();
 Future<String?> getUserId() async {
   // Get the current user
   User? user = FirebaseAuth.instance.currentUser;

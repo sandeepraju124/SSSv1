@@ -16,6 +16,7 @@ import 'package:sssv1/Services%20(top)%20of%20homepage%20section/ourtoppick.dart
 import 'package:sssv1/User_Activity%20Section/user_activity_provider.dart';
 import 'package:sssv1/firebase_options.dart';
 import 'package:sssv1/providers/BusinessCategoriesProviderNew.dart';
+import 'package:sssv1/providers/chat_provider.dart';
 import 'package:sssv1/providers/comments_provider_new.dart';
 import 'package:sssv1/providers/favourite_provider.dart';
 import 'package:sssv1/providers/home_popularnear_provider.dart';
@@ -49,6 +50,7 @@ import 'package:sssv1/widgets/restaurent.dart';
 import 'package:sssv1/widgets/subcategory.dart';
 
 import 'Reviews Section/showall_reviews_test.dart';
+import 'chat/chatlist.dart';
 import 'favorite_test.dart';
 import 'login/google_signinPages/google_login_controller.dart';
 import 'login/redirection.dart';
@@ -78,9 +80,6 @@ void main() async {
     ChangeNotifierProvider<CommentSectionProviderNew>(
       create: (_) => CommentSectionProviderNew(),
     ),
-    // ChangeNotifierProvider<AllBusinessListProvider>(
-    //   create: (_) => AllBusinessListProvider(),
-    // ),
     ChangeNotifierProvider<GoogleSignInController>(
       create: (_) => GoogleSignInController(),
     ),
@@ -107,6 +106,9 @@ void main() async {
     ),
     ChangeNotifierProvider<HomePopularListProvider>(
       create: (_) => HomePopularListProvider(),
+    ),
+    ChangeNotifierProvider<ChatProvider>(
+      create: (_) => ChatProvider(),
     ),
     ChangeNotifierProvider<BusinessCategoriesProviderNew>(
       create: (_) => BusinessCategoriesProviderNew(),
@@ -138,7 +140,12 @@ class MyApp extends StatelessWidget {
       // home: AskForCommunityUiTest(uid: "SWEFOO1111111111"),
       // home: DefaultProfilePage(uid: ""),
       home: redirection(), //this is default
-      // home:FavoritesPage()
+      // home:ChatScreen(
+      //   businessId: "hfhfhhfh",
+      //   // conversationId: "A1B2C3D4E5F67890AABBCCDD",
+      //   conversationId: "nI63HUrLNBQk77aEHY",
+      //   userId: "raju",
+      // ),
       // home:test2()
       // home: ProfilePage(),
       // home: DefaultProfilePageTest(uid: 'FIOPLKJJNVVFD45790',),

@@ -15,10 +15,12 @@ import 'package:sssv1/screens/userprofile_test.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:sssv1/utils/navigator.dart';
 
+import '../chat/chatlist.dart';
 import '../favorite_test.dart';
 import '../homepage_new.dart';
 import '../nearby_comments.dart';
 import '../providers/BusinessCategoriesProviderNew.dart';
+import '../providers/chat_provider.dart';
 import '../providers/comments_provider_new.dart';
 import '../providers/favourite_provider.dart';
 import '../providers/home_popularnear_provider.dart';
@@ -85,6 +87,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     var userFeatured = Provider.of<HomeRestaurantListProvider>(context, listen: false);
     var userPopular = Provider.of<HomePopularListProvider>(context, listen: false);
     var categories = Provider.of<BusinessCategoriesProviderNew>(context, listen: false);
+    var chat = Provider.of<ChatProvider>(context, listen: false);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -104,6 +107,13 @@ class _BottomNavPageState extends State<BottomNavPage> {
         }
         if (categories.allCategories.isEmpty && !categories.isLoading) {
           await categories.fetchCategoriesData();}
+
+        if (chat.conversations.isEmpty) {
+          await chat.fetchConversations(user.uid);
+
+        }
+
+
 
       }
 
@@ -165,6 +175,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
                 behavior: SnackBarBehavior.floating,
               ),
             );
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.chat_bubble_outline, color: Colors.grey, size: 20,),
+          onPressed: () async {
+            String? userId = await getUserId();
+            print("User id: $userId");
+            // navigatorPush(context, ChatListScreen(userId: '123',userType: 'customer',));
+            navigatorPush(context, ChatListScreen(userId: userId!,));
           },
         ),
       ],
