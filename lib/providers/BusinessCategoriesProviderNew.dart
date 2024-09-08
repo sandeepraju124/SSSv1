@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -20,7 +21,8 @@ class BusinessCategoriesProviderNew with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body)[0] as Map<String, dynamic>;
-        // print(data);
+        print(data);
+        print("...............................__");
         _priority1Categories = _filterPriority1Categories(data);
 
         var decodedResponse = json.decode(response.body);
@@ -82,3 +84,5 @@ class Subcategory {
     );
   }
 }
+
+

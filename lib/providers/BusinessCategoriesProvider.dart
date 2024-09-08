@@ -35,7 +35,4 @@ class BusinessCategoriesProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
-
-
-
 }
