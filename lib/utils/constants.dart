@@ -196,4 +196,60 @@ String formatCreatedAt(String createdAt) {
   } else {
     return DateFormat('MMM d, yyyy').format(dateTime);
   }
+  
 }
+
+
+Widget customStars(int rating) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: List.generate(
+      5, // Always generate 5 stars
+          (index) => Padding(
+        padding: const EdgeInsets.only(right: 4, bottom: 7, top: 10),
+        child: Container(
+          width: 17,
+          height: 17,
+          decoration: BoxDecoration(
+            color: index < rating ? tgDarkPrimaryColor : Colors.transparent,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.black, width: 0.3),
+          ),
+          child: Icon(
+            Icons.star,
+            color: index < rating ? Colors.white : Colors.grey,
+            size: 12,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+
+Widget customStar() {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 4, bottom: 7, top: 4.4),
+        child: Container(
+          width: 15,
+          height: 15,
+          decoration: BoxDecoration(
+            color: tgDarkPrimaryColor, // Replace with your desired color
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.black, width: 0.3),
+          ),
+          child: Icon(
+            Icons.star,
+            color: Colors.white, // Adjust color as needed
+            size: 12,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+

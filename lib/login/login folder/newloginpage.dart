@@ -206,7 +206,7 @@ class _NewLoginPageState extends State<NewLoginPage> {
 
                   TextFormField(
                     controller: _passwordcontroller,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     obscureText: passwordObscured,
                     decoration: InputDecoration(
                       labelText: "Password",

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sssv1/Reviews%20Section/showall_reviews_test.dart';
 
@@ -190,6 +191,35 @@ class FewReviews extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
+
+          data.isLoading ?
+            Padding(
+                  padding: const EdgeInsets.only(top: 200),
+                  child: Center(
+                      child: CircularProgressIndicator(color: tgPrimaryColor)),
+                )
+              : data.comments.isEmpty 
+              ? Center(
+                      child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 30),
+                          Lottie.asset("images/reviews.json", height: 210),
+                          Text(
+                            "Your opinion matters.\nPlease consider being the first to share your review",
+                            style: TextStyle(
+                                color: secondaryColor20LightTheme,
+                                fontSize: 10.8),
+                          ),
+                        ],
+                      ),
+                    ))
+                  :
+
+
+
+          
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),

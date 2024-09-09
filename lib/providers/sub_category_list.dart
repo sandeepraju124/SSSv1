@@ -115,6 +115,84 @@
 
 
 
+// import 'dart:convert';
+// import 'package:flutter/cupertino.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:sssv1/models/business_models.dart';
+// import 'package:sssv1/network_calling/http.dart';
+
+// class SubcategoryListProvider with ChangeNotifier {
+//   List<BusinessModel> _subCategoryListNearby = [];
+//   Map<String, Map<String, dynamic>> _businessRatingNearby = {};
+//   bool _isLoading = false;
+//   bool _hasNearbyBusinesses = false;
+
+//   List<BusinessModel> get subcategoryListDataNearby => _subCategoryListNearby;
+//   Map<String, Map<String, dynamic>> get businessRatingNearby => _businessRatingNearby;
+//   bool get isLoading => _isLoading;
+//   bool get hasNearbyBusinesses => _hasNearbyBusinesses;
+
+//   Future<void> subCategoryListProvider(String key, String value) async {
+//     _setLoading(true);
+//     try {
+//       _clearData();
+//       List<BusinessModel> dataList = await Http().getBusinessData(key: key, value: value);
+//       await _fetchBusinessRatings(dataList);
+//       _subCategoryListNearby = dataList;
+//     } finally {
+//       _setLoading(false);
+//     }
+//   }
+
+//   Future<void> fetchNearbyBusinesses(double userLat, double userLong, String key, String value) async {
+//     _setLoading(true);
+//     try {
+//       _clearData();
+//       final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
+//       final double distance = 20000; // Define your desired distance
+//       final Uri uri = Uri.parse('$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
+//       print(uri);
+//       final response = await http.get(uri);
+//       if (response.statusCode == 200) {
+//         final List<dynamic> data = jsonDecode(response.body);
+//         final List<BusinessModel> businessList = data.map((item) => BusinessModel.fromJson(item)).toList();
+//         _subCategoryListNearby = businessList;
+//         _hasNearbyBusinesses = businessList.isNotEmpty;
+//         await _fetchBusinessRatings(businessList);
+//       } else if (response.statusCode == 404) {
+//         print('No businesses found within the specified distance');
+//       } else {
+//         print('Failed to fetch nearby businesses: ${response.statusCode}');
+//       }
+//     } catch (e) {
+//       print('Error fetching nearby businesses: $e');
+//     } finally {
+//       _setLoading(false);
+//     }
+//   }
+
+//   void _setLoading(bool loading) {
+//     _isLoading = loading;
+//     notifyListeners();
+//   }
+
+//   void _clearData() {
+//     _subCategoryListNearby.clear();
+//     _businessRatingNearby.clear();
+//     _hasNearbyBusinesses = false;
+//   }
+
+//   Future<void> _fetchBusinessRatings(List<BusinessModel> businessList) async {
+//     for (var business in businessList) {
+//       Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
+//       _businessRatingNearby[business.businessUid] = rating;
+//     }
+//   }
+// }
+
+
+
+
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -126,19 +204,42 @@ class SubcategoryListProvider with ChangeNotifier {
   Map<String, Map<String, dynamic>> _businessRatingNearby = {};
   bool _isLoading = false;
   bool _hasNearbyBusinesses = false;
+  String? _errorMessage;
 
   List<BusinessModel> get subcategoryListDataNearby => _subCategoryListNearby;
   Map<String, Map<String, dynamic>> get businessRatingNearby => _businessRatingNearby;
   bool get isLoading => _isLoading;
   bool get hasNearbyBusinesses => _hasNearbyBusinesses;
+  String? get errorMessage => _errorMessage;
+
+  // Updates the loading state only if there's a change
+  void _setLoading(bool loading) {
+    if (_isLoading != loading) {
+      _isLoading = loading;
+      notifyListeners();
+    }
+  }
+
+  // Clears previous data and resets the state
+  void _clearData() {
+    _subCategoryListNearby.clear();
+    _businessRatingNearby.clear();
+    _hasNearbyBusinesses = false;
+    _errorMessage = null; // Clear any previous errors
+  }
 
   Future<void> subCategoryListProvider(String key, String value) async {
     _setLoading(true);
     try {
       _clearData();
       List<BusinessModel> dataList = await Http().getBusinessData(key: key, value: value);
-      await _fetchBusinessRatings(dataList);
-      _subCategoryListNearby = dataList;
+      if (dataList.isNotEmpty) {
+        _subCategoryListNearby = dataList;
+        await _fetchBusinessRatings(dataList);
+      }
+      _hasNearbyBusinesses = dataList.isNotEmpty;
+    } catch (e) {
+      _errorMessage = 'Failed to fetch businesses: $e';
     } finally {
       _setLoading(false);
     }
@@ -148,10 +249,17 @@ class SubcategoryListProvider with ChangeNotifier {
     _setLoading(true);
     try {
       _clearData();
-      final String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
-      final double distance = 20000; // Define your desired distance
-      final Uri uri = Uri.parse('$apiUrl?latitude=$userLat&longitude=$userLong&distance=$distance&key=$key&value=$value');
-      print(uri);
+      const String apiUrl = 'https://supernova1137.azurewebsites.net/pg/business/latlong';
+      const double distance = 20000; // Define your desired distance
+
+      final Uri uri = Uri.parse(apiUrl).replace(queryParameters: {
+        'latitude': userLat.toString(),
+        'longitude': userLong.toString(),
+        'distance': distance.toString(),
+        'key': key,
+        'value': value,
+      });
+
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
@@ -160,32 +268,25 @@ class SubcategoryListProvider with ChangeNotifier {
         _hasNearbyBusinesses = businessList.isNotEmpty;
         await _fetchBusinessRatings(businessList);
       } else if (response.statusCode == 404) {
-        print('No businesses found within the specified distance');
+        _errorMessage = 'No businesses found within the specified distance';
       } else {
-        print('Failed to fetch nearby businesses: ${response.statusCode}');
+        _errorMessage = 'Failed to fetch nearby businesses: ${response.statusCode}';
       }
     } catch (e) {
-      print('Error fetching nearby businesses: $e');
+      _errorMessage = 'Error fetching nearby businesses: $e';
     } finally {
       _setLoading(false);
     }
   }
 
-  void _setLoading(bool loading) {
-    _isLoading = loading;
-    notifyListeners();
-  }
-
-  void _clearData() {
-    _subCategoryListNearby.clear();
-    _businessRatingNearby.clear();
-    _hasNearbyBusinesses = false;
-  }
-
   Future<void> _fetchBusinessRatings(List<BusinessModel> businessList) async {
-    for (var business in businessList) {
-      Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
-      _businessRatingNearby[business.businessUid] = rating;
+    try {
+      for (var business in businessList) {
+        Map<String, dynamic> rating = await Http().overall_rating(business.businessUid);
+        _businessRatingNearby[business.businessUid] = rating;
+      }
+    } catch (e) {
+      _errorMessage = 'Error fetching business ratings: $e';
     }
   }
 }

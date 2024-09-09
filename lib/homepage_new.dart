@@ -31,28 +31,65 @@ import 'nearby_comments.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+
+  const SectionHeader({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.4,
+              fontWeight: FontWeight.w600,
+              
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Container(
+              height: 0.8,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    // Theme.of(context).primaryColor,
+                    // Theme.of(context).primaryColor.withOpacity(0.1),
+                    Colors.black38,
+                    Colors.black12.withOpacity(0.1),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class HomePageNew extends StatefulWidget {
   @override
   State<HomePageNew> createState() => _HomePageNewState();
 }
 
 class _HomePageNewState extends State<HomePageNew> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     // Provider.of<BusinessCategoriesProviderNew>(context, listen: false).fetchCategoriesData();
-  //     // Provider.of<HomeRestaurantListProvider>(context, listen: false).fetchFeatured(34.05224, -118.24322, 5000);
-  //     // Provider.of<NearbyCommentProvider>(context, listen: false).fetchComments(double latitude, double longitude, int "distance");
-  //   });
-  // }
+
 
   @override
   Widget build(BuildContext context) {
     final List<String> imgList = [
       'https://t4.ftcdn.net/jpg/02/43/17/67/360_F_243176712_zvbzGxx2h9xFymXoB9j3mpL7ZFgQU8lK.jpg',
-      'https://via.placeholder.com/800x400',
-      'https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=612x612&w=0&k=20&c=stdWozouV2XsrHk2xXD3C31nT90BG7ydZvcpAn1Fx7I=',
+      "https://static.wanderon.in/wp-content/uploads/2024/02/f427ece6-6cd0-4c37-971e-64805f4061d0.jpg",
+      "https://www.capertravelindia.com/images/travel-guide-img/nightlife-in-india3.jpg",
+    'https://media.istockphoto.com/id/1049775258/photo/smiling-handsome-electrician-repairing-electrical-box-with-pliers-in-corridor-and-looking-at.jpg?s=612x612&w=0&k=20&c=stdWozouV2XsrHk2xXD3C31nT90BG7ydZvcpAn1Fx7I=',
     ];
 
     return Scaffold(
@@ -88,6 +125,8 @@ class _HomePageNewState extends State<HomePageNew> {
                 ),
               ),
             ),
+            
+
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -95,47 +134,23 @@ class _HomePageNewState extends State<HomePageNew> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SearchBar3(),
-                    SizedBox(height: 20),
-                    Text(
-                      'Categories',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
+                    SizedBox(height: 10),
+                    SectionHeader(title: 'Categories'),
                     SizedBox(height: 10),
                     CategoryScreen(),
-                    SizedBox(height: 20),
-                    Text(
-                      'Featured',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
                     SizedBox(height: 10),
-                    // Provider.of<HomeRestaurantListProvider>(context, listen: false).FeaturedList.isNotEmpty ? FeaturedListDummy() :
+                    SectionHeader(title: 'Featured'),
+                    SizedBox(height: 10),
                     FeaturedList(),
-                    SizedBox(height: 20),
-                    Text(
-                      'Popular Near You',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
+                    SectionHeader(title: 'Popular Near You'),
                     SizedBox(height: 10),
                     PopularList(),
-                    SizedBox(height: 20),
-                    Text(
-                      'Explore All',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
+                    SizedBox(height: 10),
+                    SectionHeader(title: 'Explore All'),
                     SizedBox(height: 10),
                     ExploreNew(),
-                    // SizedBox(
-                    //   height: 400, // Adjust this height as needed
-                    //   // child: Explore(),
-                    //   child: ExploreNew()
-                    //   // child: ,
-                    // ),
-
-                    SizedBox(height: 100),
-                    Text(
-                      'Recent Reviews',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
+                    SizedBox(height: 10),
+                    SectionHeader(title: 'Recent Reviews'),
                     SizedBox(height: 10),
                     RecentReviews(),
                   ],
@@ -144,10 +159,11 @@ class _HomePageNewState extends State<HomePageNew> {
             ),
           ],
         ),
+        
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.favorite, color: Colors.white, size: 18,),
-        label: Text('Favorites', style: TextStyle(color: Colors.white,)),
+        icon: Icon(Icons.computer_rounded, color: Colors.white, size: 18,),
+        label: Text('AI Assitant', style: TextStyle(color: Colors.white,)),
         backgroundColor: Colors.teal,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -243,18 +259,49 @@ class _FeaturedListState extends State<FeaturedList> {
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                           overflow: TextOverflow.ellipsis,
                         ),
+                        // Row(
+                        //   children: [
+                        //     // Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
+                        //     customStar(),
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(left: 4.0, top: 2),
+                        //       // child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),
+                        //       // child: Text('10'),
+                        //       // child: Text(data.FeaturedList[index].avgRating),
+                        //       child: Text("${double.parse(data.FeaturedList[index].avgRating).toStringAsFixed(1)} (${data.FeaturedList[index].totalReviews})"),
+                        //     ),
+                        //   ],
+                        // ),
                         Row(
-                          children: [
-                            Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4.0, top: 2),
-                              // child: Text('${overallRating.toStringAsFixed(1)} (${data.businessRating[business.businessUid]?['reviewsCount'] ?? 0})'),
-                              // child: Text('10'),
-                              // child: Text(data.FeaturedList[index].avgRating),
-                              child: Text("${double.parse(data.FeaturedList[index].avgRating).toStringAsFixed(1)} . (${data.FeaturedList[index].totalReviews})"),
-                            ),
-                          ],
-                        ),
+  children: [
+    customStar(), // Displaying the custom single star
+    Padding(
+      padding: const EdgeInsets.only(left: 4.0, bottom: 4),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: double.parse(data.FeaturedList[index].avgRating).toStringAsFixed(1),
+              style: TextStyle(
+                color: Colors.black, // Style for the rating
+                fontWeight: FontWeight.bold, // Example: make the rating bold
+                fontSize: 12, // Example: set font size for the rating
+              ),
+            ),
+            TextSpan(
+              text: " (${data.FeaturedList[index].totalReviews})",
+              style: TextStyle(
+                color: Colors.grey, // Style for the reviews count
+                fontSize: 11, // Example: set font size for the reviews count
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  ],
+),
+
                       ],
                     ),
                   ),
@@ -466,106 +513,6 @@ class Explore extends StatelessWidget {
 }
 
 
-
-// class PopularList extends StatefulWidget {
-//   @override
-//   State<PopularList> createState() => _PopularListState();
-// }
-//
-// class _PopularListState extends State<PopularList> {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var data = Provider.of<HomePopularListProvider>(context);
-//     var fav = Provider.of<FavouriteProvider>(context);
-//
-//     return ListView.builder(
-//       shrinkWrap: true,
-//       physics: NeverScrollableScrollPhysics(),
-//       // itemCount: 3,
-//       itemCount: data.PopularList.length,
-//       itemBuilder: (context, index) {
-//         final business = data.PopularList[index];
-//         final isLiked = fav.isFavourite(business.businessUid); // Check if the business is already favorited
-//         final favouriteId = fav.getFavouriteId(business.businessUid);
-//         print("favouriteId: $favouriteId");
-//         print("isLiked: $isLiked");
-//         return Card(
-//           elevation: 2,
-//           margin: EdgeInsets.only(bottom: 16),
-//           child: ListTile(
-//             leading: ClipRRect(
-//               borderRadius: BorderRadius.circular(8),
-//               child: Image.network(
-//                 'https://via.placeholder.com/50',
-//                 width: 50,
-//                 height: 50,
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//             // title: Text('Popular Place ${index + 1}'),
-//             title: Text(data.PopularList[index].businessName),
-//             subtitle: Row(
-//               children: [
-//                 Icon(Icons.star, size: 16, color: Colors.amber),
-//                 // Text('4.${5 - index} • '),
-//                 // Text('${data.PopularList[index].avgRating} • '),
-//                 Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
-//                 Text('Category • '),
-//                 Text('\$\$'),
-//               ],
-//             ),
-//             // trailing: Icon(Icons.favorite_border),
-//             trailing: SizedBox(
-//               child: LikeButton(
-//
-//               isLiked: isLiked,
-//               // Set the initial state based on the existence of businessId
-//               circleColor: CircleColor(
-//                   start: Color(0xff00ddff),
-//                   end: Color(0xff0099cc)),
-//               bubblesColor: BubblesColor(
-//                 dotPrimaryColor: Color(0xff33b5e5),
-//                 dotSecondaryColor: Color(0xff0099cc),
-//               ),
-//               likeBuilder: (bool isLiked) {
-//                 return Icon(
-//                   Icons.favorite,
-//                   color: isLiked ?  Colors.pink[300] : Colors.white,
-//                   size: 20,
-//                 );
-//               },
-//               onTap: (bool isLiked) async {
-//                 if (!isLiked) {
-//                   print(
-//                       "add to favourite"); // Print this when the user likes the item
-//                   fav.addFavourite(context, business.businessUid);
-//                   // Here you can implement logic to add the item to favourites
-//                 } else {
-//                   if (favouriteId != null) {
-//                     print("remove from favourite");
-//                     bool isckeck = await fav.deleteFavourite(favouriteId);
-//                     if (isckeck) {
-//                       print("deleted");
-//                       showSnackBar(context, "Removed from favourites");
-//                     } else {
-//                       print("not deleted");
-//                     }
-//                   }
-//                 }
-//                 return !isLiked; // Toggle the like state
-//               },
-//                         ),
-//             )
-//
-//           ),
-//           );
-//         // );
-//       },
-//     );
-//   }
-// }
-
 class PopularList extends StatefulWidget {
   @override
   State<PopularList> createState() => _PopularListState();
@@ -624,7 +571,8 @@ class _PopularListState extends State<PopularList> {
 
                   subtitle: Row(
                     children: [
-                      Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
+                      // Icon(Icons.star_rounded, size: 16, color: Colors.amber[700]),
+                      customStar(),
 
                       SizedBox(width: 4),
                       Text("${double.parse(data.PopularList[index].avgRating).toStringAsFixed(1)}  "),
@@ -647,7 +595,7 @@ class _PopularListState extends State<PopularList> {
                       likeBuilder: (bool isLiked) {
                         return Icon(
                           Icons.favorite,
-                          color: isLiked ? Colors.pink[300] : Colors.white,
+                          color: isLiked ? Colors.pink[300] : Colors.grey[300],
                           size: 20,
                         );
                       },
@@ -710,31 +658,26 @@ class RecentReviews extends StatelessWidget {
                     // Text('User ${index + 1}'),
                     Text(data.comments[index].userName),
                     Spacer(),
-                    Text('2d ago'),
+                    Text(formatCreatedAt(data.comments[index].createdAt), style: TextStyle(fontSize: 12, color: Colors.grey),),
                   ],
                 ),
                 SizedBox(height: 8),
 
                 Text(
                     data.comments[index].comment,
+                    style: TextStyle(
+                      color: Colors.black87
+                    ),
                 //     'Great place! The food was amazing and the service was excellent.'
                 ),
                 SizedBox(height: 8),
                
                 Row(
                   children: [
-                    RatingBarIndicator(
-                      rating: double.parse(data.comments[index].rating.toString()),
-                      itemBuilder: (context, index) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      itemCount: 5,
-                      itemSize: 11,
-                      direction: Axis.horizontal,
-                    ),
-                    SizedBox(width: 8),
-                    Text('Restaurant Name'),
+                   
+                    customStars(data.comments[index].rating.toInt()),
+                    SizedBox(width: 185),
+                    Text(data.comments[index].businessName ?? "business name", style: TextStyle(color: Colors.grey, fontSize: 10),),
                   ],
                 ),
 

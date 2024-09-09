@@ -49,23 +49,34 @@ class _SubCategoryListState extends State<SubCategoryList> {
 
   bool _showNearbyBusinesses = false;
 
-  @override
+ @override
   void initState() {
     super.initState();
-    if (!widget.isHouseSearch) {
-      var livedata = Provider.of<LiveUserLocation>(context, listen: false);
-      // userLatitude = livedata.latitude!;
-      // userLongitude = livedata.longitude!;
+    
+
+
+    WidgetsBinding.instance.addPostFrameCallback((_){
+       var livedata = Provider.of<LiveUserLocation>(context, listen: false);
+
+       if (!widget.isHouseSearch) {
+     
+  
       userLatitude = 17.4875;
       userLongitude = 78.399734;
-      // print("userlat $userLatitude");
-      // print("userlong $userLongitude");
+      
       var data = Provider.of<SubcategoryListProvider>(context, listen: false);
       // data.subCategoryListProvider(widget.keyy, widget.value);
       data.fetchNearbyBusinesses(
           userLatitude, userLongitude, widget.keyy, widget.value);
     }
+    });
+   
   }
+
+ 
+
+
+
 
   Future<Map<String, String>> fetchDistance(
       String lat, String lang, String userLat, String userLang) async {
@@ -244,7 +255,7 @@ class _SubCategoryListState extends State<SubCategoryList> {
                 child: GestureDetector(
                   onTap: () {
                     // print("click");
-                    print(displayData[index].contactInformation);
+                    // print(displayData[index].contactInformation);
                     makePhoneCall(displayData[index].contactInformation);
                   },
                   child: SizedBox(

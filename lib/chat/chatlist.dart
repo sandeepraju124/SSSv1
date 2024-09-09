@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -5,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:sssv1/utils/constants.dart';
 
 
 
@@ -387,8 +390,12 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.keyboard_arrow_left_rounded)),
         title: Text('Conversations',
-            // style: TextStyle(fontWeight: FontWeight.bold)
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 19)
         ),
         backgroundColor: Colors.teal,
         elevation: 0,
@@ -400,9 +407,9 @@ class ChatListScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.chat_bubble_outline, size: 80, color: Colors.grey),
-                  SizedBox(height: 16),
-                  Text('No conversations yet', style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  Icon(Icons.chat_bubble_outline, size: 40, color: tgLightPrimaryColor),
+                  SizedBox(height: 8),
+                  Text('No conversations yet', style: TextStyle(fontSize: 14, color: Colors.black54)),
                 ],
               ),
             );
