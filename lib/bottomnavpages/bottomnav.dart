@@ -88,6 +88,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
     var userPopular = Provider.of<HomePopularListProvider>(context, listen: false);
     var categories = Provider.of<BusinessCategoriesProviderNew>(context, listen: false);
     var chat = Provider.of<ChatProvider>(context, listen: false);
+     chat.fetchConversations(user.uid);
 
     // Fetch the user's location
     if (liveLoc.latitude == null) {
@@ -110,13 +111,13 @@ class _BottomNavPageState extends State<BottomNavPage> {
           chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
           print("did");
 
-        if (chat.conversations.isEmpty) {
-          print("........................");
-          print(user.uid);
-          // await chat.fetchConversations(user.uid);
-          await chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
+        // if (chat.conversations.isEmpty) {
+        //   print("........................");
+        //   print(user.uid);
+        //   // await chat.fetchConversations(user.uid);
+        //   await chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
         
-        }
+        // }
 
 
 

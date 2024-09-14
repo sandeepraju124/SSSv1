@@ -321,10 +321,11 @@ import '../utils/constants.dart';
 //     super.dispose();
 //   }
 // }
-
-
-
-
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../utils/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
@@ -379,17 +380,11 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<void> fetchConversations(String userId) async {
-    print("iiii");
-    // final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/conversationslist/$userId'));
-    final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/conversationslist/KFwYUTlCQrT4RB2a8XLviFYUbU42'));
-    // final response = await http.get(Uri.parse('http://192.168.1.3:5000/api/conversationslist/KFwYUTlCQrT4RB2a8XLviFYUbU42'));
-
-    print("jjjjj");
+    print(userId);
+    final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/conversationslist/$userId'));
 
     if (response.statusCode == 200) {
-      print("qqqq");
       _conversations = List<Map<String, dynamic>>.from(json.decode(response.body));
-      print("llll");
       notifyListeners();
     } else if (response.statusCode == 404) {
       _conversations = [];
@@ -408,14 +403,10 @@ class ChatProvider with ChangeNotifier {
     return '$userId$businessId';
   }
 
-  // Future<void> refreshConversations(BuildContext context) async {
-  //   String businessUid = await getBusinessUid(context);
-  //   await fetchConversations(businessUid);
-  // }
-
-  Future<void> refreshConversations(BuildContext context, String businessUid ) async {
+  Future<void> refreshConversations() async {
     // String businessUid = await getBusinessUid(context);
-    await fetchConversations(businessUid);
+    // await fetchConversations(businessUid);
+    notifyListeners();
   }
 
   void joinConversation(String conversationId) {
@@ -457,4 +448,3 @@ class ChatProvider with ChangeNotifier {
     super.dispose();
   }
 }
-
