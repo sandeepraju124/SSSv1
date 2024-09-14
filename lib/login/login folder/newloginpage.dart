@@ -48,31 +48,67 @@ class _NewLoginPageState extends State<NewLoginPage> {
   //   }
   // }
 
+  // Future<void> signIn() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+
+  //   try {
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: _emailcontroller.text.trim(),
+  //       password: _passwordcontroller.text.trim(),
+  //     );
+
+  //     // Fetch user's data
+  //     var userpro = Provider.of<UserProvider>(context, listen: false);
+  //     await userpro.userProvider();
+
+  //     // Show Snackbar on successful login
+  //     // ScaffoldMessenger.of(context).showSnackBar(
+  //     //   SnackBar(
+  //     //     content: Text('User logged in'),
+  //     //   ),
+  //     // );
+  //   } on FirebaseAuthException catch (e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           content: Text(e.message.toString()),
+  //         );
+  //       },
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+
   Future<void> signIn() async {
-    setState(() {
-      _isLoading = true;
-    });
+  if (!mounted) return; // Ensure widget is still in the widget tree
+  setState(() {
+    _isLoading = true;
+  });
 
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailcontroller.text.trim(),
-        password: _passwordcontroller.text.trim(),
-      );
+  try {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailcontroller.text.trim(),
+      password: _passwordcontroller.text.trim(),
+    );
 
-      // Fetch user's data
-      var userpro = Provider.of<UserProvider>(context, listen: false);
-      await userpro.userProvider();
+    // Fetch user's data
+    var userpro = Provider.of<UserProvider>(context, listen: false);
+    await userpro.userProvider();
 
-      // Show Snackbar on successful login
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('User logged in'),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+  } on FirebaseAuthException catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) {
@@ -81,12 +117,16 @@ class _NewLoginPageState extends State<NewLoginPage> {
           );
         },
       );
-    } finally {
+    }
+  } finally {
+    if (mounted) {
       setState(() {
         _isLoading = false;
       });
     }
   }
+}
+
 
   @override
   void dispose() {

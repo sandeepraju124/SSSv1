@@ -107,10 +107,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
         }
         if (categories.allCategories.isEmpty && !categories.isLoading) {
           await categories.fetchCategoriesData();}
+          chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
+          print("did");
 
         if (chat.conversations.isEmpty) {
-          await chat.fetchConversations(user.uid);
-
+          print("........................");
+          print(user.uid);
+          // await chat.fetchConversations(user.uid);
+          await chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
+        
         }
 
 

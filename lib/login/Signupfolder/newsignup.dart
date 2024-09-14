@@ -550,83 +550,268 @@ class _NewSignupPageState extends State<NewSignupPage> {
     }
   }
 
-  Future signup() async {
-    setState(() {
-      _isLoading = true;
-    });
+  // Future signup() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    try {
-      // print('Sign up clicked');
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+  //   try {
+  //     // print('Sign up clicked');
+  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //       email: _emailController.text.trim(),
+  //       password: _passwordController.text.trim(),
+  //     );
+
+  //     final user = FirebaseAuth.instance.currentUser;
+  //     final userid = user?.uid;
+
+  //     Map<String, String> body = {
+  //       'name': _nameController.text.trim(),
+  //       'email': _emailController.text.trim(),
+  //       'username': _usernameController.text.trim(),
+  //       // 'street': 'hyderabad',
+  //       // 'state': 'telangana',
+  //       // 'zipcode': '500072',
+  //       // 'lat': '546',
+  //       // 'lng': '648',
+  //       'userid': userid.toString(),
+  //       'phone': _phoneController.text.trim(),
+  //     };
+  //     final request = http.MultipartRequest(
+  //       'POST',
+  //       Uri.parse('$baseUrl/user'),
+  //     );
+  //     if (_profileImage != null) {
+  //       request.files.add(await http.MultipartFile.fromPath(
+  //           'profile_image_url', _profileImage!.path));
+  //     }
+  //     request.fields.addAll(body);
+
+  //     final response = await request.send();
+  //     print(response.statusCode);
+  //     print(response);
+  //     if (response.statusCode == 200) {
+  //       final responseBody = await response.stream.bytesToString();
+  //       print(responseBody);
+
+  //       // Fetch data and store on provider
+  //       var userpro = Provider.of<UserProvider>(context, listen: false);
+  //       await userpro.userProvider();
+
+  //       print('User created successfully');
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text('User created successfully'),
+  //         ),
+  //       );
+  //       return 'User created successfully';
+  //     } else {
+  //       throw Exception('Failed to create user');
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e);
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           content: Text(e.message.toString()),
+  //         );
+  //       },
+  //     );
+  //   } catch (e) {
+  //     print(e.toString());
+  //     throw Exception('Exception: Failed to create user: $e');
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+
+// Future<void> signup() async {
+//   setState(() {
+//     _isLoading = true;
+//   });
+
+//   try {
+//     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+//       email: _emailController.text.trim(),
+//       password: _passwordController.text.trim(),
+//     );
+
+//     final user = FirebaseAuth.instance.currentUser;
+//     final userid = user?.uid;
+
+//     Map<String, String> body = {
+//       'name': _nameController.text.trim(),
+//       'email': _emailController.text.trim(),
+//       'username': _usernameController.text.trim(),
+//       'userid': userid.toString(),
+//       'phone': _phoneController.text.trim(),
+//     };
+
+//     final request = http.MultipartRequest(
+//       'POST',
+//       Uri.parse('$baseUrl/user'),
+//     );
+
+//     if (_profileImage != null) {
+//       request.files.add(await http.MultipartFile.fromPath(
+//           'profile_image_url', _profileImage!.path));
+//     }
+
+//     request.fields.addAll(body);
+
+//     final response = await request.send();
+//     final responseBody = await response.stream.bytesToString();
+
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       if (!mounted) return;  // Check if the widget is still mounted
+//       var userpro = Provider.of<UserProvider>(context, listen: false);
+//       await userpro.userProvider();
+
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('User created successfully'),
+//         ),
+//       );
+//     } else {
+//       if (!mounted) return;  // Check if the widget is still mounted
+//       print('Failed to create user: ${response.statusCode} - $responseBody');
+//       showDialog(
+//         context: context,
+//         builder: (context) {
+//           return AlertDialog(
+//             content: Text('Failed to create user: ${response.statusCode}'),
+//           );
+//         },
+//       );
+//     }
+//   } on FirebaseAuthException catch (e) {
+//     if (!mounted) return;  // Check if the widget is still mounted
+//     print('FirebaseAuthException: ${e.message}');
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           content: Text(e.message.toString()),
+//         );
+//       },
+//     );
+//   } catch (e) {
+//     if (!mounted) return;  // Check if the widget is still mounted
+//     print('Exception: $e');
+//     showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           content: Text('Failed to create user: $e'),
+//         );
+//       },
+//     );
+//   } finally {
+//     if (mounted) {
+//       setState(() {
+//         _isLoading = false;
+//       });
+//     }
+//   }
+// }
+
+Future<void> signup() async {
+  setState(() {
+    _isLoading = true;
+  });
+
+  try {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+
+    final user = FirebaseAuth.instance.currentUser;
+    final userid = user?.uid;
+
+    Map<String, String> body = {
+      'name': _nameController.text.trim(),
+      'email': _emailController.text.trim(),
+      'username': _usernameController.text.trim(),
+      'userid': userid.toString(),
+      'phone': _phoneController.text.trim(),
+    };
+
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$baseUrl/user'),
+    );
+
+    if (_profileImage != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+          'profile_image_url', _profileImage!.path));
+    }
+
+    request.fields.addAll(body);
+
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    // Handle both 200 and 201 as success responses
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      if (!mounted) return; // Check if the widget is still mounted
+      
+      // Refresh user data after successful signup
+      var userpro = Provider.of<UserProvider>(context, listen: false);
+      await userpro.userProvider(); // Refresh user data
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User created successfully'),
+        ),
       );
-
-      final user = FirebaseAuth.instance.currentUser;
-      final userid = user?.uid;
-
-      Map<String, String> body = {
-        'name': _nameController.text.trim(),
-        'email': _emailController.text.trim(),
-        'username': _usernameController.text.trim(),
-        // 'street': 'hyderabad',
-        // 'state': 'telangana',
-        // 'zipcode': '500072',
-        // 'lat': '546',
-        // 'lng': '648',
-        'userid': userid.toString(),
-        'phone': _phoneController.text.trim(),
-      };
-      final request = http.MultipartRequest(
-        'POST',
-        Uri.parse('$baseUrl/user'),
-      );
-      if (_profileImage != null) {
-        request.files.add(await http.MultipartFile.fromPath(
-            'profile_image_url', _profileImage!.path));
-      }
-      request.fields.addAll(body);
-
-      final response = await request.send();
-      print(response.statusCode);
-      print(response);
-      if (response.statusCode == 200) {
-        final responseBody = await response.stream.bytesToString();
-        print(responseBody);
-
-        // Fetch data and store on provider
-        var userpro = Provider.of<UserProvider>(context, listen: false);
-        await userpro.userProvider();
-
-        print('User created successfully');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('User created successfully'),
-          ),
-        );
-        return 'User created successfully';
-      } else {
-        throw Exception('Failed to create user');
-      }
-    } on FirebaseAuthException catch (e) {
-      print(e);
+    } else {
+      if (!mounted) return; // Check if the widget is still mounted
+      print('Failed to create user: ${response.statusCode} - $responseBody');
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            content: Text(e.message.toString()),
+            content: Text('Failed to create user: ${response.statusCode}'),
           );
         },
       );
-    } catch (e) {
-      print(e.toString());
-      throw Exception('Exception: Failed to create user: $e');
-    } finally {
+    }
+  } on FirebaseAuthException catch (e) {
+    if (!mounted) return; // Check if the widget is still mounted
+    print('FirebaseAuthException: ${e.message}');
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(e.message.toString()),
+        );
+      },
+    );
+  } catch (e) {
+    if (!mounted) return; // Check if the widget is still mounted
+    print('Exception: $e');
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text('Failed to create user: $e'),
+        );
+      },
+    );
+  } finally {
+    if (mounted) {
       setState(() {
         _isLoading = false;
       });
     }
   }
+}
+
+
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {

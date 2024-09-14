@@ -21,8 +21,8 @@ class BusinessCategoriesProviderNew with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body)[0] as Map<String, dynamic>;
-        print(data);
-        print("...............................__");
+        // print(data);
+        // print("...............................__");
         _priority1Categories = _filterPriority1Categories(data);
 
         var decodedResponse = json.decode(response.body);
