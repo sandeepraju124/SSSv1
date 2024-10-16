@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class _AllSubcategoriesPageNewState extends State<AllSubcategoriesPageNew> with 
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1000),
     );
     _controller.forward();
 

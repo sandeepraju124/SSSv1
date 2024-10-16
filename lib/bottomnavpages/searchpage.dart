@@ -409,12 +409,9 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sssv1/NewdefaultprofilePage/defaultpage&tabview.dart';
-import 'package:sssv1/network_calling/http.dart';
 
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sssv1/providers/live_user_location.dart';
 import 'package:sssv1/utils/constants.dart';
 import 'package:http/http.dart' as http;

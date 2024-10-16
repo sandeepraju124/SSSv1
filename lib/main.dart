@@ -152,3 +152,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// "Every setback is a lesson in disguise; while we didn’t reach the goal this time, we’ve grown stronger, smarter, and more resilient for the journey ahead."

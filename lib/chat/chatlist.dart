@@ -1,5 +1,7 @@
 // // ignore_for_file: prefer_const_constructors
 
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -8,7 +10,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:sssv1/providers/chat_provider.dart';
-import 'package:sssv1/utils/constants.dart';
 
 
 
@@ -107,8 +108,8 @@ class ChatScreen extends StatefulWidget {
   ChatScreen({
     required this.userId,
     required this.businessId,
-    // this.conversationId = 'nI63HUrLNBQk77aEHY',
-    required this.conversationId
+    this.conversationId = '87oShrKduIXDS05mo1XvLz8bof32BIZLIFGYMqzZEN5MLz4',
+    // required this.conversationId
   });
 
   @override
@@ -144,7 +145,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _initSocket() {
-    socket = IO.io('http://10.0.2.2:5000', <String, dynamic>{
+    // socket = IO.io('http://10.0.2.2:5000', <String, dynamic>{
+      socket = IO.io('http://3.109.4.201/', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -153,6 +155,7 @@ class _ChatScreenState extends State<ChatScreen> {
     socket.on('connect', (_) => print('Connected to server'));
     socket.on('disconnect', (_) => print('Disconnected from server'));
     socket.on('message', _handleIncomingMessage);
+    print({'username': widget.userId, 'room': widget.conversationId});
 
     socket.emit('join', {'username': widget.userId, 'room': widget.conversationId});
   }
@@ -184,7 +187,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _fetchNewMessages() async {
     String lastMessageTimestamp = _messages.isNotEmpty ? _messages.first['timestamp'] : '0';
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:5000/api/conversations/${widget.conversationId}/messages?since=$lastMessageTimestamp'),
+      // Uri.parse('http://10.0.2.2:5000/api/conversations/${widget.conversationId}/messages?since=$lastMessageTimestamp'),
+      Uri.parse('http://3.109.4.201/api/conversations/${widget.conversationId}/messages?since=$lastMessageTimestamp'),
     );
 
     if (response.statusCode == 200) {
@@ -218,7 +222,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
 
   Future<Map<String, dynamic>?> _sendMessageHttp(String message) async {
-    final url = Uri.parse('http://10.0.2.2:5000/api/messages');
+    // final url = Uri.parse('http://10.0.2.2:5000/api/messages');
+    final url = Uri.parse('http://3.109.4.201/api/messages');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -424,7 +429,8 @@ class _ChatScreenState extends State<ChatScreen> {
     });
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:5000/api/conversations/${widget.conversationId}/messages?page=$_page&pageSize=$_pageSize'),
+      // Uri.parse('http://10.0.2.2:5000/api/conversations/${widget.conversationId}/messages?page=$_page&pageSize=$_pageSize'),
+      Uri.parse('http://3.109.4.201/api/conversations/${widget.conversationId}/messages?page=$_page&pageSize=$_pageSize'),
     );
 
     if (response.statusCode == 200) {

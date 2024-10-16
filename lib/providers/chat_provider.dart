@@ -338,7 +338,8 @@ class ChatProvider with ChangeNotifier {
 
   void initializeSocket(String userId) {
     _currentUserId = userId;
-    _socket = IO.io('http://10.0.2.2:5000', <String, dynamic>{
+    // _socket = IO.io('http://10.0.2.2:5000', <String, dynamic>{
+    _socket = IO.io('http://3.109.4.201/', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -381,7 +382,8 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> fetchConversations(String userId) async {
     print(userId);
-    final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/conversationslist/$userId'));
+    // final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/conversationslist/$userId'));
+    final response = await http.get(Uri.parse('http://3.109.4.201/api/conversationslist/$userId'));
 
     if (response.statusCode == 200) {
       _conversations = List<Map<String, dynamic>>.from(json.decode(response.body));
@@ -418,7 +420,8 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<Map<String, dynamic>?> sendMessage(String message, String businessId, String userId, String conversationId) async {
-    final url = Uri.parse('http://10.0.2.2:5000/api/messages');
+    // final url = Uri.parse('http://10.0.2.2:5000/api/messages');
+    final url = Uri.parse('http://3.109.4.201/api/messages');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

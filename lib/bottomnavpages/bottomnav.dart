@@ -108,16 +108,16 @@ class _BottomNavPageState extends State<BottomNavPage> {
         }
         if (categories.allCategories.isEmpty && !categories.isLoading) {
           await categories.fetchCategoriesData();}
-          chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
+          // chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
           print("did");
 
-        // if (chat.conversations.isEmpty) {
-        //   print("........................");
-        //   print(user.uid);
-        //   // await chat.fetchConversations(user.uid);
-        //   await chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
+        if (chat.conversations.isEmpty) {
+          print("........................");
+          print(user.uid);
+          await chat.fetchConversations(user.uid);
+          // await chat.fetchConversations("KFwYUTlCQrT4RB2a8XLviFYUbU42");
         
-        // }
+        }
 
 
 
